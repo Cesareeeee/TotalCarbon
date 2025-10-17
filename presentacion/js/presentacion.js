@@ -1,7 +1,49 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Preloader
+    const preloader = document.getElementById('preloader');
+    window.addEventListener('load', function() {
+        setTimeout(() => {
+            preloader.classList.add('hidden');
+        }, 1500);
+    });
+
+    // Crear partículas en el hero
+    const heroParticles = document.getElementById('heroParticles');
+    for (let i = 0; i < 20; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.width = Math.random() * 5 + 2 + 'px';
+        particle.style.height = particle.style.width;
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 6 + 's';
+        particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        heroParticles.appendChild(particle);
+    }
+
+    // Chatbot Modal
+    const chatbotBtn = document.getElementById('chatbotBtn');
+    const chatbotModal = document.getElementById('chatbotModal');
+    const chatbotClose = document.getElementById('chatbotClose');
+    
+    chatbotBtn.addEventListener('click', function() {
+        chatbotModal.style.display = 'block';
+    });
+    
+    chatbotClose.addEventListener('click', function() {
+        chatbotModal.style.display = 'none';
+    });
+    
+    // Cerrar chatbot al hacer clic fuera
+    document.addEventListener('click', function(event) {
+        if (!chatbotModal.contains(event.target) && event.target !== chatbotBtn) {
+            chatbotModal.style.display = 'none';
+        }
+    });
+
     // Inicializar AOS
     AOS.init({
-        duration: 1000,
+        duration: 1200,
         once: true,
         offset: 100
     });
@@ -36,9 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     filterBtns.forEach(btn => {
         btn.addEventListener('click', function() {
-            // Remover clase active de todos los botones
             filterBtns.forEach(b => b.classList.remove('active'));
-            // Agregar clase active al botón clickeado
             this.classList.add('active');
             
             const filter = this.getAttribute('data-filter');
@@ -46,7 +86,6 @@ document.addEventListener('DOMContentLoaded', function() {
             galleryItems.forEach(item => {
                 if (filter === 'all' || item.getAttribute('data-category') === filter) {
                     item.style.display = 'block';
-                    // Agregar animación
                     item.style.animation = 'fadeInUp 0.5s ease-out';
                 } else {
                     item.style.display = 'none';
@@ -68,98 +107,235 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Formulario de contacto
+    // Validación del formulario de contacto y guardado en BD via AJAX
     const formContacto = document.getElementById('formContacto');
+    const submitBtn = document.getElementById('submitBtn');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    
+    // Función para validar un campo
+    function validarCampo(campo) {
+        const valor = campo.value.trim();
+        const feedback = campo.nextElementSibling;
+        
+        if (valor === '') {
+            campo.classList.add('is-invalid');
+            return false;
+        } else {
+            campo.classList.remove('is-invalid');
+            return true;
+        }
+    }
+    
+    // Validación específica para email
+    function validarEmail(campo) {
+        const valor = campo.value.trim();
+        const feedback = campo.nextElementSibling;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        
+        if (valor === '') {
+            campo.classList.add('is-invalid');
+            feedback.textContent = 'Por favor, ingresa un correo válido';
+            return false;
+        } else if (!emailRegex.test(valor)) {
+            campo.classList.add('is-invalid');
+            feedback.textContent = 'Por favor, ingresa un correo electrónico válido';
+            return false;
+        } else {
+            campo.classList.remove('is-invalid');
+            return true;
+        }
+    }
+    
+    // Validación específica para teléfono
+    function validarTelefono(campo) {
+        const valor = campo.value.trim();
+        const feedback = campo.nextElementSibling;
+        const telefonoRegex = /^[0-9]{10}$/;
+        
+        if (valor === '') {
+            campo.classList.add('is-invalid');
+            feedback.textContent = 'Por favor, ingresa tu teléfono';
+            return false;
+        } else if (!telefonoRegex.test(valor.replace(/\s/g, ''))) {
+            campo.classList.add('is-invalid');
+            feedback.textContent = 'Por favor, ingresa un número de teléfono válido (10 dígitos)';
+            return false;
+        } else {
+            campo.classList.remove('is-invalid');
+            return true;
+        }
+    }
+    
+    // Validación específica para select
+    function validarSelect(campo) {
+        const valor = campo.value;
+        const feedback = campo.nextElementSibling;
+        
+        if (valor === '') {
+            campo.classList.add('is-invalid');
+            return false;
+        } else {
+            campo.classList.remove('is-invalid');
+            return true;
+        }
+    }
+    
+    // Validación específica para textarea
+    function validarTextarea(campo) {
+        const valor = campo.value.trim();
+        const feedback = campo.nextElementSibling;
+        
+        if (valor === '') {
+            campo.classList.add('is-invalid');
+            return false;
+        } else if (valor.length < 10) {
+            campo.classList.add('is-invalid');
+            feedback.textContent = 'Por favor, proporciona más detalles (mínimo 10 caracteres)';
+            return false;
+        } else {
+            campo.classList.remove('is-invalid');
+            return true;
+        }
+    }
+    
+    // Eventos de validación en tiempo real
+    document.getElementById('nombreInput').addEventListener('blur', function() {
+        validarCampo(this);
+    });
+    
+    document.getElementById('emailInput').addEventListener('blur', function() {
+        validarEmail(this);
+    });
+    
+    document.getElementById('telefonoInput').addEventListener('blur', function() {
+        validarTelefono(this);
+    });
+    
+    document.getElementById('servicioInput').addEventListener('change', function() {
+        validarSelect(this);
+    });
+    
+    document.getElementById('mensajeInput').addEventListener('blur', function() {
+        validarTextarea(this);
+    });
+    
+    // Limpiar validación al escribir
+    document.querySelectorAll('.form-control').forEach(input => {
+        input.addEventListener('input', function() {
+            if (this.value.trim() !== '') {
+                this.classList.remove('is-invalid');
+            }
+        });
+    });
     
     formContacto.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // Aquí puedes agregar la lógica para enviar el formulario
-        // Por ahora solo mostraremos una alerta de éxito
+        // Validar todos los campos
+        const nombreValido = validarCampo(document.getElementById('nombreInput'));
+        const emailValido = validarEmail(document.getElementById('emailInput'));
+        const telefonoValido = validarTelefono(document.getElementById('telefonoInput'));
+        const servicioValido = validarSelect(document.getElementById('servicioInput'));
+        const mensajeValido = validarTextarea(document.getElementById('mensajeInput'));
         
-        // Crear alerta personalizada
-        const alertaDiv = document.createElement('div');
-        alertaDiv.className = 'alerta-exito';
-        alertaDiv.innerHTML = `
-            <i class="fas fa-check-circle"></i>
-            <span>¡Mensaje enviado correctamente! Nos pondremos en contacto contigo pronto.</span>
-        `;
-        
-        // Estilos para la alerta
-        alertaDiv.style.cssText = `
-            position: fixed;
-            top: 100px;
-            right: 20px;
-            background: linear-gradient(135deg, #000000, #333333);
-            color: white;
-            padding: 20px 30px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            z-index: 9999;
-            animation: slideInRight 0.5s ease-out;
-            max-width: 400px;
-        `;
-        
-        // Agregar icono styles
-        const icono = alertaDiv.querySelector('i');
-        icono.style.cssText = `
-            font-size: 24px;
-            color: #28a745;
-        `;
-        
-        document.body.appendChild(alertaDiv);
-        
-        // Resetear formulario
-        formContacto.reset();
-        
-        // Remover alerta después de 5 segundos
-        setTimeout(() => {
-            alertaDiv.style.animation = 'slideOutRight 0.5s ease-out';
-            setTimeout(() => {
-                document.body.removeChild(alertaDiv);
-            }, 500);
-        }, 5000);
-    });
-
-    // Animación de números en el proceso
-    const observerOptions = {
-        threshold: 0.5,
-        rootMargin: '0px'
-    };
-
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.animation = 'fadeInUp 0.8s ease-out';
+        if (nombreValido && emailValido && telefonoValido && servicioValido && mensajeValido) {
+            // Mostrar loading
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Enviando...';
+            loadingSpinner.style.display = 'block';
+            
+            // Preparar datos para AJAX
+            const formData = new FormData();
+            formData.append('nombre', document.getElementById('nombreInput').value);
+            formData.append('email', document.getElementById('emailInput').value);
+            formData.append('telefono', document.getElementById('telefonoInput').value);
+            formData.append('servicio', document.getElementById('servicioInput').value);
+            formData.append('mensaje', document.getElementById('mensajeInput').value);
+            
+            // Enviar via AJAX
+            fetch('php/cotizacion.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Ocultar loading
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane me-2"></i>Enviar Mensaje';
+                loadingSpinner.style.display = 'none';
+                
+                if (data.success) {
+                    // Crear alerta personalizada de éxito
+                    const alertaDiv = document.createElement('div');
+                    alertaDiv.className = 'alerta-exito';
+                    alertaDiv.innerHTML = `
+                        <i class="fas fa-check-circle fa-2x"></i>
+                        <div>
+                            <strong>¡Mensaje enviado correctamente!</strong><br>
+                            <small>Nos pondremos en contacto contigo pronto.</small>
+                        </div>
+                    `;
+                    
+                    document.body.appendChild(alertaDiv);
+                    
+                    // Resetear formulario
+                    formContacto.reset();
+                    
+                    // Remover alerta después de 6 segundos
+                    setTimeout(() => {
+                        alertaDiv.style.animation = 'slideOutRight 0.5s ease-out';
+                        setTimeout(() => {
+                            if (document.body.contains(alertaDiv)) {
+                                document.body.removeChild(alertaDiv);
+                            }
+                        }, 500);
+                    }, 6000);
+                } else {
+                    // Mostrar error
+                    alert('Error al guardar la cotización: ' + data.message);
+                }
+            })
+            .catch(error => {
+                // Ocultar loading
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane me-2"></i>Enviar Mensaje';
+                loadingSpinner.style.display = 'none';
+                
+                alert('Error en la conexión: ' + error);
+            });
+        } else {
+            // Enfocar el primer campo inválido
+            const primerCampoInvalido = formContacto.querySelector('.is-invalid');
+            if (primerCampoInvalido) {
+                primerCampoInvalido.focus();
             }
-        });
-    }, observerOptions);
-
-    // Observar elementos del proceso
-    document.querySelectorAll('.process-item').forEach(item => {
-        observer.observe(item);
-    });
-
-    // Efecto parallax en hero section
-    window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        const heroContent = document.querySelector('.hero-content');
-        if (heroContent) {
-            heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
         }
     });
 
-    // Animación de entrada para servicios
+    // Efecto parallax mejorado en hero section
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const heroContent = document.querySelector('.hero-content');
+        const particles = document.querySelectorAll('.particle');
+        
+        if (heroContent) {
+            heroContent.style.transform = `translateY(${scrolled * 0.3}px)`;
+        }
+        
+        particles.forEach((particle, index) => {
+            const speed = 0.5 + (index * 0.1);
+            particle.style.transform = `translateY(${scrolled * speed}px)`;
+        });
+    });
+
+    // Animación de entrada para servicios con stagger
     const serviceCards = document.querySelectorAll('.service-card');
     const serviceObserver = new IntersectionObserver(function(entries) {
         entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
                 setTimeout(() => {
-                    entry.target.style.animation = 'fadeInUp 0.6s ease-out';
-                }, index * 100);
+                    entry.target.style.animation = 'fadeInUp 0.8s ease-out';
+                }, index * 150);
             }
         });
     }, { threshold: 0.1 });
@@ -167,9 +343,34 @@ document.addEventListener('DOMContentLoaded', function() {
     serviceCards.forEach(card => {
         serviceObserver.observe(card);
     });
+
+    // Efecto hover mejorado para los items de contacto
+    const contactItems = document.querySelectorAll('.contact-item');
+    contactItems.forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px) scale(1.02)';
+        });
+        item.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+
+    // Animación del título principal al hacer scroll
+    const sectionTitles = document.querySelectorAll('.section-title');
+    const titleObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animation = 'fadeInUp 1s ease-out';
+            }
+        });
+    }, { threshold: 0.5 });
+
+    sectionTitles.forEach(title => {
+        titleObserver.observe(title);
+    });
 });
 
-// Agregar animaciones CSS dinámicamente
+// Agregar animaciones CSS adicionales
 const style = document.createElement('style');
 style.textContent = `
     @keyframes slideInRight {

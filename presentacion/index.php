@@ -15,18 +15,64 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
     
     <!-- CSS Personalizado -->
-    <link rel="stylesheet" href="css/presentacion.css?v=5">
+    <link rel="stylesheet" href="css/presentacion.css?v=3456">
 </head>
 <body>
+    <!-- Barra Superior Fija
+    <div class="top-bar">
+        <div class="container">
+            <div class="contact-info">
+                <span><i class="fas fa-map-marker-alt"></i> San Martín Texmelucan, Puebla</span>
+                <span><i class="fas fa-phone"></i> +52 248 226 3605</span>
+                <span><i class="fas fa-envelope"></i> totalcarbonmx@gmail.com</span>
+            </div>
+        </div>
+    </div>
+ -->
+    <!-- Botones Flotantes -->
+    <div class="floating-buttons">
+        <a href="https://api.whatsapp.com/send/?phone=5212482263605&text=%C2%A1Hola%21+Quiero+informaci%C3%B3n+de+sus+tours&type=phone_number&app_absent=0" target="_blank" class="floating-btn whatsapp-btn" title="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <button class="floating-btn chatbot-btn" id="chatbotBtn" title="Chatbot">
+            <i class="fas fa-comments"></i>
+        </button>
+    </div>
+
+    <!-- Chatbot Modal -->
+    <div class="chatbot-modal" id="chatbotModal">
+        <div class="chatbot-header">
+            <h4>Asistente Virtual</h4>
+            <button class="chatbot-close" id="chatbotClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="chatbot-body">
+            <div class="chatbot-avatar">
+                <i class="fas fa-robot"></i>
+            </div>
+            <h5>CHATBOT</h5>
+            <p>AQUI TIENE QUE IR EL CHATBOT.</p>
+            <p><small>PROXIMAMNETE.</small></p>
+        </div>
+    </div>
+
+    <!-- Preloader CARGADOR DE PAGINA--> 
+    <div class="preloader" id="preloader">
+        <div class="preloader-content">
+            <div class="preloader-logo"></div>
+            <div class="preloader-text">TOTAL CARBON</div>
+        </div>
+    </div>
+
     <!-- Navegación -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="navbarPrincipal">
         <div class="container">
             <a class="navbar-brand" href="#inicio">
-                <img src="assets/img/logo.png" alt="Total Carbon" class="logo-nav">
-                <span class="brand-text">TOTAL CARBON</span>
+                <img src="assets/logo2.png" alt="Total Carbon" class="logo-nav">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -37,24 +83,16 @@
                         <a class="nav-link" href="#inicio">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#nosotros">Nosotros</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="#servicios">Servicios</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#trabajos">Trabajos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#proceso">Proceso</a>
+                        <a class="nav-link" href="#nosotros">Nosotros</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#contacto">Contacto</a>
-                    </li>
-                    <li class="nav-item ms-3">
-                        <a class="btn btn-outline-light btn-sm" href="../index.html">
-                            <i class="fas fa-user me-2"></i>Portal Clientes
-                        </a>
                     </li>
                 </ul>
             </div>
@@ -63,27 +101,23 @@
 
     <!-- Hero Section -->
     <section id="inicio" class="hero-section">
-        <div class="hero-overlay"></div>
+        <div class="hero-particles" id="heroParticles"></div>
         <div class="hero-content">
             <div class="container h-100">
                 <div class="row h-100 align-items-center">
                     <div class="col-lg-12">
-                        <div class="hero-text" data-aos="fade-up" data-aos-duration="1500">
-                            <h1 class="display-2 fw-bold mb-4">
-                                TOTAL <span class="accent">CARBON</span>
-                            </h1>
-                            <p class="lead mb-4">
-                                Especialistas en fibra de carbono: reparaciones, fabricación de bicicletas deportivas, 
-                                pintura premium automotriz e inspecciones NDT
-                            </p>
-                            <div class="hero-buttons">
-                                <a href="#servicios" class="btn btn-primary btn-lg me-3">
-                                    <i class="fas fa-wrench me-2"></i>Nuestros Servicios
-                                </a>
-                                <a href="#contacto" class="btn btn-outline-light btn-lg">
-                                    <i class="fas fa-phone me-2"></i>Contactar
-                                </a>
+                        <div class="hero-upper-row">
+                            <h1 class="hero-title">RUEDA CON <br>TU PROPIO<br><span class="highlight-black">ESTILO</h1>
+                            <div class="hero-logo-container">
                             </div>
+                        </div>
+                        <div class="hero-buttons">
+                            <a href="#servicios" class="btn-hero btn-primary-hero">
+                                <i class="fas fa-wrench me-2"></i>Nuestros Servicios
+                            </a>
+                            <a href="#contacto" class="btn-hero btn-outline-hero">
+                                <i class="fas fa-phone me-2"></i>Contactar
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -95,65 +129,12 @@
         </div>
     </section>
 
-    <!-- Nosotros Section -->
-    <section id="nosotros" class="py-5">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6" data-aos="fade-right">
-                    <div class="section-content">
-                        <h2 class="section-title">SOBRE <span class="accent">NOSOTROS</span></h2>
-                        <p class="lead mb-4">
-                            Total Carbon es una empresa mexicana líder en San Martín Texmelucan, Puebla, 
-                            especializada en el trabajo con fibra de carbono de alta gama.
-                        </p>
-                        <div class="feature-box">
-                            <div class="feature-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Más de 10 años de experiencia</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Tecnología de vanguardia</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Garantía de hasta 4 años</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Materiales premium BASF, PPG, 3M</span>
-                            </div>
-                        </div>
-                        <div class="mt-4">
-                            <h4 class="mb-3">Nuestra Misión</h4>
-                            <p>
-                                Convertirnos en desarrolladores de piezas para ramo aeroespacial, industrial y deportivo en México, 
-                                ofreciendo trabajos dignos de obras de arte.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6" data-aos="fade-left">
-                    <div class="image-container">
-                        <img src="assets/img/bicicleta-fibra.jpg" alt="Fibra de Carbono" class="img-fluid rounded-3 shadow">
-                        <div class="image-overlay">
-                            <div class="overlay-text">
-                                <i class="fas fa-award"></i>
-                                <span>Calidad Premium</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Servicios Section -->
-    <section id="servicios" class="py-5 bg-dark text-white">
+    <section id="servicios" class="servicios-section">
         <div class="container">
             <div class="text-center mb-5" data-aos="fade-up">
                 <h2 class="section-title text-white">NUESTROS <span class="accent">SERVICIOS</span></h2>
-                <p class="lead">Soluciones integrales en fibra de carbono</p>
+                <p class="lead text-white">Soluciones integrales en fibra de carbono, orientada al ciclismo</p>
             </div>
             
             <div class="row g-4">
@@ -178,7 +159,7 @@
                             <i class="fas fa-bicycle"></i>
                         </div>
                         <h4>Fabricación</h4>
-                        <p>Diseño y fabricación de bicicletas deportivas personalizadas con fibra de carbono.</p>
+                        <p>Diseño de bicicletas deportivas personalizadas con fibra de carbono.</p>
                         <div class="service-features">
                             <span><i class="fas fa-check"></i> Prototipos</span>
                             <span><i class="fas fa-check"></i> Optimización de peso</span>
@@ -193,7 +174,7 @@
                             <i class="fas fa-paint-brush"></i>
                         </div>
                         <h4>Pintura Premium</h4>
-                        <p>Servicios de pintura automotriz de alta calidad para proteger y embellecer.</p>
+                        <p>Ofrecemos servicio de pintura de calidad PREMIUM con pintura automotriz.</p>
                         <div class="service-features">
                             <span><i class="fas fa-check"></i> Cabina de pintura</span>
                             <span><i class="fas fa-check"></i> Efectos especiales</span>
@@ -208,10 +189,10 @@
                             <i class="fas fa-search"></i>
                         </div>
                         <h4>Inspección NDT</h4>
-                        <p>Chequeos no destructivos para garantizar la integridad estructural.</p>
+                        <p>Chequeos no destructivos para garantizar tu seguridad.</p>
                         <div class="service-features">
-                            <span><i class="fas fa-check"></i> Ultrasonido</span>
-                            <span><i class="fas fa-check"></i> Rayos X</span>
+                            <span><i class="fas fa-check"></i></span>
+                            <span><i class="fas fa-check"></i></span>
                             <span><i class="fas fa-check"></i> Análisis estructural</span>
                         </div>
                     </div>
@@ -220,12 +201,12 @@
         </div>
     </section>
 
-    <!-- Galería de Trabajos -->
-    <section id="trabajos" class="py-5">
+    <!-- Trabajos Section -->
+    <section id="trabajos" class="gallery-section">
         <div class="container">
             <div class="text-center mb-5" data-aos="fade-up">
                 <h2 class="section-title">NUESTROS <span class="accent">TRABAJOS</span></h2>
-                <p class="lead">Muestra de nuestra excelencia en cada proyecto</p>
+                <p class="lead">Muestra de nuestra excelencia y precisión en cada proyecto</p>
             </div>
             
             <div class="gallery-filters mb-4" data-aos="fade-up">
@@ -236,14 +217,15 @@
             </div>
             
             <div class="gallery-grid">
+                <!-- Reparaciones -->
                 <div class="gallery-item" data-category="reparacion" data-aos="fade-up">
                     <div class="gallery-image">
-                        <img src="assets/img/trabajo1.jpg" alt="Reparación de Cuadro">
+                        <img src="assets/Galeria/cuadro.png" alt="Reparación de Cuadro">
                         <div class="gallery-overlay">
                             <div class="overlay-content">
                                 <h4>Reparación de Cuadro</h4>
-                                <p>Restauración completa de cuadro de carbono</p>
-                                <button class="btn-view" data-image="assets/img/trabajo1.jpg">
+                                <p>Restauración completa de cuadro de carbono con garantía total</p>
+                                <button class="btn-view" data-image="068316344-?ixlib=-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80">
                                     <i class="fas fa-search-plus"></i>
                                 </button>
                             </div>
@@ -251,44 +233,121 @@
                     </div>
                 </div>
                 
-                <div class="gallery-item" data-category="pintura" data-aos="fade-up" data-aos-delay="100">
+                <div class="gallery-item" data-category="reparacion" data-aos="fade-up" data-aos-delay="100">
                     <div class="gallery-image">
-                        <img src="assets/img/trabajo2.jpg" alt="Pintura Personalizada">
-                        <div class="gallery-overlay">
-                            <div class="overlay-content">
-                                <h4>Pintura Personalizada</h4>
-                                <p>Diseño único con efectos especiales</p>
-                                <button class="btn-view" data-image="assets/img/trabajo2.jpg">
-                                    <i class="fas fa-search-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="gallery-item" data-category="fabricacion" data-aos="fade-up" data-aos-delay="200">
-                    <div class="gallery-image">
-                        <img src="assets/img/trabajo3.jpg" alt="Bicicleta a Medida">
-                        <div class="gallery-overlay">
-                            <div class="overlay-content">
-                                <h4>Bicicleta a Medida</h4>
-                                <p>Fabricación completa de fibra de carbono</p>
-                                <button class="btn-view" data-image="assets/img/trabajo3.jpg">
-                                    <i class="fas fa-search-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="gallery-item" data-category="reparacion" data-aos="fade-up" data-aos-delay="300">
-                    <div class="gallery-image">
-                        <img src="assets/img/trabajo4.jpg" alt="Reparación de Horquilla">
+                        <img src="assets/Galeria/orquilla.png" alt="Reparación de Horquilla">
                         <div class="gallery-overlay">
                             <div class="overlay-content">
                                 <h4>Reparación de Horquilla</h4>
-                                <p>Reconstrucción estructural garantizada</p>
-                                <button class="btn-view" data-image="assets/img/trabajo4.jpg">
+                                <p>Reconstrucción estructural garantizada con materiales de primera</p>
+                                <button class="btn-view" data-image="assets/Galeria/frenos.png">
+                                    <i class="fas fa-search-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="reparacion" data-aos="fade-up" data-aos-delay="200">
+                    <div class="gallery-image">
+                        <img src="assets/Galeria/frenos.png" alt="Reparación de Frenos">
+                        <div class="gallery-overlay">
+                            <div class="overlay-content">
+                                <h4>Reparación de Frenos</h4>
+                                <p>Restauración de sistema de frenos de carbono con componentes premium</p>
+                                <button class="btn-view" data-image="https://imagesrb-4..3&ixid=%%3D&auto=format&fit=crop&w=1200&q=80">
+                                    <i class="fas fa-search-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pinturas -->
+                <div class="gallery-item" data-category="pintura" data-aos="fade-up" data-aos-delay="300">
+                    <div class="gallery-image">
+                        <img src="assets/Galeria/cuadro.png" alt="Pintura Personalizada">
+                        <div class="gallery-overlay">
+                            <div class="overlay-content">
+                                <h4>Pintura Personalizada</h4>
+                                <p>Diseño único con efectos especiales y acabado premium</p>
+                                <button class="btn-view" data-image="https://images.unsplash.com/photo-1619856699906-09e1f58298b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80">
+                                    <i class="fas fa-search-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="pintura" data-aos="fade-up" data-aos-delay="400">
+                    <div class="gallery-image">
+                        <img src="assets/Galeria/oro.png" alt="Pintura con Hoja de Oro">
+                        <div class="gallery-overlay">
+                            <div class="overlay-content">
+                                <h4>Pintura con Hoja de Oro</h4>
+                                <p>Acabado de lujo con aplicación de hoja de oro 24k</p>
+                                <button class="btn-view" data-image="https://images.unsplash.com/photo-1619856699906-09e1f58298b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80">
+                                    <i class="fas fa-search-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="pintura" data-aos="fade-up" data-aos-delay="500">
+                    <div class="gallery-image">
+                        <img src="assets/Galeria/camaleon.png" alt="Pintura Camaleón">
+                        <div class="gallery-overlay">
+                            <div class="overlay-content">
+                                <h4>Pintura Camaleón</h4>
+                                <p>Efecto camaleón holográfico que cambia con el ángulo de visión</p>
+                                <button class="btn-view" data-image="https://images.unsplash.com/photo-1619856699906-09e1f58298b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80">
+                                    <i class="fas fa-search-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Fabricación -->
+                <div class="gallery-item" data-category="fabricacion" data-aos="fade-up" data-aos-delay="600">
+                    <div class="gallery-image">
+                        <img src="assets/Galeria/medida.png" alt="Bicicleta a Medida">
+                        <div class="gallery-overlay">
+                            <div class="overlay-content">
+                                <h4>Bicicleta a Medida</h4>
+                                <p>Fabricación completa de fibra de carbono optimizada para rendimiento</p>
+                                <button class="btn-view" data-image="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80">
+                                    <i class="fas fa-search-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="fabricacion" data-aos="fade-up" data-aos-delay="700">
+                    <div class="gallery-image">
+                        <img src="assets/Galeria/cuadroc.png" alt="Cuadro de Carbono">
+                        <div class="gallery-overlay">
+                            <div class="overlay-content">
+                                <h4>Cuadro de Carbono</h4>
+                                <p>Fabricación de cuadro monopieza con tecnología de vacío</p>
+                                <button class="btn-view" data-image="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80">
+                                    <i class="fas fa-search-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="fabricacion" data-aos="fade-up" data-aos-delay="800">
+                    <div class="gallery-image">
+                        <img src="assets/Galeria/image.png" alt="Ruedas de Carbono">
+                        <div class="gallery-overlay">
+                            <div class="overlay-content">
+                                <h4>Ruedas de Carbono</h4>
+                                <p>Set de ruedas completas fabricadas en fibra de carbono</p>
+                                <button class="btn-view" data-image="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80">
                                     <i class="fas fa-search-plus"></i>
                                 </button>
                             </div>
@@ -299,52 +358,59 @@
         </div>
     </section>
 
-    <!-- Proceso Section -->
-    <section id="proceso" class="py-5 bg-dark text-white">
+    <!-- Nosotros Section -->
+    <section id="nosotros" class="nosotros-section">
         <div class="container">
-            <div class="text-center mb-5" data-aos="fade-up">
-                <h2 class="section-title text-white">NUESTRO <span class="accent">PROCESO</span></h2>
-                <p class="lead">Cómo trabajamos para entregar excelencia</p>
-            </div>
-            
-            <div class="process-timeline">
-                <div class="process-item" data-aos="fade-right">
-                    <div class="process-number">01</div>
-                    <div class="process-content">
-                        <h4>Evaluación y Cotización</h4>
-                        <p>Análisis detallado y presupuesto sin compromiso</p>
+            <div class="row align-items-center">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="section-content">
+                        <h2 class="section-title">SOBRE <span class="accent">NOSOTROS</span></h2>
+                        <p class="lead">
+                           Empresa Mexicana 
+dedicada 
+a 
+la 
+reparación y pintura 
+de piezas de fibra de 
+carbono, orientada al 
+ciclismo. .
+                        </p>
+                        <div class="feature-box">
+                            <div class="feature-item">
+                                <i class="fas fa-award"></i>
+                                <span>El mejor acabado para todos nuestros trabajos</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-microchip"></i>
+                                <span>Tecnologias para diseño digital.</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Garantía de hasta 4 años</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-gem"></i>
+                                <span>Materiales premium BASF, PPG, 3M</span>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <h4 class="mb-3">Nuestra Misión</h4>
+                            <p>
+                                Convertirnos en desarrolladores de piezas para ramo aeroespacial, industrial y deportivo en México, 
+                                ofreciendo trabajos dignos de obras de arte que inspiren y dejen una sensación de bienestar.
+                            </p>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="process-item" data-aos="fade-left">
-                    <div class="process-number">02</div>
-                    <div class="process-content">
-                        <h4>Recepción de Pieza</h4>
-                        <p>Recepción y revisión del diseño final</p>
-                    </div>
-                </div>
-                
-                <div class="process-item" data-aos="fade-right">
-                    <div class="process-number">03</div>
-                    <div class="process-content">
-                        <h4>Proceso de Fabricación</h4>
-                        <p>Trabajo especializado con tecnología de punta</p>
-                    </div>
-                </div>
-                
-                <div class="process-item" data-aos="fade-left">
-                    <div class="process-number">04</div>
-                    <div class="process-content">
-                        <h4>Control de Calidad</h4>
-                        <p>Inspección NDT y verificación final</p>
-                    </div>
-                </div>
-                
-                <div class="process-item" data-aos="fade-right">
-                    <div class="process-number">05</div>
-                    <div class="process-content">
-                        <h4>Entrega</h4>
-                        <p>Empacado seguro y envío al cliente</p>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1934&q=80" alt="Fibra de Carbono">
+                        <div class="image-overlay">
+                            <div class="overlay-text">
+                                <i class="fas fa-award"></i>
+                                <span>Calidad Premium</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -352,11 +418,11 @@
     </section>
 
     <!-- Contacto Section -->
-    <section id="contacto" class="py-5">
+    <section id="contacto" class="contacto-section">
         <div class="container">
             <div class="text-center mb-5" data-aos="fade-up">
                 <h2 class="section-title">CONTACTO</h2>
-                <p class="lead">Estamos listos para hacer realidad tu proyecto</p>
+                <p class="lead">Estamos listos para hacer realidad tu proyecto con fibra de carbono</p>
             </div>
             
             <div class="row">
@@ -388,7 +454,7 @@
                             </div>
                             <div class="contact-details">
                                 <h4>Correo</h4>
-                                <p>info@totalcarbon.com<br>totalcarbonmx@gmail.com</p>
+                                <p>totalcarbonmx@gmail.com</p>
                             </div>
                         </div>
                         
@@ -399,10 +465,8 @@
                             <div class="contact-details">
                                 <h4>Síguenos</h4>
                                 <div class="social-links">
-                                    <a href="#"><i class="fab fa-facebook"></i></a>
-                                    <a href="#"><i class="fab fa-instagram"></i></a>
-                                    <a href="#"><i class="fab fa-youtube"></i></a>
-                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                    <a href="https://www.facebook.com/totalcarbonmx" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="https://www.instagram.com/totalcarbon.mx/" title="Instagram"><i class="fab fa-instagram"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -411,34 +475,40 @@
                 
                 <div class="col-lg-8" data-aos="fade-left">
                     <div class="contact-form">
-                        <h3 class="mb-4">Solicita tu Cotización</h3>
+                        <h3>Solicita tu Cotización</h3>
                         <form id="formContacto">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <input type="text" class="form-control" placeholder="Tu Nombre" required>
+                                    <input type="text" class="form-control" id="nombreInput" placeholder="Tu Nombre" required>
+                                    <div class="invalid-feedback">Por favor, ingresa tu nombre</div>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <input type="email" class="form-control" placeholder="Tu Correo" required>
+                                    <input type="email" class="form-control" id="emailInput" placeholder="Tu Correo" required>
+                                    <div class="invalid-feedback">Por favor, ingresa un correo válido</div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <input type="tel" class="form-control" placeholder="Tu Teléfono" required>
+                                    <input type="tel" class="form-control" id="telefonoInput" placeholder="Tu Teléfono" required>
+                                    <div class="invalid-feedback">Por favor, ingresa tu teléfono</div>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <select class="form-control" required>
+                                    <select class="form-control" id="servicioInput" required>
                                         <option value="">Tipo de Servicio</option>
                                         <option value="reparacion">Reparación</option>
                                         <option value="fabricacion">Fabricación</option>
                                         <option value="pintura">Pintura</option>
                                         <option value="inspeccion">Inspección NDT</option>
                                     </select>
+                                    <div class="invalid-feedback">Por favor, selecciona un tipo de servicio</div>
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <textarea class="form-control" rows="5" placeholder="Describe tu proyecto..." required></textarea>
+                                <textarea class="form-control" id="mensajeInput" rows="5" placeholder="Describe tu proyecto..." required></textarea>
+                                <div class="invalid-feedback">Por favor, describe tu proyecto</div>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-lg">
+                            <div class="loading-spinner" id="loadingSpinner"></div>
+                            <button type="submit" class="btn btn-primary btn-lg w-100" id="submitBtn">
                                 <i class="fas fa-paper-plane me-2"></i>Enviar Mensaje
                             </button>
                         </form>
@@ -449,11 +519,11 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white py-4">
+    <footer>
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <p>&copy; 2024 Total Carbon. Todos los derechos reservados.</p>
+                    <p>&copy; 2025 Total Carbon. Todos los derechos reservados.</p>
                 </div>
                 <div class="col-md-6 text-end">
                     <p>Diseñado con <i class="fas fa-heart text-danger"></i> para ciclistas apasionados</p>
@@ -464,7 +534,7 @@
 
     <!-- Modal para imágenes -->
     <div class="modal fade" id="imageModal" tabindex="-1">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
             <div class="modal-content bg-dark">
                 <div class="modal-body p-0">
                     <img id="modalImage" src="" alt="" class="img-fluid">
@@ -474,9 +544,11 @@
         </div>
     </div>
 
-    <!-- Scripts -->
+    <!-- Scripts Externos -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="js/presentacion.js"></script>
+    
+    <!-- JS Personalizado -->
+    <script src="js/presentacion.js?v=6234"></script>
 </body>
 </html>
