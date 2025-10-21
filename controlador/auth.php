@@ -9,8 +9,8 @@ session_start();
 header('Content-Type: application/json');
 
 // Evitar salida de errores antes del JSON
-error_reporting(0);
-ini_set('display_errors', 0);
+ini_set('display_errors', 0); // Desactiva la salida de errores al cliente
+error_reporting(E_ALL); // Registra errores internamente
 
 // Verificar si se ha enviado el formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -19,13 +19,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     if ($accion == 'login') {
         // Procesar inicio de sesión
-        $correo = $_POST['correo'];
+        $usuario = $_POST['usuario']; // Puede ser correo o código de usuario
         $contrasena = $_POST['contrasena'];
+        $csrf_token = $_POST['csrf_token'];
         
-        if (iniciarSesion($correo, $contrasena)) {
+        // Verificar token CSRF
+        if (!verificarTokenCSRF($csrf_token)) {
+            $respuesta = array(
+                'exito' => false,
+                'mensaje' => 'Error de seguridad. Por favor, recargue la página e intente nuevamente.'
+            );
+            echo json_encode($respuesta);
+            exit;
+        }
+        
+        // Verificar límite de intentos
+        $ip = $_SERVER['REMOTE_ADDR'];
+        if (verificarBloqueoPorIP($ip)) {
+            $respuesta = array(
+                'exito' => false,
+                'mensaje' => 'Demasiados intentos fallidos. Tu IP ha sido bloqueada temporalmente. Por favor, inténtalo más tarde.'
+            );
+            echo json_encode($respuesta);
+            exit;
+        }
+        
+        if (iniciarSesion($usuario, $contrasena)) {
+            // Reiniciar contador de intentos fallidos
+            reiniciarIntentosFallidos($ip);
+            
             // Obtener información del rol para redirección
-            $rolUsuario = obtenerRolUsuario($_SESSION['id_usuario']);
+            $rolUsuario = obtenerNombreRol($_SESSION['id_rol']);
             $paginaRedireccion = obtenerPaginaPorRol($rolUsuario);
+            
+            // Registrar actividad exitosa
+            registrarActividad("Inicio de sesión exitoso", $_SESSION['id_usuario'], $ip);
             
             // Inicio de sesión exitoso
             $respuesta = array(
@@ -35,10 +63,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'rol' => $rolUsuario
             );
         } else {
+            // Incrementar contador de intentos fallidos
+            incrementarIntentosFallidos($ip);
+            
+            // Registrar actividad fallida
+            registrarActividad("Intento de inicio de sesión fallido: $usuario", null, $ip);
+            
             // Error en el inicio de sesión
             $respuesta = array(
                 'exito' => false,
-                'mensaje' => 'Correo o contraseña incorrectos'
+                'mensaje' => 'Usuario o contraseña incorrectos'
             );
         }
     } else if ($accion == 'registro') {
@@ -48,6 +82,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $correo = $_POST['correo'];
         $telefono = $_POST['telefono'];
         $contrasena = $_POST['contrasena'];
+        $csrf_token = $_POST['csrf_token'];
+        
+        // Verificar token CSRF
+        if (!verificarTokenCSRF($csrf_token)) {
+            $respuesta = array(
+                'exito' => false,
+                'mensaje' => 'Error de seguridad. Por favor, recargue la página e intente nuevamente.'
+            );
+            echo json_encode($respuesta);
+            exit;
+        }
         
         // Validar que las contraseñas coincidan
         if ($contrasena != $_POST['confirmar_contrasena']) {
@@ -63,9 +108,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             // Registrar usuario
             if (registrarUsuario($nombres, $apellidos, $correo, $telefono, $contrasena)) {
-                // Obtener información del rol para redirección
-                $rolUsuario = obtenerRolUsuario($_SESSION['id_usuario']);
+                // Iniciar sesión y establecer variables de sesión
+                $consulta = "SELECT id_usuario, id_rol FROM usuarios WHERE correo_electronico = '$correo'";
+                $resultado = $conexion->query($consulta);
+                if ($resultado->num_rows > 0) {
+                    $usuario = $resultado->fetch_assoc();
+                    $_SESSION['id_usuario'] = $usuario['id_usuario'];
+                    $_SESSION['correo_electronico'] = $correo;
+                    $_SESSION['id_rol'] = $usuario['id_rol'];
+                    $_SESSION['nombres'] = $nombres;
+                    $_SESSION['apellidos'] = $apellidos;
+                }
+                $rolUsuario = obtenerNombreRol($_SESSION['id_rol']);
                 $paginaRedireccion = obtenerPaginaPorRol($rolUsuario);
+                
+                // Registrar actividad de registro
+                $ip = $_SERVER['REMOTE_ADDR'];
+                registrarActividad("Registro de nuevo usuario: $correo", $_SESSION['id_usuario'], $ip);
                 
                 $respuesta = array(
                     'exito' => true,
@@ -80,6 +139,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 );
             }
         }
+    } else if ($accion == 'generar_token') {
+        // Generar y devolver un token CSRF
+        $token = generarTokenCSRF();
+        $respuesta = array(
+            'exito' => true,
+            'token' => $token
+        );
     } else {
         $respuesta = array(
             'exito' => false,
@@ -105,25 +171,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     echo json_encode($respuesta);
     exit;
-}
-
-// Función para obtener el rol del usuario
-function obtenerRolUsuario($idUsuario) {
-    global $conexion;
-    
-    $consulta = "SELECT r.nombre_rol 
-                FROM usuarios u 
-                INNER JOIN roles r ON u.id_rol = r.id_rol 
-                WHERE u.id_usuario = $idUsuario";
-    
-    $resultado = $conexion->query($consulta);
-    
-    if ($resultado->num_rows > 0) {
-        $fila = $resultado->fetch_assoc();
-        return $fila['nombre_rol'];
-    }
-    
-    return 'CLIENTE'; // Rol por defecto
 }
 
 // Función para obtener la página de redirección según el rol

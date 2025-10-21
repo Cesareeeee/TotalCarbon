@@ -19,6 +19,9 @@
     
     <!-- CSS Personalizado -->
     <link rel="stylesheet" href="presentacion/css/presentacion.css?v=3456">
+        
+    <!-- FAVICON -->
+    <link rel="icon" href="presentacion/assets/image.png">
 </head>
 <body>
     <!-- Barra Superior Fija

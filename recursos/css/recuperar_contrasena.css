@@ -1,0 +1,493 @@
+:root {
+    --color-principal: #000000;
+    --color-secundario: #ffffff;
+    --color-acento: #333333;
+    --color-gris: #f5f5f5;
+    --color-borde: #dddddd;
+    --color-error: #ff3838;
+    --color-exito: #28a745;
+    --color-advertencia: #ffc107;
+    --transicion: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+    padding: 20px 0;
+}
+
+.contenedor-recuperacion {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+}
+
+.recuperacion-card {
+    background-color: var(--color-secundario);
+    border-radius: 20px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    padding: 40px;
+    position: relative;
+}
+
+.logo-container {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.logo-container img {
+    width: 200px;
+    height: 55px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    max-width: 100%;
+    height: auto;
+}
+
+.paso-recuperacion {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+.paso-recuperacion.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.icono-paso {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.icono-paso i {
+    font-size: 60px;
+    color: var(--color-principal);
+    background: linear-gradient(135deg, var(--color-principal) 0%, var(--color-acento) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.paso-recuperacion h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    text-align: center;
+    color: var(--color-principal);
+}
+
+.paso-recuperacion p {
+    color: var(--color-acento);
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.grupo-campo {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.grupo-campo input {
+    width: 100%;
+    padding: 16px 16px 16px 52px;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: var(--transicion);
+    background-color: var(--color-gris);
+    color: var(--color-principal);
+}
+
+.grupo-campo input:focus {
+    outline: none;
+    border-color: var(--color-principal);
+    background-color: var(--color-secundario);
+    box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.grupo-campo.error input {
+    border-color: var(--color-error);
+    background-color: rgba(255, 56, 56, 0.08);
+    animation: vibrar 0.5s;
+    box-shadow: 0 0 0 3px rgba(255, 56, 56, 0.2);
+}
+
+@keyframes vibrar {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+}
+
+.grupo-campo i {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-acento);
+    transition: var(--transicion);
+    font-size: 18px;
+}
+
+.grupo-campo input:focus + i {
+    color: var(--color-principal);
+}
+
+.grupo-campo .mensaje-error {
+    color: var(--color-error);
+    font-size: 13px;
+    margin-top: 8px;
+    display: none;
+    animation: aparecerError 0.3s ease;
+    font-weight: 500;
+}
+
+@keyframes aparecerError {
+    from { 
+        opacity: 0; 
+        transform: translateY(-10px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+.btn-recuperacion {
+    width: 100%;
+    background: linear-gradient(135deg, var(--color-principal) 0%, var(--color-acento) 100%);
+    color: var(--color-secundario);
+    border: none;
+    padding: 16px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transicion);
+    font-size: 16px;
+    margin-top: 15px;
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+}
+
+.btn-recuperacion::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.6s;
+}
+
+.btn-recuperacion:hover::before {
+    left: 100%;
+}
+
+.btn-recuperacion:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+}
+
+.btn-recuperacion:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.opciones-adicionales {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.enlace-volver {
+    color: var(--color-acento);
+    text-decoration: none;
+    font-size: 14px;
+    transition: var(--transicion);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.enlace-volver:hover {
+    color: var(--color-principal);
+    transform: translateX(-5px);
+}
+
+/* Estilos para el código de verificación */
+#codigoRecuperacion {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 3px;
+}
+
+.info-envio {
+    text-align: center;
+    color: var(--color-acento);
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.info-envio span {
+    font-weight: 600;
+    color: var(--color-principal);
+}
+
+.reenviar-codigo {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.reenviar-codigo p {
+    color: var(--color-acento);
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.btn-reenviar {
+    background: none;
+    border: none;
+    color: var(--color-principal);
+    font-size: 14px;
+    cursor: pointer;
+    transition: var(--transicion);
+    text-decoration: underline;
+}
+
+.btn-reenviar:hover {
+    color: var(--color-acento);
+}
+
+.btn-reenviar:disabled {
+    color: var(--color-gris);
+    cursor: not-allowed;
+    text-decoration: none;
+}
+
+/* Estilos para la fortaleza de la contraseña */
+.requisitos-contrasena {
+    margin-top: 10px;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+}
+
+.requisito {
+    font-size: 13px;
+    color: var(--color-acento);
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.requisito i {
+    font-size: 12px;
+}
+
+.requisito.valido i {
+    color: var(--color-exito);
+}
+
+.fortaleza-contrasena {
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.fortaleza-barra {
+    width: 100%;
+    height: 6px;
+    background-color: var(--color-gris);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.fortaleza-progreso {
+    height: 100%;
+    width: 0%;
+    transition: width 0.3s ease, background-color 0.3s ease;
+    border-radius: 3px;
+}
+
+.fortaleza-progreso.debil {
+    width: 33%;
+    background-color: var(--color-error);
+}
+
+.fortaleza-progreso.media {
+    width: 66%;
+    background-color: var(--color-advertencia);
+}
+
+.fortaleza-progreso.fuerte {
+    width: 100%;
+    background-color: var(--color-exito);
+}
+
+#fortalezaTexto {
+    font-size: 12px;
+    color: var(--color-acento);
+    text-align: center;
+    display: block;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .contenedor-recuperacion {
+        padding: 15px;
+    }
+    
+    .recuperacion-card {
+        padding: 30px 25px;
+    }
+    
+    .paso-recuperacion h2 {
+        font-size: 24px;
+    }
+    
+    .paso-recuperacion p {
+        font-size: 14px;
+    }
+    
+    .icono-paso i {
+        font-size: 50px;
+    }
+    
+    .grupo-campo input {
+        padding: 14px 14px 14px 45px;
+        font-size: 15px;
+    }
+    
+    .grupo-campo i {
+        left: 18px;
+        font-size: 16px;
+    }
+    
+    .btn-recuperacion {
+        padding: 14px;
+        font-size: 15px;
+    }
+    
+    .requisitos-contrasena {
+        padding: 12px;
+    }
+    
+    .requisito {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px 0;
+    }
+    
+    .contenedor-recuperacion {
+        padding: 10px;
+    }
+    
+    .recuperacion-card {
+        padding: 25px 20px;
+        border-radius: 15px;
+    }
+    
+    .logo-container img {
+        width: 160px;
+        height: auto;
+    }
+    
+    .paso-recuperacion h2 {
+        font-size: 22px;
+    }
+    
+    .paso-recuperacion p {
+        font-size: 13px;
+        margin-bottom: 25px;
+    }
+    
+    .icono-paso {
+        margin-bottom: 20px;
+    }
+    
+    .icono-paso i {
+        font-size: 45px;
+    }
+    
+    .grupo-campo {
+        margin-bottom: 20px;
+    }
+    
+    .grupo-campo input {
+        padding: 12px 12px 12px 40px;
+        font-size: 14px;
+    }
+    
+    .grupo-campo i {
+        left: 15px;
+        font-size: 15px;
+    }
+    
+    .btn-recuperacion {
+        padding: 12px;
+        font-size: 14px;
+        margin-top: 12px;
+    }
+    
+    .requisitos-contrasena {
+        padding: 10px;
+        margin-top: 8px;
+    }
+    
+    .requisito {
+        font-size: 11px;
+        margin-bottom: 3px;
+    }
+    
+    .fortaleza-contrasena {
+        margin-top: 12px;
+        margin-bottom: 15px;
+    }
+    
+    #fortalezaTexto {
+        font-size: 11px;
+    }
+    
+    .opciones-adicionales {
+        margin-top: 20px;
+    }
+    
+    .enlace-volver {
+        font-size: 13px;
+    }
+}

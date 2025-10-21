@@ -37,6 +37,7 @@ body {
     min-height: 700px;
     position: relative;
 }
+
 .carrusel-container {
     position: absolute;
     top: 2cm; /* 2cm desde arriba */
@@ -46,12 +47,13 @@ body {
     z-index: 10;
     border-radius: 20px;
     overflow: hidden;
-    border: 5px solid var(--color-primario);
+    border: 5px solid var(--color-principal);
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
     opacity: 0;
     transition: opacity 0.5s ease;
     display: none;
 }
+
 .carrusel-container.visible {
     opacity: 1;
     display: block;
@@ -504,6 +506,7 @@ body {
 .btn-social:hover i {
     transform: scale(1.2);
 }
+
 .contenedor-logo {
     display: flex;
     align-items: center;
@@ -589,6 +592,130 @@ body {
     100% {
         transform: translateX(100%);
     }
+}
+
+/* Estilos para checkbox personalizado */
+.checkbox-container {
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--color-acento);
+    user-select: none;
+}
+
+.formulario.tema-oscuro .checkbox-container {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: #eee;
+    border-radius: 4px;
+    transition: var(--transicion);
+}
+
+.formulario.tema-oscuro .checkmark {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.checkbox-container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+.formulario.tema-oscuro .checkbox-container:hover input ~ .checkmark {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.checkbox-container input:checked ~ .checkmark {
+    background-color: var(--color-principal);
+}
+
+.formulario.tema-oscuro .checkbox-container input:checked ~ .checkmark {
+    background-color: var(--color-secundario);
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.checkbox-container .checkmark:after {
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.enlace-privacidad {
+    color: var(--color-principal);
+    text-decoration: underline;
+    margin-left: 5px;
+}
+
+.formulario.tema-oscuro .enlace-privacidad {
+    color: var(--color-secundario);
+}
+
+/* Estilos para el modal de política de privacidad */
+.modal-content {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.modal-header {
+    background-color: var(--color-principal);
+    color: var(--color-secundario);
+    border-bottom: none;
+}
+
+.modal-body {
+    padding: 25px;
+}
+
+.modal-body h6 {
+    color: var(--color-principal);
+    font-weight: 600;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.modal-body h6:first-child {
+    margin-top: 0;
+}
+
+.modal-body p {
+    color: var(--color-acento);
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.modal-footer {
+    border-top: 1px solid var(--color-borde);
 }
 
 @media (max-width: 992px) {

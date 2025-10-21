@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // ===== FUNCIONES DE VALIDACIÓN =====
 
-/**
+/**n 
  * Valida el campo nombre
  */
 function validarNombre() {
