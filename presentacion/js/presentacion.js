@@ -253,7 +253,7 @@ document.addEventListener('DOMContentLoaded', function() {
             formData.append('mensaje', document.getElementById('mensajeInput').value);
             
             // Enviar via AJAX
-            fetch('php/cotizacion.php', {
+            fetch('presentacion/php/cotizacion.php', {
                 method: 'POST',
                 body: formData
             })

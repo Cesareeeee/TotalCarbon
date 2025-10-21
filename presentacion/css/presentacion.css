@@ -1224,3 +1224,33 @@ footer::before {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+/* Estilo solo para el botón "Iniciar sesión" */
+.btn-login {
+    border: 2px solid #fff;
+    background-color: #f0d32e;
+    color: #020202;
+    border-radius: 25px;
+    padding: 8px 18px;
+    margin-left: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-login:hover {
+    background-color: #000000;
+    color: #000;
+    border-color: #000;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+}
+
+/* Ajuste para pantallas pequeñas */
+@media (max-width: 991px) {
+    .btn-login {
+        display: inline-block;
+        margin: 10px 0;
+        width: 100%;
+        text-align: center;
+    }
+}

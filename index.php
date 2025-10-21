@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
     
     <!-- CSS Personalizado -->
-    <link rel="stylesheet" href="css/presentacion.css?v=3456">
+    <link rel="stylesheet" href="presentacion/css/presentacion.css?v=3456">
 </head>
 <body>
     <!-- Barra Superior Fija
@@ -68,36 +68,40 @@
         </div>
     </div>
 
-    <!-- Navegación -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="navbarPrincipal">
-        <div class="container">
-            <a class="navbar-brand" href="#inicio">
-                <img src="assets/logo2.png" alt="Total Carbon" class="logo-nav">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#inicio">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#servicios">Servicios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#trabajos">Trabajos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#nosotros">Nosotros</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contacto">Contacto</a>
-                    </li>
-                </ul>
-            </div>
+   <!-- Navegación -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="navbarPrincipal">
+    <div class="container">
+        <a class="navbar-brand" href="#inicio">
+            <img src="presentacion/assets/logo2.png" alt="Total Carbon" class="logo-nav">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#inicio">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#servicios">Servicios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#trabajos">Trabajos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#nosotros">Nosotros</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contacto">Contacto</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link btn-login" href="vistas/login.php">Iniciar sesión</a>
+                </li>
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
 
     <!-- Hero Section -->
     <section id="inicio" class="hero-section">
@@ -220,7 +224,7 @@
                 <!-- Reparaciones -->
                 <div class="gallery-item" data-category="reparacion" data-aos="fade-up">
                     <div class="gallery-image">
-                        <img src="assets/Galeria/cuadro.png" alt="Reparación de Cuadro">
+                        <img src="presentacion/assets/Galeria/cuadro.png" alt="Reparación de Cuadro">
                         <div class="gallery-overlay">
                             <div class="overlay-content">
                                 <h4>Reparación de Cuadro</h4>
@@ -235,7 +239,7 @@
                 
                 <div class="gallery-item" data-category="reparacion" data-aos="fade-up" data-aos-delay="100">
                     <div class="gallery-image">
-                        <img src="assets/Galeria/orquilla.png" alt="Reparación de Horquilla">
+                        <img src="presentacion/assets/Galeria/orquilla.png" alt="Reparación de Horquilla">
                         <div class="gallery-overlay">
                             <div class="overlay-content">
                                 <h4>Reparación de Horquilla</h4>
@@ -250,7 +254,7 @@
                 
                 <div class="gallery-item" data-category="reparacion" data-aos="fade-up" data-aos-delay="200">
                     <div class="gallery-image">
-                        <img src="assets/Galeria/frenos.png" alt="Reparación de Frenos">
+                        <img src="presentacion/assets/Galeria/frenos.png" alt="Reparación de Frenos">
                         <div class="gallery-overlay">
                             <div class="overlay-content">
                                 <h4>Reparación de Frenos</h4>
@@ -266,7 +270,7 @@
                 <!-- Pinturas -->
                 <div class="gallery-item" data-category="pintura" data-aos="fade-up" data-aos-delay="300">
                     <div class="gallery-image">
-                        <img src="assets/Galeria/cuadro.png" alt="Pintura Personalizada">
+                        <img src="presentacion/assets/Galeria/cuadro.png" alt="Pintura Personalizada">
                         <div class="gallery-overlay">
                             <div class="overlay-content">
                                 <h4>Pintura Personalizada</h4>
@@ -281,7 +285,7 @@
                 
                 <div class="gallery-item" data-category="pintura" data-aos="fade-up" data-aos-delay="400">
                     <div class="gallery-image">
-                        <img src="assets/Galeria/oro.png" alt="Pintura con Hoja de Oro">
+                        <img src="presentacion/assets/Galeria/oro.png" alt="Pintura con Hoja de Oro">
                         <div class="gallery-overlay">
                             <div class="overlay-content">
                                 <h4>Pintura con Hoja de Oro</h4>
@@ -296,7 +300,7 @@
                 
                 <div class="gallery-item" data-category="pintura" data-aos="fade-up" data-aos-delay="500">
                     <div class="gallery-image">
-                        <img src="assets/Galeria/camaleon.png" alt="Pintura Camaleón">
+                        <img src="presentacion/assets/Galeria/camaleon.png" alt="Pintura Camaleón">
                         <div class="gallery-overlay">
                             <div class="overlay-content">
                                 <h4>Pintura Camaleón</h4>
@@ -312,7 +316,7 @@
                 <!-- Fabricación -->
                 <div class="gallery-item" data-category="fabricacion" data-aos="fade-up" data-aos-delay="600">
                     <div class="gallery-image">
-                        <img src="assets/Galeria/medida.png" alt="Bicicleta a Medida">
+                        <img src="presentacion/assets/Galeria/medida.png" alt="Bicicleta a Medida">
                         <div class="gallery-overlay">
                             <div class="overlay-content">
                                 <h4>Bicicleta a Medida</h4>
@@ -327,7 +331,7 @@
                 
                 <div class="gallery-item" data-category="fabricacion" data-aos="fade-up" data-aos-delay="700">
                     <div class="gallery-image">
-                        <img src="assets/Galeria/cuadroc.png" alt="Cuadro de Carbono">
+                        <img src="presentacion/assets/Galeria/cuadroc.png" alt="Cuadro de Carbono">
                         <div class="gallery-overlay">
                             <div class="overlay-content">
                                 <h4>Cuadro de Carbono</h4>
@@ -342,7 +346,7 @@
                 
                 <div class="gallery-item" data-category="fabricacion" data-aos="fade-up" data-aos-delay="800">
                     <div class="gallery-image">
-                        <img src="assets/Galeria/image.png" alt="Ruedas de Carbono">
+                        <img src="presentacion/assets/Galeria/image.png" alt="Ruedas de Carbono">
                         <div class="gallery-overlay">
                             <div class="overlay-content">
                                 <h4>Ruedas de Carbono</h4>
@@ -549,6 +553,6 @@ ciclismo. .
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
     <!-- JS Personalizado -->
-    <script src="js/presentacion.js?v=6234"></script>
+    <script src="presentacion/js/presentacion.js?v=6233564"></script>
 </body>
 </html>
