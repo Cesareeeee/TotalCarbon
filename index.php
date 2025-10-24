@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
     
     <!-- CSS Personalizado -->
-    <link rel="stylesheet" href="presentacion/css/presentacion.css?v=3456">
+    <link rel="stylesheet" href="presentacion/css/presentacion.css?v=323456">
         
     <!-- FAVICON -->
     <link rel="icon" href="presentacion/assets/image.png">
@@ -533,7 +533,6 @@ ciclismo. .
                     <p>&copy; 2025 Total Carbon. Todos los derechos reservados.</p>
                 </div>
                 <div class="col-md-6 text-end">
-                    <p>Diseñado con <i class="fas fa-heart text-danger"></i> para ciclistas apasionados</p>
                 </div>
             </div>
         </div>

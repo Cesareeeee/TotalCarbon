@@ -62,7 +62,7 @@ function enviarCorreoRecuperacion($correo, $codigo) {
         $mail->Body = '
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #f9f9f9; padding: 20px; border-radius: 10px;">
             <div style="text-align: center; margin-bottom: 30px;">
-                <img src="https://tu-sitio.com/recursos/img/logo.png" alt="Total Carbon" style="max-width: 200px;">
+                <img src="PONER IMAGEN AQUIIII" alt="PONER IMAGEN AQUIII" style="max-width: 200px;">
             </div>
             
             <div style="background-color: #ffffff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
@@ -277,8 +277,8 @@ try {
             }
             break;
             
-        default:
-            enviarRespuesta(false, "Acción no válida");
+                            default:
+                           enviarRespuesta(false, "Acción no válida");
     }
 } catch (Exception $e) {
     error_log("Error en recuperar_contrasena.php: " . $e->getMessage());

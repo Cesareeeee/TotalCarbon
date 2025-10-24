@@ -2,7 +2,7 @@
 // Iniciar sesión y verificar autenticación
 session_start();
 if (!isset($_SESSION['id_usuario'])) {
-    header('Location: ../index.html');
+    header('Location: ../login.php');
     exit();
 }
 
@@ -27,6 +27,7 @@ if ($_SESSION['id_rol'] != 1) { // Asumiendo que 1 es el ID de administrador
             background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
             color: #ffffff;
             min-height: 100vh;
+            
         }
         .navbar {
             background: rgba(0, 0, 0, 0.9);
@@ -71,7 +72,7 @@ if ($_SESSION['id_rol'] != 1) { // Asumiendo que 1 es el ID de administrador
                 <span class="navbar-text me-3">
                     <i class="fas fa-user me-2"></i><?php echo $_SESSION['nombres'] . ' ' . $_SESSION['apellidos']; ?>
                 </span>
-                <a href="../controlador/logout.php" class="btn btn-outline-light btn-sm">
+                <a href="../../controlador/logout.php" class="btn btn-outline-light btn-sm">
                     <i class="fas fa-sign-out-alt me-1"></i>Cerrar Sesión
                 </a>
             </div>

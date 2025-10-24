@@ -177,12 +177,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 function obtenerPaginaPorRol($rol) {
     switch ($rol) {
         case 'ADMINISTRADOR':
-            return '../vistas/administrador.php';
+            return '../vistas/Administrador/administrador.php';
         case 'EMPLEADO':
             return '../vistas/empleado.php';
         case 'CLIENTE':
         default:
-            return '../vistas/cliente.php';
+            return '../vistas/Cliente/PaginaCliente.php';
     }
 }
 ?>

@@ -499,46 +499,48 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 if (!respuesta.ok) {
                     throw new Error('Error en la respuesta del servidor: ' + respuesta.status);
+
                 }
                 
                 const datos = await respuesta.json();
                 
                 if (datos.exito) {
-                    Swal.fire({
-                        title: '¡Registro Exitoso!',
-                        html: `
+                  Swal.fire({
+                    title: "¡Registro Exitoso!",
+                    html: `
                             <div style="text-align: center;">
                                 <i class="fas fa-check-circle" style="font-size: 60px; color: #28a745; margin-bottom: 20px;"></i>
                                 <p style="color: #ffffff; font-size: 18px;">Bienvenido a Total Carbon</p>
                                 <p style="color: #cccccc; font-size: 14px;">Tu cuenta ha sido creada exitosamente</p>
                             </div>
                         `,
-                        background: 'linear-gradient(135deg, #000000 0%, #1a1a1a 100%)',
-                        color: '#ffffff',
-                        confirmButtonColor: '#28a745',
-                        confirmButtonText: 'Comenzar',
-                        showClass: {
-                            popup: 'animated fadeInDown'
-                        },
-                        hideClass: {
-                            popup: 'animated fadeOutUp'
-                        }
-                    }).then(() => {
-                        window.location.href = '../vistas/principal.php';
-                    });
+                    background:
+                      "linear-gradient(135deg, #000000 0%, #1a1a1a 100%)",
+                    color: "#ffffff",
+                    confirmButtonColor: "#28a745",
+                    confirmButtonText: "Comenzar",
+                    showClass: {
+                      popup: "animated fadeInDown",
+                    },
+                    hideClass: {
+                      popup: "animated fadeOutUp",
+                    },
+                  }).then(() => {
+                    window.location.href = "../vistas/login.php";
+                  });
                 } else {
-                    Swal.fire({
-                        title: 'Error en el Registro',
-                        text: datos.mensaje || 'No se pudo completar el registro',
-                        icon: 'error',
-                        background: '#000000',
-                        color: '#ffffff',
-                        confirmButtonColor: '#ff3838',
-                        confirmButtonText: 'Intentar de nuevo'
-                    });
-                    
-                    // Generar nuevo token CSRF después de un intento fallido
-                    generarTokensCSRF();
+                  Swal.fire({
+                    title: "Error en el Registro",
+                    text: datos.mensaje || "No se pudo completar el registro",
+                    icon: "error",
+                    background: "#000000",
+                    color: "#ffffff",
+                    confirmButtonColor: "#ff3838",
+                    confirmButtonText: "Intentar de nuevo",
+                  });
+
+                  // Generar nuevo token CSRF después de un intento fallido
+                  generarTokensCSRF();
                 }
             } catch (error) {
                 console.error('Error en el registro:', error);
