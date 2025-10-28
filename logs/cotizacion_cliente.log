@@ -1,0 +1,136 @@
+[2025-10-28 00:42:41] === INICIO: Solicitud de crear cotización ===
+[2025-10-28 00:42:41] Usuario ID: 20
+[2025-10-28 00:42:41] Validando campos requeridos...
+[2025-10-28 00:42:41] Todos los campos requeridos están presentes
+[2025-10-28 00:42:41] Validando imágenes...
+[2025-10-28 00:42:41] Imagen encontrada: imagen_0
+[2025-10-28 00:42:41] Validación de imágenes exitosa
+[2025-10-28 00:42:41] Creando cotización...
+[2025-10-28 00:42:41] Cotización creada exitosamente. ID: 1
+[2025-10-28 00:42:41] === FIN: Cotización creada correctamente ===
+[2025-10-28 01:37:28] === INICIO: Solicitud de crear cotización ===
+[2025-10-28 01:37:28] Usuario ID: 20
+[2025-10-28 01:37:28] Validando campos requeridos...
+[2025-10-28 01:37:28] Todos los campos requeridos están presentes
+[2025-10-28 01:37:28] Validando imágenes...
+[2025-10-28 01:37:28] Imagen encontrada: imagen_0
+[2025-10-28 01:37:28] Validación de imágenes exitosa
+[2025-10-28 01:37:28] Creando cotización...
+[2025-10-28 01:37:28] Cotización creada exitosamente. ID: 2
+[2025-10-28 01:37:28] === FIN: Cotización creada correctamente ===
+[2025-10-28 01:50:51] === INICIO: Solicitud de crear cotización ===
+[2025-10-28 01:50:51] Usuario ID: 20
+[2025-10-28 01:50:51] Validando campos requeridos...
+[2025-10-28 01:50:51] Todos los campos requeridos están presentes
+[2025-10-28 01:50:51] Validando imágenes...
+[2025-10-28 01:50:51] Imagen encontrada: imagen_0
+[2025-10-28 01:50:51] Validación de imágenes exitosa
+[2025-10-28 01:50:51] Creando cotización...
+[2025-10-28 01:50:51] Cotización creada exitosamente. ID: 3
+[2025-10-28 01:50:51] === FIN: Cotización creada correctamente ===
+[2025-10-28 02:00:02] === INICIO: Solicitud de crear cotización ===
+[2025-10-28 02:00:02] Usuario ID: 21
+[2025-10-28 02:00:02] Validando campos requeridos...
+[2025-10-28 02:00:02] Todos los campos requeridos están presentes
+[2025-10-28 02:00:02] Validando imágenes...
+[2025-10-28 02:00:02] Imagen encontrada: imagen_0
+[2025-10-28 02:00:02] Validación de imágenes exitosa
+[2025-10-28 02:00:02] Creando cotización...
+[2025-10-28 02:00:02] Cotización creada exitosamente. ID: 4
+[2025-10-28 02:00:02] === FIN: Cotización creada correctamente ===
+[2025-10-28 02:04:49] === INICIO: Solicitud de crear cotización ===
+[2025-10-28 02:04:49] Usuario ID: 20
+[2025-10-28 02:04:49] Validando campos requeridos...
+[2025-10-28 02:04:49] Todos los campos requeridos están presentes
+[2025-10-28 02:04:49] Validando imágenes...
+[2025-10-28 02:04:49] Imagen encontrada: imagen_0
+[2025-10-28 02:04:49] Validación de imágenes exitosa
+[2025-10-28 02:04:49] Creando cotización...
+[2025-10-28 02:04:49] Archivos recibidos: ["imagen_0"]
+[2025-10-28 02:04:49] Archivo imagen_0 - Error: 0, Tamaño: 128660, Tipo: image/jpeg
+[2025-10-28 02:04:49] Cotización creada exitosamente. ID: 5
+[2025-10-28 02:04:49] === FIN: Cotización creada correctamente ===
+[2025-10-28 02:22:06] === INICIO: Solicitud de crear cotización ===
+[2025-10-28 02:22:06] Usuario ID: 22
+[2025-10-28 02:22:06] Validando campos requeridos...
+[2025-10-28 02:22:06] Todos los campos requeridos están presentes
+[2025-10-28 02:22:06] Validando imágenes...
+[2025-10-28 02:22:06] Imagen encontrada: imagen_0
+[2025-10-28 02:22:06] Validación de imágenes exitosa
+[2025-10-28 02:22:06] Creando cotización...
+[2025-10-28 02:22:06] Archivos recibidos: ["imagen_0"]
+[2025-10-28 02:22:06] Archivo imagen_0 - Error: 0, Tamaño: 128660, Tipo: image/jpeg
+[2025-10-28 02:22:06] Cotización creada exitosamente. ID: 6
+[2025-10-28 02:22:06] === FIN: Cotización creada correctamente ===
+[2025-10-28 02:54:41] === INICIO: Solicitud de crear cotización ===
+[2025-10-28 02:54:41] Usuario ID: 22
+[2025-10-28 02:54:41] Validando campos requeridos...
+[2025-10-28 02:54:41] Todos los campos requeridos están presentes
+[2025-10-28 02:54:41] Validando imágenes...
+[2025-10-28 02:54:41] Imagen encontrada: imagen_0
+[2025-10-28 02:54:41] Validación de imágenes exitosa
+[2025-10-28 02:54:41] Creando cotización...
+[2025-10-28 02:54:41] Archivos recibidos: ["imagen_0"]
+[2025-10-28 02:54:41] Archivo imagen_0 - Error: 0, Tamaño: 59367, Tipo: image/jpeg
+[2025-10-28 02:54:41] Cotización creada exitosamente. ID: 7
+[2025-10-28 02:54:41] === FIN: Cotización creada correctamente ===
+[2025-10-28 02:55:24] === INICIO: Solicitud de crear cotización ===
+[2025-10-28 02:55:24] Usuario ID: 22
+[2025-10-28 02:55:24] Validando campos requeridos...
+[2025-10-28 02:55:24] Todos los campos requeridos están presentes
+[2025-10-28 02:55:24] Validando imágenes...
+[2025-10-28 02:55:24] Imagen encontrada: imagen_0
+[2025-10-28 02:55:24] Validación de imágenes exitosa
+[2025-10-28 02:55:24] Creando cotización...
+[2025-10-28 02:55:24] Archivos recibidos: ["imagen_0"]
+[2025-10-28 02:55:24] Archivo imagen_0 - Error: 0, Tamaño: 59367, Tipo: image/jpeg
+[2025-10-28 02:55:24] Cotización creada exitosamente. ID: 8
+[2025-10-28 02:55:24] === FIN: Cotización creada correctamente ===
+[2025-10-28 02:56:18] === INICIO: Solicitud de crear cotización ===
+[2025-10-28 02:56:18] Usuario ID: 22
+[2025-10-28 02:56:18] Validando campos requeridos...
+[2025-10-28 02:56:18] Todos los campos requeridos están presentes
+[2025-10-28 02:56:18] Validando imágenes...
+[2025-10-28 02:56:18] Imagen encontrada: imagen_0
+[2025-10-28 02:56:18] Validación de imágenes exitosa
+[2025-10-28 02:56:18] Creando cotización...
+[2025-10-28 02:56:18] Archivos recibidos: ["imagen_0"]
+[2025-10-28 02:56:18] Archivo imagen_0 - Error: 0, Tamaño: 17341, Tipo: image/jpeg
+[2025-10-28 02:56:18] Cotización creada exitosamente. ID: 9
+[2025-10-28 02:56:18] === FIN: Cotización creada correctamente ===
+[2025-10-28 03:44:29] === INICIO: Solicitud de crear cotización ===
+[2025-10-28 03:44:29] Usuario ID: 22
+[2025-10-28 03:44:29] Validando campos requeridos...
+[2025-10-28 03:44:29] Todos los campos requeridos están presentes
+[2025-10-28 03:44:29] Validando imágenes...
+[2025-10-28 03:44:29] Imagen encontrada: imagen_0
+[2025-10-28 03:44:29] Validación de imágenes exitosa
+[2025-10-28 03:44:29] Creando cotización...
+[2025-10-28 03:44:29] Archivos recibidos: ["imagen_0"]
+[2025-10-28 03:44:29] Archivo imagen_0 - Error: 0, Tamaño: 128660, Tipo: image/jpeg
+[2025-10-28 03:44:29] Cotización creada exitosamente. ID: 10
+[2025-10-28 03:44:29] === FIN: Cotización creada correctamente ===
+[2025-10-28 03:51:22] === INICIO: Solicitud de crear cotización ===
+[2025-10-28 03:51:22] Usuario ID: 22
+[2025-10-28 03:51:22] Validando campos requeridos...
+[2025-10-28 03:51:22] Todos los campos requeridos están presentes
+[2025-10-28 03:51:22] Validando imágenes...
+[2025-10-28 03:51:22] Imagen encontrada: imagen_0
+[2025-10-28 03:51:22] Validación de imágenes exitosa
+[2025-10-28 03:51:22] Creando cotización...
+[2025-10-28 03:51:22] Archivos recibidos: ["imagen_0"]
+[2025-10-28 03:51:22] Archivo imagen_0 - Error: 0, Tamaño: 418911, Tipo: image/jpeg
+[2025-10-28 03:51:22] Cotización creada exitosamente. ID: 11
+[2025-10-28 03:51:22] === FIN: Cotización creada correctamente ===
+[2025-10-28 04:26:11] === INICIO: Solicitud de crear cotización ===
+[2025-10-28 04:26:11] Usuario ID: 22
+[2025-10-28 04:26:11] Validando campos requeridos...
+[2025-10-28 04:26:11] Todos los campos requeridos están presentes
+[2025-10-28 04:26:11] Validando imágenes...
+[2025-10-28 04:26:11] Imagen encontrada: imagen_0
+[2025-10-28 04:26:11] Validación de imágenes exitosa
+[2025-10-28 04:26:11] Creando cotización...
+[2025-10-28 04:26:11] Archivos recibidos: ["imagen_0"]
+[2025-10-28 04:26:11] Archivo imagen_0 - Error: 0, Tamaño: 128660, Tipo: image/jpeg
+[2025-10-28 04:26:11] Cotización creada exitosamente. ID: 12
+[2025-10-28 04:26:11] === FIN: Cotización creada correctamente ===

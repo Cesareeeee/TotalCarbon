@@ -157,7 +157,7 @@
         
         <div class="contenedor-info" id="contenedorInfo">
             <h2 id="tituloInfo">¡BIENVENIDO!</h2>
-            <p id="textoInfo">Total Carbon en San Martín Texmelucan se dedica al trabajo con fibra de carbono: reparaciones, fabricación de bicicletas deportivas, pintura premium automotriz y chequeos NDT (inspección no destructiva).</p>
+            <p id="textoInfo">Total Carbon en San Martín Texmelucan se dedica al trabajo con fibra de carbono: reparaciones, fabricación de piezas para bicicletas deportivas, pintura premium automotriz y chequeos NDT (inspección no destructiva).</p>
             <button id="btnCambiarFormulario" class="btn-cambiar-formulario">REGISTRARSE</button>
         </div>
     </div>
@@ -203,6 +203,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <!-- JS Personalizado -->
-    <script src="../recursos/js/login.js?v=433324444212"></script>
+    <script src="../recursos/js/login.js?v=34567876"></script>
 </body>
 </html>

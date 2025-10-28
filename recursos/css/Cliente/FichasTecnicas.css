@@ -1,0 +1,382 @@
+/**
+ * Estilos para Fichas Técnicas
+ * Archivo: recursos/css/Cliente/FichasTecnicas.css
+ */
+
+/* ============================================
+   LISTA DE FICHAS TÉCNICAS
+   ============================================ */
+
+#listaFichasTecnicas {
+    display: block;
+}
+
+.ficha-item {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    transition: all 0.3s;
+    border-left: 4px solid #667eea;
+}
+
+.ficha-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.ficha-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #eee;
+}
+
+.ficha-info h4 {
+    margin: 0 0 5px 0;
+    color: #333;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.ficha-tipo {
+    margin: 0;
+    color: #666;
+    font-size: 13px;
+}
+
+.ficha-body {
+    padding: 20px;
+}
+
+.ficha-meta {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.ficha-meta span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #666;
+    font-size: 13px;
+}
+
+.ficha-meta i {
+    color: #667eea;
+}
+
+.ficha-zona {
+    margin: 0;
+    color: #555;
+    font-size: 14px;
+}
+
+.ficha-footer {
+    padding: 15px 20px;
+    border-top: 1px solid #eee;
+    display: flex;
+    gap: 10px;
+}
+
+.ficha-footer .btn {
+    flex: 1;
+}
+
+/* ============================================
+   ESTADO BADGES
+   ============================================ */
+
+.estado-badge {
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.estado-pendiente {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.estado-en-revision {
+    background: #cfe2ff;
+    color: #084298;
+}
+
+.estado-aprobada {
+    background: #d1e7dd;
+    color: #0f5132;
+}
+
+.estado-rechazada {
+    background: #f8d7da;
+    color: #842029;
+}
+
+.estado-completada {
+    background: #d1e7dd;
+    color: #0f5132;
+}
+
+/* ============================================
+   DETALLES DE FICHA TÉCNICA
+   ============================================ */
+
+#detallesFichaTecnica {
+    display: none;
+}
+
+.ficha-detalle {
+    background: white;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.ficha-detalle-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #667eea;
+}
+
+.ficha-detalle-header h2 {
+    margin: 0 0 10px 0;
+    color: #333;
+    font-size: 28px;
+}
+
+.ficha-detalle-header p {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.ficha-seccion {
+    margin-bottom: 40px;
+}
+
+.ficha-seccion h4 {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f0f0f0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ficha-seccion h4 i {
+    color: #667eea;
+}
+
+.ficha-seccion label {
+    display: block;
+    color: #666;
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-size: 13px;
+}
+
+.ficha-seccion p {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.ficha-seccion .row {
+    margin-bottom: 0;
+}
+
+.ficha-seccion .col-md-6,
+.ficha-seccion .col-12 {
+    margin-bottom: 20px;
+}
+
+/* ============================================
+   IMÁGENES
+   ============================================ */
+
+.status-image {
+    border: 1px solid #ddd;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.status-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* ============================================
+   COMENTARIOS
+   ============================================ */
+
+.comentarios-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.comentario-item {
+    background: #f8f9fa;
+    border-left: 4px solid #667eea;
+    padding: 15px;
+    border-radius: 4px;
+}
+
+.comentario-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.comentario-header strong {
+    color: #333;
+    font-size: 14px;
+}
+
+.comentario-fecha {
+    color: #999;
+    font-size: 12px;
+}
+
+.comentario-texto {
+    margin: 0;
+    color: #555;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* ============================================
+   ACCIONES
+   ============================================ */
+
+.ficha-acciones {
+    display: flex;
+    gap: 10px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.ficha-acciones .btn {
+    flex: 1;
+}
+
+/* ============================================
+   MENSAJE VACÍO
+   ============================================ */
+
+.mensaje-vacio {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+}
+
+.mensaje-vacio i {
+    font-size: 64px;
+    color: #ddd;
+    margin-bottom: 20px;
+}
+
+.mensaje-vacio h3 {
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.mensaje-vacio p {
+    color: #999;
+}
+
+/* ============================================
+   BOTONES
+   ============================================ */
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-primary {
+    background: #667eea;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #5568d3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+    background: #e0e0e0;
+    color: #333;
+}
+
+.btn-secondary:hover {
+    background: #d0d0d0;
+}
+
+.btn-sm {
+    padding: 8px 16px;
+    font-size: 12px;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .ficha-detalle {
+        padding: 20px;
+    }
+
+    .ficha-detalle-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .ficha-detalle-header h2 {
+        font-size: 22px;
+    }
+
+    .ficha-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .ficha-meta {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .ficha-acciones {
+        flex-direction: column;
+    }
+
+    .ficha-acciones .btn {
+        width: 100%;
+    }
+}
+
