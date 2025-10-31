@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     
     <!-- CSS Personalizado -->
-    <link rel="stylesheet" href="../recursos/css/recuperar_contrasena.css?v=5">
+    <link rel="stylesheet" href="../recursos/css/recuperar_contrasena.css?v=235">
         <link rel="icon" href="../recursos/img/image.png">
 
 </head>
@@ -167,6 +167,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <!-- JS Personalizado -->
-    <script src="../recursos/js/recuperar_contrasena.js?v=555"></script>
+    <script src="../recursos/js/recuperar_contrasena.js?v=123555"></script>
 </body>
 </html>

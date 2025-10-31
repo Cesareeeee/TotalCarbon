@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
     
     <!-- CSS Personalizado -->
-    <link rel="stylesheet" href="presentacion/css/presentacion.css?v=323456">
+    <link rel="stylesheet" href="presentacion/css/presentacion.css?v=3333">
         
     <!-- FAVICON -->
     <link rel="icon" href="presentacion/assets/image.png">
