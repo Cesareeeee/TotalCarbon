@@ -86,3 +86,18 @@
 [2025-10-31 05:29:05] IP: ::1 | Usuario: ID: 24 | Actividad: Registro de nuevo usuario: 12@gmail.com
 [2025-10-31 05:29:17] IP: ::1 | Usuario: ID: 24 | Actividad: Inicio de sesión exitoso
 [2025-10-31 05:40:23] IP: ::1 | Usuario: ID: 24 | Actividad: Inicio de sesión exitoso
+[2025-11-06 05:20:12] IP: ::1 | Usuario: ID: 29 | Actividad: Registro de nuevo usuario: 1234567@gmail.com
+[2025-11-06 05:20:31] IP: ::1 | Usuario: ID: 29 | Actividad: Inicio de sesión exitoso
+[2025-11-06 05:27:42] IP: ::1 | Usuario: ID: 29 | Actividad: Inicio de sesión exitoso
+[2025-11-06 05:30:03] IP: ::1 | Usuario: ID: 29 | Actividad: Inicio de sesión exitoso
+[2025-11-06 06:04:51] IP: ::1 | Usuario: No identificado | Actividad: Intento de inicio de sesión fallido: 1234567@gmail.com
+[2025-11-06 06:04:56] IP: ::1 | Usuario: ID: 29 | Actividad: Inicio de sesión exitoso
+[2025-11-06 06:08:17] IP: ::1 | Usuario: ID: 29 | Actividad: Inicio de sesión exitoso
+[2025-11-06 06:08:28] IP: ::1 | Usuario: ID: 29 | Actividad: Inicio de sesión exitoso
+[2025-11-06 06:09:48] IP: ::1 | Usuario: ID: 29 | Actividad: Inicio de sesión exitoso
+[2025-11-06 20:25:55] IP: ::1 | Usuario: ID: 29 | Actividad: Inicio de sesión exitoso
+[2025-11-06 21:17:31] IP: 192.168.1.66 | Usuario: ID: 29 | Actividad: Inicio de sesión exitoso
+[2025-11-07 04:46:17] IP: ::1 | Usuario: ID: 48 | Actividad: Registro de nuevo usuario: 87654@gmail.com
+[2025-11-07 04:46:20] IP: ::1 | Usuario: ID: 48 | Actividad: Inicio de sesión exitoso
+[2025-11-07 05:15:10] IP: 192.168.1.66 | Usuario: ID: 48 | Actividad: Inicio de sesión exitoso
+[2025-11-07 06:18:16] IP: 192.168.1.69 | Usuario: ID: 48 | Actividad: Inicio de sesión exitoso

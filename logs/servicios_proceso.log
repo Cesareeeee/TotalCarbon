@@ -2323,3 +2323,468 @@
 [2025-10-31 05:41:04] Servicios obtenidos: 1
 [2025-10-31 05:41:04] Servicios obtenidos con detalles | Datos: [{"id_cotizacion":2,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"M500","zona_afectada":"CUADRO","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"estado":"PENDIENTE","creado_en":"2025-10-30 22:41:00","actualizado_en":"2025-10-30 22:41:00","total_imagenes":1,"total_comentarios":0,"paso_actual":1,"imagenes":[{"id_imagen":2,"ruta_imagen":"..\/..\/Img_Servicios\/2\/img_69043ddc359917.29878507.png","nombre_archivo":"ChatGPT Image 30 oct 2025, 22_32_29.png"}],"comentarios":[],"progreso":[{"paso":1,"descripcion":"Cotizaci\u00f3n Enviada"}]}]
 [2025-10-31 05:41:04] === FIN: Servicios en proceso obtenidos correctamente ===
+[2025-11-06 05:20:32] === INICIO: Solicitud de obtener servicios en proceso ===
+[2025-11-06 05:20:32] ID Usuario: 29
+[2025-11-06 05:20:32] Conectando a la base de datos...
+[2025-11-06 05:20:32] Conexión exitosa. Preparando consulta...
+[2025-11-06 05:20:32] Consulta: SELECT 
+                    c.id_cotizacion,
+                    c.nombre_completo,
+                    c.marca_bicicleta,
+                    c.modelo_bicicleta,
+                    c.zona_afectada,
+                    c.tipo_trabajo,
+                    c.tipo_reparacion,
+                    c.descripcion_otros,
+                    c.estado,
+                    c.creado_en,
+                    c.actualizado_en,
+                    COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                    COUNT(DISTINCT cc.id_comentario) as total_comentarios,
+                    MAX(cpp.paso) as paso_actual
+              FROM cotizaciones_cliente c
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              LEFT JOIN cotizacion_progreso_cliente cpp ON c.id_cotizacion = cpp.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.actualizado_en DESC
+[2025-11-06 05:20:32] Consulta preparada
+[2025-11-06 05:20:32] Consulta ejecutada
+[2025-11-06 05:20:32] Servicios obtenidos: 0
+[2025-11-06 05:20:32] El usuario no tiene servicios en proceso
+[2025-11-06 05:20:32] === FIN: Sin servicios en proceso ===
+[2025-11-06 05:20:34] === INICIO: Solicitud de obtener servicios en proceso ===
+[2025-11-06 05:20:34] ID Usuario: 29
+[2025-11-06 05:20:34] Conectando a la base de datos...
+[2025-11-06 05:20:34] Conexión exitosa. Preparando consulta...
+[2025-11-06 05:20:34] Consulta: SELECT 
+                    c.id_cotizacion,
+                    c.nombre_completo,
+                    c.marca_bicicleta,
+                    c.modelo_bicicleta,
+                    c.zona_afectada,
+                    c.tipo_trabajo,
+                    c.tipo_reparacion,
+                    c.descripcion_otros,
+                    c.estado,
+                    c.creado_en,
+                    c.actualizado_en,
+                    COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                    COUNT(DISTINCT cc.id_comentario) as total_comentarios,
+                    MAX(cpp.paso) as paso_actual
+              FROM cotizaciones_cliente c
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              LEFT JOIN cotizacion_progreso_cliente cpp ON c.id_cotizacion = cpp.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.actualizado_en DESC
+[2025-11-06 05:20:34] Consulta preparada
+[2025-11-06 05:20:34] Consulta ejecutada
+[2025-11-06 05:20:34] Servicios obtenidos: 0
+[2025-11-06 05:20:34] El usuario no tiene servicios en proceso
+[2025-11-06 05:20:34] === FIN: Sin servicios en proceso ===
+[2025-11-06 05:21:21] === INICIO: Solicitud de obtener servicios en proceso ===
+[2025-11-06 05:21:21] ID Usuario: 29
+[2025-11-06 05:21:21] Conectando a la base de datos...
+[2025-11-06 05:21:21] Conexión exitosa. Preparando consulta...
+[2025-11-06 05:21:21] Consulta: SELECT 
+                    c.id_cotizacion,
+                    c.nombre_completo,
+                    c.marca_bicicleta,
+                    c.modelo_bicicleta,
+                    c.zona_afectada,
+                    c.tipo_trabajo,
+                    c.tipo_reparacion,
+                    c.descripcion_otros,
+                    c.estado,
+                    c.creado_en,
+                    c.actualizado_en,
+                    COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                    COUNT(DISTINCT cc.id_comentario) as total_comentarios,
+                    MAX(cpp.paso) as paso_actual
+              FROM cotizaciones_cliente c
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              LEFT JOIN cotizacion_progreso_cliente cpp ON c.id_cotizacion = cpp.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.actualizado_en DESC
+[2025-11-06 05:21:21] Consulta preparada
+[2025-11-06 05:21:21] Consulta ejecutada
+[2025-11-06 05:21:21] Servicios obtenidos: 1
+[2025-11-06 05:21:21] Servicios obtenidos con detalles | Datos: [{"id_cotizacion":4,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"drfgthyjukl","modelo_bicicleta":"rtyuiop","zona_afectada":"dfghjui","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"estado":"PENDIENTE","creado_en":"2025-11-05 22:21:18","actualizado_en":"2025-11-05 22:21:18","total_imagenes":1,"total_comentarios":0,"paso_actual":1,"imagenes":[{"id_imagen":4,"ruta_imagen":"..\/..\/Img_Servicios\/4\/img_690c223e95a3b9.61707823.png","nombre_archivo":"LogoI.png"}],"comentarios":[],"progreso":[{"paso":1,"descripcion":"Cotizaci\u00f3n Enviada"}]}]
+[2025-11-06 05:21:21] === FIN: Servicios en proceso obtenidos correctamente ===
+[2025-11-06 05:26:34] === INICIO: Solicitud de obtener servicios en proceso ===
+[2025-11-06 05:26:34] ID Usuario: 29
+[2025-11-06 05:26:34] Conectando a la base de datos...
+[2025-11-06 05:26:34] Conexión exitosa. Preparando consulta...
+[2025-11-06 05:26:34] Consulta: SELECT 
+                    c.id_cotizacion,
+                    c.nombre_completo,
+                    c.marca_bicicleta,
+                    c.modelo_bicicleta,
+                    c.zona_afectada,
+                    c.tipo_trabajo,
+                    c.tipo_reparacion,
+                    c.descripcion_otros,
+                    c.estado,
+                    c.creado_en,
+                    c.actualizado_en,
+                    COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                    COUNT(DISTINCT cc.id_comentario) as total_comentarios,
+                    MAX(cpp.paso) as paso_actual
+              FROM cotizaciones_cliente c
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              LEFT JOIN cotizacion_progreso_cliente cpp ON c.id_cotizacion = cpp.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.actualizado_en DESC
+[2025-11-06 05:26:34] Consulta preparada
+[2025-11-06 05:26:34] Consulta ejecutada
+[2025-11-06 05:26:34] Servicios obtenidos: 1
+[2025-11-06 05:26:34] Servicios obtenidos con detalles | Datos: [{"id_cotizacion":4,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"drfgthyjukl","modelo_bicicleta":"rtyuiop","zona_afectada":"dfghjui","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"estado":"PENDIENTE","creado_en":"2025-11-05 22:21:18","actualizado_en":"2025-11-05 22:21:18","total_imagenes":1,"total_comentarios":0,"paso_actual":1,"imagenes":[{"id_imagen":4,"ruta_imagen":"..\/..\/Img_Servicios\/4\/img_690c223e95a3b9.61707823.png","nombre_archivo":"LogoI.png"}],"comentarios":[],"progreso":[{"paso":1,"descripcion":"Cotizaci\u00f3n Enviada"}]}]
+[2025-11-06 05:26:34] === FIN: Servicios en proceso obtenidos correctamente ===
+[2025-11-06 05:26:34] === INICIO: Solicitud de obtener servicios en proceso ===
+[2025-11-06 05:26:34] ID Usuario: 29
+[2025-11-06 05:26:34] Conectando a la base de datos...
+[2025-11-06 05:26:34] Conexión exitosa. Preparando consulta...
+[2025-11-06 05:26:34] Consulta: SELECT 
+                    c.id_cotizacion,
+                    c.nombre_completo,
+                    c.marca_bicicleta,
+                    c.modelo_bicicleta,
+                    c.zona_afectada,
+                    c.tipo_trabajo,
+                    c.tipo_reparacion,
+                    c.descripcion_otros,
+                    c.estado,
+                    c.creado_en,
+                    c.actualizado_en,
+                    COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                    COUNT(DISTINCT cc.id_comentario) as total_comentarios,
+                    MAX(cpp.paso) as paso_actual
+              FROM cotizaciones_cliente c
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              LEFT JOIN cotizacion_progreso_cliente cpp ON c.id_cotizacion = cpp.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.actualizado_en DESC
+[2025-11-06 05:26:34] Consulta preparada
+[2025-11-06 05:26:34] Consulta ejecutada
+[2025-11-06 05:26:34] Servicios obtenidos: 1
+[2025-11-06 05:26:34] Servicios obtenidos con detalles | Datos: [{"id_cotizacion":4,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"drfgthyjukl","modelo_bicicleta":"rtyuiop","zona_afectada":"dfghjui","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"estado":"PENDIENTE","creado_en":"2025-11-05 22:21:18","actualizado_en":"2025-11-05 22:21:18","total_imagenes":1,"total_comentarios":0,"paso_actual":1,"imagenes":[{"id_imagen":4,"ruta_imagen":"..\/..\/Img_Servicios\/4\/img_690c223e95a3b9.61707823.png","nombre_archivo":"LogoI.png"}],"comentarios":[],"progreso":[{"paso":1,"descripcion":"Cotizaci\u00f3n Enviada"}]}]
+[2025-11-06 05:26:34] === FIN: Servicios en proceso obtenidos correctamente ===
+[2025-11-07 04:46:21] === INICIO: Solicitud de obtener servicios en proceso ===
+[2025-11-07 04:46:21] ID Usuario: 48
+[2025-11-07 04:46:21] Conectando a la base de datos...
+[2025-11-07 04:46:21] Conexión exitosa. Preparando consulta...
+[2025-11-07 04:46:21] Consulta: SELECT 
+                    c.id_cotizacion,
+                    c.nombre_completo,
+                    c.marca_bicicleta,
+                    c.modelo_bicicleta,
+                    c.zona_afectada,
+                    c.tipo_trabajo,
+                    c.tipo_reparacion,
+                    c.descripcion_otros,
+                    c.estado,
+                    c.creado_en,
+                    c.actualizado_en,
+                    COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                    COUNT(DISTINCT cc.id_comentario) as total_comentarios,
+                    MAX(cpp.paso) as paso_actual
+              FROM cotizaciones_cliente c
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              LEFT JOIN cotizacion_progreso_cliente cpp ON c.id_cotizacion = cpp.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.actualizado_en DESC
+[2025-11-07 04:46:21] Consulta preparada
+[2025-11-07 04:46:21] Consulta ejecutada
+[2025-11-07 04:46:21] Servicios obtenidos: 0
+[2025-11-07 04:46:21] El usuario no tiene servicios en proceso
+[2025-11-07 04:46:21] === FIN: Sin servicios en proceso ===
+[2025-11-07 04:46:23] === INICIO: Solicitud de obtener servicios en proceso ===
+[2025-11-07 04:46:23] ID Usuario: 48
+[2025-11-07 04:46:23] Conectando a la base de datos...
+[2025-11-07 04:46:23] Conexión exitosa. Preparando consulta...
+[2025-11-07 04:46:23] Consulta: SELECT 
+                    c.id_cotizacion,
+                    c.nombre_completo,
+                    c.marca_bicicleta,
+                    c.modelo_bicicleta,
+                    c.zona_afectada,
+                    c.tipo_trabajo,
+                    c.tipo_reparacion,
+                    c.descripcion_otros,
+                    c.estado,
+                    c.creado_en,
+                    c.actualizado_en,
+                    COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                    COUNT(DISTINCT cc.id_comentario) as total_comentarios,
+                    MAX(cpp.paso) as paso_actual
+              FROM cotizaciones_cliente c
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              LEFT JOIN cotizacion_progreso_cliente cpp ON c.id_cotizacion = cpp.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.actualizado_en DESC
+[2025-11-07 04:46:23] Consulta preparada
+[2025-11-07 04:46:23] Consulta ejecutada
+[2025-11-07 04:46:23] Servicios obtenidos: 0
+[2025-11-07 04:46:23] El usuario no tiene servicios en proceso
+[2025-11-07 04:46:23] === FIN: Sin servicios en proceso ===
+[2025-11-07 04:56:40] === INICIO: Solicitud de obtener servicios en proceso ===
+[2025-11-07 04:56:40] ID Usuario: 48
+[2025-11-07 04:56:40] Conectando a la base de datos...
+[2025-11-07 04:56:40] Conexión exitosa. Preparando consulta...
+[2025-11-07 04:56:40] Consulta: SELECT 
+                    c.id_cotizacion,
+                    c.nombre_completo,
+                    c.marca_bicicleta,
+                    c.modelo_bicicleta,
+                    c.zona_afectada,
+                    c.tipo_trabajo,
+                    c.tipo_reparacion,
+                    c.descripcion_otros,
+                    c.estado,
+                    c.creado_en,
+                    c.actualizado_en,
+                    COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                    COUNT(DISTINCT cc.id_comentario) as total_comentarios,
+                    MAX(cpp.paso) as paso_actual
+              FROM cotizaciones_cliente c
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              LEFT JOIN cotizacion_progreso_cliente cpp ON c.id_cotizacion = cpp.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.actualizado_en DESC
+[2025-11-07 04:56:40] Consulta preparada
+[2025-11-07 04:56:40] Consulta ejecutada
+[2025-11-07 04:56:40] Servicios obtenidos: 0
+[2025-11-07 04:56:40] El usuario no tiene servicios en proceso
+[2025-11-07 04:56:40] === FIN: Sin servicios en proceso ===
+[2025-11-07 05:13:45] === INICIO: Solicitud de obtener servicios en proceso ===
+[2025-11-07 05:13:45] ID Usuario: 48
+[2025-11-07 05:13:45] Conectando a la base de datos...
+[2025-11-07 05:13:45] Conexión exitosa. Preparando consulta...
+[2025-11-07 05:13:45] Consulta: SELECT 
+                    c.id_cotizacion,
+                    c.nombre_completo,
+                    c.marca_bicicleta,
+                    c.modelo_bicicleta,
+                    c.zona_afectada,
+                    c.tipo_trabajo,
+                    c.tipo_reparacion,
+                    c.descripcion_otros,
+                    c.estado,
+                    c.creado_en,
+                    c.actualizado_en,
+                    COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                    COUNT(DISTINCT cc.id_comentario) as total_comentarios,
+                    MAX(cpp.paso) as paso_actual
+              FROM cotizaciones_cliente c
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              LEFT JOIN cotizacion_progreso_cliente cpp ON c.id_cotizacion = cpp.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.actualizado_en DESC
+[2025-11-07 05:13:45] Consulta preparada
+[2025-11-07 05:13:45] Consulta ejecutada
+[2025-11-07 05:13:45] Servicios obtenidos: 0
+[2025-11-07 05:13:45] El usuario no tiene servicios en proceso
+[2025-11-07 05:13:45] === FIN: Sin servicios en proceso ===
+[2025-11-07 05:15:11] === INICIO: Solicitud de obtener servicios en proceso ===
+[2025-11-07 05:15:11] ID Usuario: 48
+[2025-11-07 05:15:11] Conectando a la base de datos...
+[2025-11-07 05:15:11] Conexión exitosa. Preparando consulta...
+[2025-11-07 05:15:11] Consulta: SELECT 
+                    c.id_cotizacion,
+                    c.nombre_completo,
+                    c.marca_bicicleta,
+                    c.modelo_bicicleta,
+                    c.zona_afectada,
+                    c.tipo_trabajo,
+                    c.tipo_reparacion,
+                    c.descripcion_otros,
+                    c.estado,
+                    c.creado_en,
+                    c.actualizado_en,
+                    COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                    COUNT(DISTINCT cc.id_comentario) as total_comentarios,
+                    MAX(cpp.paso) as paso_actual
+              FROM cotizaciones_cliente c
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              LEFT JOIN cotizacion_progreso_cliente cpp ON c.id_cotizacion = cpp.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.actualizado_en DESC
+[2025-11-07 05:15:11] Consulta preparada
+[2025-11-07 05:15:11] Consulta ejecutada
+[2025-11-07 05:15:11] Servicios obtenidos: 0
+[2025-11-07 05:15:11] El usuario no tiene servicios en proceso
+[2025-11-07 05:15:11] === FIN: Sin servicios en proceso ===
+[2025-11-07 05:15:40] === INICIO: Solicitud de obtener servicios en proceso ===
+[2025-11-07 05:15:40] ID Usuario: 48
+[2025-11-07 05:15:40] Conectando a la base de datos...
+[2025-11-07 05:15:40] Conexión exitosa. Preparando consulta...
+[2025-11-07 05:15:40] Consulta: SELECT 
+                    c.id_cotizacion,
+                    c.nombre_completo,
+                    c.marca_bicicleta,
+                    c.modelo_bicicleta,
+                    c.zona_afectada,
+                    c.tipo_trabajo,
+                    c.tipo_reparacion,
+                    c.descripcion_otros,
+                    c.estado,
+                    c.creado_en,
+                    c.actualizado_en,
+                    COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                    COUNT(DISTINCT cc.id_comentario) as total_comentarios,
+                    MAX(cpp.paso) as paso_actual
+              FROM cotizaciones_cliente c
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              LEFT JOIN cotizacion_progreso_cliente cpp ON c.id_cotizacion = cpp.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.actualizado_en DESC
+[2025-11-07 05:15:40] Consulta preparada
+[2025-11-07 05:15:40] Consulta ejecutada
+[2025-11-07 05:15:40] Servicios obtenidos: 0
+[2025-11-07 05:15:40] El usuario no tiene servicios en proceso
+[2025-11-07 05:15:40] === FIN: Sin servicios en proceso ===
+[2025-11-07 05:31:16] === INICIO: Solicitud de obtener servicios en proceso ===
+[2025-11-07 05:31:16] ID Usuario: 48
+[2025-11-07 05:31:16] Conectando a la base de datos...
+[2025-11-07 05:31:16] Conexión exitosa. Preparando consulta...
+[2025-11-07 05:31:16] Consulta: SELECT 
+                    c.id_cotizacion,
+                    c.nombre_completo,
+                    c.marca_bicicleta,
+                    c.modelo_bicicleta,
+                    c.zona_afectada,
+                    c.tipo_trabajo,
+                    c.tipo_reparacion,
+                    c.descripcion_otros,
+                    c.estado,
+                    c.creado_en,
+                    c.actualizado_en,
+                    COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                    COUNT(DISTINCT cc.id_comentario) as total_comentarios,
+                    MAX(cpp.paso) as paso_actual
+              FROM cotizaciones_cliente c
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              LEFT JOIN cotizacion_progreso_cliente cpp ON c.id_cotizacion = cpp.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.actualizado_en DESC
+[2025-11-07 05:31:16] Consulta preparada
+[2025-11-07 05:31:16] Consulta ejecutada
+[2025-11-07 05:31:16] Servicios obtenidos: 0
+[2025-11-07 05:31:16] El usuario no tiene servicios en proceso
+[2025-11-07 05:31:16] === FIN: Sin servicios en proceso ===
+[2025-11-07 05:31:36] === INICIO: Solicitud de obtener servicios en proceso ===
+[2025-11-07 05:31:36] ID Usuario: 48
+[2025-11-07 05:31:36] Conectando a la base de datos...
+[2025-11-07 05:31:36] Conexión exitosa. Preparando consulta...
+[2025-11-07 05:31:36] Consulta: SELECT 
+                    c.id_cotizacion,
+                    c.nombre_completo,
+                    c.marca_bicicleta,
+                    c.modelo_bicicleta,
+                    c.zona_afectada,
+                    c.tipo_trabajo,
+                    c.tipo_reparacion,
+                    c.descripcion_otros,
+                    c.estado,
+                    c.creado_en,
+                    c.actualizado_en,
+                    COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                    COUNT(DISTINCT cc.id_comentario) as total_comentarios,
+                    MAX(cpp.paso) as paso_actual
+              FROM cotizaciones_cliente c
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              LEFT JOIN cotizacion_progreso_cliente cpp ON c.id_cotizacion = cpp.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.actualizado_en DESC
+[2025-11-07 05:31:36] Consulta preparada
+[2025-11-07 05:31:36] Consulta ejecutada
+[2025-11-07 05:31:36] Servicios obtenidos: 0
+[2025-11-07 05:31:36] El usuario no tiene servicios en proceso
+[2025-11-07 05:31:36] === FIN: Sin servicios en proceso ===
+[2025-11-07 05:37:19] === INICIO: Solicitud de obtener servicios en proceso ===
+[2025-11-07 05:37:19] ID Usuario: 48
+[2025-11-07 05:37:19] Conectando a la base de datos...
+[2025-11-07 05:37:19] Conexión exitosa. Preparando consulta...
+[2025-11-07 05:37:19] Consulta: SELECT 
+                    c.id_cotizacion,
+                    c.nombre_completo,
+                    c.marca_bicicleta,
+                    c.modelo_bicicleta,
+                    c.zona_afectada,
+                    c.tipo_trabajo,
+                    c.tipo_reparacion,
+                    c.descripcion_otros,
+                    c.estado,
+                    c.creado_en,
+                    c.actualizado_en,
+                    COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                    COUNT(DISTINCT cc.id_comentario) as total_comentarios,
+                    MAX(cpp.paso) as paso_actual
+              FROM cotizaciones_cliente c
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              LEFT JOIN cotizacion_progreso_cliente cpp ON c.id_cotizacion = cpp.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.actualizado_en DESC
+[2025-11-07 05:37:19] Consulta preparada
+[2025-11-07 05:37:19] Consulta ejecutada
+[2025-11-07 05:37:19] Servicios obtenidos: 1
+[2025-11-07 05:37:19] Servicios obtenidos con detalles | Datos: [{"id_cotizacion":15,"nombre_completo":"EREERERREE Ruiz P\u00e9rez","marca_bicicleta":"drfgthyjukl","modelo_bicicleta":"rtyuiop","zona_afectada":"45t6yui","tipo_trabajo":"EXPRESS","tipo_reparacion":"FISURA","descripcion_otros":null,"estado":"PENDIENTE","creado_en":"2025-11-06 22:32:06","actualizado_en":"2025-11-06 22:32:06","total_imagenes":1,"total_comentarios":0,"paso_actual":1,"imagenes":[{"id_imagen":15,"ruta_imagen":"..\/..\/Img_Servicios\/15\/img_690d764681c003.63536728.png","nombre_archivo":"LogoI.png"}],"comentarios":[],"progreso":[{"paso":1,"descripcion":"Cotizaci\u00f3n Enviada"}]}]
+[2025-11-07 05:37:19] === FIN: Servicios en proceso obtenidos correctamente ===
+[2025-11-07 06:18:17] === INICIO: Solicitud de obtener servicios en proceso ===
+[2025-11-07 06:18:17] ID Usuario: 48
+[2025-11-07 06:18:17] Conectando a la base de datos...
+[2025-11-07 06:18:17] Conexión exitosa. Preparando consulta...
+[2025-11-07 06:18:17] Consulta: SELECT 
+                    c.id_cotizacion,
+                    c.nombre_completo,
+                    c.marca_bicicleta,
+                    c.modelo_bicicleta,
+                    c.zona_afectada,
+                    c.tipo_trabajo,
+                    c.tipo_reparacion,
+                    c.descripcion_otros,
+                    c.estado,
+                    c.creado_en,
+                    c.actualizado_en,
+                    COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                    COUNT(DISTINCT cc.id_comentario) as total_comentarios,
+                    MAX(cpp.paso) as paso_actual
+              FROM cotizaciones_cliente c
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              LEFT JOIN cotizacion_progreso_cliente cpp ON c.id_cotizacion = cpp.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.actualizado_en DESC
+[2025-11-07 06:18:17] Consulta preparada
+[2025-11-07 06:18:17] Consulta ejecutada
+[2025-11-07 06:18:17] Servicios obtenidos: 1
+[2025-11-07 06:18:17] Servicios obtenidos con detalles | Datos: [{"id_cotizacion":15,"nombre_completo":"EREERERREE Ruiz P\u00e9rez","marca_bicicleta":"drfgthyjukl","modelo_bicicleta":"rtyuiop","zona_afectada":"45t6yui","tipo_trabajo":"EXPRESS","tipo_reparacion":"FISURA","descripcion_otros":null,"estado":"PENDIENTE","creado_en":"2025-11-06 22:32:06","actualizado_en":"2025-11-06 22:32:06","total_imagenes":1,"total_comentarios":0,"paso_actual":1,"imagenes":[{"id_imagen":15,"ruta_imagen":"..\/..\/Img_Servicios\/15\/img_690d764681c003.63536728.png","nombre_archivo":"LogoI.png"}],"comentarios":[],"progreso":[{"paso":1,"descripcion":"Cotizaci\u00f3n Enviada"}]}]
+[2025-11-07 06:18:17] === FIN: Servicios en proceso obtenidos correctamente ===

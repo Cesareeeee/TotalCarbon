@@ -2202,3 +2202,438 @@
 [2025-10-31 05:41:04] Fichas técnicas obtenidas: 1
 [2025-10-31 05:41:04] Fichas técnicas obtenidas con detalles | Datos: [{"id_cotizacion":2,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"M500","zona_afectada":"CUADRO","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"estado":"PENDIENTE","creado_en":"2025-10-30 22:41:00","actualizado_en":"2025-10-30 22:41:00","total_imagenes":1,"total_comentarios":0,"imagenes":[{"id_imagen":2,"ruta_imagen":"..\/..\/Img_Servicios\/2\/img_69043ddc359917.29878507.png","nombre_archivo":"ChatGPT Image 30 oct 2025, 22_32_29.png"}],"comentarios":[]}]
 [2025-10-31 05:41:04] === FIN: Fichas técnicas obtenidas correctamente ===
+[2025-11-06 05:20:32] === INICIO: Solicitud de obtener fichas técnicas ===
+[2025-11-06 05:20:32] Usuario ID: 29
+[2025-11-06 05:20:32] Conectando a la base de datos...
+[2025-11-06 05:20:32] Conexión exitosa. Preparando query...
+[2025-11-06 05:20:32] Query: SELECT 
+                c.id_cotizacion,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                c.estado,
+                c.creado_en,
+                c.actualizado_en,
+                COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                COUNT(DISTINCT cc.id_comentario) as total_comentarios
+              FROM cotizaciones_cliente c
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.creado_en DESC
+[2025-11-06 05:20:32] Query preparada
+[2025-11-06 05:20:32] Query ejecutada
+[2025-11-06 05:20:32] Fichas técnicas obtenidas: 0
+[2025-11-06 05:20:32] El usuario no tiene fichas técnicas
+[2025-11-06 05:20:32] === FIN: Sin fichas técnicas ===
+[2025-11-06 05:20:34] === INICIO: Solicitud de obtener fichas técnicas ===
+[2025-11-06 05:20:34] Usuario ID: 29
+[2025-11-06 05:20:34] Conectando a la base de datos...
+[2025-11-06 05:20:34] Conexión exitosa. Preparando query...
+[2025-11-06 05:20:34] Query: SELECT 
+                c.id_cotizacion,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                c.estado,
+                c.creado_en,
+                c.actualizado_en,
+                COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                COUNT(DISTINCT cc.id_comentario) as total_comentarios
+              FROM cotizaciones_cliente c
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.creado_en DESC
+[2025-11-06 05:20:34] Query preparada
+[2025-11-06 05:20:34] Query ejecutada
+[2025-11-06 05:20:34] Fichas técnicas obtenidas: 0
+[2025-11-06 05:20:34] El usuario no tiene fichas técnicas
+[2025-11-06 05:20:34] === FIN: Sin fichas técnicas ===
+[2025-11-06 05:21:21] === INICIO: Solicitud de obtener fichas técnicas ===
+[2025-11-06 05:21:21] Usuario ID: 29
+[2025-11-06 05:21:21] Conectando a la base de datos...
+[2025-11-06 05:21:21] Conexión exitosa. Preparando query...
+[2025-11-06 05:21:21] Query: SELECT 
+                c.id_cotizacion,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                c.estado,
+                c.creado_en,
+                c.actualizado_en,
+                COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                COUNT(DISTINCT cc.id_comentario) as total_comentarios
+              FROM cotizaciones_cliente c
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.creado_en DESC
+[2025-11-06 05:21:21] Query preparada
+[2025-11-06 05:21:21] Query ejecutada
+[2025-11-06 05:21:21] Fichas técnicas obtenidas: 1
+[2025-11-06 05:21:21] Fichas técnicas obtenidas con detalles | Datos: [{"id_cotizacion":4,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"drfgthyjukl","modelo_bicicleta":"rtyuiop","zona_afectada":"dfghjui","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"estado":"PENDIENTE","creado_en":"2025-11-05 22:21:18","actualizado_en":"2025-11-05 22:21:18","total_imagenes":1,"total_comentarios":0,"imagenes":[{"id_imagen":4,"ruta_imagen":"..\/..\/Img_Servicios\/4\/img_690c223e95a3b9.61707823.png","nombre_archivo":"LogoI.png"}],"comentarios":[]}]
+[2025-11-06 05:21:21] === FIN: Fichas técnicas obtenidas correctamente ===
+[2025-11-06 05:26:34] === INICIO: Solicitud de obtener fichas técnicas ===
+[2025-11-06 05:26:34] Usuario ID: 29
+[2025-11-06 05:26:34] Conectando a la base de datos...
+[2025-11-06 05:26:34] Conexión exitosa. Preparando query...
+[2025-11-06 05:26:34] Query: SELECT 
+                c.id_cotizacion,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                c.estado,
+                c.creado_en,
+                c.actualizado_en,
+                COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                COUNT(DISTINCT cc.id_comentario) as total_comentarios
+              FROM cotizaciones_cliente c
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.creado_en DESC
+[2025-11-06 05:26:34] Query preparada
+[2025-11-06 05:26:34] Query ejecutada
+[2025-11-06 05:26:34] Fichas técnicas obtenidas: 1
+[2025-11-06 05:26:34] Fichas técnicas obtenidas con detalles | Datos: [{"id_cotizacion":4,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"drfgthyjukl","modelo_bicicleta":"rtyuiop","zona_afectada":"dfghjui","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"estado":"PENDIENTE","creado_en":"2025-11-05 22:21:18","actualizado_en":"2025-11-05 22:21:18","total_imagenes":1,"total_comentarios":0,"imagenes":[{"id_imagen":4,"ruta_imagen":"..\/..\/Img_Servicios\/4\/img_690c223e95a3b9.61707823.png","nombre_archivo":"LogoI.png"}],"comentarios":[]}]
+[2025-11-06 05:26:34] === FIN: Fichas técnicas obtenidas correctamente ===
+[2025-11-06 05:26:34] === INICIO: Solicitud de obtener fichas técnicas ===
+[2025-11-06 05:26:34] Usuario ID: 29
+[2025-11-06 05:26:34] Conectando a la base de datos...
+[2025-11-06 05:26:34] Conexión exitosa. Preparando query...
+[2025-11-06 05:26:34] Query: SELECT 
+                c.id_cotizacion,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                c.estado,
+                c.creado_en,
+                c.actualizado_en,
+                COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                COUNT(DISTINCT cc.id_comentario) as total_comentarios
+              FROM cotizaciones_cliente c
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.creado_en DESC
+[2025-11-06 05:26:34] Query preparada
+[2025-11-06 05:26:34] Query ejecutada
+[2025-11-06 05:26:34] Fichas técnicas obtenidas: 1
+[2025-11-06 05:26:34] Fichas técnicas obtenidas con detalles | Datos: [{"id_cotizacion":4,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"drfgthyjukl","modelo_bicicleta":"rtyuiop","zona_afectada":"dfghjui","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"estado":"PENDIENTE","creado_en":"2025-11-05 22:21:18","actualizado_en":"2025-11-05 22:21:18","total_imagenes":1,"total_comentarios":0,"imagenes":[{"id_imagen":4,"ruta_imagen":"..\/..\/Img_Servicios\/4\/img_690c223e95a3b9.61707823.png","nombre_archivo":"LogoI.png"}],"comentarios":[]}]
+[2025-11-06 05:26:34] === FIN: Fichas técnicas obtenidas correctamente ===
+[2025-11-07 04:46:21] === INICIO: Solicitud de obtener fichas técnicas ===
+[2025-11-07 04:46:21] Usuario ID: 48
+[2025-11-07 04:46:21] Conectando a la base de datos...
+[2025-11-07 04:46:21] Conexión exitosa. Preparando query...
+[2025-11-07 04:46:21] Query: SELECT 
+                c.id_cotizacion,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                c.estado,
+                c.creado_en,
+                c.actualizado_en,
+                COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                COUNT(DISTINCT cc.id_comentario) as total_comentarios
+              FROM cotizaciones_cliente c
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.creado_en DESC
+[2025-11-07 04:46:21] Query preparada
+[2025-11-07 04:46:21] Query ejecutada
+[2025-11-07 04:46:21] Fichas técnicas obtenidas: 0
+[2025-11-07 04:46:21] El usuario no tiene fichas técnicas
+[2025-11-07 04:46:21] === FIN: Sin fichas técnicas ===
+[2025-11-07 04:46:23] === INICIO: Solicitud de obtener fichas técnicas ===
+[2025-11-07 04:46:23] Usuario ID: 48
+[2025-11-07 04:46:23] Conectando a la base de datos...
+[2025-11-07 04:46:23] Conexión exitosa. Preparando query...
+[2025-11-07 04:46:23] Query: SELECT 
+                c.id_cotizacion,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                c.estado,
+                c.creado_en,
+                c.actualizado_en,
+                COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                COUNT(DISTINCT cc.id_comentario) as total_comentarios
+              FROM cotizaciones_cliente c
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.creado_en DESC
+[2025-11-07 04:46:23] Query preparada
+[2025-11-07 04:46:23] Query ejecutada
+[2025-11-07 04:46:23] Fichas técnicas obtenidas: 0
+[2025-11-07 04:46:23] El usuario no tiene fichas técnicas
+[2025-11-07 04:46:23] === FIN: Sin fichas técnicas ===
+[2025-11-07 04:56:40] === INICIO: Solicitud de obtener fichas técnicas ===
+[2025-11-07 04:56:40] Usuario ID: 48
+[2025-11-07 04:56:40] Conectando a la base de datos...
+[2025-11-07 04:56:40] Conexión exitosa. Preparando query...
+[2025-11-07 04:56:40] Query: SELECT 
+                c.id_cotizacion,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                c.estado,
+                c.creado_en,
+                c.actualizado_en,
+                COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                COUNT(DISTINCT cc.id_comentario) as total_comentarios
+              FROM cotizaciones_cliente c
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.creado_en DESC
+[2025-11-07 04:56:40] Query preparada
+[2025-11-07 04:56:40] Query ejecutada
+[2025-11-07 04:56:40] Fichas técnicas obtenidas: 0
+[2025-11-07 04:56:40] El usuario no tiene fichas técnicas
+[2025-11-07 04:56:40] === FIN: Sin fichas técnicas ===
+[2025-11-07 05:13:45] === INICIO: Solicitud de obtener fichas técnicas ===
+[2025-11-07 05:13:45] Usuario ID: 48
+[2025-11-07 05:13:45] Conectando a la base de datos...
+[2025-11-07 05:13:45] Conexión exitosa. Preparando query...
+[2025-11-07 05:13:45] Query: SELECT 
+                c.id_cotizacion,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                c.estado,
+                c.creado_en,
+                c.actualizado_en,
+                COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                COUNT(DISTINCT cc.id_comentario) as total_comentarios
+              FROM cotizaciones_cliente c
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.creado_en DESC
+[2025-11-07 05:13:45] Query preparada
+[2025-11-07 05:13:45] Query ejecutada
+[2025-11-07 05:13:45] Fichas técnicas obtenidas: 0
+[2025-11-07 05:13:45] El usuario no tiene fichas técnicas
+[2025-11-07 05:13:45] === FIN: Sin fichas técnicas ===
+[2025-11-07 05:15:11] === INICIO: Solicitud de obtener fichas técnicas ===
+[2025-11-07 05:15:11] Usuario ID: 48
+[2025-11-07 05:15:11] Conectando a la base de datos...
+[2025-11-07 05:15:11] Conexión exitosa. Preparando query...
+[2025-11-07 05:15:11] Query: SELECT 
+                c.id_cotizacion,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                c.estado,
+                c.creado_en,
+                c.actualizado_en,
+                COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                COUNT(DISTINCT cc.id_comentario) as total_comentarios
+              FROM cotizaciones_cliente c
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.creado_en DESC
+[2025-11-07 05:15:11] Query preparada
+[2025-11-07 05:15:11] Query ejecutada
+[2025-11-07 05:15:11] Fichas técnicas obtenidas: 0
+[2025-11-07 05:15:11] El usuario no tiene fichas técnicas
+[2025-11-07 05:15:11] === FIN: Sin fichas técnicas ===
+[2025-11-07 05:15:40] === INICIO: Solicitud de obtener fichas técnicas ===
+[2025-11-07 05:15:40] Usuario ID: 48
+[2025-11-07 05:15:40] Conectando a la base de datos...
+[2025-11-07 05:15:40] Conexión exitosa. Preparando query...
+[2025-11-07 05:15:40] Query: SELECT 
+                c.id_cotizacion,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                c.estado,
+                c.creado_en,
+                c.actualizado_en,
+                COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                COUNT(DISTINCT cc.id_comentario) as total_comentarios
+              FROM cotizaciones_cliente c
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.creado_en DESC
+[2025-11-07 05:15:40] Query preparada
+[2025-11-07 05:15:40] Query ejecutada
+[2025-11-07 05:15:40] Fichas técnicas obtenidas: 0
+[2025-11-07 05:15:40] El usuario no tiene fichas técnicas
+[2025-11-07 05:15:40] === FIN: Sin fichas técnicas ===
+[2025-11-07 05:31:16] === INICIO: Solicitud de obtener fichas técnicas ===
+[2025-11-07 05:31:16] Usuario ID: 48
+[2025-11-07 05:31:16] Conectando a la base de datos...
+[2025-11-07 05:31:16] Conexión exitosa. Preparando query...
+[2025-11-07 05:31:16] Query: SELECT 
+                c.id_cotizacion,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                c.estado,
+                c.creado_en,
+                c.actualizado_en,
+                COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                COUNT(DISTINCT cc.id_comentario) as total_comentarios
+              FROM cotizaciones_cliente c
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.creado_en DESC
+[2025-11-07 05:31:16] Query preparada
+[2025-11-07 05:31:16] Query ejecutada
+[2025-11-07 05:31:16] Fichas técnicas obtenidas: 0
+[2025-11-07 05:31:16] El usuario no tiene fichas técnicas
+[2025-11-07 05:31:16] === FIN: Sin fichas técnicas ===
+[2025-11-07 05:31:36] === INICIO: Solicitud de obtener fichas técnicas ===
+[2025-11-07 05:31:36] Usuario ID: 48
+[2025-11-07 05:31:36] Conectando a la base de datos...
+[2025-11-07 05:31:36] Conexión exitosa. Preparando query...
+[2025-11-07 05:31:36] Query: SELECT 
+                c.id_cotizacion,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                c.estado,
+                c.creado_en,
+                c.actualizado_en,
+                COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                COUNT(DISTINCT cc.id_comentario) as total_comentarios
+              FROM cotizaciones_cliente c
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.creado_en DESC
+[2025-11-07 05:31:36] Query preparada
+[2025-11-07 05:31:36] Query ejecutada
+[2025-11-07 05:31:36] Fichas técnicas obtenidas: 0
+[2025-11-07 05:31:36] El usuario no tiene fichas técnicas
+[2025-11-07 05:31:36] === FIN: Sin fichas técnicas ===
+[2025-11-07 05:37:19] === INICIO: Solicitud de obtener fichas técnicas ===
+[2025-11-07 05:37:19] Usuario ID: 48
+[2025-11-07 05:37:19] Conectando a la base de datos...
+[2025-11-07 05:37:19] Conexión exitosa. Preparando query...
+[2025-11-07 05:37:19] Query: SELECT 
+                c.id_cotizacion,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                c.estado,
+                c.creado_en,
+                c.actualizado_en,
+                COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                COUNT(DISTINCT cc.id_comentario) as total_comentarios
+              FROM cotizaciones_cliente c
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.creado_en DESC
+[2025-11-07 05:37:19] Query preparada
+[2025-11-07 05:37:19] Query ejecutada
+[2025-11-07 05:37:19] Fichas técnicas obtenidas: 1
+[2025-11-07 05:37:19] Fichas técnicas obtenidas con detalles | Datos: [{"id_cotizacion":15,"nombre_completo":"EREERERREE Ruiz P\u00e9rez","marca_bicicleta":"drfgthyjukl","modelo_bicicleta":"rtyuiop","zona_afectada":"45t6yui","tipo_trabajo":"EXPRESS","tipo_reparacion":"FISURA","descripcion_otros":null,"estado":"PENDIENTE","creado_en":"2025-11-06 22:32:06","actualizado_en":"2025-11-06 22:32:06","total_imagenes":1,"total_comentarios":0,"imagenes":[{"id_imagen":15,"ruta_imagen":"..\/..\/Img_Servicios\/15\/img_690d764681c003.63536728.png","nombre_archivo":"LogoI.png"}],"comentarios":[]}]
+[2025-11-07 05:37:19] === FIN: Fichas técnicas obtenidas correctamente ===
+[2025-11-07 06:18:17] === INICIO: Solicitud de obtener fichas técnicas ===
+[2025-11-07 06:18:17] Usuario ID: 48
+[2025-11-07 06:18:17] Conectando a la base de datos...
+[2025-11-07 06:18:17] Conexión exitosa. Preparando query...
+[2025-11-07 06:18:17] Query: SELECT 
+                c.id_cotizacion,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                c.estado,
+                c.creado_en,
+                c.actualizado_en,
+                COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                COUNT(DISTINCT cc.id_comentario) as total_comentarios
+              FROM cotizaciones_cliente c
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.creado_en DESC
+[2025-11-07 06:18:17] Query preparada
+[2025-11-07 06:18:17] Query ejecutada
+[2025-11-07 06:18:17] Fichas técnicas obtenidas: 1
+[2025-11-07 06:18:17] Fichas técnicas obtenidas con detalles | Datos: [{"id_cotizacion":15,"nombre_completo":"EREERERREE Ruiz P\u00e9rez","marca_bicicleta":"drfgthyjukl","modelo_bicicleta":"rtyuiop","zona_afectada":"45t6yui","tipo_trabajo":"EXPRESS","tipo_reparacion":"FISURA","descripcion_otros":null,"estado":"PENDIENTE","creado_en":"2025-11-06 22:32:06","actualizado_en":"2025-11-06 22:32:06","total_imagenes":1,"total_comentarios":0,"imagenes":[{"id_imagen":15,"ruta_imagen":"..\/..\/Img_Servicios\/15\/img_690d764681c003.63536728.png","nombre_archivo":"LogoI.png"}],"comentarios":[]}]
+[2025-11-07 06:18:17] === FIN: Fichas técnicas obtenidas correctamente ===

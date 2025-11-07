@@ -834,35 +834,42 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
             </div>
         </section>
     </main>
-    <!-- Chat Container -->
-    <div class="chat-container" id="chatContainer">
-        <div class="chat-header">
-            <h4>Chat con Soporte</h4>
-            <button class="chat-close" id="chatClose" title="Cerrar">
-                <i class="fas fa-times"></i>
-            </button>
+    <!-- Chat Section -->
+    <section class="content-section" id="chat">
+        <div class="page-header">
+            <h1>Chat con Soporte</h1>
+            <p>Contacta con nuestro equipo de soporte técnico</p>
         </div>
-        
-        <div class="chat-tabs">
-            <div class="chat-tab active" data-tab="current">Conversación Actual</div>
-            <div class="chat-tab" data-tab="history">Historial de Chat</div>
+
+        <div class="chat-container">
+            <div class="chat-main">
+                <div class="chat-header">
+                    <div class="chat-user-info">
+                        <i class="fas fa-headset"></i>
+                        <div class="user-details">
+                            <span class="user-name">Soporte TotalCarbon</span>
+                            <span class="user-status">En línea</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-messages" id="chatMessages">
+                    <div class="no-messages">
+                        <i class="fas fa-comments"></i>
+                        <p>¡Hola! ¿En qué podemos ayudarte hoy?</p>
+                        <small>Envía un mensaje para iniciar la conversación</small>
+                    </div>
+                </div>
+
+                <div class="chat-input-container">
+                    <input type="text" class="chat-input" id="mensajeChat" placeholder="Escribe un mensaje..." maxlength="1000">
+                    <button class="chat-send-btn" id="enviarMensajeBtn" title="Enviar mensaje">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
         </div>
-        
-        <div class="chat-messages active" id="currentChatMessages">
-            <!-- Los mensajes se cargarán dinámicamente -->
-        </div>
-        
-        <div class="chat-messages" id="historyChatMessages">
-            <!-- El historial se cargará dinámicamente -->
-        </div>
-        
-        <div class="chat-input-container">
-            <input type="text" class="chat-input" id="chatInput" placeholder="Escribe un mensaje...">
-            <button class="chat-send-btn" id="chatSendBtn" title="Enviar">
-                <i class="fas fa-paper-plane"></i>
-            </button>
-        </div>
-    </div>
+    </section>
 
     <!-- Chat FAB -->
     <button class="chat-fab" id="chatFab">
@@ -914,6 +921,7 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
     <script src="../../recursos/js/Cliente/PaginaCliente.js?v=34534236"></script>
     <script src="../../recursos/js/Cliente/FichasTecnicas.js?V=54564"></script>
     <script src="../../recursos/js/Cliente/ServiciosProceso.js?V=54674"></script>
+    <script src="../../recursos/js/Cliente/chat_cliente.js?v=999999"></script>
 </body>
 
 </html>

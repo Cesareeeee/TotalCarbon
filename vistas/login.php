@@ -203,6 +203,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <!-- JS Personalizado -->
-    <script src="../recursos/js/login.js?v=34567876"></script>
+    <script src="../recursos/js/login.js?v=3456"></script>
 </body>
 </html>

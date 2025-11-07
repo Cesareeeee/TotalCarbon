@@ -564,8 +564,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.btn-social').forEach(boton => {
         boton.addEventListener('click', function() {
             Swal.fire({
-                title: 'Conectando con Google',
-                text: 'Redirigiendo a Google OAuth...',
+                title: 'Por el momento no funciona',
+                text: 'Estamos trabajando en ello',
                 icon: 'info',
                 background: '#000000',
                 color: '#ffffff',
