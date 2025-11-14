@@ -261,6 +261,57 @@
 }
 
 /* ============================================
+   ESTADO DE ACEPTACIÓN
+   ============================================ */
+
+.estado-aceptacion {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.estado-aceptacion .badge {
+    align-self: flex-start;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.badge-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.badge-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.badge-warning {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+/* ============================================
+   PIEZAS
+   ============================================ */
+
+.list-group-item {
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    background: white;
+}
+
+.list-group-item strong {
+    color: #333;
+}
+
+.list-group-item small {
+    color: #666;
+}
+
+/* ============================================
    ACCIONES
    ============================================ */
 

@@ -25,7 +25,8 @@ try {
     $progreso = $servicio->obtenerProgreso($id);
     $imagenes = $servicio->obtenerImagenesProceso($id);
     $comentarios = $servicio->obtenerComentarios($id);
-    responder(['success' => true, 'progreso' => $progreso, 'imagenes' => $imagenes, 'comentarios' => $comentarios]);
+    $aceptacion = $servicio->obtenerAceptacion($id);
+    responder(['success' => true, 'progreso' => $progreso, 'imagenes' => $imagenes, 'comentarios' => $comentarios, 'aceptacion' => $aceptacion]);
 } catch (Throwable $e) {
     responder(['success' => false, 'message' => $e->getMessage()], 500);
 }

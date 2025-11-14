@@ -4,11 +4,6 @@ if (ob_get_level()) {
     ob_end_clean();
 }
 
-// Incluir PHPMailer
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
-
 // Cargar autoloader de Composer
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -39,8 +34,9 @@ function enviarRespuesta($exito, $mensaje, $datos = []) {
 
 // Función para enviar correo real
 function enviarCorreoRecuperacion($correo, $codigo) {
-    $mail = new PHPMailer(true);
-    
+    error_log("Intentando enviar correo a: $correo con código: $codigo");
+    $mail = new PHPMailer\PHPMailer\PHPMailer(true);
+
     try {
         // Configuración del servidor
         $mail->isSMTP();
@@ -48,8 +44,10 @@ function enviarCorreoRecuperacion($correo, $codigo) {
         $mail->SMTPAuth   = true;
         $mail->Username   = 'crkendok@gmail.com';  // Tu correo Gmail
         $mail->Password   = 'hykw efou csao hhfs';     // Tu contraseña de aplicación
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+        $mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
         $mail->Port       = 465;
+        $mail->CharSet    = 'UTF-8';  // Configurar charset UTF-8
+        error_log("Configuración SMTP completada");
         
         // Remitente y destinatario
         $mail->setFrom('tu_email@gmail.com', 'Total Carbon');
@@ -62,7 +60,7 @@ function enviarCorreoRecuperacion($correo, $codigo) {
         $mail->Body = '
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #f9f9f9; padding: 20px; border-radius: 10px;">
             <div style="text-align: center; margin-bottom: 30px;">
-                <img src="PONER IMAGEN AQUIIII" alt="PONER IMAGEN AQUIII" style="max-width: 200px;">
+                <img src="https://i.ibb.co/3ySCGvxS/logo2.png" alt="Total Carbon Logo" style="max-width: 200px;">
             </div>
             
             <div style="background-color: #ffffff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
@@ -95,10 +93,12 @@ function enviarCorreoRecuperacion($correo, $codigo) {
         $mail->AltBody = "Tu código de recuperación es: $codigo\n\nEste código expirará en 15 minutos.";
         
         $mail->send();
+        error_log("Correo enviado exitosamente");
         return true;
-        
+
     } catch (Exception $e) {
         error_log("Error al enviar correo: " . $mail->ErrorInfo);
+        error_log("Excepción completa: " . $e->getMessage());
         return false;
     }
 }
@@ -108,7 +108,10 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     enviarRespuesta(false, "Método no permitido");
 }
 
- $accion = isset($_POST['accion']) ? trim($_POST['accion']) : '';
+$accion = isset($_POST['accion']) ? trim($_POST['accion']) : '';
+
+error_log("Acción recibida: " . $accion);
+error_log("POST data: " . print_r($_POST, true));
 
 if (empty($accion)) {
     enviarRespuesta(false, "Acción no especificada");
@@ -117,12 +120,14 @@ if (empty($accion)) {
 try {
     switch ($accion) {
         case 'solicitar_recuperacion':
+            error_log("Procesando solicitud de recuperación");
             $correo = isset($_POST['correo']) ? trim($_POST['correo']) : '';
-            
+            error_log("Correo recibido: " . $correo);
+
             if (empty($correo)) {
                 enviarRespuesta(false, "El correo electrónico es necesario");
             }
-            
+
             // Validar formato de correo
             if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
                 enviarRespuesta(false, "Formato de correo electrónico inválido");
@@ -131,9 +136,14 @@ try {
             // Buscar usuario por correo
             $correo = $conexion->real_escape_string($correo);
             $consulta = "SELECT id_usuario, nombres, correo_electronico FROM usuarios WHERE correo_electronico = '$correo' AND estado_usuario = 1";
-            
+            error_log("Consulta SQL: " . $consulta);
+
             $resultado = $conexion->query($consulta);
-            
+            error_log("Resultado de consulta: " . ($resultado ? "éxito" : "fallo"));
+            if ($resultado) {
+                error_log("Número de filas: " . $resultado->num_rows);
+            }
+
             if ($resultado && $resultado->num_rows > 0) {
                 $usuario = $resultado->fetch_assoc();
                 $id_usuario = $usuario['id_usuario'];
@@ -152,18 +162,21 @@ try {
                                   VALUES ($id_usuario, '$codigo_recuperacion', '$fecha_expiracion', 0, NOW())";
                 
                 if ($conexion->query($consulta_insert)) {
+                    error_log("Código insertado correctamente");
                     // Enviar correo real
                     if (enviarCorreoRecuperacion($usuario['correo_electronico'], $codigo_recuperacion)) {
                         error_log("Código de recuperación enviado a: {$usuario['correo_electronico']}, Código: $codigo_recuperacion");
-                        
+
                         enviarRespuesta(true, "Hemos enviado un código de recuperación a tu correo electrónico", [
                             'id_usuario' => $id_usuario,
                             'correo' => $correo
                         ]);
                     } else {
+                        error_log("Error al enviar correo");
                         enviarRespuesta(false, "Error al enviar el correo de recuperación");
                     }
                 } else {
+                    error_log("Error al insertar código: " . $conexion->error);
                     enviarRespuesta(false, "Error al generar el código de recuperación");
                 }
             } else {
@@ -282,6 +295,7 @@ try {
     }
 } catch (Exception $e) {
     error_log("Error en recuperar_contrasena.php: " . $e->getMessage());
+    error_log("Stack trace: " . $e->getTraceAsString());
     enviarRespuesta(false, "Error del sistema. Por favor, intenta más tarde.");
 }
 ?>

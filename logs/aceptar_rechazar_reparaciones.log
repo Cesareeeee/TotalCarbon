@@ -1,0 +1,99 @@
+[2025-11-14 05:00:02] === INICIO: Solicitud de aceptar/rechazar reparaciones ===
+[2025-11-14 05:00:02] ID Usuario: 13
+[2025-11-14 05:00:02] Datos de entrada | Datos: {"id_cotizacion":31,"decision":"ACEPTADA"}
+[2025-11-14 05:00:02] ID Cotización: 31, Decisión: ACEPTADA
+[2025-11-14 05:00:02] Conectando a la base de datos...
+[2025-11-14 05:00:02] Conexión exitosa. Verificando propiedad de la cotización...
+[2025-11-14 05:00:02] ERROR: La decisión ya fue tomada
+[2025-11-14 05:00:07] === INICIO: Solicitud de aceptar/rechazar reparaciones ===
+[2025-11-14 05:00:07] ID Usuario: 13
+[2025-11-14 05:00:07] Datos de entrada | Datos: {"id_cotizacion":31,"decision":"RECHAZADA"}
+[2025-11-14 05:00:07] ID Cotización: 31, Decisión: RECHAZADA
+[2025-11-14 05:00:07] Conectando a la base de datos...
+[2025-11-14 05:00:07] Conexión exitosa. Verificando propiedad de la cotización...
+[2025-11-14 05:00:07] ERROR: La decisión ya fue tomada
+[2025-11-14 05:00:12] === INICIO: Solicitud de aceptar/rechazar reparaciones ===
+[2025-11-14 05:00:12] ID Usuario: 13
+[2025-11-14 05:00:12] Datos de entrada | Datos: {"id_cotizacion":31,"decision":"ACEPTADA"}
+[2025-11-14 05:00:12] ID Cotización: 31, Decisión: ACEPTADA
+[2025-11-14 05:00:12] Conectando a la base de datos...
+[2025-11-14 05:00:12] Conexión exitosa. Verificando propiedad de la cotización...
+[2025-11-14 05:00:12] ERROR: La decisión ya fue tomada
+[2025-11-14 05:20:06] === INICIO: Solicitud de aceptar/rechazar reparaciones ===
+[2025-11-14 05:20:06] ID Usuario: 13
+[2025-11-14 05:20:06] Datos de entrada | Datos: {"id_cotizacion":34,"decision":"ACEPTADA"}
+[2025-11-14 05:20:06] ID Cotización: 34, Decisión: ACEPTADA
+[2025-11-14 05:20:06] Conectando a la base de datos...
+[2025-11-14 05:20:06] Conexión exitosa. Verificando propiedad de la cotización...
+[2025-11-14 05:20:06] Actualizando decisión en la base de datos...
+[2025-11-14 05:20:06] Decisión actualizada exitosamente
+[2025-11-14 05:20:06] Comentario agregado
+[2025-11-14 05:37:09] === INICIO: Solicitud de aceptar/rechazar reparaciones ===
+[2025-11-14 05:37:09] ID Usuario: 13
+[2025-11-14 05:37:09] Datos de entrada | Datos: {"id_cotizacion":37,"decision":"ACEPTADA"}
+[2025-11-14 05:37:09] ID Cotización: 37, Decisión: ACEPTADA
+[2025-11-14 05:37:09] Conectando a la base de datos...
+[2025-11-14 05:37:09] Conexión exitosa. Verificando propiedad de la cotización...
+[2025-11-14 05:37:09] ERROR: La cotización no está en estado EN_PROCESO
+[2025-11-14 05:37:13] === INICIO: Solicitud de aceptar/rechazar reparaciones ===
+[2025-11-14 05:37:13] ID Usuario: 13
+[2025-11-14 05:37:13] Datos de entrada | Datos: {"id_cotizacion":37,"decision":"ACEPTADA"}
+[2025-11-14 05:37:13] ID Cotización: 37, Decisión: ACEPTADA
+[2025-11-14 05:37:13] Conectando a la base de datos...
+[2025-11-14 05:37:13] Conexión exitosa. Verificando propiedad de la cotización...
+[2025-11-14 05:37:13] ERROR: La cotización no está en estado EN_PROCESO
+[2025-11-14 05:40:03] === INICIO: Solicitud de aceptar/rechazar reparaciones ===
+[2025-11-14 05:40:03] ID Usuario: 13
+[2025-11-14 05:40:03] Datos de entrada | Datos: {"id_cotizacion":37,"decision":"ACEPTADA"}
+[2025-11-14 05:40:03] ID Cotización: 37, Decisión: ACEPTADA
+[2025-11-14 05:40:03] Conectando a la base de datos...
+[2025-11-14 05:40:03] Conexión exitosa. Verificando propiedad de la cotización...
+[2025-11-14 05:40:03] ERROR: La cotización no está en estado EN_PROCESO
+[2025-11-14 05:40:05] === INICIO: Solicitud de aceptar/rechazar reparaciones ===
+[2025-11-14 05:40:05] ID Usuario: 13
+[2025-11-14 05:40:05] Datos de entrada | Datos: {"id_cotizacion":37,"decision":"ACEPTADA"}
+[2025-11-14 05:40:05] ID Cotización: 37, Decisión: ACEPTADA
+[2025-11-14 05:40:05] Conectando a la base de datos...
+[2025-11-14 05:40:05] Conexión exitosa. Verificando propiedad de la cotización...
+[2025-11-14 05:40:05] ERROR: La cotización no está en estado EN_PROCESO
+[2025-11-14 05:40:54] === INICIO: Solicitud de aceptar/rechazar reparaciones ===
+[2025-11-14 05:40:54] ID Usuario: 13
+[2025-11-14 05:40:54] Datos de entrada | Datos: {"id_cotizacion":38,"decision":"ACEPTADA"}
+[2025-11-14 05:40:54] ID Cotización: 38, Decisión: ACEPTADA
+[2025-11-14 05:40:54] Conectando a la base de datos...
+[2025-11-14 05:40:54] Conexión exitosa. Verificando propiedad de la cotización...
+[2025-11-14 05:40:54] ERROR: La cotización no está en estado EN_PROCESO
+[2025-11-14 05:43:17] === INICIO: Solicitud de aceptar/rechazar reparaciones ===
+[2025-11-14 05:43:17] ID Usuario: 13
+[2025-11-14 05:43:17] Datos de entrada | Datos: {"id_cotizacion":38,"decision":"ACEPTADA"}
+[2025-11-14 05:43:17] ID Cotización: 38, Decisión: ACEPTADA
+[2025-11-14 05:43:17] Conectando a la base de datos...
+[2025-11-14 05:43:17] Conexión exitosa. Verificando propiedad de la cotización...
+[2025-11-14 05:43:17] Actualizando decisión en la base de datos...
+[2025-11-14 05:43:17] Decisión actualizada exitosamente
+[2025-11-14 05:43:17] Comentario agregado
+[2025-11-14 05:43:32] === INICIO: Solicitud de aceptar/rechazar reparaciones ===
+[2025-11-14 05:43:32] ID Usuario: 13
+[2025-11-14 05:43:32] Datos de entrada | Datos: {"id_cotizacion":37,"decision":"ACEPTADA"}
+[2025-11-14 05:43:32] ID Cotización: 37, Decisión: ACEPTADA
+[2025-11-14 05:43:32] Conectando a la base de datos...
+[2025-11-14 05:43:32] Conexión exitosa. Verificando propiedad de la cotización...
+[2025-11-14 05:43:32] Actualizando decisión en la base de datos...
+[2025-11-14 05:43:32] Decisión actualizada exitosamente
+[2025-11-14 05:43:32] Comentario agregado
+[2025-11-14 05:45:51] === INICIO: Solicitud de aceptar/rechazar reparaciones ===
+[2025-11-14 05:45:51] ID Usuario: 13
+[2025-11-14 05:45:51] Datos de entrada | Datos: {"id_cotizacion":39,"decision":"ACEPTADA"}
+[2025-11-14 05:45:51] ID Cotización: 39, Decisión: ACEPTADA
+[2025-11-14 05:45:51] Conectando a la base de datos...
+[2025-11-14 05:45:51] Conexión exitosa. Verificando propiedad de la cotización...
+[2025-11-14 05:45:51] Actualizando decisión en la base de datos...
+[2025-11-14 05:45:51] Decisión actualizada exitosamente
+[2025-11-14 05:45:51] Comentario agregado
+[2025-11-14 05:46:29] === INICIO: Solicitud de aceptar/rechazar reparaciones ===
+[2025-11-14 05:46:29] ID Usuario: 13
+[2025-11-14 05:46:29] Datos de entrada | Datos: {"id_cotizacion":39,"decision":"ACEPTADA"}
+[2025-11-14 05:46:29] ID Cotización: 39, Decisión: ACEPTADA
+[2025-11-14 05:46:29] Conectando a la base de datos...
+[2025-11-14 05:46:29] Conexión exitosa. Verificando propiedad de la cotización...
+[2025-11-14 05:46:29] ERROR: La decisión ya fue tomada

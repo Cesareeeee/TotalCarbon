@@ -148,4 +148,20 @@ class CotizacionCliente
         $st->execute([':id' => $idCotizacion]);
         return $st->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function obtenerAceptacion(int $idCotizacion): string
+    {
+        $sql = "SELECT reparacion_aceptada_cliente FROM cotizaciones_cliente WHERE id_cotizacion = :id";
+        $st = $this->db->prepare($sql);
+        $st->execute([':id' => $idCotizacion]);
+        $result = $st->fetch(PDO::FETCH_ASSOC);
+        return $result ? $result['reparacion_aceptada_cliente'] : 'NO_ACEPTADA';
+    }
+
+    public function actualizarAceptacion(int $idCotizacion, string $aceptacion): bool
+    {
+        $sql = "UPDATE cotizaciones_cliente SET reparacion_aceptada_cliente = :aceptacion WHERE id_cotizacion = :id";
+        $st = $this->db->prepare($sql);
+        return $st->execute([':aceptacion' => $aceptacion, ':id' => $idCotizacion]);
+    }
 }

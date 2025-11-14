@@ -103,3 +103,27 @@ INSERT INTO `cotizacion_progreso_cliente` (
 -- Ver comentarios de una cotización
 -- SELECT * FROM cotizacion_comentarios_cliente WHERE id_cotizacion = 1;
 
+-- Tabla: garantias_cliente
+-- Descripción: Almacena las garantías de las cotizaciones completadas
+CREATE TABLE IF NOT EXISTS `garantias_cliente` (
+  `id_garantia` INT AUTO_INCREMENT PRIMARY KEY,
+  `id_cotizacion` INT NOT NULL,
+  `descripcion` VARCHAR(255) NOT NULL,
+  `fecha_inicio` DATE NOT NULL,
+  `fecha_fin` DATE NOT NULL,
+  `estado` ENUM('ACTIVA', 'VENCIDA', 'POR_VENCER') DEFAULT 'ACTIVA',
+  `creado_en` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (`id_cotizacion`) REFERENCES `cotizaciones_cliente`(`id_cotizacion`) ON DELETE CASCADE,
+  INDEX `idx_cotizacion` (`id_cotizacion`),
+  INDEX `idx_estado` (`estado`),
+  INDEX `idx_fecha_fin` (`fecha_fin`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Insertar garantías de prueba
+INSERT INTO `garantias_cliente` (
+  `id_cotizacion`, `descripcion`, `fecha_inicio`, `fecha_fin`, `estado`
+) VALUES
+(1, 'Reparación de Cuadro - Tracer LILA', '2025-01-15', '2025-07-15', 'ACTIVA'),
+(1, 'Pintura Personalizada - INTENSE', '2025-02-01', '2025-05-01', 'POR_VENCER'),
+(1, 'Reparación de Horquilla - ROCKSHOX', '2025-12-10', '2026-12-10', 'ACTIVA');
+

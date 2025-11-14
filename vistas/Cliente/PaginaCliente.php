@@ -28,7 +28,7 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link rel="stylesheet" href="../../recursos/css/Cliente/PaginaCliente.css?v=3456444789">
+    <link rel="stylesheet" href="../../recursos/css/Cliente/PaginaCliente.css?v=999999999993">
 
     <!-- Estilos adicionales para el botón Actualizar (se integran con el proyecto) -->
     <style>
@@ -55,6 +55,114 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
 
         /* Asegura que el overlay de carga se muestre centrado en flex */
         #loadingOverlay { display: none; align-items: center; justify-content: center; }
+
+        /* Botones de decisión para reparaciones */
+        .botones-decision-reparaciones {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 1px solid #dee2e6;
+        }
+
+        .botones-decision-reparaciones .btn {
+            padding: 12px 24px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .botones-decision-reparaciones .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .botones-decision-reparaciones .btn-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+
+        .botones-decision-reparaciones .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+
+        /* Notificación de actualización automática */
+        .notification.success {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+
+        .notification.success i {
+            color: #28a745;
+        }
+
+        /* Estilos para filtros */
+        .filter-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-controls .btn-ver-detalles {
+            font-size: 0.875rem;
+            padding: 6px 12px;
+        }
+
+        .filter-controls .form-select {
+            min-width: 150px;
+            border-radius: 6px;
+            border: 1px solid #ced4da;
+            font-size: 0.875rem;
+        }
+
+        .filter-controls .form-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+
+        /* Estilos específicos para el botón "Ver Detalles" */
+        .btn-ver-detalles {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(0, 123, 255, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-ver-detalles:hover {
+            background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(0, 123, 255, 0.4);
+            color: white;
+        }
+
+        .btn-ver-detalles:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 6px rgba(0, 123, 255, 0.3);
+        }
+
+        .btn-ver-detalles i {
+            font-size: 0.8rem;
+        }
+
+        .btn-ver-detalles:focus {
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            outline: none;
+        }
+
     </style>
 </head>
 <body>
@@ -177,6 +285,11 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
                     <i class="fas fa-shield-alt"></i>
                     <h3>Mis Garantías</h3>
                     <p>Consulta tus garantías activas</p>
+                </a>
+                <a href="#" class="dashboard-card warning" data-section="chat">
+                    <i class="fas fa-comments"></i>
+                    <h3>Chat con Soporte</h3>
+                    <p>Contacta con nuestro equipo de soporte técnico</p>
                 </a>
             </div>
         </section>
@@ -448,7 +561,7 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
                                 </div>
                             </div>
                         </div>
-                       
+
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
                             <button type="button" class="btn btn-outline-primary me-md-2" id="resetBtn">
                                 <i class="fas fa-redo me-2"></i>Limpiar Formulario
@@ -506,15 +619,84 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
                     <i class="fas fa-bell me-2"></i>Notificaciones de Mantenimiento
                 </div>
                 <div class="card-body">
-                    <div class="alert alert-warning" role="alert">
+                    <div class="alert alert-danger" role="alert">
                         <i class="fas fa-exclamation-triangle me-2"></i>
                         <strong>Recordatorio:</strong> Tu garantía para "Pintura Personalizada - INTENSE" vence en 15 días.
                         <a href="#" class="alert-link">Programa mantenimiento</a>
                     </div>
-                   
-                    <div class="alert alert-info" role="alert">
+    
+                    <div class="alert alert-warning" role="alert">
                         <i class="fas fa-info-circle me-2"></i>
                         <strong>Información:</strong> Te enviaremos notificaciones 30 días antes del vencimiento de cada garantía.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal para detalles de garantía -->
+            <div class="modal fade" id="garantiaModal" tabindex="-1" aria-labelledby="garantiaModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="garantiaModalLabel">Detalles de la Garantía</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="card h-100 border-primary">
+                                        <div class="card-header bg-primary text-white">
+                                            <h6 class="mb-0"><i class="fas fa-user"></i> Usuario</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="mb-0"><i class="fas fa-user-circle text-primary"></i> <strong>Nombre Completo:</strong> <span id="modalNombreCompleto"></span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card h-100 border-success">
+                                        <div class="card-header bg-success text-white">
+                                            <h6 class="mb-0"><i class="fas fa-shield-alt"></i> Garantía</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="mb-2"><i class="fas fa-tag text-success"></i> <strong>Tipo:</strong> <span id="modalTipoGarantia"></span></p>
+                                            <p class="mb-2"><i class="fas fa-info-circle text-success"></i> <strong>Cobertura:</strong> <span id="modalCobertura"></span></p>
+                                            <p class="mb-2"><i class="fas fa-check-circle text-success"></i> <strong>Estado:</strong> <span id="modalEstado"></span></p>
+                                            <p class="mb-2"><i class="fas fa-calendar-plus text-success"></i> <strong>Inicio:</strong> <span id="modalFechaInicio"></span></p>
+                                            <p class="mb-0"><i class="fas fa-calendar-times text-success"></i> <strong>Fin:</strong> <span id="modalFechaFin"></span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card h-100 border-info">
+                                        <div class="card-header bg-info text-white">
+                                            <h6 class="mb-0"><i class="fas fa-bicycle"></i> Bicicleta</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="mb-2"><i class="fas fa-industry text-info"></i> <strong>Marca:</strong> <span id="modalMarca"></span></p>
+                                            <p class="mb-2"><i class="fas fa-cogs text-info"></i> <strong>Modelo:</strong> <span id="modalModelo"></span></p>
+                                            <p class="mb-2"><i class="fas fa-map-marker-alt text-info"></i> <strong>Zona Afectada:</strong> <span id="modalZonaAfectada"></span></p>
+                                            <p class="mb-2"><i class="fas fa-tools text-info"></i> <strong>Tipo Trabajo:</strong> <span id="modalTipoTrabajo"></span></p>
+                                            <p class="mb-0"><i class="fas fa-wrench text-info"></i> <strong>Reparación:</strong> <span id="modalTipoReparacion"></span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <div class="card border-warning">
+                                        <div class="card-header bg-warning text-dark">
+                                            <h6 class="mb-0"><i class="fas fa-comment"></i> Descripción Adicional</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="mb-0"><span id="modalDescripcionOtros">N/A</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -527,7 +709,19 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
             </div>
             <div class="card">
                 <div class="card-header">
-                    <i class="fas fa-wrench me-2"></i>Estado de tus Reparaciones
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span><i class="fas fa-wrench me-2"></i>Estado de tus Reparaciones</span>
+                        <div class="filter-controls">
+                            <select id="filtroEstadoServicios" class="form-select form-select-sm" style="width: auto;">
+                                <option value="todos">Todos los Estados</option>
+                                <option value="PENDIENTE">Pendiente</option>
+                                <option value="APROBADA">Aprobada</option>
+                                <option value="RECHAZADA">Rechazada</option>
+                                <option value="EN_PROCESO">En Proceso</option>
+                                <option value="COMPLETADO">Completado</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <!-- Lista de Servicios en Proceso -->
@@ -551,6 +745,7 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
                             <!-- Los comentarios se cargarán aquí dinámicamente -->
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -562,7 +757,19 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
             </div>
             <div class="card">
                 <div class="card-header">
-                    <i class="fas fa-file-alt me-2"></i>Fichas Técnicas - Historial de Trabajos
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span><i class="fas fa-file-alt me-2"></i>Fichas Técnicas - Historial de Trabajos</span>
+                        <div class="filter-controls">
+                            <select id="filtroEstadoFichas" class="form-select form-select-sm" style="width: auto;">
+                                <option value="todos">Todos los Estados</option>
+                                <option value="PENDIENTE">Pendiente</option>
+                                <option value="APROBADA">Aprobada</option>
+                                <option value="RECHAZADA">Rechazada</option>
+                                <option value="EN_PROCESO">En Proceso</option>
+                                <option value="COMPLETADO">Completado</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <!-- Lista de Fichas Técnicas -->
@@ -912,16 +1119,18 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
     <!-- Estilos para Fichas Técnicas -->
-    <link rel="stylesheet" href="../../recursos/css/Cliente/FichasTecnicas.css">
+    <link rel="stylesheet" href="../../recursos/css/Cliente/FichasTecnicas.css?v=100000000001">
     <!-- Estilos para Servicios en Proceso -->
     <link rel="stylesheet" href="../../recursos/css/Cliente/ServiciosProceso.css">
     <!-- Scripts -->
-     
-    <script src="../../recursos/js/Cliente/PaginaCliente.js?v=34534236"></script>
-    <script src="../../recursos/js/Cliente/FichasTecnicas.js?V=54564"></script>
-    <script src="../../recursos/js/Cliente/ServiciosProceso.js?V=54674"></script>
-    <script src="../../recursos/js/Cliente/chat_cliente.js?v=999999"></script>
+
+    <script src="../../recursos/js/Cliente/PaginaCliente.js?v=993499999999993"></script>
+    <script src="../../recursos/js/Cliente/FichasTecnicas.js?V=99999235000008"></script>
+    <script src="../../recursos/js/Cliente/ServiciosProceso.js?V=66666666666670"></script>
+    <script src="../../recursos/js/Cliente/chat_cliente.js?v=345523555688"></script>
 </body>
 
 </html>

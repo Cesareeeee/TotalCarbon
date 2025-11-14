@@ -5,8 +5,9 @@
  */
 
 console.log('=== ServiciosProceso.js cargado ===');
+// Debug: confirmar que se está cargando la nueva versión
 
-// Variables globales
+// Variables globales en español
 let serviciosActuales = [];
 let servicioSeleccionado = null;
 
@@ -21,10 +22,24 @@ const PASOS_PROCESO = [
     { paso: 7, nombre: 'Completado', icono: 'fas fa-flag-checkered' }
 ];
 
+// Variable para controlar el polling
+let pollingInterval = null;
+
 // Inicializar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', function() {
     console.log('=== INICIO: Inicializando servicios en proceso ===');
     cargarServiciosProceso();
+
+    // Iniciar polling automático para actualizaciones en tiempo real
+    iniciarPollingServicios();
+
+    // Inicializar filtro de servicios
+    const filtroEstadoServicios = document.getElementById('filtroEstadoServicios');
+    if (filtroEstadoServicios) {
+        filtroEstadoServicios.addEventListener('change', function() {
+            filtrarServiciosProceso(this.value);
+        });
+    }
 });
 
 /**
@@ -32,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
  */
 function cargarServiciosProceso() {
     console.log('=== INICIO: Cargando servicios en proceso ===');
-    
+
     fetch('../../controlador/Cliente/obtener_servicios_proceso.php')
     .then(respuesta => {
         console.log('Respuesta recibida. Estado:', respuesta.status);
@@ -40,7 +55,7 @@ function cargarServiciosProceso() {
     })
     .then(datos => {
         console.log('Datos JSON parseados:', datos);
-        
+
         if (datos.exito && datos.servicios) {
             console.log(`Servicios encontrados: ${datos.servicios.length}`);
             serviciosActuales = datos.servicios;
@@ -62,6 +77,128 @@ function cargarServiciosProceso() {
     });
 }
 
+// Función global para recargar servicios desde otros módulos
+window.cargarServiciosProceso = cargarServiciosProceso;
+
+/**
+ * Inicia el polling automático para verificar cambios en los servicios
+ */
+function iniciarPollingServicios() {
+    console.log('=== Iniciando polling automático de servicios ===');
+
+    // Verificar cada 30 segundos si hay cambios
+    pollingInterval = setInterval(() => {
+        verificarCambiosServicios();
+    }, 30000); // 30 segundos
+
+    console.log('Polling automático iniciado - verificará cada 30 segundos');
+}
+
+/**
+ * Detiene el polling automático
+ */
+function detenerPollingServicios() {
+    if (pollingInterval) {
+        clearInterval(pollingInterval);
+        pollingInterval = null;
+        console.log('Polling automático detenido');
+    }
+}
+
+/**
+ * Verifica si hay cambios en los servicios del usuario
+ */
+function verificarCambiosServicios() {
+    console.log('=== Verificando cambios en servicios ===');
+
+    fetch('../../controlador/Cliente/obtener_servicios_proceso.php')
+    .then(respuesta => respuesta.json())
+    .then(datos => {
+        if (datos.exito && datos.servicios) {
+            // Comparar con los servicios actuales
+            const serviciosNuevos = datos.servicios;
+            let hayCambios = false;
+
+            // Verificar si hay cambios en estados o decisiones
+            if (serviciosActuales.length !== serviciosNuevos.length) {
+                hayCambios = true;
+            } else {
+                for (let i = 0; i < serviciosActuales.length; i++) {
+                    const actual = serviciosActuales[i];
+                    const nuevo = serviciosNuevos.find(s => s.id_cotizacion === actual.id_cotizacion);
+
+                    if (nuevo) {
+                        // Verificar cambios en estado o decisión de reparaciones
+                        if (actual.estado !== nuevo.estado ||
+                            actual.reparacion_aceptada_cliente !== nuevo.reparacion_aceptada_cliente) {
+                            hayCambios = true;
+                            console.log(`Cambio detectado en cotización ${actual.id_cotizacion}:`);
+                            console.log(`Estado: ${actual.estado} → ${nuevo.estado}`);
+                            console.log(`Decisión reparaciones: ${actual.reparacion_aceptada_cliente} → ${nuevo.reparacion_aceptada_cliente}`);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (hayCambios) {
+                console.log('=== CAMBIOS DETECTADOS - Actualizando interfaz ===');
+                serviciosActuales = serviciosNuevos;
+                mostrarListaServicios(serviciosNuevos);
+
+                // Mostrar notificación de actualización
+                mostrarNotificacionActualizacion();
+
+                // Si estamos viendo detalles de un servicio, verificar si aún debe mostrarse
+                const contenedorDetalles = document.getElementById('detallesServicioProceso');
+                if (contenedorDetalles && contenedorDetalles.style.display !== 'none') {
+                    // Verificar si el servicio actual aún cumple las condiciones
+                    const servicioActual = serviciosNuevos.find(s => s.id_cotizacion == servicioSeleccionado);
+                    if (servicioActual) {
+                        // Si el servicio ya fue decidido, ocultar los botones
+                        if (servicioActual.reparacion_aceptada_cliente !== 'NO_ACEPTADA') {
+                            console.log('Servicio ya decidido - ocultando botones');
+                            // Recargar los detalles para ocultar los botones
+                            mostrarDetallesServicio(servicioSeleccionado);
+                        }
+                    }
+                }
+            } else {
+                console.log('No hay cambios detectados');
+            }
+        }
+    })
+    .catch(error => {
+        console.error('Error en polling de servicios:', error);
+    });
+}
+
+/**
+ * Muestra una notificación cuando hay actualizaciones automáticas
+ */
+function mostrarNotificacionActualizacion() {
+    // Crear notificación temporal
+    const notification = document.createElement('div');
+    notification.className = 'notification success show';
+    notification.innerHTML = `
+        <i class="fas fa-sync-alt"></i>
+        <span>Servicios actualizados automáticamente</span>
+    `;
+
+    // Agregar al DOM
+    const existingNotification = document.getElementById('notification');
+    if (existingNotification) {
+        existingNotification.appendChild(notification);
+
+        // Remover después de 5 segundos
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 5000);
+    }
+}
+
 /**
  * Muestra la lista de servicios en proceso
  */
@@ -78,8 +215,8 @@ function mostrarListaServicios(servicios) {
     
     // Filtrar servicios por estado
     const pendientes = servicios.filter(s => s.estado === 'PENDIENTE');
-    const enProceso = servicios.filter(s => s.estado === 'EN_REVISION' || s.estado === 'APROBADA');
-    const completados = servicios.filter(s => s.estado === 'COMPLETADA');
+    const enProceso = servicios.filter(s => s.estado === 'EN_PROCESO' || s.estado === 'APROBADA');
+    const completados = servicios.filter(s => s.estado === 'COMPLETADO');
     const rechazados = servicios.filter(s => s.estado === 'RECHAZADA');
     
     // Mostrar secciones
@@ -152,17 +289,71 @@ function crearSeccionServicios(titulo, servicios, tipo) {
 }
 
 /**
- * Muestra el mensaje cuando no hay servicios
+ * Filtra los servicios en proceso por estado
  */
-function mostrarMensajeVacio() {
-    console.log('Mostrando mensaje de sin servicios');
-    
+function filtrarServiciosProceso(estadoFiltro) {
+    console.log(`Filtrando servicios en proceso por estado: ${estadoFiltro}`);
+
+    if (!serviciosActuales || serviciosActuales.length === 0) {
+        console.log('No hay servicios para filtrar');
+        return;
+    }
+
+    let serviciosFiltrados;
+
+    if (estadoFiltro === 'todos') {
+        serviciosFiltrados = serviciosActuales;
+    } else {
+        serviciosFiltrados = serviciosActuales.filter(servicio => servicio.estado === estadoFiltro);
+    }
+
+    console.log(`Servicios encontrados después del filtro: ${serviciosFiltrados.length}`);
+
+    if (serviciosFiltrados.length === 0) {
+        mostrarMensajeVacioFiltro(estadoFiltro);
+    } else {
+        mostrarListaServicios(serviciosFiltrados);
+    }
+}
+
+/**
+ * Muestra el mensaje cuando no hay servicios para el filtro seleccionado
+ */
+function mostrarMensajeVacioFiltro(estadoFiltro) {
+    console.log(`Mostrando mensaje de sin servicios para filtro: ${estadoFiltro}`);
+
     const contenedor = document.getElementById('listaServiciosProceso');
     if (!contenedor) {
         console.error('ERROR: Contenedor de servicios no encontrado');
         return;
     }
-    
+
+    const estadoTexto = estadoFiltro === 'todos' ? 'ningún estado' : `estado "${estadoFiltro}"`;
+
+    contenedor.innerHTML = `
+        <div class="mensaje-vacio">
+            <i class="fas fa-filter fa-3x"></i>
+            <h3>No hay servicios</h3>
+            <p>No tienes servicios con ${estadoTexto}.</p>
+            <button class="btn btn-outline-primary mt-3" onclick="document.getElementById('filtroEstadoServicios').value='todos'; filtrarServiciosProceso('todos');">
+                <i class="fas fa-list me-2"></i>Ver todos los servicios
+            </button>
+        </div>
+    `;
+}
+
+/**
+ * Muestra el mensaje cuando no hay servicios
+ */
+function mostrarMensajeVacio() {
+    console.log('Mostrando mensaje de sin servicios');
+
+    const contenedor = document.getElementById('listaServiciosProceso');
+    if (!contenedor) {
+        console.error('ERROR: Contenedor de servicios no encontrado');
+        return;
+    }
+
     contenedor.innerHTML = `
         <div class="mensaje-vacio">
             <i class="fas fa-inbox fa-3x"></i>
@@ -204,53 +395,81 @@ function mostrarDetallesServicio(servicio) {
     const estadoClase = `estado-${servicio.estado.toLowerCase().replace('_', '-')}`;
     const pasoActual = servicio.paso_actual || 1;
     
-    // Crear HTML de pasos
-    let htmlPasos = '<div class="pasos-proceso">';
+    // Crear HTML de pasos con barra de progreso visual
+    let htmlPasos = '<div class="progreso-container">';
+    htmlPasos += '<div class="progreso-header">';
+    htmlPasos += `<div class="progreso-titulo">Paso ${pasoActual} de ${PASOS_PROCESO.length}: ${PASOS_PROCESO[pasoActual - 1]?.nombre || 'Desconocido'}</div>`;
+    htmlPasos += `<div class="progreso-porcentaje">${Math.round((pasoActual / PASOS_PROCESO.length) * 100)}% Completado</div>`;
+    htmlPasos += '</div>';
+
+    // Barra de progreso
+    htmlPasos += '<div class="barra-progreso">';
+    htmlPasos += '<div class="barra-fondo">';
+    htmlPasos += `<div class="barra-llenado" style="width: ${(pasoActual / PASOS_PROCESO.length) * 100}%"></div>`;
+    htmlPasos += '</div>';
+    htmlPasos += '</div>';
+
+    // Pasos individuales
+    htmlPasos += '<div class="pasos-proceso">';
     PASOS_PROCESO.forEach(paso => {
         const activo = paso.paso <= pasoActual ? 'activo' : '';
         const completado = paso.paso < pasoActual ? 'completado' : '';
+        const actual = paso.paso === pasoActual ? 'actual' : '';
         htmlPasos += `
-            <div class="paso-proceso ${activo} ${completado}">
+            <div class="paso-proceso ${activo} ${completado} ${actual}">
                 <div class="paso-icono">
                     <i class="${paso.icono}"></i>
                 </div>
                 <div class="paso-nombre">${paso.nombre}</div>
+                <div class="paso-numero">${paso.paso}</div>
             </div>
         `;
     });
     htmlPasos += '</div>';
+    htmlPasos += '</div>';
     
-    // Crear HTML de imágenes
+    // Crear HTML de imágenes del proceso (subidas por el administrador)
     let htmlImagenes = '';
     if (servicio.imagenes && servicio.imagenes.length > 0) {
-        console.log(`Procesando ${servicio.imagenes.length} imágenes`);
+        console.log(`Procesando ${servicio.imagenes.length} imágenes del proceso`);
         htmlImagenes = servicio.imagenes.map((img, idx) => `
             <div class="col-md-4 mb-3">
-                <img src="${img.ruta_imagen}" alt="${img.nombre_archivo}" class="img-fluid rounded imagen-estado" 
+                <img src="${img.ruta_imagen}" alt="${img.nombre_archivo}" class="img-fluid rounded imagen-estado"
                      onclick="abrirImagenModal('${img.ruta_imagen}', '${img.nombre_archivo}')">
                 <p class="text-center mt-2 small">${img.nombre_archivo}</p>
             </div>
         `).join('');
     } else {
-        htmlImagenes = '<p class="text-muted">No hay imágenes disponibles</p>';
+        htmlImagenes = '<div class="text-center text-muted"><i class="fas fa-image fa-2x mb-2"></i><p>El administrador aún no ha subido imágenes del proceso de reparación</p></div>';
     }
     
-    // Crear HTML de comentarios
+    // Crear HTML de comentarios del administrador
     let htmlComentarios = '';
     if (servicio.comentarios && servicio.comentarios.length > 0) {
-        console.log(`Procesando ${servicio.comentarios.length} comentarios`);
+        console.log(`Procesando ${servicio.comentarios.length} comentarios del administrador`);
         htmlComentarios = servicio.comentarios.map(com => `
             <div class="elemento-comentario">
                 <div class="encabezado-comentario">
-                    <strong>${com.autor}</strong>
+                    <strong>${com.autor || 'Administrador'}</strong>
                     <span class="fecha-comentario">${new Date(com.creado_en).toLocaleDateString()}</span>
                 </div>
                 <p class="texto-comentario">${com.mensaje}</p>
             </div>
         `).join('');
     } else {
-        htmlComentarios = '<p class="text-muted">No hay comentarios disponibles</p>';
+        htmlComentarios = '<div class="text-center text-muted"><i class="fas fa-comments fa-2x mb-2"></i><p>El administrador aún no ha agregado comentarios sobre el progreso</p></div>';
     }
+
+    // Debug: mostrar información del servicio
+    console.log('Servicio actual:', {
+        id: servicio.id_cotizacion,
+        estado: servicio.estado,
+        reparacion_aceptada_cliente: servicio.reparacion_aceptada_cliente
+    });
+
+    // Determinar qué mostrar
+    let mostrarBotonesDecision = servicio.estado === 'APROBADA' && servicio.reparacion_aceptada_cliente === 'NO_ACEPTADA';
+    console.log('¿Mostrar botones de decisión de reparaciones?', mostrarBotonesDecision);
     
     const html = `
         <div class="detalle-servicio">
@@ -306,7 +525,7 @@ function mostrarDetallesServicio(servicio) {
                 ${htmlPasos}
             </div>
             
-            <!-- Imágenes -->
+            <!-- Imágenes del Proceso (subidas por el administrador) -->
             <div class="seccion-detalle">
                 <h4><i class="fas fa-images"></i> Imágenes del Proceso</h4>
                 <div class="row">
@@ -314,14 +533,32 @@ function mostrarDetallesServicio(servicio) {
                 </div>
             </div>
             
-            <!-- Comentarios -->
+            <!-- Comentarios del Administrador -->
             <div class="seccion-detalle">
-                <h4><i class="fas fa-comments"></i> Comentarios (${servicio.comentarios ? servicio.comentarios.length : 0})</h4>
+                <h4><i class="fas fa-comments"></i> Comentarios del Administrador (${servicio.comentarios ? servicio.comentarios.length : 0})</h4>
                 <div class="lista-comentarios">
                     ${htmlComentarios}
                 </div>
             </div>
-            
+
+            <!-- Botones de Aceptar/Rechazar Reparaciones -->
+            ${servicio.estado === 'APROBADA' && servicio.reparacion_aceptada_cliente === 'NO_ACEPTADA' ? `
+            <div class="seccion-detalle">
+                <h4><i class="fas fa-question-circle"></i> Propuesta de Reparaciones</h4>
+                <p class="text-muted">El administrador ha enviado una propuesta de reparaciones para tu bicicleta. Por favor, revisa los detalles y decide si aceptas o rechazas la propuesta.</p>
+                <div class="botones-decision-reparaciones">
+                    <button class="btn btn-success btn-lg me-3" onclick="aceptarReparaciones(${servicio.id_cotizacion})">
+                        <i class="fas fa-check-circle me-2"></i>
+                        Aceptar Propuesta
+                    </button>
+                    <button class="btn btn-danger btn-lg" onclick="rechazarReparaciones(${servicio.id_cotizacion})">
+                        <i class="fas fa-times-circle me-2"></i>
+                        Rechazar Propuesta
+                    </button>
+                </div>
+            </div>
+            ` : ''}
+
             <!-- Botones de Acción -->
             <div class="acciones-servicio">
                 <button class="btn btn-secondary" onclick="volverListaServicios()">
@@ -334,8 +571,10 @@ function mostrarDetallesServicio(servicio) {
     contenedor.innerHTML = html;
     contenedor.style.display = 'block';
     document.getElementById('listaServiciosProceso').style.display = 'none';
-    
+
     console.log('=== FIN: Detalles mostrados ===');
+    console.log('HTML generado contiene botones de decisión:', html.includes('botones-decision-reparaciones'));
+    console.log('Contenido de la sección de botones:', html.includes('Decisión sobre Reparaciones') ? 'SÍ' : 'NO');
 }
 
 /**
@@ -353,7 +592,7 @@ function volverListaServicios() {
  */
 function abrirImagenModal(ruta, nombre) {
     console.log(`Abriendo imagen: ${nombre}`);
-    
+
     Swal.fire({
         title: nombre,
         imageUrl: ruta,
@@ -364,6 +603,143 @@ function abrirImagenModal(ruta, nombre) {
         confirmButtonText: 'Cerrar'
     });
 }
+
+/**
+ * Aceptar reparaciones del servicio
+ */
+function aceptarReparaciones(idCotizacion) {
+    console.log(`Aceptando reparaciones para cotización: ${idCotizacion}`);
+
+    Swal.fire({
+        title: '¿Confirmar aceptación?',
+        text: '¿Estás seguro de que deseas aceptar la propuesta de reparaciones para tu bicicleta?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#28a745',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Sí, aceptar propuesta',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            enviarDecisionReparacion(idCotizacion, 'ACEPTADA');
+        }
+    });
+}
+
+/**
+ * Rechazar reparaciones del servicio
+ */
+function rechazarReparaciones(idCotizacion) {
+    console.log(`Rechazando reparaciones para cotización: ${idCotizacion}`);
+
+    Swal.fire({
+        title: '¿Confirmar rechazo?',
+        text: '¿Estás seguro de que deseas rechazar la propuesta de reparaciones para tu bicicleta?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#dc3545',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Sí, rechazar propuesta',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            enviarDecisionReparacion(idCotizacion, 'RECHAZADA');
+        }
+    });
+}
+
+/**
+ * Enviar decisión de aceptación/rechazo al backend
+ */
+function enviarDecisionReparacion(idCotizacion, decision) {
+    console.log(`Enviando decisión: ${decision} para cotización: ${idCotizacion}`);
+
+    fetch('../../controlador/Cliente/aceptar_rechazar_reparaciones.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            id_cotizacion: idCotizacion,
+            decision: decision
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Actualizar el servicio actual en memoria inmediatamente
+            const servicioActual = serviciosActuales.find(s => s.id_cotizacion == idCotizacion);
+            if (servicioActual) {
+                servicioActual.reparacion_aceptada_cliente = decision;
+                console.log(`Servicio ${idCotizacion} actualizado localmente: reparacion_aceptada_cliente = ${decision}`);
+            }
+
+            // Si estamos viendo los detalles de este servicio, actualizar la vista inmediatamente
+            if (servicioSeleccionado == idCotizacion) {
+                // Ocultar los botones de decisión inmediatamente
+                const botonesDecision = document.querySelector('.botones-decision-reparaciones');
+                if (botonesDecision) {
+                    botonesDecision.style.display = 'none';
+                }
+
+                // Agregar mensaje de estado decidido
+                const seccionDecision = document.querySelector('.seccion-detalle h4');
+                if (seccionDecision && seccionDecision.textContent.includes('Decisión sobre Reparaciones')) {
+                    const contenedorPadre = seccionDecision.parentElement;
+                    contenedorPadre.innerHTML = `
+                        <h4><i class="fas fa-check-circle"></i> Decisión Registrada</h4>
+                        <div class="alert alert-${decision === 'ACEPTADA' ? 'success' : 'warning'}">
+                            <i class="fas fa-${decision === 'ACEPTADA' ? 'check' : 'times'}-circle me-2"></i>
+                            Has ${decision === 'ACEPTADA' ? 'aceptado' : 'rechazado'} la propuesta de reparaciones.
+                        </div>
+                    `;
+                }
+            }
+
+            Swal.fire({
+                title: 'Decisión enviada',
+                text: `Has ${decision === 'ACEPTADA' ? 'aceptado' : 'rechazado'} la propuesta de reparaciones exitosamente.`,
+                icon: 'success',
+                confirmButtonColor: '#28a745'
+            }).then(() => {
+                // Recargar la lista de servicios para reflejar cambios
+                cargarServiciosProceso();
+            });
+        } else {
+            Swal.fire({
+                title: 'Error',
+                text: data.message || 'Error al procesar la decisión',
+                icon: 'error',
+                confirmButtonColor: '#dc3545'
+            });
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        Swal.fire({
+            title: 'Error de conexión',
+            text: 'No se pudo conectar con el servidor',
+            icon: 'error',
+            confirmButtonColor: '#dc3545'
+        });
+    });
+}
+
+// Función para manejar navegación entre secciones
+function manejarNavegacionSeccion(seccionId) {
+    if (seccionId === 'proceso') {
+        // Si volvemos a la sección de proceso, reiniciar polling
+        if (!pollingInterval) {
+            iniciarPollingServicios();
+        }
+    } else {
+        // Si salimos de la sección de proceso, detener polling
+        detenerPollingServicios();
+    }
+}
+
+// Exponer función global para que otros módulos puedan llamarla
+window.manejarNavegacionSeccion = manejarNavegacionSeccion;
 
 console.log('=== ServiciosProceso.js inicializado ===');
 

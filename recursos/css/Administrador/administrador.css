@@ -466,7 +466,8 @@
             background: white;
             border-radius: 15px;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+            overflow-x: auto;
+            overflow-y: hidden;
             margin-bottom: 24px;
         }
 
@@ -495,6 +496,8 @@
             border-bottom: 1px solid #e9ecef;
             font-size: 14px;
             vertical-align: middle;
+            white-space: normal;
+            word-wrap: break-word;
         }
 
         .data-table tr:hover {
@@ -998,46 +1001,46 @@
             .sidebar {
                 transform: translateX(-100%);
             }
-            
+
             .sidebar.visible {
                 transform: translateX(0);
             }
-            
+
             .main-content {
                 margin-left: 0;
             }
-            
+
             .sidebar-toggle {
                 display: flex;
             }
-            
+
             .section-header {
                 flex-direction: column;
                 gap: 16px;
                 align-items: stretch;
             }
-            
+
             .section-actions {
                 justify-content: center;
             }
-            
+
             .filters {
                 flex-direction: column;
                 gap: 12px;
             }
-            
+
             .search-box {
                 max-width: none;
             }
-            
+
             .form-row {
                 grid-template-columns: 1fr;
             }
-            
+
             .client-info-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .service-grid {
                 grid-template-columns: 1fr;
             }
@@ -1046,22 +1049,23 @@
         @media (max-width: 768px) {
             .table-container {
                 overflow-x: auto;
+                overflow-y: auto;
             }
-            
+
             .data-table {
                 min-width: 600px;
             }
-            
+
             .modal-content {
                 width: 95%;
                 margin: 20px;
             }
-            
+
             .section-actions {
                 flex-direction: column;
                 gap: 12px;
             }
-            
+
             .btn-group {
                 justify-content: center;
             }

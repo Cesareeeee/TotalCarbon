@@ -63,9 +63,14 @@ try {
     escribirLog("Conexión exitosa. Preparando query...");
     
     // Query para obtener cotizaciones completadas (fichas técnicas)
-    $query = "SELECT 
+    $query = "SELECT
                 c.id_cotizacion,
                 c.nombre_completo,
+                c.direccion,
+                c.telefono,
+                c.correo_electronico,
+                u.numero_telefono as telefono_usuario,
+                u.correo_electronico as correo_usuario,
                 c.marca_bicicleta,
                 c.modelo_bicicleta,
                 c.zona_afectada,
@@ -75,9 +80,11 @@ try {
                 c.estado,
                 c.creado_en,
                 c.actualizado_en,
+                c.reparacion_aceptada_cliente,
                 COUNT(DISTINCT ci.id_imagen) as total_imagenes,
                 COUNT(DISTINCT cc.id_comentario) as total_comentarios
               FROM cotizaciones_cliente c
+              LEFT JOIN usuarios u ON c.id_usuario = u.id_usuario
               LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
               LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
               WHERE c.id_usuario = :id
@@ -128,9 +135,16 @@ try {
         $stmtComentarios = $pdo->prepare($queryComentarios);
         $stmtComentarios->execute([':id' => $idCotizacion]);
         $comentarios = $stmtComentarios->fetchAll(PDO::FETCH_ASSOC);
-        
+
+        // Obtener piezas
+        $queryPiezas = "SELECT tipo, nombre_pieza, codigo_pieza, cantidad, proveedor_id, nota, creado_en FROM piezas_movimientos WHERE id_cotizacion = :id ORDER BY creado_en DESC";
+        $stmtPiezas = $pdo->prepare($queryPiezas);
+        $stmtPiezas->execute([':id' => $idCotizacion]);
+        $piezas = $stmtPiezas->fetchAll(PDO::FETCH_ASSOC);
+
         $ficha['imagenes'] = $imagenes;
         $ficha['comentarios'] = $comentarios;
+        $ficha['piezas'] = $piezas;
         $fichasConDetalles[] = $ficha;
     }
     

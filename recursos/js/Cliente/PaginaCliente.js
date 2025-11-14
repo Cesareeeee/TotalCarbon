@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Variables globales
+    // Variables globales en español
     let uploadedImages = [];
-    let cotizacionId = null;
-    let notificationCount = 3;
+    let idCotizacion = null;
+    let contadorNotificaciones = 3;
    
     // Elementos del DOM
     const sidebar = document.getElementById('sidebar');
@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const tipoReparacionButtons = document.querySelectorAll('#tipoReparacionButtons .option-button');
     const otrosContainer = document.getElementById('otrosContainer');
     const repairTypeDescription = document.getElementById('repairTypeDescription');
+
    
     // Elementos del perfil
     const profileDisplay = document.getElementById('profileDisplay');
@@ -44,10 +45,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const chatContainer = document.getElementById('chatContainer');
     const chatFab = document.getElementById('chatFab');
     const chatClose = document.getElementById('chatClose');
-    const chatInput = document.getElementById('chatInput');
-    const chatSendBtn = document.getElementById('chatSendBtn');
-    const currentChatMessages = document.getElementById('currentChatMessages');
-    const historyChatMessages = document.getElementById('historyChatMessages');
+    const chatInput = document.getElementById('mensajeChat');
+    const chatSendBtn = document.getElementById('enviarMensajeBtn');
+    const currentChatMessages = document.getElementById('chatMessages');
+    const historyChatMessages = document.getElementById('chatMessages');
     const chatTabs = document.querySelectorAll('.chat-tab');
    
     // Elementos auxiliares
@@ -117,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Notification bell click
     notificationBell.addEventListener('click', function() {
         // Reset notification count
-        notificationCount = 0;
+        contadorNotificaciones = 0;
         notificationBadge.style.display = 'none';
        
         // Show notification panel (simulated)
@@ -151,20 +152,25 @@ document.addEventListener('DOMContentLoaded', function() {
     menuItems.forEach(item => {
         item.addEventListener('click', function(e) {
             e.preventDefault();
-           
+
             // Remove active class from all menu items and sections
             menuItems.forEach(i => i.classList.remove('active'));
             contentSections.forEach(section => section.classList.remove('active'));
-           
+
             // Add active class to clicked menu item
             this.classList.add('active');
-           
+
             // Show corresponding section
             const sectionId = this.getAttribute('data-section');
             if (sectionId) {
                 document.getElementById(sectionId).classList.add('active');
+
+                // Cargar datos específicos de la sección
+                if (sectionId === 'garantias') {
+                    cargarGarantias();
+                }
             }
-           
+
             // Close sidebar on mobile
             if (window.innerWidth <= 992) {
                 sidebar.classList.remove('mobile-visible');
@@ -472,7 +478,7 @@ document.addEventListener('DOMContentLoaded', function() {
    
     function renderImagePreview() {
         imagePreview.innerHTML = '';
-       
+
         uploadedImages.forEach(image => {
             const previewItem = document.createElement('div');
             previewItem.className = 'image-preview-item';
@@ -484,12 +490,12 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
             imagePreview.appendChild(previewItem);
         });
-       
+
         // Agregar evento para eliminar imágenes
         document.querySelectorAll('.remove-image').forEach(btn => {
             btn.addEventListener('click', function() {
-                const imageId = parseFloat(this.getAttribute('data-id'));
-                uploadedImages = uploadedImages.filter(img => img.id !== imageId);
+                const imageId = this.getAttribute('data-id');
+                uploadedImages = uploadedImages.filter(img => img.id != imageId);
                 renderImagePreview();
             });
         });
@@ -603,7 +609,7 @@ document.addEventListener('DOMContentLoaded', function() {
             showLoading(false);
             if (data && data.success) {
                 showNotification('Cotización enviada correctamente', 'success');
-                cotizacionId = data.id_cotizacion;
+                idCotizacion = data.id_cotizacion;
 
                 // Resetear formulario
                 cotizacionForm.reset();
@@ -626,6 +632,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('fichaTipoReparacion').textContent = '--';
                 document.getElementById('fichaObservaciones').textContent = '--';
 
+                // Actualizar automáticamente todas las secciones
+                if (typeof cargarServiciosProceso === 'function') {
+                    console.log('Actualizando servicios en proceso después del envío...');
+                    cargarServiciosProceso();
+                }
+
+                // Actualizar fichas técnicas si existe la función
+                if (typeof cargarFichasTecnicas === 'function') {
+                    console.log('Actualizando fichas técnicas...');
+                    cargarFichasTecnicas();
+                }
+
+                // Actualizar garantías si existe la función
+                if (typeof cargarGarantias === 'function') {
+                    console.log('Actualizando garantías...');
+                    cargarGarantias();
+                }
+
                 // Navegar a la sección de proceso
                 menuItems.forEach(i => i.classList.remove('active'));
                 contentSections.forEach(section => section.classList.remove('active'));
@@ -637,7 +661,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
 
                 // Cargar datos reales del tracker
-                loadProgressData(cotizacionId);
+                loadProgressData(idCotizacion);
             } else {
                 showNotification((data && data.message) ? data.message : 'Error al enviar la cotización', 'error');
             }
@@ -1060,8 +1084,8 @@ document.addEventListener('DOMContentLoaded', function() {
    
     // Function to increment notification count
     function incrementNotificationCount() {
-        notificationCount++;
-        notificationBadge.textContent = notificationCount;
+        contadorNotificaciones++;
+        notificationBadge.textContent = contadorNotificaciones;
         notificationBadge.style.display = 'flex';
     }
    
@@ -1069,9 +1093,9 @@ document.addEventListener('DOMContentLoaded', function() {
     function loadProgressData(idCot) {
         if (!idCot) return;
         fetch(`../../controlador/Cliente/progreso_cotizacion.php?id_cotizacion=${idCot}`)
-            .then(r => r.json())
-            .then(data => {
-                if (!data || !data.success) return;
+        .then(r => r.json())
+        .then(data => {
+            if (!data || !data.success) return;
 
                 // Determinar paso actual
                 let pasoActual = 1;
@@ -1103,9 +1127,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 // Cargar comentarios
                 renderStatusComments(Array.isArray(data.comentarios) ? data.comentarios : []);
+
             })
             .catch(() => { /* silenciar errores */ });
     }
+
    
     // Cargar imágenes del estado (simulado)
     function renderStatusImages(imagenes) {
@@ -1163,4 +1189,140 @@ document.addEventListener('DOMContentLoaded', function() {
             loadingOverlay.classList.remove('active');
         }
     }
+
+    // Función para cargar garantías
+    function cargarGarantias() {
+        console.log('Cargando garantías...');
+        const warrantySection = document.querySelector('#garantias .warranty-section');
+        const notificationsCard = document.querySelector('#garantias .card-body');
+
+        // Mostrar loading
+        if (warrantySection) {
+            warrantySection.innerHTML = '<div class="text-center py-5"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Cargando...</span></div><p class="mt-3">Cargando garantías...</p></div>';
+        }
+
+        fetch('../../controlador/Cliente/obtener_garantias.php')
+            .then(r => r.json())
+            .then(data => {
+                if (!data || !data.success) {
+                    console.error('Error al cargar garantías:', data);
+                    if (warrantySection) {
+                        warrantySection.innerHTML = '<h5><i class="fas fa-shield-alt"></i> Garantías Activas</h5><p>No se pudieron cargar las garantías.</p>';
+                    }
+                    return;
+                }
+
+                const garantias = data.garantias || [];
+                console.log('Garantías cargadas:', garantias);
+
+                // Renderizar garantías
+                let html = '<h5><i class="fas fa-shield-alt"></i> Garantías Activas</h5>';
+                if (garantias.length === 0) {
+                    html += '<p>No tienes garantías activas.</p>';
+                } else {
+                    garantias.forEach(g => {
+                        const fechaInicio = new Date(g.fecha_inicio).toLocaleDateString('es-ES');
+                        const fechaFin = new Date(g.fecha_fin).toLocaleDateString('es-ES');
+                        const estadoClass = g.estado === 'Activa' ? 'active' : g.estado === 'Vencida' ? 'expired' : 'cancelled';
+                        const estadoText = g.estado;
+
+                        html += `
+                            <div class="warranty-item">
+                                <h6>${g.tipo_garantia}</h6>
+                                <p>${g.cobertura || 'Sin descripción'}</p>
+                                <div class="warranty-dates">
+                                    <span class="warranty-date">Inicio: ${fechaInicio}</span>
+                                    <span class="warranty-date">Fin: ${fechaFin}</span>
+                                </div>
+                                <span class="warranty-status ${estadoClass}">${estadoText}</span>
+                                <button class="btn-ver-detalles mt-2 ver-detalles-btn" data-garantia='${JSON.stringify(g)}'>
+                                    <i class="fas fa-eye"></i> Ver Detalles
+                                </button>
+                            </div>
+                        `;
+                    });
+                }
+
+                if (warrantySection) {
+                    warrantySection.innerHTML = html;
+                }
+
+                // Generar recordatorios
+                generarRecordatorios(garantias, notificationsCard);
+
+                // Agregar event listeners para botones de detalles
+                document.querySelectorAll('.ver-detalles-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const garantia = JSON.parse(this.getAttribute('data-garantia'));
+
+                        // Llenar el modal
+                        document.getElementById('modalNombreCompleto').textContent = garantia.nombre_completo;
+                        document.getElementById('modalTipoGarantia').textContent = garantia.tipo_garantia;
+                        document.getElementById('modalCobertura').textContent = garantia.cobertura;
+                        document.getElementById('modalEstado').textContent = garantia.estado;
+                        document.getElementById('modalFechaInicio').textContent = new Date(garantia.fecha_inicio).toLocaleDateString('es-ES');
+                        document.getElementById('modalFechaFin').textContent = new Date(garantia.fecha_fin).toLocaleDateString('es-ES');
+                        document.getElementById('modalMarca').textContent = garantia.marca_bicicleta;
+                        document.getElementById('modalModelo').textContent = garantia.modelo_bicicleta;
+                        document.getElementById('modalZonaAfectada').textContent = garantia.zona_afectada;
+                        document.getElementById('modalTipoTrabajo').textContent = garantia.tipo_trabajo;
+                        document.getElementById('modalTipoReparacion').textContent = garantia.tipo_reparacion;
+                        document.getElementById('modalDescripcionOtros').textContent = garantia.descripcion_otros || 'N/A';
+
+                        // Mostrar modal
+                        const modal = new bootstrap.Modal(document.getElementById('garantiaModal'));
+                        modal.show();
+                    });
+                });
+            })
+            .catch(err => {
+                console.error('Error de conexión al cargar garantías:', err);
+                if (warrantySection) {
+                    warrantySection.innerHTML = '<h5><i class="fas fa-shield-alt"></i> Garantías Activas</h5><p>Error al cargar garantías.</p>';
+                }
+            });
+    }
+
+    // Función para generar recordatorios basados en fechas de vencimiento
+    function generarRecordatorios(garantias, container) {
+        if (!container) return;
+
+        let html = '';
+
+        const hoy = new Date();
+        const treintaDias = new Date();
+        treintaDias.setDate(hoy.getDate() + 30);
+
+        // Recordatorios para garantías por vencer en 30 días
+        const porVencer = garantias.filter(g => {
+            const fechaFin = new Date(g.fecha_fin);
+            return fechaFin >= hoy && fechaFin <= treintaDias;
+        });
+
+        if (porVencer.length > 0) {
+            porVencer.forEach(g => {
+                const diasRestantes = Math.ceil((new Date(g.fecha_fin) - hoy) / (1000 * 60 * 60 * 24));
+                html += `
+                    <div class="alert alert-danger" role="alert">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <strong>Recordatorio:</strong> Tu garantía para "${g.tipo_garantia}" vence en ${diasRestantes} días.
+                        <a href="#" class="alert-link">Programa mantenimiento</a>
+                    </div>
+                `;
+            });
+        }
+
+        // Información general
+        html += `
+            <div class="alert alert-warning" role="alert">
+                <i class="fas fa-info-circle me-2"></i>
+                <strong>Información:</strong> Te enviaremos notificaciones 30 días antes del vencimiento de cada garantía.
+            </div>
+        `;
+
+        container.innerHTML = html;
+    }
+
+    // Hacer cargarGarantias global para que pueda ser llamada desde otros lugares
+    window.cargarGarantias = cargarGarantias;
 });

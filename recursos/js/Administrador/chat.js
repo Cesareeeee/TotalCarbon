@@ -5,44 +5,29 @@ let intervaloActualizacion = null;
 
 // Funciones de inicialización
 async function initializeChat() {
-    console.log('🚀 Inicializando chat...');
     await loadConversaciones();
     iniciarActualizacionAutomatica();
     actualizarNotificaciones();
-    console.log('✅ Chat inicializado');
 }
 
 async function loadConversaciones() {
     try {
-        console.log('📡 Cargando conversaciones...');
         const response = await fetch('../../controlador/Administrador/chat_controller.php?action=getConversaciones');
-        console.log('📨 Respuesta del servidor:', response);
         conversaciones = await response.json();
-        console.log('💬 Conversaciones cargadas:', conversaciones);
 
         const container = document.getElementById('conversacionesList');
-        console.log('📋 Container encontrado:', container);
         container.innerHTML = '';
 
         if (conversaciones.length === 0) {
-            console.log('📭 No hay conversaciones');
             container.innerHTML = '<div class="no-conversations"><i class="fas fa-comments"></i><p>No hay conversaciones</p></div>';
             return;
         }
 
-        console.log('👥 Creando', conversaciones.length, 'conversaciones');
         conversaciones.forEach((conversacion, index) => {
-            console.log('👤 Conversación', index + 1, ':', conversacion);
             const item = createConversacionItem(conversacion);
-            console.log('📦 Item creado:', item);
             container.appendChild(item);
-            console.log('✅ Item agregado al container');
         });
-
-        console.log('📋 Container después de agregar items:', container);
-        console.log('👀 Contenido del container:', container.innerHTML);
     } catch (error) {
-        console.error('❌ Error loading conversaciones:', error);
         Swal.fire({
             icon: 'error',
             title: 'Error',
@@ -53,11 +38,9 @@ async function loadConversaciones() {
 }
 
 function createConversacionItem(conversacion) {
-    console.log('🏗️ Creando item de conversación para:', conversacion);
     const item = document.createElement('div');
     item.className = `conversacion-item ${conversacionActual && conversacionActual.id_usuario == conversacion.id_usuario ? 'active' : ''}`;
     item.onclick = () => {
-        console.log('🖱️ Clic en conversación:', conversacion);
         seleccionarConversacion(conversacion);
     };
 
@@ -78,7 +61,6 @@ function createConversacionItem(conversacion) {
         </div>
     `;
 
-    console.log('✅ Item de conversación creado:', item);
     return item;
 }
 
@@ -128,7 +110,6 @@ async function loadMensajesConversacion(id_cliente) {
         // Scroll al final
         container.scrollTop = container.scrollHeight;
     } catch (error) {
-        console.error('Error loading mensajes:', error);
     }
 }
 
@@ -185,8 +166,6 @@ async function enviarMensaje() {
     btnSend.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
 
     try {
-        console.log('📤 Enviando mensaje:', mensaje, 'a cliente:', conversacionActual.id_usuario);
-
         const response = await fetch('../../controlador/Administrador/chat_controller.php?action=enviarMensaje', {
             method: 'POST',
             headers: {
@@ -199,10 +178,8 @@ async function enviarMensaje() {
         });
 
         const result = await response.json();
-        console.log('📨 Respuesta del envío:', result);
 
         if (result.success) {
-            console.log('✅ Mensaje enviado exitosamente');
             input.value = '';
 
             // Agregar mensaje inmediatamente a la UI
@@ -222,7 +199,6 @@ async function enviarMensaje() {
             // Actualizar conversaciones
             await loadConversaciones();
         } else {
-            console.error('❌ Error al enviar mensaje:', result.error);
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
@@ -231,7 +207,6 @@ async function enviarMensaje() {
             });
         }
     } catch (error) {
-        console.error('❌ Error de conexión:', error);
         Swal.fire({
             icon: 'error',
             title: 'Error de conexión',
@@ -256,9 +231,6 @@ function filtrarConversaciones() {
     const filtro = document.getElementById('buscadorConversaciones').value.toLowerCase().trim();
     const items = document.querySelectorAll('.conversacion-item');
 
-    console.log('🔍 Filtrando conversaciones con:', filtro);
-    console.log('📋 Items encontrados:', items.length);
-
     let visibles = 0;
 
     items.forEach((item, index) => {
@@ -276,17 +248,11 @@ function filtrarConversaciones() {
             if (coincide) {
                 item.style.display = 'flex';
                 visibles++;
-                console.log('✅ Mostrando item', index + 1, ':', nombre.textContent);
             } else {
                 item.style.display = 'none';
-                console.log('❌ Ocultando item', index + 1, ':', nombre.textContent);
             }
-        } else {
-            console.log('⚠️ Item', index + 1, 'sin elementos nombre/mensaje');
         }
     });
-
-    console.log('📊 Total visibles:', visibles, 'de', items.length);
 
     // Mostrar mensaje si no hay resultados
     const container = document.getElementById('conversacionesList');
@@ -348,65 +314,46 @@ async function actualizarNotificaciones() {
         // Podrías agregar más lógica aquí para mostrar notificaciones específicas
         // por mensajes o cotizaciones
     } catch (error) {
-        console.error('Error updating notifications:', error);
     }
 }
 
 // Función para abrir chat desde el botón flotante
 function abrirChatFlotante() {
-    console.log('🎯 Clic en botón flotante de chat');
-    console.log('📂 Cambiando a sección chat...');
     showSection('chat');
-    console.log('💬 Sección chat activada');
 
     // Si hay conversaciones, seleccionar la primera con mensajes no leídos
     if (conversaciones.length > 0) {
-        console.log('🔍 Buscando conversación con mensajes no leídos...');
         const conversacionConMensajes = conversaciones.find(c => c.mensajes_no_leidos > 0);
         if (conversacionConMensajes) {
-            console.log('📨 Seleccionando conversación con mensajes:', conversacionConMensajes);
             seleccionarConversacion(conversacionConMensajes);
-        } else {
-            console.log('📭 No hay conversaciones con mensajes no leídos');
         }
-    } else {
-        console.log('📭 No hay conversaciones disponibles');
     }
 }
 
 // Actualizar notificaciones del botón flotante
 async function actualizarNotificacionesFlotante() {
     try {
-        console.log('🔔 Actualizando notificaciones flotantes...');
         const response = await fetch('../../controlador/Administrador/chat_controller.php?action=getNotificaciones');
-        console.log('📨 Respuesta notificaciones:', response);
         const notificaciones = await response.json();
-        console.log('📊 Datos notificaciones:', notificaciones);
 
         const badge = document.getElementById('chatNotificationBadge');
-        console.log('🏷️ Badge encontrado:', badge);
         const mensajesNoLeidos = notificaciones.mensajes_no_leidos || 0;
-        console.log('💬 Mensajes no leídos:', mensajesNoLeidos);
 
         if (mensajesNoLeidos > 0) {
-            console.log('✅ Mostrando badge con', mensajesNoLeidos, 'mensajes');
             badge.textContent = mensajesNoLeidos > 99 ? '99+' : mensajesNoLeidos;
             badge.style.display = 'flex';
 
             // Notificación del navegador si está permitido
             if (Notification.permission === 'granted' && document.hidden) {
-                console.log('🔔 Enviando notificación del navegador');
                 new Notification('Nuevo mensaje en Chat de Soporte', {
                     body: `Tienes ${mensajesNoLeidos} mensaje(s) sin leer`,
                     icon: '../../recursos/img/logo.png'
                 });
             }
         } else {
-            console.log('❌ Ocultando badge (sin mensajes)');
             badge.style.display = 'none';
         }
     } catch (error) {
-        console.error('❌ Error updating floating notifications:', error);
     }
 }
 
@@ -414,45 +361,25 @@ async function actualizarNotificacionesFlotante() {
 function solicitarPermisoNotificaciones() {
     if ('Notification' in window && Notification.permission === 'default') {
         Notification.requestPermission().then(function(permission) {
-            if (permission === 'granted') {
-                console.log('Permiso para notificaciones concedido');
-            }
         });
     }
 }
 
 // Inicializar cuando se carga la página
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🌟 DOM Content Loaded - Inicializando aplicación');
-
-    // Verificar elementos del DOM
-    console.log('🔍 Verificando elementos del DOM...');
-    console.log('💬 Chat section:', document.getElementById('chat-section'));
-    console.log('🏷️ Chat notification badge:', document.getElementById('chatNotificationBadge'));
-    console.log('🎯 Chat floating button:', document.getElementById('chatFloatingBtn'));
-
     // Solicitar permiso para notificaciones
-    console.log('🔔 Solicitando permisos de notificación...');
     solicitarPermisoNotificaciones();
 
     // Inicializar chat si estamos en la sección
     if (document.getElementById('chat-section')) {
-        console.log('✅ Sección de chat encontrada, inicializando...');
         initializeChat();
-    } else {
-        console.log('❌ Sección de chat NO encontrada');
     }
 
     // Actualizar notificaciones flotantes cada 10 segundos
-    console.log('⏰ Configurando actualización automática cada 10 segundos...');
     setInterval(() => {
-        console.log('🔄 Actualización automática de notificaciones...');
         actualizarNotificacionesFlotante();
     }, 10000);
 
     // Actualizar inmediatamente
-    console.log('🚀 Actualización inicial de notificaciones...');
     actualizarNotificacionesFlotante();
-
-    console.log('🎉 Inicialización completa');
 });

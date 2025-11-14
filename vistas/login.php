@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     
     <!-- CSS Personalizado -->
-    <link rel="stylesheet" href="../recursos/css/login.css?v=53242">
+    <link rel="stylesheet" href="../recursos/css/login.css?v=3456">
     
     <!-- FAVICON -->
     <link rel="icon" href="../recursos/img/image.png">
@@ -48,6 +48,14 @@
                 <img src="../recursos/img/logo.png" alt="Total Carbon Logo">
             </div>
             
+            <!-- Botón para regresar a la página principal -->
+            <div class="boton-regresar">
+                <a href="../index.php" class="btn-regresar">
+                    <i class="fas fa-arrow-left"></i>
+                    Volver al Inicio
+                </a>
+            </div>
+
             <!-- Formulario de Inicio de Sesión -->
             <form id="formularioLogin" class="formulario">
                 <h2>¡Bienvenido de Nuevo!</h2>

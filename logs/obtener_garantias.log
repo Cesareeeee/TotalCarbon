@@ -1,0 +1,266 @@
+[2025-11-14 06:56:58] === INICIO: Solicitud de obtener garantías ===
+[2025-11-14 06:56:58] Usuario ID: 13
+[2025-11-14 06:56:58] Conectando a la base de datos...
+[2025-11-14 06:56:58] Conexión exitosa. Preparando query...
+[2025-11-14 06:56:58] Query: SELECT
+                g.id_garantia,
+                g.descripcion,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en
+              FROM garantias_cliente g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              WHERE c.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-14 06:56:58] Query preparada
+[2025-11-14 06:56:58] Query ejecutada
+[2025-11-14 06:56:58] Garantías obtenidas: 0
+[2025-11-14 06:56:58] El usuario no tiene garantías
+[2025-11-14 06:56:58] === FIN: Sin garantías ===
+[2025-11-14 06:57:18] === INICIO: Solicitud de obtener garantías ===
+[2025-11-14 06:57:18] Usuario ID: 13
+[2025-11-14 06:57:18] Conectando a la base de datos...
+[2025-11-14 06:57:18] Conexión exitosa. Preparando query...
+[2025-11-14 06:57:18] Query: SELECT
+                g.id_garantia,
+                g.descripcion,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en
+              FROM garantias_cliente g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              WHERE c.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-14 06:57:18] Query preparada
+[2025-11-14 06:57:18] Query ejecutada
+[2025-11-14 06:57:18] Garantías obtenidas: 0
+[2025-11-14 06:57:18] El usuario no tiene garantías
+[2025-11-14 06:57:18] === FIN: Sin garantías ===
+[2025-11-14 07:01:15] === INICIO: Solicitud de obtener garantías ===
+[2025-11-14 07:01:15] Usuario ID: 13
+[2025-11-14 07:01:15] Conectando a la base de datos...
+[2025-11-14 07:01:15] Conexión exitosa. Preparando query...
+[2025-11-14 07:01:15] Query: SELECT
+                g.id_garantia,
+                g.descripcion,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en
+              FROM garantias_cliente g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              WHERE c.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-14 07:01:15] Query preparada
+[2025-11-14 07:01:15] Query ejecutada
+[2025-11-14 07:01:15] Garantías obtenidas: 0
+[2025-11-14 07:01:15] El usuario no tiene garantías
+[2025-11-14 07:01:15] === FIN: Sin garantías ===
+[2025-11-14 07:02:53] === INICIO: Solicitud de obtener garantías ===
+[2025-11-14 07:02:53] Usuario ID: 13
+[2025-11-14 07:02:53] Conectando a la base de datos...
+[2025-11-14 07:02:53] Conexión exitosa. Preparando query...
+[2025-11-14 07:02:53] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en
+              FROM garantias_bicicletas g
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-14 07:02:53] Query preparada
+[2025-11-14 07:02:53] Query ejecutada
+[2025-11-14 07:02:53] Garantías obtenidas: 2
+[2025-11-14 07:02:53] Garantías obtenidas exitosamente | Datos: [{"id_garantia":12,"tipo_garantia":"Extendida","cobertura":"Cobertura extendida para reparaci\u00f3n de fisura en bicicleta BENOTOO modelo FGHYJUI","fecha_inicio":"2025-11-14","fecha_fin":"2027-11-14","estado":"Activa","creado_en":"2025-11-13 23:59:19"},{"id_garantia":11,"tipo_garantia":"Estandar","cobertura":"Cobertura est\u00e1ndar para reparaci\u00f3n de fisura en bicicleta BENOTOO modelo FGHYJUI","fecha_inicio":"2025-11-14","fecha_fin":"2026-11-14","estado":"Activa","creado_en":"2025-11-13 23:47:57"}]
+[2025-11-14 07:02:53] === FIN: Garantías obtenidas correctamente ===
+[2025-11-14 07:07:07] === INICIO: Solicitud de obtener garantías ===
+[2025-11-14 07:07:07] Usuario ID: 13
+[2025-11-14 07:07:07] Conectando a la base de datos...
+[2025-11-14 07:07:07] Conexión exitosa. Preparando query...
+[2025-11-14 07:07:07] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-14 07:07:07] Query preparada
+[2025-11-14 07:07:07] Query ejecutada
+[2025-11-14 07:07:07] Garantías obtenidas: 2
+[2025-11-14 07:07:07] Garantías obtenidas exitosamente | Datos: [{"id_garantia":12,"tipo_garantia":"Extendida","cobertura":"Cobertura extendida para reparaci\u00f3n de fisura en bicicleta BENOTOO modelo FGHYJUI","fecha_inicio":"2025-11-14","fecha_fin":"2027-11-14","estado":"Activa","creado_en":"2025-11-13 23:59:19","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"45t6yui","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"},{"id_garantia":11,"tipo_garantia":"Estandar","cobertura":"Cobertura est\u00e1ndar para reparaci\u00f3n de fisura en bicicleta BENOTOO modelo FGHYJUI","fecha_inicio":"2025-11-14","fecha_fin":"2026-11-14","estado":"Activa","creado_en":"2025-11-13 23:47:57","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"45t6yui","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"}]
+[2025-11-14 07:07:07] === FIN: Garantías obtenidas correctamente ===
+[2025-11-14 07:09:23] === INICIO: Solicitud de obtener garantías ===
+[2025-11-14 07:09:23] Usuario ID: 13
+[2025-11-14 07:09:23] Conectando a la base de datos...
+[2025-11-14 07:09:23] Conexión exitosa. Preparando query...
+[2025-11-14 07:09:23] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-14 07:09:23] Query preparada
+[2025-11-14 07:09:23] Query ejecutada
+[2025-11-14 07:09:23] Garantías obtenidas: 2
+[2025-11-14 07:09:23] Garantías obtenidas exitosamente | Datos: [{"id_garantia":12,"tipo_garantia":"Extendida","cobertura":"Cobertura extendida para reparaci\u00f3n de fisura en bicicleta BENOTOO modelo FGHYJUI","fecha_inicio":"2025-11-14","fecha_fin":"2027-11-14","estado":"Activa","creado_en":"2025-11-13 23:59:19","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"45t6yui","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"},{"id_garantia":11,"tipo_garantia":"Estandar","cobertura":"Cobertura est\u00e1ndar para reparaci\u00f3n de fisura en bicicleta BENOTOO modelo FGHYJUI","fecha_inicio":"2025-11-14","fecha_fin":"2026-11-14","estado":"Activa","creado_en":"2025-11-13 23:47:57","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"45t6yui","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"}]
+[2025-11-14 07:09:23] === FIN: Garantías obtenidas correctamente ===
+[2025-11-14 07:09:27] === INICIO: Solicitud de obtener garantías ===
+[2025-11-14 07:09:27] Usuario ID: 13
+[2025-11-14 07:09:27] Conectando a la base de datos...
+[2025-11-14 07:09:27] Conexión exitosa. Preparando query...
+[2025-11-14 07:09:27] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-14 07:09:27] Query preparada
+[2025-11-14 07:09:27] Query ejecutada
+[2025-11-14 07:09:27] Garantías obtenidas: 2
+[2025-11-14 07:09:27] Garantías obtenidas exitosamente | Datos: [{"id_garantia":12,"tipo_garantia":"Extendida","cobertura":"Cobertura extendida para reparaci\u00f3n de fisura en bicicleta BENOTOO modelo FGHYJUI","fecha_inicio":"2025-11-14","fecha_fin":"2027-11-14","estado":"Activa","creado_en":"2025-11-13 23:59:19","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"45t6yui","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"},{"id_garantia":11,"tipo_garantia":"Estandar","cobertura":"Cobertura est\u00e1ndar para reparaci\u00f3n de fisura en bicicleta BENOTOO modelo FGHYJUI","fecha_inicio":"2025-11-14","fecha_fin":"2026-11-14","estado":"Activa","creado_en":"2025-11-13 23:47:57","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"45t6yui","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"}]
+[2025-11-14 07:09:27] === FIN: Garantías obtenidas correctamente ===
+[2025-11-14 07:10:45] === INICIO: Solicitud de obtener garantías ===
+[2025-11-14 07:10:45] Usuario ID: 13
+[2025-11-14 07:10:45] Conectando a la base de datos...
+[2025-11-14 07:10:45] Conexión exitosa. Preparando query...
+[2025-11-14 07:10:45] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-14 07:10:45] Query preparada
+[2025-11-14 07:10:45] Query ejecutada
+[2025-11-14 07:10:45] Garantías obtenidas: 2
+[2025-11-14 07:10:45] Garantías obtenidas exitosamente | Datos: [{"id_garantia":12,"tipo_garantia":"Extendida","cobertura":"Cobertura extendida para reparaci\u00f3n de fisura en bicicleta BENOTOO modelo FGHYJUI","fecha_inicio":"2025-11-14","fecha_fin":"2027-11-14","estado":"Activa","creado_en":"2025-11-13 23:59:19","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"45t6yui","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"},{"id_garantia":11,"tipo_garantia":"Estandar","cobertura":"Cobertura est\u00e1ndar para reparaci\u00f3n de fisura en bicicleta BENOTOO modelo FGHYJUI","fecha_inicio":"2025-11-14","fecha_fin":"2026-11-14","estado":"Activa","creado_en":"2025-11-13 23:47:57","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"45t6yui","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"}]
+[2025-11-14 07:10:45] === FIN: Garantías obtenidas correctamente ===
+[2025-11-14 07:12:41] === INICIO: Solicitud de obtener garantías ===
+[2025-11-14 07:12:41] Usuario ID: 13
+[2025-11-14 07:12:41] Conectando a la base de datos...
+[2025-11-14 07:12:41] Conexión exitosa. Preparando query...
+[2025-11-14 07:12:41] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-14 07:12:41] Query preparada
+[2025-11-14 07:12:41] Query ejecutada
+[2025-11-14 07:12:41] Garantías obtenidas: 2
+[2025-11-14 07:12:41] Garantías obtenidas exitosamente | Datos: [{"id_garantia":12,"tipo_garantia":"Extendida","cobertura":"Cobertura extendida para reparaci\u00f3n de fisura en bicicleta BENOTOO modelo FGHYJUI","fecha_inicio":"2025-11-14","fecha_fin":"2027-11-14","estado":"Activa","creado_en":"2025-11-13 23:59:19","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"45t6yui","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"},{"id_garantia":11,"tipo_garantia":"Estandar","cobertura":"Cobertura est\u00e1ndar para reparaci\u00f3n de fisura en bicicleta BENOTOO modelo FGHYJUI","fecha_inicio":"2025-11-14","fecha_fin":"2026-11-14","estado":"Activa","creado_en":"2025-11-13 23:47:57","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"45t6yui","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"}]
+[2025-11-14 07:12:41] === FIN: Garantías obtenidas correctamente ===
+[2025-11-14 07:21:29] === INICIO: Solicitud de obtener garantías ===
+[2025-11-14 07:21:29] Usuario ID: 13
+[2025-11-14 07:21:29] Conectando a la base de datos...
+[2025-11-14 07:21:29] Conexión exitosa. Preparando query...
+[2025-11-14 07:21:29] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-14 07:21:29] Query preparada
+[2025-11-14 07:21:29] Query ejecutada
+[2025-11-14 07:21:29] Garantías obtenidas: 2
+[2025-11-14 07:21:29] Garantías obtenidas exitosamente | Datos: [{"id_garantia":12,"tipo_garantia":"Extendida","cobertura":"Cobertura extendida para reparaci\u00f3n de fisura en bicicleta BENOTOO modelo FGHYJUI","fecha_inicio":"2025-11-14","fecha_fin":"2027-11-14","estado":"Activa","creado_en":"2025-11-13 23:59:19","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"45t6yui","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"},{"id_garantia":11,"tipo_garantia":"Estandar","cobertura":"Cobertura est\u00e1ndar para reparaci\u00f3n de fisura en bicicleta BENOTOO modelo FGHYJUI","fecha_inicio":"2025-11-14","fecha_fin":"2026-11-14","estado":"Activa","creado_en":"2025-11-13 23:47:57","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"45t6yui","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"}]
+[2025-11-14 07:21:29] === FIN: Garantías obtenidas correctamente ===

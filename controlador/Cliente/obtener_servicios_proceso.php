@@ -63,7 +63,7 @@ try {
     escribirLog("Conexión exitosa. Preparando consulta...");
     
     // Consulta para obtener servicios en proceso
-    $consulta = "SELECT 
+    $consulta = "SELECT
                     c.id_cotizacion,
                     c.nombre_completo,
                     c.marca_bicicleta,
@@ -73,13 +73,14 @@ try {
                     c.tipo_reparacion,
                     c.descripcion_otros,
                     c.estado,
+                    c.reparacion_aceptada_cliente,
                     c.creado_en,
                     c.actualizado_en,
-                    COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                    COUNT(DISTINCT ipr.id_imagen_proceso) as total_imagenes,
                     COUNT(DISTINCT cc.id_comentario) as total_comentarios,
-                    MAX(cpp.paso) as paso_actual
+                    COALESCE(MAX(cpp.paso), 0) as paso_maximo
               FROM cotizaciones_cliente c
-              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN imagenes_proceso_reparacion ipr ON c.id_cotizacion = ipr.id_cotizacion
               LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
               LEFT JOIN cotizacion_progreso_cliente cpp ON c.id_cotizacion = cpp.id_cotizacion
               WHERE c.id_usuario = :id
@@ -96,7 +97,7 @@ try {
     
     $servicios = $sentencia->fetchAll(PDO::FETCH_ASSOC);
     escribirLog("Servicios obtenidos: " . count($servicios));
-    
+
     if (count($servicios) === 0) {
         escribirLog("El usuario no tiene servicios en proceso");
         escribirLog("=== FIN: Sin servicios en proceso ===");
@@ -106,14 +107,49 @@ try {
             'servicios' => []
         ]);
     }
+
+    // Calcular el paso actual basado en el estado y progreso registrado
+    foreach ($servicios as &$servicio) {
+        $estado = $servicio['estado'];
+        $pasoMaximo = (int)$servicio['paso_maximo'];
+        $reparacionAceptada = $servicio['reparacion_aceptada_cliente'];
+
+        // Lógica para calcular el paso actual
+        switch ($estado) {
+            case 'PENDIENTE':
+                $pasoActual = 1; // Cotización Enviada
+                break;
+            case 'APROBADA':
+                if ($reparacionAceptada === 'ACEPTADA') {
+                    $pasoActual = max(2, $pasoMaximo); // Mínimo paso 2 (Aceptada)
+                } else {
+                    $pasoActual = 2; // Aceptada (esperando decisión del cliente)
+                }
+                break;
+            case 'EN_PROCESO':
+                $pasoActual = max(3, $pasoMaximo); // Mínimo paso 3 (Reparación Iniciada)
+                break;
+            case 'COMPLETADO':
+                $pasoActual = 7; // Completado
+                break;
+            case 'RECHAZADA':
+                $pasoActual = 2; // Se queda en Aceptada pero con estado rechazado
+                break;
+            default:
+                $pasoActual = 1;
+        }
+
+        $servicio['paso_actual'] = $pasoActual;
+        unset($servicio['paso_maximo']); // Remover el campo auxiliar
+    }
     
     // Obtener imágenes, comentarios y progreso para cada servicio
     $serviciosConDetalles = [];
     foreach ($servicios as $servicio) {
         $idCotizacion = $servicio['id_cotizacion'];
 
-        // Obtener imágenes
-        $consultaImagenes = "SELECT id_imagen, ruta_imagen, nombre_archivo FROM cotizacion_imagenes_cliente WHERE id_cotizacion = :id";
+        // Obtener imágenes del proceso (subidas por el administrador)
+        $consultaImagenes = "SELECT id_imagen_proceso as id_imagen, ruta_imagen, nombre_archivo, descripcion FROM imagenes_proceso_reparacion WHERE id_cotizacion = :id ORDER BY fecha_subida DESC";
         $sentenciaImagenes = $conexion->prepare($consultaImagenes);
         $sentenciaImagenes->execute([':id' => $idCotizacion]);
         $imagenes = $sentenciaImagenes->fetchAll(PDO::FETCH_ASSOC);
@@ -125,7 +161,7 @@ try {
             }
         }
         
-        // Obtener comentarios
+        // Obtener comentarios del administrador
         $consultaComentarios = "SELECT id_comentario, autor, mensaje, creado_en FROM cotizacion_comentarios_cliente WHERE id_cotizacion = :id ORDER BY creado_en DESC";
         $sentenciaComentarios = $conexion->prepare($consultaComentarios);
         $sentenciaComentarios->execute([':id' => $idCotizacion]);

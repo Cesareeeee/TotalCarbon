@@ -507,6 +507,46 @@ body {
     transform: scale(1.2);
 }
 
+.boton-regresar {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.btn-regresar {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, var(--color-principal) 0%, var(--color-acento) 100%);
+    color: var(--color-secundario);
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 500;
+    font-size: 14px;
+    transition: var(--transicion);
+    border: 2px solid transparent;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-regresar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, var(--color-acento) 0%, var(--color-principal) 100%);
+}
+
+.btn-regresar i {
+    font-size: 16px;
+    transition: var(--transicion);
+}
+
+.btn-regresar:hover i {
+    transform: translateX(-3px);
+}
+
 .contenedor-logo {
     display: flex;
     align-items: center;

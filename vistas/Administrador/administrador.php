@@ -6,7 +6,7 @@
     <title>TotalCarbon - Gestión de Clientes</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link rel="stylesheet" href="../../recursos/css/Administrador/administrador.css?v=245333">
+    <link rel="stylesheet" href="../../recursos/css/Administrador/administrador.css?v=34567895456">
 </head>
 <body>
     <!-- Top Bar -->
@@ -80,7 +80,7 @@
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
     <!-- Main Content -->
-    <div class="main-content">
+    <div class="main-content" style="overflow-y: scroll;">
         <!-- Clientes Section -->
         <div class="content-section active" id="clientes-section">
             <div class="section-header">
@@ -635,9 +635,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
-    <script src="../../recursos/js/Administrador/administrador.js?V=3456"></script>
-    <script src="../../recursos/js/Administrador/clientes.js?v=555"></script>
-    <script src="../../recursos/js/Administrador/chat.js?v=999999"></script>
+    <script src="../../recursos/js/Administrador/administrador.js?v=34565677"></script>
+    <script src="../../recursos/js/Administrador/clientes.js?v=45678556"></script>
+    <script src="../../recursos/js/Administrador/chat.js?v=34567764567895"></script>
 
     <!-- Chat Floating Button -->
     <div class="chat-floating-btn" id="chatFloatingBtn" onclick="abrirChatFlotante()">

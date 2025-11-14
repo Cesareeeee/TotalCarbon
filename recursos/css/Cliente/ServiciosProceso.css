@@ -386,10 +386,75 @@
     margin-top: 30px;
     padding-top: 20px;
     border-top: 1px solid #e9ecef;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .acciones-servicio .btn {
     flex: 1;
+}
+
+/* ===== BOTONES DE ACEPTACIÓN ===== */
+
+.botones-aceptacion {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.botones-aceptacion .btn {
+    flex: none;
+    min-width: 150px;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.botones-aceptacion .btn-success {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    border: none;
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.2);
+}
+
+.botones-aceptacion .btn-success:hover {
+    background: linear-gradient(135deg, #218838 0%, #1aa085 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3);
+}
+
+.botones-aceptacion .btn-danger {
+    background: linear-gradient(135deg, #dc3545 0%, #fd7e14 100%);
+    border: none;
+    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.2);
+}
+
+.botones-aceptacion .btn-danger:hover {
+    background: linear-gradient(135deg, #c82333 0%, #e8680d 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(220, 53, 69, 0.3);
+}
+
+/* ===== ESTADO DE DECISIÓN ===== */
+
+.estado-decision {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.estado-decision .badge {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.estado-decision .badge i {
+    font-size: 1rem;
 }
 
 /* ===== RESPONSIVE ===== */

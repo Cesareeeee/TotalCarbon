@@ -1163,7 +1163,7 @@ footer::before {
     .section-title {
         font-size: 2.5rem;
     }
-    
+
     .hero-title {
         font-size: 2.5rem;
     }
@@ -1177,35 +1177,35 @@ footer::before {
         text-align: center;
         margin-top: 1rem;
     }
-    
+
     .gallery-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .navbar-nav .nav-link {
         margin: 0 10px;
     }
-    
+
     .top-bar {
         text-align: center;
     }
-    
+
     .top-bar .contact-info {
         justify-content: center;
         margin-bottom: 10px;
         flex-direction: column;
         gap: 10px;
     }
-    
+
     .floating-buttons {
         right: 20px;
     }
-    
+
     .floating-btn {
         width: 50px;
         height: 50px;
     }
-    
+
     .chatbot-modal {
         width: 300px;
         height: 450px;
@@ -1214,6 +1214,69 @@ footer::before {
 
     .navbar {
         margin-top: 35px;
+    }
+
+    /* Ajustes específicos para móviles */
+    .hero-section {
+        height: auto;
+        min-height: 100vh;
+        padding: 120px 0 60px;
+    }
+
+    .hero-content {
+        padding: 20px 0;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+        line-height: 1.2;
+        margin-bottom: 2rem;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .btn-hero {
+        width: 100%;
+        max-width: 300px;
+        padding: 15px 30px;
+        font-size: 1rem;
+    }
+
+    .servicios-section {
+        padding: 60px 0;
+    }
+
+    .service-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .gallery-section {
+        padding: 60px 0;
+    }
+
+    .gallery-grid {
+        gap: 1.5rem;
+    }
+
+    .gallery-item {
+        margin-bottom: 1rem;
+    }
+
+    .nosotros-section {
+        padding: 60px 0;
+    }
+
+    .contacto-section {
+        padding: 60px 0;
+    }
+
+    .contact-form,
+    .contact-info {
+        padding: 2rem 1.5rem;
     }
 }
 
@@ -1244,14 +1307,31 @@ footer::before {
     font-weight: bold;
     text-transform: uppercase;
     transition: all 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-login::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-login:hover::before {
+    left: 100%;
 }
 
 .btn-login:hover {
     background-color: #000000;
-    color: #000;
-    border-color: #000;
+    color: #f0d32e;
+    border-color: #f0d32e;
     transform: scale(1.05);
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 15px rgba(240, 211, 46, 0.6);
 }
 
 /* Ajuste para pantallas pequeñas */

@@ -45,21 +45,15 @@
         }
 
         function showSection(section) {
-            console.log('🔄 Cambiando a sección:', section);
-
             // Ocultar todas las secciones
             document.querySelectorAll('.content-section').forEach(sec => {
-                console.log('❌ Ocultando sección:', sec.id);
                 sec.classList.remove('active');
             });
 
             // Mostrar la sección seleccionada
             const targetSection = document.getElementById(section + '-section');
-            console.log('✅ Mostrando sección:', section + '-section', targetSection);
             if (targetSection) {
                 targetSection.classList.add('active');
-            } else {
-                console.error('❌ Sección no encontrada:', section + '-section');
             }
 
             // Actualizar menú lateral
@@ -76,8 +70,6 @@
             if (window.innerWidth <= 992) {
                 toggleSidebar();
             }
-
-            console.log('🎯 Sección cambiada exitosamente a:', section);
         }
 
         // Funciones de carga de datos
@@ -161,7 +153,6 @@
                     tbody.appendChild(row);
                 });
             } catch (error) {
-                console.error('Error loading productos:', error);
             }
         }
 
@@ -262,7 +253,6 @@
                     select.appendChild(option);
                 });
             } catch (error) {
-                console.error('Error loading proveedores for select:', error);
             }
         }
 
@@ -292,7 +282,6 @@
 
                 openModal('productoModal');
             } catch (error) {
-                console.error('Error fetching producto:', error);
             }
         }
 
@@ -355,7 +344,6 @@
                     });
                 }
             } catch (error) {
-                console.error('Error saving producto:', error);
             }
         }
 
@@ -474,27 +462,19 @@
                     width: '700px'
                 });
             } catch (error) {
-                console.error('Error fetching producto details:', error);
             }
         }
 
         async function deleteProducto(id) {
-            console.log('deleteProducto called with id:', id);
-            console.log('Current productos array:', arregloProductos);
-
             // Convertir id a número para comparación correcta
             const idNum = parseInt(id);
-            console.log('Converted id to number:', idNum);
 
             const producto = arregloProductos.find(p => parseInt(p.id_compra) === idNum);
-            console.log('Producto found:', producto);
 
             if (!producto) {
-                console.error('Producto not found - reloading productos...');
                 // Recargar productos si no se encuentra
                 await loadProductos();
                 const productoReloaded = arregloProductos.find(p => parseInt(p.id_compra) === idNum);
-                console.log('Producto after reload:', productoReloaded);
 
                 if (!productoReloaded) {
                     Swal.fire({
@@ -520,21 +500,13 @@
                 cancelButtonText: 'Cancelar'
             });
 
-            console.log('Swal result:', result);
-
             if (result.isConfirmed) {
-                console.log('User confirmed deletion');
                 try {
-                    console.log('Making fetch request...');
                     const response = await fetch(`../../controlador/Administrador/compras_proveedores_controller.php?action=deleteCompraProveedor&id=${id}`);
-                    console.log('Response received:', response);
-                    console.log('Response status:', response.status);
 
                     const res = await response.json();
-                    console.log('Response JSON:', res);
 
                     if (res.success) {
-                        console.log('Deletion successful');
                         await Swal.fire({
                             icon: 'success',
                             title: 'Eliminado',
@@ -545,7 +517,6 @@
                         });
                         loadProductos();
                     } else {
-                        console.log('Deletion failed:', res.error);
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
@@ -554,7 +525,6 @@
                         });
                     }
                 } catch (error) {
-                    console.error('Error deleting producto:', error);
                     Swal.fire({
                         icon: 'error',
                         title: 'Error de conexión',
@@ -562,8 +532,6 @@
                         confirmButtonColor: '#1a1a1a'
                     });
                 }
-            } else {
-                console.log('User cancelled deletion');
             }
         }
 
@@ -671,7 +639,6 @@
                 
                 openModal('proveedorModal');
             } catch (error) {
-                // Error silencioso
             }
         }
 
@@ -693,7 +660,6 @@
             const direccionProveedor = document.getElementById('direccion_proveedor');
 
             if (!nombreProveedor || !contactoProveedor || !telefonoProveedor || !correoProveedor || !direccionProveedor) {
-                console.error('Algunos elementos del formulario no existen');
                 return;
             }
 
@@ -742,7 +708,6 @@
                     });
                 }
             } catch (error) {
-                // Error silencioso
             }
         }
 
@@ -863,13 +828,11 @@
                     width: '700px'
                 });
             } catch (error) {
-                // Error silencioso
             }
         }
 
         async function deleteProveedor(id) {
             console.log('deleteProveedor called with id:', id);
-            console.log('Current proveedores array:', arregloProveedores);
 
             // Convertir id a número para comparación correcta
             const idNum = parseInt(id);
@@ -879,13 +842,14 @@
             console.log('Proveedor found:', proveedor);
 
             if (!proveedor) {
-                console.error('Proveedor not found - reloading proveedores...');
+                console.log('Proveedor not found - reloading proveedores...');
                 // Recargar proveedores si no se encuentra
                 await loadProveedores();
                 const proveedorReloaded = arregloProveedores.find(p => parseInt(p.id_proveedor) === idNum);
                 console.log('Proveedor after reload:', proveedorReloaded);
 
                 if (!proveedorReloaded) {
+                    console.log('Proveedor still not found');
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',
@@ -943,7 +907,7 @@
                         });
                     }
                 } catch (error) {
-                    // Error silencioso
+                    console.error('Error deleting proveedor:', error);
                     Swal.fire({
                         icon: 'error',
                         title: 'Error de conexión',
