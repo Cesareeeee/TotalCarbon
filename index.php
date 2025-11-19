@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
+<head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Total Carbon - Especialistas en Fibra de Carbono</title>
@@ -227,12 +227,10 @@
                 <!-- Reparaciones -->
                 <div class="gallery-item" data-category="reparacion" data-aos="fade-up">
                     <div class="gallery-image">
-                        <img src="presentacion/assets/Galeria/cuadro.png" alt="Reparación de Cuadro">
+                        <img src="presentacion/assets/Galeria/Reparacion1.jpg" alt="Reparación">
                         <div class="gallery-overlay">
                             <div class="overlay-content">
-                                <h4>Reparación de Cuadro</h4>
-                                <p>Restauración completa de cuadro de carbono con garantía total</p>
-                                <button class="btn-view" data-image="068316344-?ixlib=-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80">
+                                <button class="btn-view" data-image="presentacion/assets/Galeria/Reparacion1.jpg">
                                     <i class="fas fa-search-plus"></i>
                                 </button>
                             </div>
@@ -242,12 +240,10 @@
                 
                 <div class="gallery-item" data-category="reparacion" data-aos="fade-up" data-aos-delay="100">
                     <div class="gallery-image">
-                        <img src="presentacion/assets/Galeria/orquilla.png" alt="Reparación de Horquilla">
+                        <img src="presentacion/assets/Galeria/Reparacion2.jpg" alt="Reparación">
                         <div class="gallery-overlay">
                             <div class="overlay-content">
-                                <h4>Reparación de Horquilla</h4>
-                                <p>Reconstrucción estructural garantizada con materiales de primera</p>
-                                <button class="btn-view" data-image="assets/Galeria/frenos.png">
+                                <button class="btn-view" data-image="presentacion/assets/Galeria/Reparacion2.jpg">
                                     <i class="fas fa-search-plus"></i>
                                 </button>
                             </div>
@@ -257,12 +253,10 @@
                 
                 <div class="gallery-item" data-category="reparacion" data-aos="fade-up" data-aos-delay="200">
                     <div class="gallery-image">
-                        <img src="presentacion/assets/Galeria/frenos.png" alt="Reparación de Frenos">
+                        <img src="presentacion/assets/Galeria/Reparacion3.jpg" alt="Reparación">
                         <div class="gallery-overlay">
                             <div class="overlay-content">
-                                <h4>Reparación de Frenos</h4>
-                                <p>Restauración de sistema de frenos de carbono con componentes premium</p>
-                                <button class="btn-view" data-image="https://imagesrb-4..3&ixid=%%3D&auto=format&fit=crop&w=1200&q=80">
+                                <button class="btn-view" data-image="presentacion/assets/Galeria/Reparacion3.jpg">
                                     <i class="fas fa-search-plus"></i>
                                 </button>
                             </div>
@@ -273,12 +267,10 @@
                 <!-- Pinturas -->
                 <div class="gallery-item" data-category="pintura" data-aos="fade-up" data-aos-delay="300">
                     <div class="gallery-image">
-                        <img src="presentacion/assets/Galeria/cuadro.png" alt="Pintura Personalizada">
+                        <img src="presentacion/assets/Galeria/Pintura1.jpg" alt="Pintura">
                         <div class="gallery-overlay">
                             <div class="overlay-content">
-                                <h4>Pintura Personalizada</h4>
-                                <p>Diseño único con efectos especiales y acabado premium</p>
-                                <button class="btn-view" data-image="https://images.unsplash.com/photo-1619856699906-09e1f58298b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80">
+                                <button class="btn-view" data-image="presentacion/assets/Galeria/Pintura1.jpg">
                                     <i class="fas fa-search-plus"></i>
                                 </button>
                             </div>
@@ -288,12 +280,10 @@
                 
                 <div class="gallery-item" data-category="pintura" data-aos="fade-up" data-aos-delay="400">
                     <div class="gallery-image">
-                        <img src="presentacion/assets/Galeria/oro.png" alt="Pintura con Hoja de Oro">
+                        <img src="presentacion/assets/Galeria/Pintura2.jpg" alt="Pintura">
                         <div class="gallery-overlay">
                             <div class="overlay-content">
-                                <h4>Pintura con Hoja de Oro</h4>
-                                <p>Acabado de lujo con aplicación de hoja de oro 24k</p>
-                                <button class="btn-view" data-image="https://images.unsplash.com/photo-1619856699906-09e1f58298b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80">
+                                <button class="btn-view" data-image="presentacion/assets/Galeria/Pintura2.jpg">
                                     <i class="fas fa-search-plus"></i>
                                 </button>
                             </div>
@@ -303,12 +293,10 @@
                 
                 <div class="gallery-item" data-category="pintura" data-aos="fade-up" data-aos-delay="500">
                     <div class="gallery-image">
-                        <img src="presentacion/assets/Galeria/camaleon.png" alt="Pintura Camaleón">
+                        <img src="presentacion/assets/Galeria/Pintura3.jpg" alt="Pintura">
                         <div class="gallery-overlay">
                             <div class="overlay-content">
-                                <h4>Pintura Camaleón</h4>
-                                <p>Efecto camaleón holográfico que cambia con el ángulo de visión</p>
-                                <button class="btn-view" data-image="https://images.unsplash.com/photo-1619856699906-09e1f58298b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80">
+                                <button class="btn-view" data-image="presentacion/assets/Galeria/Pintura3.jpg">
                                     <i class="fas fa-search-plus"></i>
                                 </button>
                             </div>
@@ -319,12 +307,10 @@
                 <!-- Fabricación -->
                 <div class="gallery-item" data-category="fabricacion" data-aos="fade-up" data-aos-delay="600">
                     <div class="gallery-image">
-                        <img src="presentacion/assets/Galeria/medida.png" alt="Bicicleta a Medida">
+                        <img src="presentacion/assets/Galeria/fabricacion1.jpg" alt="Fabricación">
                         <div class="gallery-overlay">
                             <div class="overlay-content">
-                                <h4>Bicicleta a Medida</h4>
-                                <p>Fabricación completa de fibra de carbono optimizada para rendimiento</p>
-                                <button class="btn-view" data-image="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80">
+                                <button class="btn-view" data-image="presentacion/assets/Galeria/fabricacion1.jpg">
                                     <i class="fas fa-search-plus"></i>
                                 </button>
                             </div>
@@ -334,12 +320,10 @@
                 
                 <div class="gallery-item" data-category="fabricacion" data-aos="fade-up" data-aos-delay="700">
                     <div class="gallery-image">
-                        <img src="presentacion/assets/Galeria/cuadroc.png" alt="Cuadro de Carbono">
+                        <img src="presentacion/assets/Galeria/fabricacion2.jpg" alt="Fabricación">
                         <div class="gallery-overlay">
                             <div class="overlay-content">
-                                <h4>Cuadro de Carbono</h4>
-                                <p>Fabricación de cuadro monopieza con tecnología de vacío</p>
-                                <button class="btn-view" data-image="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80">
+                                <button class="btn-view" data-image="presentacion/assets/Galeria/fabricacion2.jpg">
                                     <i class="fas fa-search-plus"></i>
                                 </button>
                             </div>
@@ -349,12 +333,10 @@
                 
                 <div class="gallery-item" data-category="fabricacion" data-aos="fade-up" data-aos-delay="800">
                     <div class="gallery-image">
-                        <img src="presentacion/assets/Galeria/image.png" alt="Ruedas de Carbono">
+                        <img src="presentacion/assets/Galeria/fabricacion3.jpg" alt="Fabricación">
                         <div class="gallery-overlay">
                             <div class="overlay-content">
-                                <h4>Ruedas de Carbono</h4>
-                                <p>Set de ruedas completas fabricadas en fibra de carbono</p>
-                                <button class="btn-view" data-image="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80">
+                                <button class="btn-view" data-image="presentacion/assets/Galeria/fabricacion3.jpg">
                                     <i class="fas fa-search-plus"></i>
                                 </button>
                             </div>

@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function configurarEventosPrueba() {
     const inputMensaje = document.getElementById('mensajeChat');
     const btnEnviar = document.getElementById('enviarMensajeBtn');
+    const hideBtn = document.getElementById('hideKeyboardBtn');
 
     // Evento Enter para enviar
     inputMensaje.addEventListener('keypress', function(e) {
@@ -44,6 +45,25 @@ function configurarEventosPrueba() {
 
     // Evento click del botón
     btnEnviar.addEventListener('click', enviarMensajeCliente);
+
+    // Evento toggle campo de mensaje y ocultar teclado
+    hideBtn.addEventListener('click', function() {
+        const inputContainer = document.querySelector('.input-container');
+        const icon = hideBtn.querySelector('i');
+        inputContainer.classList.toggle('hidden');
+        if (inputContainer.classList.contains('hidden')) {
+            icon.className = 'fas fa-comment-dots';
+            hideBtn.title = 'Mostrar teclado';
+        } else {
+            icon.className = 'fas fa-keyboard';
+            hideBtn.title = 'Ocultar teclado';
+        }
+        inputMensaje.setAttribute('readonly', 'readonly');
+        inputMensaje.blur();
+        setTimeout(() => {
+            inputMensaje.removeAttribute('readonly');
+        }, 100);
+    });
 
     // Validación de longitud
     inputMensaje.addEventListener('input', function() {
@@ -117,11 +137,8 @@ function renderizarMensajesCliente() {
         container.appendChild(mensajeElement);
     });
 
-    // Scroll al final solo si hay nuevos mensajes
-    const scrollDifference = container.scrollHeight - container.scrollTop - container.clientHeight;
-    if (scrollDifference < 100) { // Si está cerca del final (menos de 100px)
-        container.scrollTop = container.scrollHeight;
-    }
+    // Scroll al final del chat para mostrar el último mensaje
+    container.scrollTop = container.scrollHeight;
 }
 
 // Crear elemento de mensaje

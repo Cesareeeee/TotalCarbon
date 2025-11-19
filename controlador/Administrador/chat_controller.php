@@ -125,6 +125,37 @@ function enviarMensaje($id_cliente, $mensaje) {
     }
 }
 
+function getClientes() {
+    try {
+        $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
+        if ($conexion->connect_error) {
+            return ['success' => false, 'error' => 'Connection failed: ' . $conexion->connect_error];
+        }
+
+        // Obtener todos los clientes registrados
+        $query = "SELECT id_usuario, nombres, apellidos, correo_electronico, estado_usuario
+                  FROM usuarios
+                  WHERE id_rol = 2
+                  ORDER BY nombres ASC";
+
+        $result = $conexion->query($query);
+        if (!$result) {
+            $conexion->close();
+            return ['success' => false, 'error' => 'Query failed: ' . $conexion->error];
+        }
+
+        $clientes = [];
+        while ($row = $result->fetch_assoc()) {
+            $clientes[] = $row;
+        }
+
+        $conexion->close();
+        return $clientes;
+    } catch (Exception $e) {
+        return ['success' => false, 'error' => 'Database error: ' . $e->getMessage()];
+    }
+}
+
 function getNotificaciones() {
     try {
         $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
@@ -174,6 +205,10 @@ try {
                 break;
             }
             $result = enviarMensaje($data['id_cliente'], $data['mensaje']);
+            echo json_encode($result);
+            break;
+        case 'getClientes':
+            $result = getClientes();
             echo json_encode($result);
             break;
         case 'getNotificaciones':

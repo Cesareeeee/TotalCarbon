@@ -22,7 +22,7 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
     <title>Chat con Soporte - TotalCarbon</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link rel="stylesheet" href="../../recursos/css/Cliente/chat_test_cliente.css?v=34567">
+    <link rel="stylesheet" href="../../recursos/css/Cliente/chat_test_cliente.css?v=34333584">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -32,10 +32,7 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
     </div>
 
     <div class="chat-test-container">
-        <div class="chat-test-header">
-            <h1>💬 Chat con Soporte</h1>
-            <p>Comunícate con nuestro equipo técnico</p>
-        </div>
+      
 
         <div class="chat-test-main">
             <div class="chat-info-bar">
@@ -54,6 +51,9 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
             </div>
 
             <div class="chat-input-area">
+                <button class="btn-hide-keyboard" id="hideKeyboardBtn" title="Ocultar/Mostrar teclado">
+                    <i class="fas fa-keyboard"></i>
+                </button>
                 <div class="input-container">
                     <input type="text" id="mensajeChat" placeholder="Escribe un mensaje..." maxlength="1000">
                     <button class="btn-send" id="enviarMensajeBtn" title="Enviar mensaje">
@@ -66,6 +66,6 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../../recursos/js/Cliente/chat_test_cliente.js?v=34567"></script>
+    <script src="../../recursos/js/Cliente/chat_test_cliente.js?v=3454444444444444444484"></script>
 </body>
 </html>

@@ -17,6 +17,7 @@ $usuarioEstado = $_SESSION['estado'] ?? '';
 $usuarioCP = $_SESSION['codigo_postal'] ?? '';
 $usuarioPais = $_SESSION['pais'] ?? '';
 $usuarioFechaNac = $_SESSION['fecha_nacimiento'] ?? '';
+$usuarioId = $_SESSION['id_usuario'] ?? 0;
 $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
 ?>
 <!DOCTYPE html>
@@ -25,11 +26,14 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Total Carbon - Portal de Cliente</title>
+    <link rel="icon" href="../../recursos/img/image.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link rel="stylesheet" href="../../recursos/css/Cliente/PaginaCliente.css?v=999999999993">
+    <link rel="stylesheet" href="../../recursos/css/Cliente/PaginaCliente.css?v=999999999996">
+    <link rel="stylesheet" href="../../recursos/css/Cliente/chat_test_cliente.css?v=34333586">
 
+    
     <!-- Estilos adicionales para el botón Actualizar (se integran con el proyecto) -->
     <style>
         /* Botón actualizar: gradiente, sombra y animación para el icono */
@@ -236,15 +240,15 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
                 </a>
             </li>
             <li>
-                <a href="#" class="menu-item" data-section="perfil">
-                    <i class="fas fa-user"></i>
-                    <span>Mi Perfil</span>
+                <a href="#" class="menu-item" data-section="chat-soporte">
+                    <i class="fas fa-comments"></i>
+                    <span>Chat con Soporte</span>
                 </a>
             </li>
             <li>
-                <a href="#" class="menu-item" data-section="chat">
-                    <i class="fas fa-comments"></i>
-                    <span>Chat con Soporte</span>
+                <a href="#" class="menu-item" data-section="perfil">
+                    <i class="fas fa-user"></i>
+                    <span>Mi Perfil</span>
                 </a>
             </li>
         </ul>
@@ -286,10 +290,10 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
                     <h3>Mis Garantías</h3>
                     <p>Consulta tus garantías activas</p>
                 </a>
-                <a href="#" class="dashboard-card warning" data-section="chat">
+                <a href="#" class="dashboard-card warning" data-section="chat-soporte">
                     <i class="fas fa-comments"></i>
                     <h3>Chat con Soporte</h3>
-                    <p>Contacta con nuestro equipo de soporte técnico</p>
+                    <p>Contacta a nuestro equipo técnico</p>
                 </a>
             </div>
         </section>
@@ -476,37 +480,48 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
                         <div class="photo-guide">
                             <h5><i class="fas fa-camera"></i> Guía para subir fotos correctamente</h5>
                             <p>Para una evaluación precisa, por favor sube fotos claras de las siguientes áreas del cuadro:</p>
-                           
+                            <small class="text-muted">Haz clic en las imágenes para verlas en tamaño completo</small>
+
                             <div class="photo-guide-grid">
                                 <div class="photo-guide-item">
-                                    <img src="recursos/img/pintura.png" alt="Vista Frontal">
+                                    <img src="../../recursos/img/Frontal.jpg" alt="Vista Frontal" class="photo-guide-image" data-bs-toggle="modal" data-bs-target="#imageModal" data-src="../../recursos/img/Frontal.jpg" data-title="Vista Frontal">
                                     <h6>Vista Frontal</h6>
                                     <p>Toma una foto de frente al cuadro, mostrando el tubo principal y el tubo del sillín</p>
                                 </div>
                                 <div class="photo-guide-item">
-                                    <img src="recursos/img/pintura.png" alt="Vista Lateral">
+                                    <img src="../../recursos/img/Lateral.jpg" alt="Vista Lateral" class="photo-guide-image" data-bs-toggle="modal" data-bs-target="#imageModal" data-src="../../recursos/img/Lateral.jpg" data-title="Vista Lateral">
                                     <h6>Vista Lateral</h6>
                                     <p>Fotografía del lado derecho e izquierdo del cuadro para ver daños laterales</p>
                                 </div>
                                 <div class="photo-guide-item">
-                                    <img src="recursos/img/pintura.png" alt="Vista Superior">
+                                    <img src="../../recursos/img/Superior.jpg" alt="Vista Superior" class="photo-guide-image" data-bs-toggle="modal" data-bs-target="#imageModal" data-src="../../recursos/img/Superior.jpg" data-title="Vista Superior">
                                     <h6>Vista Superior</h6>
                                     <p>Desde arriba para apreciar la forma y posibles deformaciones</p>
                                 </div>
                                 <div class="photo-guide-item">
-                                    <img src="recursos/img/pintura.png" alt="Vista Inferior">
+                                    <img src="../../recursos/img/Infeior.jpg" alt="Vista Inferior" class="photo-guide-image" data-bs-toggle="modal" data-bs-target="#imageModal" data-src="../../recursos/img/Infeior.jpg" data-title="Vista Inferior">
                                     <h6>Vista Inferior</h6>
                                     <p>Parte inferior del cuadro, especialmente la zona del pedalier</p>
                                 </div>
                                 <div class="photo-guide-item">
-                                    <img src="recursos/img/pintura.png" alt="Primer Plano">
+                                    <img src="../../recursos/img/Primer plano.jpg" alt="Primer Plano" class="photo-guide-image" data-bs-toggle="modal" data-bs-target="#imageModal" data-src="../../recursos/img/Primer plano.jpg" data-title="Primer Plano">
                                     <h6>Primer Plano</h6>
                                     <p>Fotos cercanas del área dañada para ver detalles de la fisura o fractura</p>
                                 </div>
-                                <div class="photo-guide-item">
-                                    <img src="recursos/img/pintura.png" alt="Uniones">
-                                    <h6>Uniones y Soldaduras</h6>
-                                    <p>Todas las uniones del cuadro donde suelen concentrarse los esfuerzos</p>
+                            </div>
+                        </div>
+
+                        <!-- Image Modal -->
+                        <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="imageModalLabel">Vista de Imagen</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <img id="modalImage" src="" alt="" class="img-fluid rounded">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1040,46 +1055,54 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
                 </div>
             </div>
         </section>
-    </main>
-    <!-- Chat Section -->
-    <section class="content-section" id="chat">
-        <div class="page-header">
-            <h1>Chat con Soporte</h1>
-            <p>Contacta con nuestro equipo de soporte técnico</p>
-        </div>
+        <!-- Chat con Soporte Section -->
+        <section class="content-section" id="chat-soporte">
+            <div class="card">
+                <div class="card-body p-0">
+                    <div class="status-indicator online" id="connectionStatus">
+                        <i class="fas fa-circle"></i>
+                        <span>Conectado - Usuario: <?php echo htmlspecialchars($nombreCompleto); ?> (ID: <?php echo $usuarioId; ?>)</span>
+                    </div>
 
-        <div class="chat-container">
-            <div class="chat-main">
-                <div class="chat-header">
-                    <div class="chat-user-info">
-                        <i class="fas fa-headset"></i>
-                        <div class="user-details">
-                            <span class="user-name">Soporte TotalCarbon</span>
-                            <span class="user-status">En línea</span>
+                    <div class="chat-test-container">
+                        <div class="chat-test-main">
+                            <div class="chat-info-bar">
+                                <i class="fas fa-headset"></i>
+                                <div class="user-info">
+                                    <h3>Soporte TotalCarbon</h3>
+                                </div>
+                            </div>
+
+                            <div class="chat-messages-area" id="chatMessages">
+                                <div class="no-messages">
+                                    <i class="fas fa-comments"></i>
+                                    <p>¡Hola! ¿En qué podemos ayudarte hoy?</p>
+                                    <small>Envía un mensaje para iniciar la conversación</small>
+                                </div>
+                            </div>
+
+                            <div class="chat-input-area">
+                                <button class="btn-hide-keyboard" id="hideKeyboardBtn" title="Ocultar/Mostrar teclado">
+                                    <i class="fas fa-keyboard"></i>
+                                </button>
+                                <div class="input-container">
+                                    <input type="text" id="mensajeChat" placeholder="Escribe un mensaje..." maxlength="1000">
+                                    <button class="btn-send" id="enviarMensajeBtn" title="Enviar mensaje">
+                                        <i class="fas fa-paper-plane"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="chat-messages" id="chatMessages">
-                    <div class="no-messages">
-                        <i class="fas fa-comments"></i>
-                        <p>¡Hola! ¿En qué podemos ayudarte hoy?</p>
-                        <small>Envía un mensaje para iniciar la conversación</small>
-                    </div>
-                </div>
-
-                <div class="chat-input-container">
-                    <input type="text" class="chat-input" id="mensajeChat" placeholder="Escribe un mensaje..." maxlength="1000">
-                    <button class="chat-send-btn" id="enviarMensajeBtn" title="Enviar mensaje">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
     <!-- Chat FAB -->
-    <button class="chat-fab" id="chatFab">
+    <button class="chat-fab" id="chatFab" style="display: none;">
         <i class="fas fa-comments"></i>
     </button>
     <!-- Notification -->
@@ -1127,10 +1150,10 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
     <link rel="stylesheet" href="../../recursos/css/Cliente/ServiciosProceso.css">
     <!-- Scripts -->
 
-    <script src="../../recursos/js/Cliente/PaginaCliente.js?v=993499999999993"></script>
-    <script src="../../recursos/js/Cliente/FichasTecnicas.js?V=99999235000008"></script>
-    <script src="../../recursos/js/Cliente/ServiciosProceso.js?V=66666666666670"></script>
-    <script src="../../recursos/js/Cliente/chat_cliente.js?v=345523555688"></script>
+    <script src="../../recursos/js/Cliente/PaginaCliente.js?v=993499999999995"></script>
+    <script src="../../recursos/js/Cliente/FichasTecnicas.js?V=99999235000009"></script>
+    <script src="../../recursos/js/Cliente/ServiciosProceso.js?V=66666666666671"></script>
+    <script src="../../recursos/js/Cliente/chat_test_cliente.js?v=3454444444444444444485"></script>
 </body>
 
 </html>

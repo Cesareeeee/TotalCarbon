@@ -64,7 +64,7 @@
         }
 
         .conversacion-item.active {
-            background: var(--gradient-primary);
+            background: #333;
             color: white;
         }
 
@@ -504,5 +504,39 @@
                 width: 20px;
                 height: 20px;
                 font-size: 10px;
+            }
+        }
+
+        /* Alerta de nuevo mensaje */
+        .nuevo-mensaje-alerta {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 1000;
+            animation: slideInRight 0.3s ease-out;
+        }
+
+        .nuevo-mensaje-alerta i {
+            font-size: 16px;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
             }
         }

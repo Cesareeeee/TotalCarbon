@@ -1,75 +1,38 @@
 /* Chat Test Cliente - Estilos independientes para pruebas */
 
-/* Variables CSS - Blanco y Negro PURO */
-:root {
-    --primary-color: #000000;
-    --secondary-color: #000000;
-    --success-color: #000000;
-    --danger-color: #666666;
-    --warning-color: #999999;
-    --info-color: #333333;
-    --light-bg: #ffffff;
-    --dark-bg: #ffffff;
-    --text-primary: #000000;
-    --text-secondary: #666666;
-    --border-color: #cccccc;
-    --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    --shadow-hover: 0 4px 20px rgba(0, 0, 0, 0.15);
-    --border-radius: 8px;
-    --border-radius-large: 12px;
-    --transition: all 0.3s ease;
-}
+/* Variables CSS específicas para el chat - No globales */
 
-/* Reset y base */
-* {
-    margin: 0;
-    padding: 0;
+/* Reset y base - Solo para elementos del chat */
+.chat-test-container * {
     box-sizing: border-box;
 }
 
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-primary);
-    line-height: 1.6;
-}
-
-/* Contenedor principal */
+/* Contenedor principal - Versión integrada */
 .chat-test-container {
     width: 100%;
-    max-width: 800px;
-    height: 90vh;
+    max-width: 100%;
+    height: 580px; /* Altura aumentada ~2cm más */
     background: #ffffff;
-    border-radius: var(--border-radius-large);
-    box-shadow: var(--shadow-hover);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     display: flex;
     flex-direction: column;
     position: relative;
-    margin: 0 auto;
+    margin: 0;
+    border: 1px solid #dee2e6;
 }
 
-/* Estilos específicos para el chat en el panel de administrador */
-.admin-panel .chat-test-container {
-    max-width: 100%;
-    height: calc(100vh - 200px);
-    border-radius: 0;
-    box-shadow: none;
-    margin: 0;
-}
+/* Estilos específicos para el chat en el panel de administrador - REMOVIDO */
 
 /* Área de mensajes con scrollbar lateral */
 .chat-messages-area {
     flex: 1;
-    padding: 20px 20px 80px 20px; /* Padding reducido abajo para subir el input */
+    padding: 15px 15px 100px 15px; /* Padding reducido */
     overflow-y: auto;
     background: inherit;
     scroll-behavior: smooth;
-    max-height: calc(90vh - 120px); /* Espacio reducido para header más pequeño */
+    max-height: calc(580px - 140px); /* Ajustado para contenedor más grande */
     position: relative;
 }
 
@@ -85,31 +48,8 @@ body {
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Header */
-.chat-test-header {
-    background: #ffffff;
-    color: #000000;
-    padding: 15px 20px;
-    text-align: center;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid #cccccc;
-}
+/* Header - REMOVIDO para versión integrada */
 
-.chat-test-header h1 {
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-}
-
-.chat-test-header p {
-    opacity: 0.8;
-    font-size: 0.9rem;
-    font-weight: 400;
-}
 
 /* Área principal del chat */
 .chat-test-main {
@@ -117,9 +57,6 @@ body {
     display: flex;
     flex-direction: column;
     background: #ffffff;
-    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text fill="%23f0f0f0" font-size="20" y="50%">💬</text></svg>');
-    background-size: 60px 60px;
-    background-repeat: repeat;
     position: relative;
 }
 
@@ -200,8 +137,8 @@ body {
 
 .message.admin .message-content {
     background: #ffffff;
-    color: var(--text-primary);
-    border: 1px solid var(--border-color);
+    color: #000000;
+    border: 1px solid #cccccc;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
@@ -231,7 +168,7 @@ body {
 }
 
 .message.admin .message-time {
-    color: var(--text-secondary);
+    color: #666666;
 }
 
 /* Estado de mensajes */
@@ -255,7 +192,7 @@ body {
     align-items: center;
     justify-content: center;
     height: 100%;
-    color: var(--text-secondary);
+    color: #666666;
     text-align: center;
     padding: 40px;
 }
@@ -264,7 +201,7 @@ body {
     font-size: 64px;
     margin-bottom: 20px;
     opacity: 0.4;
-    color: var(--primary-color);
+    color: #000000;
 }
 
 .no-messages p {
@@ -305,11 +242,11 @@ body {
     background: transparent;
     padding: 6px 0;
     font-family: inherit;
-    color: var(--text-primary);
+    color: #000000;
 }
 
 .input-container input::placeholder {
-    color: var(--text-secondary);
+    color: #666666;
     font-style: italic;
 }
 
@@ -349,22 +286,45 @@ body {
     font-size: 16px;
 }
 
+.input-container.hidden {
+    display: none;
+}
+
+.btn-hide-keyboard {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    background: transparent;
+    border: none;
+    color: #666666;
+    font-size: 20px;
+    cursor: pointer;
+    display: none;
+    z-index: 5;
+}
+
+.btn-hide-keyboard i {
+    font-size: 20px;
+}
+
+
+
 /* Indicador de estado de conexión */
 .status-indicator {
-    position: fixed;
-    top: 20px;
-    right: 20px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
     background: white;
-    padding: 12px 18px;
-    border-radius: 25px;
+    padding: 8px 12px;
+    border-radius: 20px;
     box-shadow: var(--shadow);
-    font-size: 13px;
-    display: none; /* Ocultar sin borrar */
+    font-size: 11px;
+    display: block; /* Mostrar en versión integrada */
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     font-weight: 500;
-    z-index: 1000;
-    border: 2px solid transparent;
+    z-index: 10;
+    border: 1px solid #dee2e6;
 }
 
 .status-indicator.online {
@@ -399,42 +359,19 @@ body {
     color: #666666;
 }
 
-/* Responsive */
+/* Responsive - Ajustado para versión integrada */
 @media (max-width: 768px) {
     .chat-test-container {
-        height: 100vh;
-        border-radius: 0;
-        max-width: 100%;
-        margin: 0;
-    }
-
-    .chat-test-header {
-        padding: 15px 20px;
+        height: 530px; /* Más pequeño en móvil pero con aumento */
     }
 
     .chat-messages-area {
-        padding: 15px 15px 80px 15px;
-        max-height: calc(100vh - 120px);
+        padding: 15px 15px 100px 15px;
+        max-height: calc(530px - 140px);
     }
 
     .chat-input-area {
-        padding: 15px 20px;
-    }
-
-    .message-content {
-        max-width: 85%;
-    }
-
-    .chat-test-header {
-        padding: 12px 15px;
-    }
-
-    .chat-test-header h1 {
-        font-size: 1.1rem;
-    }
-
-    .chat-messages-area {
-        padding: 20px;
+        padding: 15px;
     }
 
     .message-content {
@@ -444,10 +381,6 @@ body {
 
     .message-text {
         font-size: 14px;
-    }
-
-    .chat-input-area {
-        padding: 20px;
     }
 
     .input-container {
@@ -464,10 +397,14 @@ body {
     }
 
     .status-indicator {
-        top: 10px;
-        right: 10px;
-        font-size: 11px;
-        padding: 8px 12px;
+        top: 8px;
+        right: 8px;
+        font-size: 10px;
+        padding: 6px 10px;
+    }
+
+    .btn-hide-keyboard {
+        display: block;
     }
 }
 

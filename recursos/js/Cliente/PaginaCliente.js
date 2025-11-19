@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const profileIcon = document.getElementById('profileIcon');
     const notificationBell = document.getElementById('notificationBell');
     const notificationBadge = document.getElementById('notificationBadge');
+    const chatFab = document.getElementById('chatFab');
    
     // Elementos del formulario de cotización
     const cotizacionForm = document.getElementById('cotizacionForm');
@@ -40,17 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const cancelPasswordBtn = document.getElementById('cancelPasswordBtn');
     const perfilForm = document.getElementById('perfilForm');
     const passwordForm = document.getElementById('passwordForm');
-   
-    // Elementos del chat
-    const chatContainer = document.getElementById('chatContainer');
-    const chatFab = document.getElementById('chatFab');
-    const chatClose = document.getElementById('chatClose');
-    const chatInput = document.getElementById('mensajeChat');
-    const chatSendBtn = document.getElementById('enviarMensajeBtn');
-    const currentChatMessages = document.getElementById('chatMessages');
-    const historyChatMessages = document.getElementById('chatMessages');
-    const chatTabs = document.querySelectorAll('.chat-tab');
-   
+
     // Elementos auxiliares
     const notification = document.getElementById('notification');
     const loadingOverlay = document.getElementById('loadingOverlay');
@@ -147,7 +138,47 @@ document.addEventListener('DOMContentLoaded', function() {
             width: '500px'
         });
     });
-   
+
+    // Chat FAB click - navigate to chat section
+    if (chatFab) {
+        chatFab.addEventListener('click', function() {
+            // Remove active class from all menu items and sections
+            menuItems.forEach(i => i.classList.remove('active'));
+            contentSections.forEach(section => section.classList.remove('active'));
+
+            // Add active class to chat menu item
+            const chatMenuItem = document.querySelector('.menu-item[data-section="chat-soporte"]');
+            if (chatMenuItem) {
+                chatMenuItem.classList.add('active');
+            }
+
+            // Show chat section
+            document.getElementById('chat-soporte').classList.add('active');
+
+            // Close sidebar on mobile
+            if (window.innerWidth <= 992) {
+                sidebar.classList.remove('mobile-visible');
+                sidebarToggle.classList.remove('active');
+                sidebarOverlay.classList.remove('active');
+                mainContent.classList.remove('mobile-expanded');
+            }
+        });
+    }
+
+    // Function to update chat FAB visibility based on current section
+    function updateChatFabVisibility() {
+        if (!chatFab) return;
+
+        const activeSection = document.querySelector('.content-section.active');
+        if (activeSection && activeSection.id === 'chat-soporte') {
+            // Hide FAB when in chat section
+            chatFab.style.display = 'none';
+        } else {
+            // Show FAB when in other sections
+            chatFab.style.display = 'flex';
+        }
+    }
+
     // Menu Navigation
     menuItems.forEach(item => {
         item.addEventListener('click', function(e) {
@@ -170,6 +201,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     cargarGarantias();
                 }
             }
+
+            // Update chat FAB visibility
+            updateChatFabVisibility();
 
             // Close sidebar on mobile
             if (window.innerWidth <= 992) {
@@ -201,6 +235,9 @@ document.addEventListener('DOMContentLoaded', function() {
             if (sectionId) {
                 document.getElementById(sectionId).classList.add('active');
             }
+
+            // Update chat FAB visibility
+            updateChatFabVisibility();
         });
     });
    
@@ -974,120 +1011,6 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('fichaObservaciones').textContent = document.getElementById('zonaAfectada').value || '--';
     }
 
-    // Chat functionality
-    chatFab.addEventListener('click', function() {
-        chatContainer.classList.add('active');
-        chatInput.focus();
-    });
-   
-    chatClose.addEventListener('click', function() {
-        chatContainer.classList.remove('active');
-    });
-   
-    // Chat tabs
-    chatTabs.forEach(tab => {
-        tab.addEventListener('click', function() {
-            // Remove active class from all tabs and messages
-            chatTabs.forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.chat-messages').forEach(m => m.classList.remove('active'));
-           
-            // Add active class to clicked tab
-            this.classList.add('active');
-           
-            // Show corresponding messages
-            const tabType = this.getAttribute('data-tab');
-            if (tabType === 'current') {
-                currentChatMessages.classList.add('active');
-            } else if (tabType === 'history') {
-                historyChatMessages.classList.add('active');
-                loadChatHistory();
-            }
-        });
-    });
-   
-    chatSendBtn.addEventListener('click', sendChatMessage);
-    chatInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            sendChatMessage();
-        }
-    });
-   
-    function sendChatMessage() {
-        const message = chatInput.value.trim();
-        if (!message) return;
-       
-        // Agregar mensaje al chat
-        addChatMessage(message, 'sent', currentChatMessages);
-       
-        // Limpiar input
-        chatInput.value = '';
-       
-        // Simular respuesta (en una implementación real, esto sería una llamada AJAX)
-        setTimeout(() => {
-            const responses = [
-                'Gracias por tu mensaje. Nuestro equipo revisará tu caso y te responderá pronto.',
-                'Hemos recibido tu consulta. Te contactaremos en breve.',
-                'Tu mensaje ha sido enviado al equipo de soporte técnico.'
-            ];
-            const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-            addChatMessage(randomResponse, 'received', currentChatMessages);
-           
-            // Incrementar notificación
-            incrementNotificationCount();
-        }, 1000);
-    }
-   
-    function addChatMessage(message, type, container) {
-        const messageElement = document.createElement('div');
-        messageElement.className = `chat-message ${type}`;
-       
-        const time = new Date().toLocaleTimeString('es-ES', {
-            hour: '2-digit',
-            minute: '2-digit'
-        });
-       
-        messageElement.innerHTML = `
-            <div class="chat-bubble">${message}</div>
-            <div class="chat-time">${time}</div>
-        `;
-       
-        container.appendChild(messageElement);
-        container.scrollTop = container.scrollHeight;
-    }
-   
-    function loadChatHistory() {
-        // Limpiar historial actual
-        historyChatMessages.innerHTML = '';
-       
-        // Simular carga de historial de chat
-        const historyMessages = [
-            { message: 'Hola, ¿cómo puedo ayudarte?', type: 'received', date: '12/08/2023 10:30' },
-            { message: 'Necesito información sobre el estado de mi reparación', type: 'sent', date: '12/08/2023 10:32' },
-            { message: 'Claro, tu bicicleta está en proceso de reparación. El estado actual es "Reparación Iniciada"', type: 'received', date: '12/08/2023 10:35' },
-            { message: '¿Cuánto tiempo falta para que esté lista?', type: 'sent', date: '12/08/2023 10:36' },
-            { message: 'Estimamos que estará lista en aproximadamente 3 días', type: 'received', date: '12/08/2023 10:38' }
-        ];
-       
-        // Agregar mensajes al historial
-        historyMessages.forEach(msg => {
-            const messageElement = document.createElement('div');
-            messageElement.className = `chat-message ${msg.type}`;
-           
-            messageElement.innerHTML = `
-                <div class="chat-bubble">${msg.message}</div>
-                <div class="chat-time">${msg.date}</div>
-            `;
-           
-            historyChatMessages.appendChild(messageElement);
-        });
-    }
-   
-    // Function to increment notification count
-    function incrementNotificationCount() {
-        contadorNotificaciones++;
-        notificationBadge.textContent = contadorNotificaciones;
-        notificationBadge.style.display = 'flex';
-    }
    
     // Cargar datos del tracker (simulado)
     function loadProgressData(idCot) {
@@ -1325,4 +1248,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Hacer cargarGarantias global para que pueda ser llamada desde otros lugares
     window.cargarGarantias = cargarGarantias;
+
+    // Initialize chat FAB visibility
+    updateChatFabVisibility();
+
+    // Handle photo guide image modal
+    const imageModal = document.getElementById('imageModal');
+    if (imageModal) {
+        imageModal.addEventListener('show.bs.modal', function(event) {
+            const button = event.relatedTarget;
+            const src = button.getAttribute('data-src');
+            const title = button.getAttribute('data-title');
+
+            const modalImage = document.getElementById('modalImage');
+            const modalTitle = document.getElementById('imageModalLabel');
+
+            if (modalImage && src) {
+                modalImage.src = src;
+                modalImage.alt = title || 'Imagen ampliada';
+            }
+
+            if (modalTitle && title) {
+                modalTitle.textContent = title;
+            }
+        });
+    }
 });

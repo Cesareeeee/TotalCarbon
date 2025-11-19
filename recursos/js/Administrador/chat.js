@@ -1,11 +1,13 @@
 // Variables globales para el chat
 let conversaciones = [];
+let todosLosClientes = [];
 let conversacionActual = null;
 let intervaloActualizacion = null;
 
 // Funciones de inicialización
 async function initializeChat() {
     await loadConversaciones();
+    await loadTodosLosClientes();
     iniciarActualizacionAutomatica();
     actualizarNotificaciones();
 }
@@ -37,6 +39,15 @@ async function loadConversaciones() {
     }
 }
 
+async function loadTodosLosClientes() {
+    try {
+        const response = await fetch('../../controlador/Administrador/chat_controller.php?action=getClientes');
+        todosLosClientes = await response.json();
+    } catch (error) {
+        console.error('Error cargando clientes:', error);
+    }
+}
+
 function createConversacionItem(conversacion) {
     const item = document.createElement('div');
     item.className = `conversacion-item ${conversacionActual && conversacionActual.id_usuario == conversacion.id_usuario ? 'active' : ''}`;
@@ -64,6 +75,29 @@ function createConversacionItem(conversacion) {
     return item;
 }
 
+function createClienteItem(cliente) {
+    const item = document.createElement('div');
+    item.className = `conversacion-item ${conversacionActual && conversacionActual.id_usuario == cliente.id_usuario ? 'active' : ''}`;
+    item.onclick = () => {
+        seleccionarCliente(cliente);
+    };
+
+    const nombreCompleto = `${cliente.nombres} ${cliente.apellidos}`;
+
+    item.innerHTML = `
+        <div class="conversacion-avatar">
+            <i class="fas fa-user-circle"></i>
+        </div>
+        <div class="conversacion-info">
+            <div class="conversacion-name">${nombreCompleto}</div>
+            <div class="conversacion-last-message">Sin mensajes</div>
+            <div class="conversacion-time"></div>
+        </div>
+    `;
+
+    return item;
+}
+
 async function seleccionarConversacion(conversacion) {
     conversacionActual = conversacion;
 
@@ -77,7 +111,6 @@ async function seleccionarConversacion(conversacion) {
             <i class="fas fa-user-circle"></i>
             <div class="user-details">
                 <span class="user-name">${conversacion.nombres} ${conversacion.apellidos}</span>
-                <span class="user-status">${conversacion.estado_usuario == 1 ? 'Activo' : 'Inactivo'}</span>
             </div>
         </div>
     `;
@@ -87,6 +120,30 @@ async function seleccionarConversacion(conversacion) {
 
     // Cargar mensajes
     await loadMensajesConversacion(conversacion.id_usuario);
+}
+
+async function seleccionarCliente(cliente) {
+    conversacionActual = cliente;
+
+    // Actualizar UI
+    document.querySelectorAll('.conversacion-item').forEach(item => item.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+
+    // Actualizar header
+    document.getElementById('chatHeader').innerHTML = `
+        <div class="chat-user-info">
+            <i class="fas fa-user-circle"></i>
+            <div class="user-details">
+                <span class="user-name">${cliente.nombres} ${cliente.apellidos}</span>
+            </div>
+        </div>
+    `;
+
+    // Mostrar input de mensaje
+    document.getElementById('chatInput').style.display = 'block';
+
+    // Cargar mensajes (aunque no haya, mostrará "no hay mensajes")
+    await loadMensajesConversacion(cliente.id_usuario);
 }
 
 async function loadMensajesConversacion(id_cliente) {
@@ -229,49 +286,65 @@ function enviarMensajeEnter(event) {
 
 function filtrarConversaciones() {
     const filtro = document.getElementById('buscadorConversaciones').value.toLowerCase().trim();
-    const items = document.querySelectorAll('.conversacion-item');
+    const container = document.getElementById('conversacionesList');
 
-    let visibles = 0;
+    // Limpiar contenedor
+    container.innerHTML = '';
 
-    items.forEach((item, index) => {
-        const nombre = item.querySelector('.conversacion-name');
-        const mensaje = item.querySelector('.conversacion-last-message');
-
-        if (nombre && mensaje) {
-            // Normalizar texto para búsqueda con acentos
-            const nombreTexto = nombre.textContent.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-            const mensajeTexto = mensaje.textContent.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-            const filtroNormalizado = filtro.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-
-            const coincide = nombreTexto.includes(filtroNormalizado) || mensajeTexto.includes(filtroNormalizado);
-
-            if (coincide) {
-                item.style.display = 'flex';
-                visibles++;
-            } else {
-                item.style.display = 'none';
-            }
+    if (filtro === '') {
+        // Si no hay filtro, mostrar conversaciones normales
+        if (conversaciones.length === 0) {
+            container.innerHTML = '<div class="no-conversations"><i class="fas fa-comments"></i><p>No hay conversaciones</p></div>';
+            return;
         }
+        conversaciones.forEach((conversacion) => {
+            const item = createConversacionItem(conversacion);
+            container.appendChild(item);
+        });
+        return;
+    }
+
+    // Buscar en conversaciones existentes
+    const conversacionesFiltradas = conversaciones.filter(conversacion => {
+        const nombreCompleto = `${conversacion.nombres} ${conversacion.apellidos}`.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        const ultimoMensaje = (conversacion.ultimo_mensaje || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        const filtroNormalizado = filtro.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        return nombreCompleto.includes(filtroNormalizado) || ultimoMensaje.includes(filtroNormalizado);
+    });
+
+    // Buscar en todos los clientes
+    const clientesFiltrados = todosLosClientes.filter(cliente => {
+        const nombreCompleto = `${cliente.nombres} ${cliente.apellidos}`.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        const filtroNormalizado = filtro.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        return nombreCompleto.includes(filtroNormalizado);
+    });
+
+    // Combinar resultados, evitando duplicados
+    const idsConversaciones = new Set(conversacionesFiltradas.map(c => c.id_usuario));
+    const clientesAdicionales = clientesFiltrados.filter(c => !idsConversaciones.has(c.id_usuario));
+
+    let totalResultados = conversacionesFiltradas.length + clientesAdicionales.length;
+
+    // Mostrar conversaciones filtradas
+    conversacionesFiltradas.forEach((conversacion) => {
+        const item = createConversacionItem(conversacion);
+        container.appendChild(item);
+    });
+
+    // Mostrar clientes adicionales como items de conversación sin mensajes
+    clientesAdicionales.forEach((cliente) => {
+        const item = createClienteItem(cliente);
+        container.appendChild(item);
     });
 
     // Mostrar mensaje si no hay resultados
-    const container = document.getElementById('conversacionesList');
-    const mensajeNoResultados = container.querySelector('.no-results');
-
-    if (visibles === 0 && filtro !== '') {
-        if (!mensajeNoResultados) {
-            const noResults = document.createElement('div');
-            noResults.className = 'no-results';
-            noResults.innerHTML = `
+    if (totalResultados === 0) {
+        container.innerHTML = `
+            <div class="no-results">
                 <i class="fas fa-search"></i>
-                <p>No se encontraron conversaciones</p>
-            `;
-            container.appendChild(noResults);
-        }
-    } else {
-        if (mensajeNoResultados) {
-            mensajeNoResultados.remove();
-        }
+                <p>No se encontraron resultados</p>
+            </div>
+        `;
     }
 }
 
@@ -311,8 +384,10 @@ async function actualizarNotificaciones() {
             }
         }
 
-        // Podrías agregar más lógica aquí para mostrar notificaciones específicas
-        // por mensajes o cotizaciones
+        // Mostrar alerta si hay nuevos mensajes en la conversación actual
+        if (conversacionActual && notificaciones.mensajes_no_leidos > 0) {
+            mostrarAlertaNuevoMensaje();
+        }
     } catch (error) {
     }
 }
@@ -362,6 +437,30 @@ function solicitarPermisoNotificaciones() {
     if ('Notification' in window && Notification.permission === 'default') {
         Notification.requestPermission().then(function(permission) {
         });
+    }
+}
+
+// Mostrar alerta pequeña de nuevo mensaje
+function mostrarAlertaNuevoMensaje() {
+    // Crear alerta flotante
+    const alerta = document.createElement('div');
+    alerta.className = 'nuevo-mensaje-alerta';
+    alerta.innerHTML = `
+        <i class="fas fa-bell"></i>
+        <span>Nuevo mensaje recibido</span>
+    `;
+
+    // Agregar al chat
+    const chatContainer = document.querySelector('.chat-main');
+    if (chatContainer) {
+        chatContainer.appendChild(alerta);
+
+        // Remover después de 3 segundos
+        setTimeout(() => {
+            if (alerta.parentNode) {
+                alerta.remove();
+            }
+        }, 3000);
     }
 }
 

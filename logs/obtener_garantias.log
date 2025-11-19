@@ -264,3 +264,871 @@
 [2025-11-14 07:21:29] Garantías obtenidas: 2
 [2025-11-14 07:21:29] Garantías obtenidas exitosamente | Datos: [{"id_garantia":12,"tipo_garantia":"Extendida","cobertura":"Cobertura extendida para reparaci\u00f3n de fisura en bicicleta BENOTOO modelo FGHYJUI","fecha_inicio":"2025-11-14","fecha_fin":"2027-11-14","estado":"Activa","creado_en":"2025-11-13 23:59:19","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"45t6yui","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"},{"id_garantia":11,"tipo_garantia":"Estandar","cobertura":"Cobertura est\u00e1ndar para reparaci\u00f3n de fisura en bicicleta BENOTOO modelo FGHYJUI","fecha_inicio":"2025-11-14","fecha_fin":"2026-11-14","estado":"Activa","creado_en":"2025-11-13 23:47:57","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"45t6yui","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"}]
 [2025-11-14 07:21:29] === FIN: Garantías obtenidas correctamente ===
+[2025-11-18 22:03:08] === INICIO: Solicitud de obtener garantías ===
+[2025-11-18 22:03:08] Usuario ID: 51
+[2025-11-18 22:03:08] Conectando a la base de datos...
+[2025-11-18 22:03:08] Conexión exitosa. Preparando query...
+[2025-11-18 22:03:08] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-18 22:03:08] Query preparada
+[2025-11-18 22:03:08] Query ejecutada
+[2025-11-18 22:03:08] Garantías obtenidas: 0
+[2025-11-18 22:03:08] El usuario no tiene garantías
+[2025-11-18 22:03:08] === FIN: Sin garantías ===
+[2025-11-18 22:03:30] === INICIO: Solicitud de obtener garantías ===
+[2025-11-18 22:03:30] Usuario ID: 51
+[2025-11-18 22:03:30] Conectando a la base de datos...
+[2025-11-18 22:03:30] Conexión exitosa. Preparando query...
+[2025-11-18 22:03:30] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-18 22:03:30] Query preparada
+[2025-11-18 22:03:30] Query ejecutada
+[2025-11-18 22:03:30] Garantías obtenidas: 0
+[2025-11-18 22:03:30] El usuario no tiene garantías
+[2025-11-18 22:03:30] === FIN: Sin garantías ===
+[2025-11-18 22:19:18] === INICIO: Solicitud de obtener garantías ===
+[2025-11-18 22:19:18] Usuario ID: 51
+[2025-11-18 22:19:18] Conectando a la base de datos...
+[2025-11-18 22:19:18] Conexión exitosa. Preparando query...
+[2025-11-18 22:19:18] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-18 22:19:18] Query preparada
+[2025-11-18 22:19:18] Query ejecutada
+[2025-11-18 22:19:18] Garantías obtenidas: 0
+[2025-11-18 22:19:18] El usuario no tiene garantías
+[2025-11-18 22:19:18] === FIN: Sin garantías ===
+[2025-11-18 22:19:20] === INICIO: Solicitud de obtener garantías ===
+[2025-11-18 22:19:20] Usuario ID: 51
+[2025-11-18 22:19:20] Conectando a la base de datos...
+[2025-11-18 22:19:20] Conexión exitosa. Preparando query...
+[2025-11-18 22:19:20] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-18 22:19:20] Query preparada
+[2025-11-18 22:19:20] Query ejecutada
+[2025-11-18 22:19:20] Garantías obtenidas: 0
+[2025-11-18 22:19:20] El usuario no tiene garantías
+[2025-11-18 22:19:20] === FIN: Sin garantías ===
+[2025-11-18 22:19:25] === INICIO: Solicitud de obtener garantías ===
+[2025-11-18 22:19:25] Usuario ID: 51
+[2025-11-18 22:19:25] Conectando a la base de datos...
+[2025-11-18 22:19:25] Conexión exitosa. Preparando query...
+[2025-11-18 22:19:25] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-18 22:19:25] Query preparada
+[2025-11-18 22:19:25] Query ejecutada
+[2025-11-18 22:19:25] Garantías obtenidas: 0
+[2025-11-18 22:19:25] El usuario no tiene garantías
+[2025-11-18 22:19:25] === FIN: Sin garantías ===
+[2025-11-18 22:44:40] === INICIO: Solicitud de obtener garantías ===
+[2025-11-18 22:44:40] Usuario ID: 51
+[2025-11-18 22:44:40] Conectando a la base de datos...
+[2025-11-18 22:44:40] Conexión exitosa. Preparando query...
+[2025-11-18 22:44:40] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-18 22:44:40] Query preparada
+[2025-11-18 22:44:40] Query ejecutada
+[2025-11-18 22:44:40] Garantías obtenidas: 0
+[2025-11-18 22:44:40] El usuario no tiene garantías
+[2025-11-18 22:44:40] === FIN: Sin garantías ===
+[2025-11-18 22:44:59] === INICIO: Solicitud de obtener garantías ===
+[2025-11-18 22:44:59] Usuario ID: 51
+[2025-11-18 22:44:59] Conectando a la base de datos...
+[2025-11-18 22:44:59] Conexión exitosa. Preparando query...
+[2025-11-18 22:44:59] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-18 22:44:59] Query preparada
+[2025-11-18 22:44:59] Query ejecutada
+[2025-11-18 22:44:59] Garantías obtenidas: 0
+[2025-11-18 22:44:59] El usuario no tiene garantías
+[2025-11-18 22:44:59] === FIN: Sin garantías ===
+[2025-11-18 23:24:02] === INICIO: Solicitud de obtener garantías ===
+[2025-11-18 23:24:02] Usuario ID: 51
+[2025-11-18 23:24:02] Conectando a la base de datos...
+[2025-11-18 23:24:02] Conexión exitosa. Preparando query...
+[2025-11-18 23:24:02] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-18 23:24:02] Query preparada
+[2025-11-18 23:24:02] Query ejecutada
+[2025-11-18 23:24:02] Garantías obtenidas: 0
+[2025-11-18 23:24:02] El usuario no tiene garantías
+[2025-11-18 23:24:02] === FIN: Sin garantías ===
+[2025-11-18 23:25:15] === INICIO: Solicitud de obtener garantías ===
+[2025-11-18 23:25:15] Usuario ID: 51
+[2025-11-18 23:25:15] Conectando a la base de datos...
+[2025-11-18 23:25:15] Conexión exitosa. Preparando query...
+[2025-11-18 23:25:15] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-18 23:25:15] Query preparada
+[2025-11-18 23:25:15] Query ejecutada
+[2025-11-18 23:25:15] Garantías obtenidas: 0
+[2025-11-18 23:25:15] El usuario no tiene garantías
+[2025-11-18 23:25:15] === FIN: Sin garantías ===
+[2025-11-19 00:07:36] === INICIO: Solicitud de obtener garantías ===
+[2025-11-19 00:07:36] Usuario ID: 51
+[2025-11-19 00:07:36] Conectando a la base de datos...
+[2025-11-19 00:07:36] Conexión exitosa. Preparando query...
+[2025-11-19 00:07:36] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-19 00:07:36] Query preparada
+[2025-11-19 00:07:36] Query ejecutada
+[2025-11-19 00:07:36] Garantías obtenidas: 0
+[2025-11-19 00:07:36] El usuario no tiene garantías
+[2025-11-19 00:07:36] === FIN: Sin garantías ===
+[2025-11-19 03:26:19] === INICIO: Solicitud de obtener garantías ===
+[2025-11-19 03:26:19] Usuario ID: 51
+[2025-11-19 03:26:19] Conectando a la base de datos...
+[2025-11-19 03:26:19] Conexión exitosa. Preparando query...
+[2025-11-19 03:26:19] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-19 03:26:19] Query preparada
+[2025-11-19 03:26:19] Query ejecutada
+[2025-11-19 03:26:19] Garantías obtenidas: 0
+[2025-11-19 03:26:19] El usuario no tiene garantías
+[2025-11-19 03:26:19] === FIN: Sin garantías ===
+[2025-11-19 03:43:06] === INICIO: Solicitud de obtener garantías ===
+[2025-11-19 03:43:06] Usuario ID: 51
+[2025-11-19 03:43:06] Conectando a la base de datos...
+[2025-11-19 03:43:06] Conexión exitosa. Preparando query...
+[2025-11-19 03:43:06] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-19 03:43:06] Query preparada
+[2025-11-19 03:43:06] Query ejecutada
+[2025-11-19 03:43:06] Garantías obtenidas: 0
+[2025-11-19 03:43:06] El usuario no tiene garantías
+[2025-11-19 03:43:06] === FIN: Sin garantías ===
+[2025-11-19 03:54:13] === INICIO: Solicitud de obtener garantías ===
+[2025-11-19 03:54:13] Usuario ID: 51
+[2025-11-19 03:54:13] Conectando a la base de datos...
+[2025-11-19 03:54:13] Conexión exitosa. Preparando query...
+[2025-11-19 03:54:13] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-19 03:54:13] Query preparada
+[2025-11-19 03:54:13] Query ejecutada
+[2025-11-19 03:54:13] Garantías obtenidas: 0
+[2025-11-19 03:54:13] El usuario no tiene garantías
+[2025-11-19 03:54:13] === FIN: Sin garantías ===
+[2025-11-19 03:59:22] === INICIO: Solicitud de obtener garantías ===
+[2025-11-19 03:59:22] Usuario ID: 51
+[2025-11-19 03:59:22] Conectando a la base de datos...
+[2025-11-19 03:59:22] Conexión exitosa. Preparando query...
+[2025-11-19 03:59:22] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-19 03:59:22] Query preparada
+[2025-11-19 03:59:22] Query ejecutada
+[2025-11-19 03:59:22] Garantías obtenidas: 0
+[2025-11-19 03:59:22] El usuario no tiene garantías
+[2025-11-19 03:59:22] === FIN: Sin garantías ===
+[2025-11-19 04:02:58] === INICIO: Solicitud de obtener garantías ===
+[2025-11-19 04:02:58] Usuario ID: 51
+[2025-11-19 04:02:58] Conectando a la base de datos...
+[2025-11-19 04:02:58] Conexión exitosa. Preparando query...
+[2025-11-19 04:02:58] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-19 04:02:58] Query preparada
+[2025-11-19 04:02:58] Query ejecutada
+[2025-11-19 04:02:58] Garantías obtenidas: 0
+[2025-11-19 04:02:58] El usuario no tiene garantías
+[2025-11-19 04:02:58] === FIN: Sin garantías ===
+[2025-11-19 04:12:19] === INICIO: Solicitud de obtener garantías ===
+[2025-11-19 04:12:19] Usuario ID: 51
+[2025-11-19 04:12:19] Conectando a la base de datos...
+[2025-11-19 04:12:19] Conexión exitosa. Preparando query...
+[2025-11-19 04:12:19] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-19 04:12:19] Query preparada
+[2025-11-19 04:12:19] Query ejecutada
+[2025-11-19 04:12:19] Garantías obtenidas: 0
+[2025-11-19 04:12:19] El usuario no tiene garantías
+[2025-11-19 04:12:19] === FIN: Sin garantías ===
+[2025-11-19 04:12:52] === INICIO: Solicitud de obtener garantías ===
+[2025-11-19 04:12:52] Usuario ID: 51
+[2025-11-19 04:12:52] Conectando a la base de datos...
+[2025-11-19 04:12:52] Conexión exitosa. Preparando query...
+[2025-11-19 04:12:52] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-19 04:12:52] Query preparada
+[2025-11-19 04:12:52] Query ejecutada
+[2025-11-19 04:12:52] Garantías obtenidas: 0
+[2025-11-19 04:12:52] El usuario no tiene garantías
+[2025-11-19 04:12:52] === FIN: Sin garantías ===
+[2025-11-19 04:16:04] === INICIO: Solicitud de obtener garantías ===
+[2025-11-19 04:16:04] Usuario ID: 51
+[2025-11-19 04:16:04] Conectando a la base de datos...
+[2025-11-19 04:16:04] Conexión exitosa. Preparando query...
+[2025-11-19 04:16:04] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-19 04:16:04] Query preparada
+[2025-11-19 04:16:04] Query ejecutada
+[2025-11-19 04:16:04] Garantías obtenidas: 0
+[2025-11-19 04:16:04] El usuario no tiene garantías
+[2025-11-19 04:16:04] === FIN: Sin garantías ===
+[2025-11-19 04:27:23] === INICIO: Solicitud de obtener garantías ===
+[2025-11-19 04:27:23] Usuario ID: 51
+[2025-11-19 04:27:23] Conectando a la base de datos...
+[2025-11-19 04:27:23] Conexión exitosa. Preparando query...
+[2025-11-19 04:27:23] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-19 04:27:23] Query preparada
+[2025-11-19 04:27:23] Query ejecutada
+[2025-11-19 04:27:23] Garantías obtenidas: 0
+[2025-11-19 04:27:23] El usuario no tiene garantías
+[2025-11-19 04:27:23] === FIN: Sin garantías ===
+[2025-11-19 04:29:49] === INICIO: Solicitud de obtener garantías ===
+[2025-11-19 04:29:49] Usuario ID: 51
+[2025-11-19 04:29:49] Conectando a la base de datos...
+[2025-11-19 04:29:49] Conexión exitosa. Preparando query...
+[2025-11-19 04:29:49] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-19 04:29:49] Query preparada
+[2025-11-19 04:29:49] Query ejecutada
+[2025-11-19 04:29:49] Garantías obtenidas: 0
+[2025-11-19 04:29:49] El usuario no tiene garantías
+[2025-11-19 04:29:49] === FIN: Sin garantías ===
+[2025-11-19 04:32:47] === INICIO: Solicitud de obtener garantías ===
+[2025-11-19 04:32:47] Usuario ID: 51
+[2025-11-19 04:32:47] Conectando a la base de datos...
+[2025-11-19 04:32:47] Conexión exitosa. Preparando query...
+[2025-11-19 04:32:47] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-19 04:32:47] Query preparada
+[2025-11-19 04:32:47] Query ejecutada
+[2025-11-19 04:32:47] Garantías obtenidas: 0
+[2025-11-19 04:32:47] El usuario no tiene garantías
+[2025-11-19 04:32:47] === FIN: Sin garantías ===
+[2025-11-19 04:32:49] === INICIO: Solicitud de obtener garantías ===
+[2025-11-19 04:32:49] Usuario ID: 51
+[2025-11-19 04:32:49] Conectando a la base de datos...
+[2025-11-19 04:32:49] Conexión exitosa. Preparando query...
+[2025-11-19 04:32:49] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-19 04:32:49] Query preparada
+[2025-11-19 04:32:49] Query ejecutada
+[2025-11-19 04:32:49] Garantías obtenidas: 0
+[2025-11-19 04:32:49] El usuario no tiene garantías
+[2025-11-19 04:32:49] === FIN: Sin garantías ===
+[2025-11-19 04:36:01] === INICIO: Solicitud de obtener garantías ===
+[2025-11-19 04:36:01] Usuario ID: 51
+[2025-11-19 04:36:01] Conectando a la base de datos...
+[2025-11-19 04:36:01] Conexión exitosa. Preparando query...
+[2025-11-19 04:36:01] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-19 04:36:01] Query preparada
+[2025-11-19 04:36:01] Query ejecutada
+[2025-11-19 04:36:01] Garantías obtenidas: 0
+[2025-11-19 04:36:01] El usuario no tiene garantías
+[2025-11-19 04:36:01] === FIN: Sin garantías ===
+[2025-11-19 04:36:04] === INICIO: Solicitud de obtener garantías ===
+[2025-11-19 04:36:04] Usuario ID: 51
+[2025-11-19 04:36:04] Conectando a la base de datos...
+[2025-11-19 04:36:04] Conexión exitosa. Preparando query...
+[2025-11-19 04:36:04] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-19 04:36:04] Query preparada
+[2025-11-19 04:36:04] Query ejecutada
+[2025-11-19 04:36:04] Garantías obtenidas: 0
+[2025-11-19 04:36:04] El usuario no tiene garantías
+[2025-11-19 04:36:04] === FIN: Sin garantías ===
+[2025-11-19 04:49:15] === INICIO: Solicitud de obtener garantías ===
+[2025-11-19 04:49:15] Usuario ID: 51
+[2025-11-19 04:49:15] Conectando a la base de datos...
+[2025-11-19 04:49:15] Conexión exitosa. Preparando query...
+[2025-11-19 04:49:15] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-19 04:49:15] Query preparada
+[2025-11-19 04:49:15] Query ejecutada
+[2025-11-19 04:49:15] Garantías obtenidas: 0
+[2025-11-19 04:49:15] El usuario no tiene garantías
+[2025-11-19 04:49:15] === FIN: Sin garantías ===
+[2025-11-19 04:51:17] === INICIO: Solicitud de obtener garantías ===
+[2025-11-19 04:51:17] Usuario ID: 51
+[2025-11-19 04:51:17] Conectando a la base de datos...
+[2025-11-19 04:51:17] Conexión exitosa. Preparando query...
+[2025-11-19 04:51:17] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-19 04:51:17] Query preparada
+[2025-11-19 04:51:17] Query ejecutada
+[2025-11-19 04:51:17] Garantías obtenidas: 0
+[2025-11-19 04:51:17] El usuario no tiene garantías
+[2025-11-19 04:51:17] === FIN: Sin garantías ===
+[2025-11-19 04:55:43] === INICIO: Solicitud de obtener garantías ===
+[2025-11-19 04:55:43] Usuario ID: 51
+[2025-11-19 04:55:43] Conectando a la base de datos...
+[2025-11-19 04:55:43] Conexión exitosa. Preparando query...
+[2025-11-19 04:55:43] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-19 04:55:43] Query preparada
+[2025-11-19 04:55:43] Query ejecutada
+[2025-11-19 04:55:43] Garantías obtenidas: 0
+[2025-11-19 04:55:43] El usuario no tiene garantías
+[2025-11-19 04:55:43] === FIN: Sin garantías ===
+[2025-11-19 05:27:27] === INICIO: Solicitud de obtener garantías ===
+[2025-11-19 05:27:27] Usuario ID: 51
+[2025-11-19 05:27:27] Conectando a la base de datos...
+[2025-11-19 05:27:27] Conexión exitosa. Preparando query...
+[2025-11-19 05:27:27] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id
+              ORDER BY g.fecha_fin DESC
+[2025-11-19 05:27:27] Query preparada
+[2025-11-19 05:27:27] Query ejecutada
+[2025-11-19 05:27:27] Garantías obtenidas: 0
+[2025-11-19 05:27:27] El usuario no tiene garantías
+[2025-11-19 05:27:27] === FIN: Sin garantías ===
