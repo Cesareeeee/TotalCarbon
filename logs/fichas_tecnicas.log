@@ -10277,3 +10277,363 @@
 [2025-11-19 05:45:20] Fichas técnicas obtenidas: 3
 [2025-11-19 05:45:20] Fichas técnicas obtenidas con detalles | Datos: [{"id_cotizacion":44,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","direccion":"Fray Pedro de Gante #298","telefono":"2481955951","correo_electronico":"123456789@gmail.com","telefono_usuario":"2481955951","correo_usuario":"123456789@gmail.com","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"CUADRO","tipo_trabajo":"PINTURA_TOTAL","tipo_reparacion":"FRACTURA","descripcion_otros":null,"estado":"PENDIENTE","creado_en":"2025-11-18 21:49:15","actualizado_en":"2025-11-18 21:49:15","reparacion_aceptada_cliente":"NO_ACEPTADA","total_imagenes":1,"total_comentarios":0,"imagenes":[{"id_imagen":57,"ruta_imagen":"..\/..\/Img_Servicios\/44\/img_691d3e3b5c1ec5.62876935.png","nombre_archivo":"1.png"}],"comentarios":[],"piezas":[]},{"id_cotizacion":43,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","direccion":"Fray Pedro de Gante #298","telefono":"2481955951","correo_electronico":"123456789@gmail.com","telefono_usuario":"2481955951","correo_usuario":"123456789@gmail.com","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"CUADRO","tipo_trabajo":"PINTURA_TOTAL","tipo_reparacion":"FRACTURA","descripcion_otros":null,"estado":"PENDIENTE","creado_en":"2025-11-18 21:12:52","actualizado_en":"2025-11-18 21:12:52","reparacion_aceptada_cliente":"NO_ACEPTADA","total_imagenes":1,"total_comentarios":0,"imagenes":[{"id_imagen":56,"ruta_imagen":"..\/..\/Img_Servicios\/43\/img_691d35b42d8d78.63635586.png","nombre_archivo":"Imagen133.png"}],"comentarios":[],"piezas":[]},{"id_cotizacion":42,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","direccion":"Fray Pedro de Gante #298","telefono":"2481955951","correo_electronico":"123456789@gmail.com","telefono_usuario":"2481955951","correo_usuario":"123456789@gmail.com","marca_bicicleta":"rtyuikl","modelo_bicicleta":"FGHYJUI","zona_afectada":"dfghjui","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"estado":"PENDIENTE","creado_en":"2025-11-18 15:03:08","actualizado_en":"2025-11-18 15:03:08","reparacion_aceptada_cliente":"NO_ACEPTADA","total_imagenes":1,"total_comentarios":0,"imagenes":[{"id_imagen":55,"ruta_imagen":"..\/..\/Img_Servicios\/42\/img_691cdf0c5796a1.27590743.png","nombre_archivo":"Imagen2.png"}],"comentarios":[],"piezas":[]}]
 [2025-11-19 05:45:20] === FIN: Fichas técnicas obtenidas correctamente ===
+[2025-11-20 22:34:31] === INICIO: Solicitud de obtener fichas técnicas ===
+[2025-11-20 22:34:31] Usuario ID: 52
+[2025-11-20 22:34:31] Conectando a la base de datos...
+[2025-11-20 22:34:31] Conexión exitosa. Preparando query...
+[2025-11-20 22:34:31] Query: SELECT
+                c.id_cotizacion,
+                c.nombre_completo,
+                c.direccion,
+                c.telefono,
+                c.correo_electronico,
+                u.numero_telefono as telefono_usuario,
+                u.correo_electronico as correo_usuario,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                c.estado,
+                c.creado_en,
+                c.actualizado_en,
+                c.reparacion_aceptada_cliente,
+                COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                COUNT(DISTINCT cc.id_comentario) as total_comentarios
+              FROM cotizaciones_cliente c
+              LEFT JOIN usuarios u ON c.id_usuario = u.id_usuario
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.creado_en DESC
+[2025-11-20 22:34:31] Query preparada
+[2025-11-20 22:34:31] Query ejecutada
+[2025-11-20 22:34:31] Fichas técnicas obtenidas: 0
+[2025-11-20 22:34:31] El usuario no tiene fichas técnicas
+[2025-11-20 22:34:31] === FIN: Sin fichas técnicas ===
+[2025-11-20 22:38:19] === INICIO: Solicitud de obtener fichas técnicas ===
+[2025-11-20 22:38:19] Usuario ID: 51
+[2025-11-20 22:38:19] Conectando a la base de datos...
+[2025-11-20 22:38:19] Conexión exitosa. Preparando query...
+[2025-11-20 22:38:19] Query: SELECT
+                c.id_cotizacion,
+                c.nombre_completo,
+                c.direccion,
+                c.telefono,
+                c.correo_electronico,
+                u.numero_telefono as telefono_usuario,
+                u.correo_electronico as correo_usuario,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                c.estado,
+                c.creado_en,
+                c.actualizado_en,
+                c.reparacion_aceptada_cliente,
+                COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                COUNT(DISTINCT cc.id_comentario) as total_comentarios
+              FROM cotizaciones_cliente c
+              LEFT JOIN usuarios u ON c.id_usuario = u.id_usuario
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.creado_en DESC
+[2025-11-20 22:38:19] Query preparada
+[2025-11-20 22:38:19] Query ejecutada
+[2025-11-20 22:38:19] Fichas técnicas obtenidas: 3
+[2025-11-20 22:38:19] Fichas técnicas obtenidas con detalles | Datos: [{"id_cotizacion":44,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","direccion":"Fray Pedro de Gante #298","telefono":"2481955951","correo_electronico":"123456789@gmail.com","telefono_usuario":"2481955951","correo_usuario":"123456789@gmail.com","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"CUADRO","tipo_trabajo":"PINTURA_TOTAL","tipo_reparacion":"FRACTURA","descripcion_otros":null,"estado":"PENDIENTE","creado_en":"2025-11-18 21:49:15","actualizado_en":"2025-11-18 21:49:15","reparacion_aceptada_cliente":"NO_ACEPTADA","total_imagenes":1,"total_comentarios":0,"imagenes":[{"id_imagen":57,"ruta_imagen":"..\/..\/Img_Servicios\/44\/img_691d3e3b5c1ec5.62876935.png","nombre_archivo":"1.png"}],"comentarios":[],"piezas":[]},{"id_cotizacion":43,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","direccion":"Fray Pedro de Gante #298","telefono":"2481955951","correo_electronico":"123456789@gmail.com","telefono_usuario":"2481955951","correo_usuario":"123456789@gmail.com","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"CUADRO","tipo_trabajo":"PINTURA_TOTAL","tipo_reparacion":"FRACTURA","descripcion_otros":null,"estado":"PENDIENTE","creado_en":"2025-11-18 21:12:52","actualizado_en":"2025-11-18 21:12:52","reparacion_aceptada_cliente":"NO_ACEPTADA","total_imagenes":1,"total_comentarios":0,"imagenes":[{"id_imagen":56,"ruta_imagen":"..\/..\/Img_Servicios\/43\/img_691d35b42d8d78.63635586.png","nombre_archivo":"Imagen133.png"}],"comentarios":[],"piezas":[]},{"id_cotizacion":42,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","direccion":"Fray Pedro de Gante #298","telefono":"2481955951","correo_electronico":"123456789@gmail.com","telefono_usuario":"2481955951","correo_usuario":"123456789@gmail.com","marca_bicicleta":"rtyuikl","modelo_bicicleta":"FGHYJUI","zona_afectada":"dfghjui","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"estado":"PENDIENTE","creado_en":"2025-11-18 15:03:08","actualizado_en":"2025-11-18 15:03:08","reparacion_aceptada_cliente":"NO_ACEPTADA","total_imagenes":1,"total_comentarios":0,"imagenes":[{"id_imagen":55,"ruta_imagen":"..\/..\/Img_Servicios\/42\/img_691cdf0c5796a1.27590743.png","nombre_archivo":"Imagen2.png"}],"comentarios":[],"piezas":[]}]
+[2025-11-20 22:38:19] === FIN: Fichas técnicas obtenidas correctamente ===
+[2025-11-20 22:44:01] === INICIO: Solicitud de obtener fichas técnicas ===
+[2025-11-20 22:44:01] Usuario ID: 52
+[2025-11-20 22:44:01] Conectando a la base de datos...
+[2025-11-20 22:44:01] Conexión exitosa. Preparando query...
+[2025-11-20 22:44:01] Query: SELECT
+                c.id_cotizacion,
+                c.nombre_completo,
+                c.direccion,
+                c.telefono,
+                c.correo_electronico,
+                u.numero_telefono as telefono_usuario,
+                u.correo_electronico as correo_usuario,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                c.estado,
+                c.creado_en,
+                c.actualizado_en,
+                c.reparacion_aceptada_cliente,
+                COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                COUNT(DISTINCT cc.id_comentario) as total_comentarios
+              FROM cotizaciones_cliente c
+              LEFT JOIN usuarios u ON c.id_usuario = u.id_usuario
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.creado_en DESC
+[2025-11-20 22:44:01] Query preparada
+[2025-11-20 22:44:01] Query ejecutada
+[2025-11-20 22:44:01] Fichas técnicas obtenidas: 0
+[2025-11-20 22:44:01] El usuario no tiene fichas técnicas
+[2025-11-20 22:44:01] === FIN: Sin fichas técnicas ===
+[2025-11-20 22:46:03] === INICIO: Solicitud de obtener fichas técnicas ===
+[2025-11-20 22:46:03] Usuario ID: 52
+[2025-11-20 22:46:03] Conectando a la base de datos...
+[2025-11-20 22:46:03] Conexión exitosa. Preparando query...
+[2025-11-20 22:46:03] Query: SELECT
+                c.id_cotizacion,
+                c.nombre_completo,
+                c.direccion,
+                c.telefono,
+                c.correo_electronico,
+                u.numero_telefono as telefono_usuario,
+                u.correo_electronico as correo_usuario,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                c.estado,
+                c.creado_en,
+                c.actualizado_en,
+                c.reparacion_aceptada_cliente,
+                COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                COUNT(DISTINCT cc.id_comentario) as total_comentarios
+              FROM cotizaciones_cliente c
+              LEFT JOIN usuarios u ON c.id_usuario = u.id_usuario
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.creado_en DESC
+[2025-11-20 22:46:03] Query preparada
+[2025-11-20 22:46:03] Query ejecutada
+[2025-11-20 22:46:03] Fichas técnicas obtenidas: 0
+[2025-11-20 22:46:03] El usuario no tiene fichas técnicas
+[2025-11-20 22:46:03] === FIN: Sin fichas técnicas ===
+[2025-11-20 22:46:28] === INICIO: Solicitud de obtener fichas técnicas ===
+[2025-11-20 22:46:28] Usuario ID: 13
+[2025-11-20 22:46:28] Conectando a la base de datos...
+[2025-11-20 22:46:28] Conexión exitosa. Preparando query...
+[2025-11-20 22:46:28] Query: SELECT
+                c.id_cotizacion,
+                c.nombre_completo,
+                c.direccion,
+                c.telefono,
+                c.correo_electronico,
+                u.numero_telefono as telefono_usuario,
+                u.correo_electronico as correo_usuario,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                c.estado,
+                c.creado_en,
+                c.actualizado_en,
+                c.reparacion_aceptada_cliente,
+                COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                COUNT(DISTINCT cc.id_comentario) as total_comentarios
+              FROM cotizaciones_cliente c
+              LEFT JOIN usuarios u ON c.id_usuario = u.id_usuario
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.creado_en DESC
+[2025-11-20 22:46:28] Query preparada
+[2025-11-20 22:46:28] Query ejecutada
+[2025-11-20 22:46:28] Fichas técnicas obtenidas: 4
+[2025-11-20 22:46:28] Fichas técnicas obtenidas con detalles | Datos: [{"id_cotizacion":41,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","direccion":"Fray Pedro de Gante #298","telefono":"2481955951","correo_electronico":"7u7thin@gmail.com","telefono_usuario":"2481955951","correo_usuario":"7u7thin@gmail.com","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"FOCKIN","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"estado":"PENDIENTE","creado_en":"2025-11-14 00:12:41","actualizado_en":"2025-11-14 00:12:41","reparacion_aceptada_cliente":"NO_ACEPTADA","total_imagenes":1,"total_comentarios":0,"imagenes":[{"id_imagen":54,"ruta_imagen":"..\/..\/Img_Servicios\/41\/img_6916c859780549.89630828.png","nombre_archivo":"LogoI.png"}],"comentarios":[],"piezas":[]},{"id_cotizacion":39,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","direccion":"Fray Pedro de Gante #298","telefono":"2481955951","correo_electronico":"7u7thin@gmail.com","telefono_usuario":"2481955951","correo_usuario":"7u7thin@gmail.com","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"45t6yui","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"estado":"APROBADA","creado_en":"2025-11-13 22:45:24","actualizado_en":"2025-11-13 22:45:51","reparacion_aceptada_cliente":"ACEPTADA","total_imagenes":1,"total_comentarios":1,"imagenes":[{"id_imagen":53,"ruta_imagen":"..\/..\/Img_Servicios\/39\/img_6916b3e4b606f1.14801435.png","nombre_archivo":"Gemini_Generated_Image_g80xjyg80xjyg80x.png"}],"comentarios":[{"id_comentario":14,"autor":"Cliente","mensaje":"El cliente ha aceptado la propuesta de reparaciones.","creado_en":"2025-11-13 22:45:51"}],"piezas":[]},{"id_cotizacion":38,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","direccion":"Fray Pedro de Gante #298","telefono":"2481955951","correo_electronico":"7u7thin@gmail.com","telefono_usuario":"2481955951","correo_usuario":"7u7thin@gmail.com","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"ghjkl\u00f1","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"estado":"COMPLETADO","creado_en":"2025-11-13 22:40:33","actualizado_en":"2025-11-13 23:24:36","reparacion_aceptada_cliente":"ACEPTADA","total_imagenes":1,"total_comentarios":1,"imagenes":[{"id_imagen":52,"ruta_imagen":"..\/..\/Img_Servicios\/38\/img_6916b2c1e87380.29771214.png","nombre_archivo":"LogoI.png"}],"comentarios":[{"id_comentario":12,"autor":"Cliente","mensaje":"El cliente ha aceptado la propuesta de reparaciones.","creado_en":"2025-11-13 22:43:17"}],"piezas":[]},{"id_cotizacion":37,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","direccion":"Fray Pedro de Gante #298","telefono":"2481955951","correo_electronico":"7u7thin@gmail.com","telefono_usuario":"2481955951","correo_usuario":"7u7thin@gmail.com","marca_bicicleta":"BENOTOO","modelo_bicicleta":"rtyuiop","zona_afectada":"FOCKIN","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"estado":"EN_PROCESO","creado_en":"2025-11-13 22:36:48","actualizado_en":"2025-11-13 23:24:30","reparacion_aceptada_cliente":"ACEPTADA","total_imagenes":1,"total_comentarios":1,"imagenes":[{"id_imagen":51,"ruta_imagen":"..\/..\/Img_Servicios\/37\/img_6916b1e065a263.29982687.png","nombre_archivo":"Imagen2.png"}],"comentarios":[{"id_comentario":13,"autor":"Cliente","mensaje":"El cliente ha aceptado la propuesta de reparaciones.","creado_en":"2025-11-13 22:43:32"}],"piezas":[]}]
+[2025-11-20 22:46:28] === FIN: Fichas técnicas obtenidas correctamente ===
+[2025-11-20 22:47:09] === INICIO: Solicitud de obtener fichas técnicas ===
+[2025-11-20 22:47:09] Usuario ID: 13
+[2025-11-20 22:47:09] Conectando a la base de datos...
+[2025-11-20 22:47:09] Conexión exitosa. Preparando query...
+[2025-11-20 22:47:09] Query: SELECT
+                c.id_cotizacion,
+                c.nombre_completo,
+                c.direccion,
+                c.telefono,
+                c.correo_electronico,
+                u.numero_telefono as telefono_usuario,
+                u.correo_electronico as correo_usuario,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                c.estado,
+                c.creado_en,
+                c.actualizado_en,
+                c.reparacion_aceptada_cliente,
+                COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                COUNT(DISTINCT cc.id_comentario) as total_comentarios
+              FROM cotizaciones_cliente c
+              LEFT JOIN usuarios u ON c.id_usuario = u.id_usuario
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.creado_en DESC
+[2025-11-20 22:47:09] Query preparada
+[2025-11-20 22:47:09] Query ejecutada
+[2025-11-20 22:47:09] Fichas técnicas obtenidas: 4
+[2025-11-20 22:47:09] Fichas técnicas obtenidas con detalles | Datos: [{"id_cotizacion":41,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","direccion":"Fray Pedro de Gante #298","telefono":"2481955951","correo_electronico":"7u7thin@gmail.com","telefono_usuario":"2481955951","correo_usuario":"7u7thin@gmail.com","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"FOCKIN","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"estado":"PENDIENTE","creado_en":"2025-11-14 00:12:41","actualizado_en":"2025-11-14 00:12:41","reparacion_aceptada_cliente":"NO_ACEPTADA","total_imagenes":1,"total_comentarios":0,"imagenes":[{"id_imagen":54,"ruta_imagen":"..\/..\/Img_Servicios\/41\/img_6916c859780549.89630828.png","nombre_archivo":"LogoI.png"}],"comentarios":[],"piezas":[]},{"id_cotizacion":39,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","direccion":"Fray Pedro de Gante #298","telefono":"2481955951","correo_electronico":"7u7thin@gmail.com","telefono_usuario":"2481955951","correo_usuario":"7u7thin@gmail.com","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"45t6yui","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"estado":"APROBADA","creado_en":"2025-11-13 22:45:24","actualizado_en":"2025-11-13 22:45:51","reparacion_aceptada_cliente":"ACEPTADA","total_imagenes":1,"total_comentarios":1,"imagenes":[{"id_imagen":53,"ruta_imagen":"..\/..\/Img_Servicios\/39\/img_6916b3e4b606f1.14801435.png","nombre_archivo":"Gemini_Generated_Image_g80xjyg80xjyg80x.png"}],"comentarios":[{"id_comentario":14,"autor":"Cliente","mensaje":"El cliente ha aceptado la propuesta de reparaciones.","creado_en":"2025-11-13 22:45:51"}],"piezas":[]},{"id_cotizacion":38,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","direccion":"Fray Pedro de Gante #298","telefono":"2481955951","correo_electronico":"7u7thin@gmail.com","telefono_usuario":"2481955951","correo_usuario":"7u7thin@gmail.com","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"ghjkl\u00f1","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"estado":"COMPLETADO","creado_en":"2025-11-13 22:40:33","actualizado_en":"2025-11-13 23:24:36","reparacion_aceptada_cliente":"ACEPTADA","total_imagenes":1,"total_comentarios":1,"imagenes":[{"id_imagen":52,"ruta_imagen":"..\/..\/Img_Servicios\/38\/img_6916b2c1e87380.29771214.png","nombre_archivo":"LogoI.png"}],"comentarios":[{"id_comentario":12,"autor":"Cliente","mensaje":"El cliente ha aceptado la propuesta de reparaciones.","creado_en":"2025-11-13 22:43:17"}],"piezas":[]},{"id_cotizacion":37,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","direccion":"Fray Pedro de Gante #298","telefono":"2481955951","correo_electronico":"7u7thin@gmail.com","telefono_usuario":"2481955951","correo_usuario":"7u7thin@gmail.com","marca_bicicleta":"BENOTOO","modelo_bicicleta":"rtyuiop","zona_afectada":"FOCKIN","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"estado":"EN_PROCESO","creado_en":"2025-11-13 22:36:48","actualizado_en":"2025-11-13 23:24:30","reparacion_aceptada_cliente":"ACEPTADA","total_imagenes":1,"total_comentarios":1,"imagenes":[{"id_imagen":51,"ruta_imagen":"..\/..\/Img_Servicios\/37\/img_6916b1e065a263.29982687.png","nombre_archivo":"Imagen2.png"}],"comentarios":[{"id_comentario":13,"autor":"Cliente","mensaje":"El cliente ha aceptado la propuesta de reparaciones.","creado_en":"2025-11-13 22:43:32"}],"piezas":[]}]
+[2025-11-20 22:47:09] === FIN: Fichas técnicas obtenidas correctamente ===
+[2025-11-20 22:47:11] === INICIO: Solicitud de obtener fichas técnicas ===
+[2025-11-20 22:47:11] Usuario ID: 13
+[2025-11-20 22:47:11] Conectando a la base de datos...
+[2025-11-20 22:47:11] Conexión exitosa. Preparando query...
+[2025-11-20 22:47:11] Query: SELECT
+                c.id_cotizacion,
+                c.nombre_completo,
+                c.direccion,
+                c.telefono,
+                c.correo_electronico,
+                u.numero_telefono as telefono_usuario,
+                u.correo_electronico as correo_usuario,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                c.estado,
+                c.creado_en,
+                c.actualizado_en,
+                c.reparacion_aceptada_cliente,
+                COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                COUNT(DISTINCT cc.id_comentario) as total_comentarios
+              FROM cotizaciones_cliente c
+              LEFT JOIN usuarios u ON c.id_usuario = u.id_usuario
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.creado_en DESC
+[2025-11-20 22:47:11] Query preparada
+[2025-11-20 22:47:12] Query ejecutada
+[2025-11-20 22:47:12] Fichas técnicas obtenidas: 4
+[2025-11-20 22:47:12] Fichas técnicas obtenidas con detalles | Datos: [{"id_cotizacion":41,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","direccion":"Fray Pedro de Gante #298","telefono":"2481955951","correo_electronico":"7u7thin@gmail.com","telefono_usuario":"2481955951","correo_usuario":"7u7thin@gmail.com","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"FOCKIN","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"estado":"PENDIENTE","creado_en":"2025-11-14 00:12:41","actualizado_en":"2025-11-14 00:12:41","reparacion_aceptada_cliente":"NO_ACEPTADA","total_imagenes":1,"total_comentarios":0,"imagenes":[{"id_imagen":54,"ruta_imagen":"..\/..\/Img_Servicios\/41\/img_6916c859780549.89630828.png","nombre_archivo":"LogoI.png"}],"comentarios":[],"piezas":[]},{"id_cotizacion":39,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","direccion":"Fray Pedro de Gante #298","telefono":"2481955951","correo_electronico":"7u7thin@gmail.com","telefono_usuario":"2481955951","correo_usuario":"7u7thin@gmail.com","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"45t6yui","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"estado":"APROBADA","creado_en":"2025-11-13 22:45:24","actualizado_en":"2025-11-13 22:45:51","reparacion_aceptada_cliente":"ACEPTADA","total_imagenes":1,"total_comentarios":1,"imagenes":[{"id_imagen":53,"ruta_imagen":"..\/..\/Img_Servicios\/39\/img_6916b3e4b606f1.14801435.png","nombre_archivo":"Gemini_Generated_Image_g80xjyg80xjyg80x.png"}],"comentarios":[{"id_comentario":14,"autor":"Cliente","mensaje":"El cliente ha aceptado la propuesta de reparaciones.","creado_en":"2025-11-13 22:45:51"}],"piezas":[]},{"id_cotizacion":38,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","direccion":"Fray Pedro de Gante #298","telefono":"2481955951","correo_electronico":"7u7thin@gmail.com","telefono_usuario":"2481955951","correo_usuario":"7u7thin@gmail.com","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"ghjkl\u00f1","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"estado":"COMPLETADO","creado_en":"2025-11-13 22:40:33","actualizado_en":"2025-11-13 23:24:36","reparacion_aceptada_cliente":"ACEPTADA","total_imagenes":1,"total_comentarios":1,"imagenes":[{"id_imagen":52,"ruta_imagen":"..\/..\/Img_Servicios\/38\/img_6916b2c1e87380.29771214.png","nombre_archivo":"LogoI.png"}],"comentarios":[{"id_comentario":12,"autor":"Cliente","mensaje":"El cliente ha aceptado la propuesta de reparaciones.","creado_en":"2025-11-13 22:43:17"}],"piezas":[]},{"id_cotizacion":37,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","direccion":"Fray Pedro de Gante #298","telefono":"2481955951","correo_electronico":"7u7thin@gmail.com","telefono_usuario":"2481955951","correo_usuario":"7u7thin@gmail.com","marca_bicicleta":"BENOTOO","modelo_bicicleta":"rtyuiop","zona_afectada":"FOCKIN","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"estado":"EN_PROCESO","creado_en":"2025-11-13 22:36:48","actualizado_en":"2025-11-13 23:24:30","reparacion_aceptada_cliente":"ACEPTADA","total_imagenes":1,"total_comentarios":1,"imagenes":[{"id_imagen":51,"ruta_imagen":"..\/..\/Img_Servicios\/37\/img_6916b1e065a263.29982687.png","nombre_archivo":"Imagen2.png"}],"comentarios":[{"id_comentario":13,"autor":"Cliente","mensaje":"El cliente ha aceptado la propuesta de reparaciones.","creado_en":"2025-11-13 22:43:32"}],"piezas":[]}]
+[2025-11-20 22:47:12] === FIN: Fichas técnicas obtenidas correctamente ===
+[2025-11-20 22:47:16] === INICIO: Solicitud de obtener fichas técnicas ===
+[2025-11-20 22:47:16] Usuario ID: 13
+[2025-11-20 22:47:16] Conectando a la base de datos...
+[2025-11-20 22:47:16] Conexión exitosa. Preparando query...
+[2025-11-20 22:47:16] Query: SELECT
+                c.id_cotizacion,
+                c.nombre_completo,
+                c.direccion,
+                c.telefono,
+                c.correo_electronico,
+                u.numero_telefono as telefono_usuario,
+                u.correo_electronico as correo_usuario,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                c.estado,
+                c.creado_en,
+                c.actualizado_en,
+                c.reparacion_aceptada_cliente,
+                COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                COUNT(DISTINCT cc.id_comentario) as total_comentarios
+              FROM cotizaciones_cliente c
+              LEFT JOIN usuarios u ON c.id_usuario = u.id_usuario
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.creado_en DESC
+[2025-11-20 22:47:16] Query preparada
+[2025-11-20 22:47:16] Query ejecutada
+[2025-11-20 22:47:16] Fichas técnicas obtenidas: 4
+[2025-11-20 22:47:16] Fichas técnicas obtenidas con detalles | Datos: [{"id_cotizacion":41,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","direccion":"Fray Pedro de Gante #298","telefono":"2481955951","correo_electronico":"7u7thin@gmail.com","telefono_usuario":"2481955951","correo_usuario":"7u7thin@gmail.com","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"FOCKIN","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"estado":"PENDIENTE","creado_en":"2025-11-14 00:12:41","actualizado_en":"2025-11-14 00:12:41","reparacion_aceptada_cliente":"NO_ACEPTADA","total_imagenes":1,"total_comentarios":0,"imagenes":[{"id_imagen":54,"ruta_imagen":"..\/..\/Img_Servicios\/41\/img_6916c859780549.89630828.png","nombre_archivo":"LogoI.png"}],"comentarios":[],"piezas":[]},{"id_cotizacion":39,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","direccion":"Fray Pedro de Gante #298","telefono":"2481955951","correo_electronico":"7u7thin@gmail.com","telefono_usuario":"2481955951","correo_usuario":"7u7thin@gmail.com","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"45t6yui","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"estado":"APROBADA","creado_en":"2025-11-13 22:45:24","actualizado_en":"2025-11-13 22:45:51","reparacion_aceptada_cliente":"ACEPTADA","total_imagenes":1,"total_comentarios":1,"imagenes":[{"id_imagen":53,"ruta_imagen":"..\/..\/Img_Servicios\/39\/img_6916b3e4b606f1.14801435.png","nombre_archivo":"Gemini_Generated_Image_g80xjyg80xjyg80x.png"}],"comentarios":[{"id_comentario":14,"autor":"Cliente","mensaje":"El cliente ha aceptado la propuesta de reparaciones.","creado_en":"2025-11-13 22:45:51"}],"piezas":[]},{"id_cotizacion":38,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","direccion":"Fray Pedro de Gante #298","telefono":"2481955951","correo_electronico":"7u7thin@gmail.com","telefono_usuario":"2481955951","correo_usuario":"7u7thin@gmail.com","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"ghjkl\u00f1","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"estado":"COMPLETADO","creado_en":"2025-11-13 22:40:33","actualizado_en":"2025-11-13 23:24:36","reparacion_aceptada_cliente":"ACEPTADA","total_imagenes":1,"total_comentarios":1,"imagenes":[{"id_imagen":52,"ruta_imagen":"..\/..\/Img_Servicios\/38\/img_6916b2c1e87380.29771214.png","nombre_archivo":"LogoI.png"}],"comentarios":[{"id_comentario":12,"autor":"Cliente","mensaje":"El cliente ha aceptado la propuesta de reparaciones.","creado_en":"2025-11-13 22:43:17"}],"piezas":[]},{"id_cotizacion":37,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","direccion":"Fray Pedro de Gante #298","telefono":"2481955951","correo_electronico":"7u7thin@gmail.com","telefono_usuario":"2481955951","correo_usuario":"7u7thin@gmail.com","marca_bicicleta":"BENOTOO","modelo_bicicleta":"rtyuiop","zona_afectada":"FOCKIN","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"estado":"EN_PROCESO","creado_en":"2025-11-13 22:36:48","actualizado_en":"2025-11-13 23:24:30","reparacion_aceptada_cliente":"ACEPTADA","total_imagenes":1,"total_comentarios":1,"imagenes":[{"id_imagen":51,"ruta_imagen":"..\/..\/Img_Servicios\/37\/img_6916b1e065a263.29982687.png","nombre_archivo":"Imagen2.png"}],"comentarios":[{"id_comentario":13,"autor":"Cliente","mensaje":"El cliente ha aceptado la propuesta de reparaciones.","creado_en":"2025-11-13 22:43:32"}],"piezas":[]}]
+[2025-11-20 22:47:16] === FIN: Fichas técnicas obtenidas correctamente ===
+[2025-11-20 23:03:16] === INICIO: Solicitud de obtener fichas técnicas ===
+[2025-11-20 23:03:16] Usuario ID: 51
+[2025-11-20 23:03:16] Conectando a la base de datos...
+[2025-11-20 23:03:16] Conexión exitosa. Preparando query...
+[2025-11-20 23:03:16] Query: SELECT
+                c.id_cotizacion,
+                c.nombre_completo,
+                c.direccion,
+                c.telefono,
+                c.correo_electronico,
+                u.numero_telefono as telefono_usuario,
+                u.correo_electronico as correo_usuario,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                c.estado,
+                c.creado_en,
+                c.actualizado_en,
+                c.reparacion_aceptada_cliente,
+                COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                COUNT(DISTINCT cc.id_comentario) as total_comentarios
+              FROM cotizaciones_cliente c
+              LEFT JOIN usuarios u ON c.id_usuario = u.id_usuario
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.creado_en DESC
+[2025-11-20 23:03:16] Query preparada
+[2025-11-20 23:03:16] Query ejecutada
+[2025-11-20 23:03:16] Fichas técnicas obtenidas: 3
+[2025-11-20 23:03:16] Fichas técnicas obtenidas con detalles | Datos: [{"id_cotizacion":44,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","direccion":"Fray Pedro de Gante #298","telefono":"2481955951","correo_electronico":"123456789@gmail.com","telefono_usuario":"2481955951","correo_usuario":"123456789@gmail.com","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"CUADRO","tipo_trabajo":"PINTURA_TOTAL","tipo_reparacion":"FRACTURA","descripcion_otros":null,"estado":"PENDIENTE","creado_en":"2025-11-18 21:49:15","actualizado_en":"2025-11-18 21:49:15","reparacion_aceptada_cliente":"NO_ACEPTADA","total_imagenes":1,"total_comentarios":0,"imagenes":[{"id_imagen":57,"ruta_imagen":"..\/..\/Img_Servicios\/44\/img_691d3e3b5c1ec5.62876935.png","nombre_archivo":"1.png"}],"comentarios":[],"piezas":[]},{"id_cotizacion":43,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","direccion":"Fray Pedro de Gante #298","telefono":"2481955951","correo_electronico":"123456789@gmail.com","telefono_usuario":"2481955951","correo_usuario":"123456789@gmail.com","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"CUADRO","tipo_trabajo":"PINTURA_TOTAL","tipo_reparacion":"FRACTURA","descripcion_otros":null,"estado":"PENDIENTE","creado_en":"2025-11-18 21:12:52","actualizado_en":"2025-11-18 21:12:52","reparacion_aceptada_cliente":"NO_ACEPTADA","total_imagenes":1,"total_comentarios":0,"imagenes":[{"id_imagen":56,"ruta_imagen":"..\/..\/Img_Servicios\/43\/img_691d35b42d8d78.63635586.png","nombre_archivo":"Imagen133.png"}],"comentarios":[],"piezas":[]},{"id_cotizacion":42,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","direccion":"Fray Pedro de Gante #298","telefono":"2481955951","correo_electronico":"123456789@gmail.com","telefono_usuario":"2481955951","correo_usuario":"123456789@gmail.com","marca_bicicleta":"rtyuikl","modelo_bicicleta":"FGHYJUI","zona_afectada":"dfghjui","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"estado":"PENDIENTE","creado_en":"2025-11-18 15:03:08","actualizado_en":"2025-11-18 15:03:08","reparacion_aceptada_cliente":"NO_ACEPTADA","total_imagenes":1,"total_comentarios":0,"imagenes":[{"id_imagen":55,"ruta_imagen":"..\/..\/Img_Servicios\/42\/img_691cdf0c5796a1.27590743.png","nombre_archivo":"Imagen2.png"}],"comentarios":[],"piezas":[]}]
+[2025-11-20 23:03:16] === FIN: Fichas técnicas obtenidas correctamente ===
+[2025-11-21 03:09:48] === INICIO: Solicitud de obtener fichas técnicas ===
+[2025-11-21 03:09:48] Usuario ID: 51
+[2025-11-21 03:09:48] Conectando a la base de datos...
+[2025-11-21 03:09:48] Conexión exitosa. Preparando query...
+[2025-11-21 03:09:48] Query: SELECT
+                c.id_cotizacion,
+                c.nombre_completo,
+                c.direccion,
+                c.telefono,
+                c.correo_electronico,
+                u.numero_telefono as telefono_usuario,
+                u.correo_electronico as correo_usuario,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                c.estado,
+                c.creado_en,
+                c.actualizado_en,
+                c.reparacion_aceptada_cliente,
+                COUNT(DISTINCT ci.id_imagen) as total_imagenes,
+                COUNT(DISTINCT cc.id_comentario) as total_comentarios
+              FROM cotizaciones_cliente c
+              LEFT JOIN usuarios u ON c.id_usuario = u.id_usuario
+              LEFT JOIN cotizacion_imagenes_cliente ci ON c.id_cotizacion = ci.id_cotizacion
+              LEFT JOIN cotizacion_comentarios_cliente cc ON c.id_cotizacion = cc.id_cotizacion
+              WHERE c.id_usuario = :id
+              GROUP BY c.id_cotizacion
+              ORDER BY c.creado_en DESC
+[2025-11-21 03:09:48] Query preparada
+[2025-11-21 03:09:48] Query ejecutada
+[2025-11-21 03:09:48] Fichas técnicas obtenidas: 3
+[2025-11-21 03:09:48] Fichas técnicas obtenidas con detalles | Datos: [{"id_cotizacion":44,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","direccion":"Fray Pedro de Gante #298","telefono":"2481955951","correo_electronico":"123456789@gmail.com","telefono_usuario":"2481955951","correo_usuario":"123456789@gmail.com","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"CUADRO","tipo_trabajo":"PINTURA_TOTAL","tipo_reparacion":"FRACTURA","descripcion_otros":null,"estado":"PENDIENTE","creado_en":"2025-11-18 21:49:15","actualizado_en":"2025-11-18 21:49:15","reparacion_aceptada_cliente":"NO_ACEPTADA","total_imagenes":1,"total_comentarios":0,"imagenes":[{"id_imagen":57,"ruta_imagen":"..\/..\/Img_Servicios\/44\/img_691d3e3b5c1ec5.62876935.png","nombre_archivo":"1.png"}],"comentarios":[],"piezas":[]},{"id_cotizacion":43,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","direccion":"Fray Pedro de Gante #298","telefono":"2481955951","correo_electronico":"123456789@gmail.com","telefono_usuario":"2481955951","correo_usuario":"123456789@gmail.com","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"CUADRO","tipo_trabajo":"PINTURA_TOTAL","tipo_reparacion":"FRACTURA","descripcion_otros":null,"estado":"PENDIENTE","creado_en":"2025-11-18 21:12:52","actualizado_en":"2025-11-18 21:12:52","reparacion_aceptada_cliente":"NO_ACEPTADA","total_imagenes":1,"total_comentarios":0,"imagenes":[{"id_imagen":56,"ruta_imagen":"..\/..\/Img_Servicios\/43\/img_691d35b42d8d78.63635586.png","nombre_archivo":"Imagen133.png"}],"comentarios":[],"piezas":[]},{"id_cotizacion":42,"nombre_completo":"Julio Cesar Ruiz P\u00e9rez","direccion":"Fray Pedro de Gante #298","telefono":"2481955951","correo_electronico":"123456789@gmail.com","telefono_usuario":"2481955951","correo_usuario":"123456789@gmail.com","marca_bicicleta":"rtyuikl","modelo_bicicleta":"FGHYJUI","zona_afectada":"dfghjui","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"estado":"PENDIENTE","creado_en":"2025-11-18 15:03:08","actualizado_en":"2025-11-18 15:03:08","reparacion_aceptada_cliente":"NO_ACEPTADA","total_imagenes":1,"total_comentarios":0,"imagenes":[{"id_imagen":55,"ruta_imagen":"..\/..\/Img_Servicios\/42\/img_691cdf0c5796a1.27590743.png","nombre_archivo":"Imagen2.png"}],"comentarios":[],"piezas":[]}]
+[2025-11-21 03:09:48] === FIN: Fichas técnicas obtenidas correctamente ===

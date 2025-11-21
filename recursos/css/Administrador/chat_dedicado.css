@@ -15,7 +15,7 @@
         }
 
         .chat-sidebar {
-            width: 400px;
+            width: 350px;
             background: white;
             border-right: 1px solid #e9ecef;
             display: flex;
@@ -27,14 +27,35 @@
             border-bottom: 1px solid #e9ecef;
         }
 
+        .chat-search {
+            padding: 16px;
+            border-bottom: 1px solid #e9ecef;
+            position: relative;
+        }
+
         .chat-search input {
-            width: 100%;
-            padding: 14px 18px;
+            width: 85%;
+            margin: 0 auto;
+            display: block;
+            padding: 10px 45px 10px 16px;
             border: 1px solid #dee2e6;
-            border-radius: 30px;
-            font-size: 16px;
+            border-radius: 25px;
+            font-size: 13px;
             outline: none;
             transition: all 0.3s ease;
+        }
+
+        .chat-search::before {
+            content: '\f002';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 28px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666666;
+            font-size: 14px;
+            pointer-events: none;
         }
 
         .chat-search input:focus {
@@ -90,18 +111,13 @@
 
         .notification-badge {
             position: absolute;
-            top: -5px;
-            right: -5px;
+            top: -3px;
+            right: -3px;
             background: #dc3545;
-            color: white;
             border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            font-weight: bold;
+            width: 12px;
+            height: 12px;
+            display: block;
         }
 
         .conversacion-info {
@@ -126,6 +142,11 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+        }
+
+        .conversacion-last-message.unread {
+            font-weight: bold;
+            color: #000000;
         }
 
         .conversacion-time {
@@ -175,6 +196,31 @@
             font-size: 12px;
             color: #000000;
             margin-top: 2px;
+        }
+
+        .chat-user-info button {
+            margin-left: auto;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: transparent;
+            border: none;
+            color: #666666;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .chat-user-info button:hover {
+            background: rgba(0, 0, 0, 0.1);
+            transform: scale(1.1);
+        }
+
+        .chat-user-info button i {
+            font-size: 16px;
         }
 
         .chat-messages {

@@ -26,8 +26,11 @@ async function loadConversaciones() {
         }
 
         conversaciones.forEach((conversacion, index) => {
-            const item = createConversacionItem(conversacion);
-            container.appendChild(item);
+            // Solo mostrar conversaciones que tienen mensajes
+            if (conversacion.ultimo_mensaje) {
+                const item = createConversacionItem(conversacion);
+                container.appendChild(item);
+            }
         });
     } catch (error) {
         Swal.fire({
@@ -59,15 +62,16 @@ function createConversacionItem(conversacion) {
     const ultimoMensaje = conversacion.ultimo_mensaje || 'Sin mensajes';
     const fechaMensaje = conversacion.ultimo_mensaje_fecha ?
         new Date(conversacion.ultimo_mensaje_fecha).toLocaleDateString('es-MX') : '';
+    const isUnread = conversacion.mensajes_no_leidos > 0;
 
     item.innerHTML = `
         <div class="conversacion-avatar">
             <i class="fas fa-user-circle"></i>
-            ${conversacion.mensajes_no_leidos > 0 ? `<span class="notification-badge">${conversacion.mensajes_no_leidos}</span>` : ''}
+            ${isUnread ? `<span class="notification-badge"></span>` : ''}
         </div>
         <div class="conversacion-info">
             <div class="conversacion-name">${nombreCompleto}</div>
-            <div class="conversacion-last-message">${ultimoMensaje.substring(0, 30)}${ultimoMensaje.length > 30 ? '...' : ''}</div>
+            <div class="conversacion-last-message ${isUnread ? 'unread' : ''}">${ultimoMensaje.substring(0, 30)}${ultimoMensaje.length > 30 ? '...' : ''}</div>
             <div class="conversacion-time">${fechaMensaje}</div>
         </div>
     `;
@@ -112,6 +116,9 @@ async function seleccionarConversacion(conversacion) {
             <div class="user-details">
                 <span class="user-name">${conversacion.nombres} ${conversacion.apellidos}</span>
             </div>
+            <button class="btn btn-danger btn-sm" onclick="borrarConversacion()">
+                <i class="fas fa-trash"></i>
+            </button>
         </div>
     `;
 
@@ -136,6 +143,9 @@ async function seleccionarCliente(cliente) {
             <div class="user-details">
                 <span class="user-name">${cliente.nombres} ${cliente.apellidos}</span>
             </div>
+            <button class="btn btn-danger btn-sm" onclick="borrarConversacion()">
+                <i class="fas fa-trash"></i>
+            </button>
         </div>
     `;
 
@@ -377,7 +387,6 @@ async function actualizarNotificaciones() {
         if (badge) {
             const total = notificaciones.total_notificaciones || 0;
             if (total > 0) {
-                badge.textContent = total > 99 ? '99+' : total;
                 badge.style.display = 'flex';
             } else {
                 badge.style.display = 'none';
@@ -415,7 +424,6 @@ async function actualizarNotificacionesFlotante() {
         const mensajesNoLeidos = notificaciones.mensajes_no_leidos || 0;
 
         if (mensajesNoLeidos > 0) {
-            badge.textContent = mensajesNoLeidos > 99 ? '99+' : mensajesNoLeidos;
             badge.style.display = 'flex';
 
             // Notificación del navegador si está permitido
@@ -461,6 +469,54 @@ function mostrarAlertaNuevoMensaje() {
                 alerta.remove();
             }
         }, 3000);
+    }
+}
+
+// Función para borrar conversación
+async function borrarConversacion() {
+    if (!conversacionActual) return;
+
+    const result = await Swal.fire({
+        title: '¿Estás seguro?',
+        text: 'Esta acción borrará todos los mensajes de esta conversación permanentemente.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#1a1a1a',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Sí, borrar',
+        cancelButtonText: 'Cancelar'
+    });
+
+    if (result.isConfirmed) {
+        try {
+            const response = await fetch(`../../controlador/Administrador/chat_controller.php?action=borrarConversacion&id_cliente=${conversacionActual.id_usuario}`);
+            const data = await response.json();
+
+            if (data.success) {
+                Swal.fire('Borrado', 'La conversación ha sido borrada.', 'success');
+
+                // Limpiar chat
+                document.getElementById('chatMessages').innerHTML = '<div class="no-messages"><i class="fas fa-comments"></i><p>No hay mensajes en esta conversación</p></div>';
+
+                // Actualizar conversaciones
+                await loadConversaciones();
+
+                // Resetear conversación actual si era esta
+                if (conversacionActual) {
+                    conversacionActual = null;
+                    document.getElementById('chatHeader').innerHTML = `
+                        <div class="chat-user-info">
+                            <i class="fas fa-user-circle"></i>
+                            <span>Selecciona una conversación</span>
+                        </div>
+                    `;
+                }
+            } else {
+                Swal.fire('Error', data.error || 'No se pudo borrar la conversación.', 'error');
+            }
+        } catch (error) {
+            Swal.fire('Error', 'Error de conexión.', 'error');
+        }
     }
 }
 

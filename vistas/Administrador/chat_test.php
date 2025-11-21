@@ -1,3 +1,12 @@
+<?php
+session_start();
+require_once '../../modelos/php/conexion.php';
+
+if (!isset($_SESSION['id_usuario']) || obtenerNombreRol($_SESSION['id_rol']) !== 'ADMINISTRADOR') {
+    header('Location: ../login.php');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,7 +15,7 @@
     <title>Chat Test - TotalCarbon</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link rel="stylesheet" href="../../recursos/css/Administrador/chat_dedicado.css">
+    <link rel="stylesheet" href="../../recursos/css/Administrador/chat_dedicado.css?V=442223334454">
 </head>
 <body>
   
@@ -28,7 +37,7 @@
             <div class="chat-container">
                 <div class="chat-sidebar">
                     <div class="chat-search">
-                        <input type="text" id="buscadorConversaciones" placeholder="Buscar conversaciones..." onkeyup="filtrarConversaciones()">
+                        <input type="text" id="buscadorConversaciones" placeholder="Buscar conversaciones o clientes nuevos" onkeyup="filtrarConversaciones()">
                     </div>
                     <div class="conversaciones-list" id="conversacionesList">
                         <!-- Las conversaciones se cargarán dinámicamente -->
@@ -71,6 +80,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
-    <script src="../../recursos/js/Administrador/chat.js?v=34568"></script>
+    <script src="../../recursos/js/Administrador/chat.js?v=345222276"></script>
 </body>
 </html> 

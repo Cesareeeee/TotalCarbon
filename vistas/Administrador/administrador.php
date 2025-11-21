@@ -1,3 +1,12 @@
+<?php
+session_start();
+require_once '../../modelos/php/conexion.php';
+
+if (!isset($_SESSION['id_usuario']) || obtenerNombreRol($_SESSION['id_rol']) !== 'ADMINISTRADOR') {
+    header('Location: ../login.php');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,12 +15,13 @@
     <title>TotalCarbon - Gestión de Clientes</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link rel="stylesheet" href="../../recursos/css/Administrador/administrador.css?v=34567895456">
+    <link rel="stylesheet" href="../../recursos/css/Administrador/administrador.css?v=3453333334">
 </head>
 <body>
     <!-- Top Bar -->
     <div class="top-bar">
         <div class="top-bar-left">
+            
             <button class="sidebar-toggle" onclick="toggleSidebar()">
                 <div class="hamburger" id="hamburger">
                     <span></span>
@@ -25,7 +35,7 @@
                 <i class="fas fa-bell"></i>
                 <span class="notification-badge">3</span>
             </div>
-            <div class="profile-icon">
+            <div class="profile-icon" onclick="window.location.href='perfil_administrador.php'">
                 <i class="fas fa-user"></i>
             </div>
         </div>
@@ -37,12 +47,6 @@
             <img src="../../recursos/img/logo2.png" alt="Total Carbon Logo" class="sidebar-logo">
         </div>
         <ul class="sidebar-menu">
-            <li>
-                <a href="#" onclick="showSection('chat')">
-                    <i class="fas fa-comments"></i>
-                    <span>Chat de Soporte</span>
-                </a>
-            </li>
             <li>
                 <a href="#" class="active" onclick="showSection('clientes')">
                     <i class="fas fa-users"></i>
@@ -65,6 +69,18 @@
                 <a href="#" onclick="showSection('garantias')">
                     <i class="fas fa-shield-alt"></i>
                     <span>Garantías</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="showSection('chat')">
+                    <i class="fas fa-comments"></i>
+                    <span>Chat</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="window.location.href='perfil_administrador.php'">
+                    <i class="fas fa-user-edit"></i>
+                    <span>Perfil</span>
                 </a>
             </li>
             <li>
@@ -289,9 +305,10 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Cotización</th>
-                            <th>Cliente</th>
+                            <th>Nombre Bicicleta</th>
+                            <th>Dueño</th>
                             <th>Tipo</th>
+                            <th>Cobertura</th>
                             <th>Vencimiento</th>
                             <th>Estado</th>
                             <th>Acciones</th>
@@ -301,6 +318,58 @@
                         <!-- Los datos se cargarán dinámicamente -->
                     </tbody>
                 </table>
+            </div>
+        </div>
+
+        <!-- Chat Section -->
+        <div class="content-section" id="chat-section">
+            <div class="section-header">
+                <h3 class="section-title" style="font-size: 1.2rem; font-weight: bold;">CHAT CON CLIENTES - TOTAL CARBON</h3>
+                <div class="section-actions">
+                    <button class="btn btn-outline" onclick="actualizarConversaciones()">
+                        <i class="fas fa-sync-alt"></i>
+                        Actualizar
+                    </button>
+                </div>
+            </div>
+
+            <div class="chat-container">
+                <div class="chat-sidebar">
+                    <div class="chat-search">
+                        <input type="text" id="buscadorConversaciones" placeholder="Buscar conversaciones o clientes nuevos" onkeyup="filtrarConversaciones()">
+                    </div>
+                    <div class="conversaciones-list" id="conversacionesList">
+                        <!-- Las conversaciones se cargarán dinámicamente -->
+                    </div>
+                </div>
+
+                <div class="chat-main">
+                    <div class="chat-header" id="chatHeader">
+                        <div class="chat-user-info">
+                            <i class="fas fa-user-circle"></i>
+                            <span>Selecciona una conversación</span>
+                        </div>
+                    </div>
+
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="no-conversation">
+                            <i class="fas fa-comments"></i>
+                            <p>Selecciona una conversación para ver los mensajes</p>
+                        </div>
+                    </div>
+
+                    <div class="chat-input" id="chatInput">
+                        <div class="input-container">
+                            <input type="text" id="mensajeInput" placeholder="Escribe un mensaje..." onkeypress="enviarMensajeEnter(event)" maxlength="1000">
+                            <button class="btn-send" id="btnSend" onclick="enviarMensaje()">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                        <div class="typing-indicator" id="typingIndicator" style="display: none;">
+                            <span>El cliente está escribiendo...</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -514,15 +583,10 @@
             <div class="modal-body">
                 <form id="garantiaForm">
                     <div class="form-row">
-                        <div class="form-group">
-                            <label for="id_cotizacion">ID Cotización *</label>
-                            <input type="number" id="id_cotizacion" class="form-control" required>
-                            <span class="error-message"></span>
-                        </div>
-                        <div class="form-group">
-                            <label for="cliente_garantia">Cliente *</label>
-                            <select id="cliente_garantia" class="form-control" required>
-                                <option value="">Seleccionar cliente</option>
+                        <div class="form-group full-width">
+                            <label for="servicio_completado">Servicio Completado *</label>
+                            <select id="servicio_completado" class="form-control" required>
+                                <option value="">Seleccionar servicio completado</option>
                             </select>
                             <span class="error-message"></span>
                         </div>
@@ -530,25 +594,36 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="tipo_garantia">Tipo de Garantía *</label>
-                            <select id="tipo_garantia" class="form-control" required>
+                            <select id="tipo_garantia" class="form-control" required onchange="toggleTipoGarantiaPersonalizado()">
                                 <option value="">Seleccionar tipo</option>
                                 <option value="Básica">Básica</option>
                                 <option value="Estándar">Estándar</option>
                                 <option value="Premium Carbon">Premium Carbon</option>
                                 <option value="Extendida">Extendida</option>
+                                <option value="Otros">Otros</option>
                             </select>
                             <span class="error-message"></span>
                         </div>
+                        <div class="form-group" id="tipo_personalizado_group" style="display: none;">
+                            <label for="tipo_garantia_personalizado">Especificar Tipo *</label>
+                            <input type="text" id="tipo_garantia_personalizado" class="form-control" placeholder="Ej: Garantía Especial 2 años">
+                            <span class="error-message"></span>
+                        </div>
+                    </div>
+                    <div class="form-row">
                         <div class="form-group">
                             <label for="fecha_fin">Fecha de Vencimiento *</label>
                             <input type="date" id="fecha_fin" class="form-control" required>
                             <span class="error-message"></span>
                         </div>
+                        <div class="form-group">
+                            <!-- Espacio vacío para mantener el diseño -->
+                        </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group full-width">
                             <label for="cobertura">Cobertura</label>
-                            <textarea id="cobertura" class="form-control" rows="3"></textarea>
+                            <textarea id="cobertura" class="form-control" rows="5" placeholder="Describe la cobertura de la garantía..."></textarea>
                         </div>
                     </div>
                 </form>
@@ -577,73 +652,22 @@
             </div>
         </div>
 
-        <!-- Chat Section -->
-        <div class="content-section" id="chat-section">
-            <div class="section-header">
-                <h2 class="section-title">Chat de Soporte</h2>
-                <div class="section-actions">
-                    <button class="btn btn-outline" onclick="actualizarConversaciones()">
-                        <i class="fas fa-sync-alt"></i>
-                        Actualizar
-                    </button>
-                </div>
-            </div>
-
-            <div class="chat-container">
-                <div class="chat-sidebar">
-                    <div class="chat-search">
-                        <input type="text" id="buscadorConversaciones" placeholder="Buscar conversaciones..." onkeyup="filtrarConversaciones()">
-                    </div>
-                    <div class="conversaciones-list" id="conversacionesList">
-                        <!-- Las conversaciones se cargarán dinámicamente -->
-                    </div>
-                </div>
-
-                <div class="chat-main">
-                    <div class="chat-header" id="chatHeader">
-                        <div class="chat-user-info">
-                            <i class="fas fa-user-circle"></i>
-                            <span>Selecciona una conversación</span>
-                        </div>
-                    </div>
-
-                    <div class="chat-messages" id="chatMessages">
-                        <div class="no-conversation">
-                            <i class="fas fa-comments"></i>
-                            <p>Selecciona una conversación para ver los mensajes</p>
-                        </div>
-                    </div>
-
-                    <div class="chat-input" id="chatInput" style="display: none;">
-                        <div class="input-container">
-                            <input type="text" id="mensajeInput" placeholder="Escribe un mensaje..." onkeypress="enviarMensajeEnter(event)" maxlength="1000">
-                            <button class="btn-send" id="btnSend" onclick="enviarMensaje()">
-                                <i class="fas fa-paper-plane"></i>
-                            </button>
-                        </div>
-                        <div class="typing-indicator" id="typingIndicator" style="display: none;">
-                            <span>El cliente está escribiendo...</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
+
+    <!-- Chat Floating Button -->
+    <button class="chat-floating-btn" id="chatFloatingBtn" onclick="abrirChatFlotante()" style="display: none;">
+        <i class="fas fa-comments"></i>
+        <span class="chat-notification-badge" id="chatNotificationBadge" style="display: none;"></span>
+    </button>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
-    <script src="../../recursos/js/Administrador/administrador.js?v=34565677"></script>
-    <script src="../../recursos/js/Administrador/clientes.js?v=45678556"></script>
-    <script src="../../recursos/js/Administrador/chat.js?v=34567764567895"></script>
-
-    <!-- Chat Floating Button -->
-    <div class="chat-floating-btn" id="chatFloatingBtn" onclick="abrirChatFlotante()">
-        <i class="fas fa-comments"></i>
-        <span class="chat-notification-badge" id="chatNotificationBadge" style="display: none;">0</span>
-    </div>
+    <script src="../../recursos/js/Administrador/administrador.js?v=345211265687"></script>
+    <script src="../../recursos/js/Administrador/clientes.js?v=456211278562"></script>
+    <script src="../../recursos/js/Administrador/chat.js?v=3411115222280"></script>
 
 </body>
 </html>

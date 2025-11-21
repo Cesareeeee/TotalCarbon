@@ -5,6 +5,7 @@
         let arregloProductos = [];
         let arregloGarantias = [];
         let arregloCotizaciones = [];
+        let arregloServiciosCompletados = [];
         let seccionActual = 'clientes';
         let elementoEditando = null;
         let idEditandoActual = null;
@@ -66,9 +67,24 @@
 
             seccionActual = section;
 
+            // Mostrar/ocultar botón flotante del chat
+            const chatFloatingBtn = document.getElementById('chatFloatingBtn');
+            if (chatFloatingBtn) {
+                if (section === 'chat') {
+                    chatFloatingBtn.style.display = 'none';
+                } else {
+                    chatFloatingBtn.style.display = 'flex';
+                }
+            }
+
             // Cerrar sidebar en móvil
             if (window.innerWidth <= 992) {
                 toggleSidebar();
+            }
+
+            // Cargar datos específicos de la sección
+            if (section === 'garantias') {
+                loadGarantias();
             }
         }
 
@@ -156,6 +172,27 @@
             }
         }
 
+        // Funciones de carga de datos para garantías
+        async function loadGarantias() {
+            try {
+                const response = await fetch('../../controlador/Administrador/garantias_controller.php?action=getGarantias');
+                const data = await response.json();
+
+                if (data.success) {
+                    arregloGarantias = data.garantias;
+                    const tbody = document.getElementById('garantiasTableBody');
+                    tbody.innerHTML = '';
+
+                    arregloGarantias.forEach(garantia => {
+                        const row = createGarantiaRow(garantia);
+                        tbody.appendChild(row);
+                    });
+                }
+            } catch (error) {
+                console.error('Error cargando garantías:', error);
+            }
+        }
+
         function createProductoRow(producto) {
             const precioUnitario = producto.precio_unitario ? parseFloat(producto.precio_unitario) : 0;
             const cantidad = producto.cantidad || 1;
@@ -202,6 +239,71 @@
             return row;
         }
 
+        function createGarantiaRow(garantia) {
+            const nombreBicicleta = `${garantia.marca_bicicleta || 'N/A'} ${garantia.modelo_bicicleta || ''}`.trim();
+            const dueno = `${garantia.nombres || ''} ${garantia.apellidos || ''}`.trim();
+            const fechaVencimiento = new Date(garantia.fecha_fin).toLocaleDateString('es-MX');
+
+            // Determinar clase CSS para el estado
+            let estadoClass = '';
+            if (garantia.estado === 'Activa') estadoClass = 'status-active';
+            else if (garantia.estado === 'Vencida') estadoClass = 'status-expired';
+            else if (garantia.estado === 'Cancelada') estadoClass = 'status-cancelled';
+            else estadoClass = 'status-other';
+
+            // Truncar cobertura para mostrar en tabla
+            const coberturaTruncada = garantia.cobertura ?
+                (garantia.cobertura.length > 50 ? garantia.cobertura.substring(0, 50) + '...' : garantia.cobertura) :
+                'Sin descripción';
+
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${garantia.id_garantia}</td>
+                <td>
+                    <div class="client-info">
+                        <i class="fas fa-bicycle"></i>
+                        <div class="client-details">
+                            <h4>${nombreBicicleta}</h4>
+                            <p>${garantia.zona_afectada || 'N/A'}</p>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="client-info">
+                        <i class="fas fa-user"></i>
+                        <div class="client-details">
+                            <h4>${dueno}</h4>
+                            <p>${garantia.correo_electronico || 'N/A'}</p>
+                        </div>
+                    </div>
+                </td>
+                <td>${garantia.tipo_garantia}</td>
+                <td>
+                    <div class="cobertura-cell" title="${garantia.cobertura || ''}">
+                        ${coberturaTruncada}
+                    </div>
+                </td>
+                <td>${fechaVencimiento}</td>
+                <td>
+                    <span class="status-badge ${estadoClass}">${garantia.estado}</span>
+                </td>
+                <td>
+                    <div class="table-actions">
+                        <button class="action-btn" onclick="viewGarantia(${garantia.id_garantia})" title="Ver detalles">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="action-btn" onclick="editGarantia(${garantia.id_garantia})" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn delete" onclick="deleteGarantia(${garantia.id_garantia})" title="Eliminar">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </td>
+            `;
+            return row;
+        }
+
         // Funciones de modales
         function openModal(modalId) {
             const modal = document.getElementById(modalId);
@@ -227,6 +329,379 @@
                 form.querySelectorAll('.error-message').forEach(error => {
                     error.classList.remove('show');
                 });
+            }
+        }
+
+        // Funciones de garantías
+        function openGarantiaModal() {
+            document.getElementById('garantiaModalTitle').textContent = 'Nueva Garantía';
+            document.getElementById('garantiaSaveBtn').textContent = 'Guardar Garantía';
+            loadServiciosCompletados();
+            // Resetear campos
+            document.getElementById('tipo_garantia').value = '';
+            document.getElementById('tipo_garantia_personalizado').value = '';
+            toggleTipoGarantiaPersonalizado();
+            openModal('garantiaModal');
+        }
+
+        function toggleTipoGarantiaPersonalizado() {
+            const tipoGarantia = document.getElementById('tipo_garantia').value;
+            const personalizadoGroup = document.getElementById('tipo_personalizado_group');
+            const personalizadoInput = document.getElementById('tipo_garantia_personalizado');
+
+            if (tipoGarantia === 'Otros') {
+                personalizadoGroup.style.display = 'block';
+                personalizadoInput.required = true;
+            } else {
+                personalizadoGroup.style.display = 'none';
+                personalizadoInput.required = false;
+                personalizadoInput.value = '';
+            }
+        }
+
+        async function loadServiciosCompletados() {
+            try {
+                const response = await fetch('../../controlador/Administrador/garantias_controller.php?action=getServiciosCompletados');
+                const data = await response.json();
+
+                if (data.success) {
+                    arregloServiciosCompletados = data.servicios;
+                    const select = document.getElementById('servicio_completado');
+                    select.innerHTML = '<option value="">Seleccionar servicio completado</option>';
+
+                    arregloServiciosCompletados.forEach(servicio => {
+                        const nombreBicicleta = `${servicio.marca_bicicleta || 'N/A'} ${servicio.modelo_bicicleta || ''}`.trim();
+                        const dueno = `${servicio.nombres || ''} ${servicio.apellidos || ''}`.trim();
+                        const option = document.createElement('option');
+                        option.value = servicio.id_cotizacion;
+                        option.textContent = `ID ${servicio.id_cotizacion} - ${nombreBicicleta} (${dueno})`;
+                        select.appendChild(option);
+                    });
+                }
+            } catch (error) {
+                console.error('Error cargando servicios completados:', error);
+            }
+        }
+
+        async function saveGarantia() {
+            if (!validateGarantiaForm()) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error de Validación',
+                    text: 'Por favor, complete todos los campos requeridos correctamente.',
+                    confirmButtonColor: '#1a1a1a'
+                });
+                return;
+            }
+
+            let tipoGarantia = document.getElementById('tipo_garantia').value;
+            if (tipoGarantia === 'Otros') {
+                tipoGarantia = document.getElementById('tipo_garantia_personalizado').value;
+            }
+
+            const garantiaData = {
+                id_cotizacion: document.getElementById('servicio_completado').value,
+                tipo_garantia: tipoGarantia,
+                cobertura: document.getElementById('cobertura').value,
+                fecha_fin: document.getElementById('fecha_fin').value
+            };
+
+            try {
+                const response = await fetch('../../controlador/Administrador/garantias_controller.php?action=createGarantia', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(garantiaData)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Garantía Creada',
+                        text: 'La garantía ha sido creada exitosamente.',
+                        confirmButtonColor: '#1a1a1a'
+                    });
+
+                    loadGarantias();
+                    closeModal('garantiaModal');
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: result.message || 'Ocurrió un error al guardar la garantía.',
+                        confirmButtonColor: '#1a1a1a'
+                    });
+                }
+            } catch (error) {
+                console.error('Error guardando garantía:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error de conexión',
+                    text: 'No se pudo conectar con el servidor.',
+                    confirmButtonColor: '#1a1a1a'
+                });
+            }
+        }
+
+        function validateGarantiaForm() {
+            const servicio_completado = document.getElementById('servicio_completado');
+            const tipo_garantia = document.getElementById('tipo_garantia');
+            const tipo_garantia_personalizado = document.getElementById('tipo_garantia_personalizado');
+            const fecha_fin = document.getElementById('fecha_fin');
+
+            let isValid = true;
+
+            // Limpiar errores anteriores
+            document.querySelectorAll('#garantiaForm .form-control').forEach(input => {
+                input.classList.remove('error');
+            });
+            document.querySelectorAll('#garantiaForm .error-message').forEach(error => {
+                error.classList.remove('show');
+            });
+
+            // Validar servicio completado
+            if (!servicio_completado.value) {
+                servicio_completado.classList.add('error');
+                servicio_completado.nextElementSibling.classList.add('show');
+                servicio_completado.nextElementSibling.textContent = 'Debe seleccionar un servicio completado';
+                isValid = false;
+            }
+
+            // Validar tipo de garantía
+            if (!tipo_garantia.value) {
+                tipo_garantia.classList.add('error');
+                tipo_garantia.nextElementSibling.classList.add('show');
+                tipo_garantia.nextElementSibling.textContent = 'El tipo de garantía es requerido';
+                isValid = false;
+            }
+
+            // Validar tipo personalizado si está seleccionado
+            if (tipo_garantia.value === 'Otros' && !tipo_garantia_personalizado.value.trim()) {
+                tipo_garantia_personalizado.classList.add('error');
+                tipo_garantia_personalizado.nextElementSibling.classList.add('show');
+                tipo_garantia_personalizado.nextElementSibling.textContent = 'Debe especificar el tipo de garantía personalizado';
+                isValid = false;
+            }
+
+            // Validar fecha de fin
+            if (!fecha_fin.value) {
+                fecha_fin.classList.add('error');
+                fecha_fin.nextElementSibling.classList.add('show');
+                fecha_fin.nextElementSibling.textContent = 'La fecha de vencimiento es requerida';
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        async function viewGarantia(id) {
+            try {
+                const response = await fetch(`../../controlador/Administrador/garantias_controller.php?action=getGarantia&id=${id}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    const garantia = data.garantia;
+                    // Obtener información completa de la garantía con JOIN
+                    const responseCompleta = await fetch('../../controlador/Administrador/garantias_controller.php?action=getGarantias');
+                    const dataCompleta = await responseCompleta.json();
+
+                    if (dataCompleta.success) {
+                        const garantiaCompleta = dataCompleta.garantias.find(g => g.id_garantia == id);
+
+                        if (garantiaCompleta) {
+                            const nombreBicicleta = `${garantiaCompleta.marca_bicicleta || 'N/A'} ${garantiaCompleta.modelo_bicicleta || ''}`.trim();
+                            const dueno = `${garantiaCompleta.nombres || ''} ${garantiaCompleta.apellidos || ''}`.trim();
+
+                            // Crear modal personalizado
+                            const modalHtml = `
+                                <div class="garantia-detalles-modal">
+                                    <div class="garantia-header">
+                                        <div class="garantia-title">
+                                            <h2><i class="fas fa-shield-alt"></i> Detalles de Garantía #${garantia.id_garantia}</h2>
+                                            <span class="garantia-status status-${garantia.estado.toLowerCase()}">${garantia.estado}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="garantia-content">
+                                        <div class="info-section">
+                                            <h3><i class="fas fa-info-circle"></i> Información de la Garantía</h3>
+                                            <div class="info-grid">
+                                                <div class="info-item">
+                                                    <label>ID Garantía:</label>
+                                                    <span>${garantia.id_garantia}</span>
+                                                </div>
+                                                <div class="info-item">
+                                                    <label>Tipo de Garantía:</label>
+                                                    <span>${garantia.tipo_garantia}</span>
+                                                </div>
+                                                <div class="info-item">
+                                                    <label>Fecha de Inicio:</label>
+                                                    <span>${new Date(garantia.fecha_inicio).toLocaleDateString('es-MX')}</span>
+                                                </div>
+                                                <div class="info-item">
+                                                    <label>Fecha de Vencimiento:</label>
+                                                    <span>${new Date(garantia.fecha_fin).toLocaleDateString('es-MX')}</span>
+                                                </div>
+                                                <div class="info-item">
+                                                    <label>Creada el:</label>
+                                                    <span>${new Date(garantia.creado_en).toLocaleDateString('es-MX')} ${new Date(garantia.creado_en).toLocaleTimeString('es-MX')}</span>
+                                                </div>
+                                                <div class="info-item">
+                                                    <label>Actualizada el:</label>
+                                                    <span>${new Date(garantia.actualizado_en).toLocaleDateString('es-MX')} ${new Date(garantia.actualizado_en).toLocaleTimeString('es-MX')}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="info-section">
+                                            <h3><i class="fas fa-bicycle"></i> Información de la Bicicleta</h3>
+                                            <div class="info-grid">
+                                                <div class="info-item">
+                                                    <label>Marca:</label>
+                                                    <span>${garantiaCompleta.marca_bicicleta || 'N/A'}</span>
+                                                </div>
+                                                <div class="info-item">
+                                                    <label>Modelo:</label>
+                                                    <span>${garantiaCompleta.modelo_bicicleta || 'N/A'}</span>
+                                                </div>
+                                                <div class="info-item">
+                                                    <label>Zona Afectada:</label>
+                                                    <span>${garantiaCompleta.zona_afectada || 'N/A'}</span>
+                                                </div>
+                                                <div class="info-item">
+                                                    <label>Tipo de Trabajo:</label>
+                                                    <span>${garantiaCompleta.tipo_trabajo || 'N/A'}</span>
+                                                </div>
+                                                <div class="info-item">
+                                                    <label>Tipo de Reparación:</label>
+                                                    <span>${garantiaCompleta.tipo_reparacion || 'N/A'}</span>
+                                                </div>
+                                                <div class="info-item">
+                                                    <label>Descripción Otros:</label>
+                                                    <span>${garantiaCompleta.descripcion_otros || 'N/A'}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="info-section">
+                                            <h3><i class="fas fa-user"></i> Información del Dueño</h3>
+                                            <div class="info-grid">
+                                                <div class="info-item">
+                                                    <label>Nombre Completo:</label>
+                                                    <span>${dueno}</span>
+                                                </div>
+                                                <div class="info-item">
+                                                    <label>Correo Electrónico:</label>
+                                                    <span>${garantiaCompleta.correo_electronico || 'N/A'}</span>
+                                                </div>
+                                                <div class="info-item">
+                                                    <label>ID Cotización:</label>
+                                                    <span>${garantia.id_cotizacion}</span>
+                                                </div>
+                                                <div class="info-item">
+                                                    <label>ID Usuario:</label>
+                                                    <span>${garantia.id_usuario}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="info-section">
+                                            <h3><i class="fas fa-file-alt"></i> Cobertura de la Garantía</h3>
+                                            <div class="cobertura-content">
+                                                ${garantia.cobertura ? garantia.cobertura.replace(/\n/g, '<br>') : '<em>Sin descripción específica</em>'}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+
+                            // Crear y mostrar modal personalizado
+                            const modal = document.createElement('div');
+                            modal.className = 'custom-modal active';
+                            modal.innerHTML = `
+                                <div class="custom-modal-overlay" onclick="this.parentElement.remove()"></div>
+                                <div class="custom-modal-content garantia-modal">
+                                    <div class="custom-modal-header">
+                                        <button class="custom-modal-close" onclick="this.closest('.custom-modal').remove()">&times;</button>
+                                    </div>
+                                    <div class="custom-modal-body">
+                                        ${modalHtml}
+                                    </div>
+                                </div>
+                            `;
+
+                            document.body.appendChild(modal);
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Error obteniendo detalles de garantía:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'No se pudieron cargar los detalles de la garantía.',
+                    confirmButtonColor: '#1a1a1a'
+                });
+            }
+        }
+
+        async function editGarantia(id) {
+            // Por ahora, solo mostrar mensaje que la edición no está implementada
+            Swal.fire({
+                icon: 'info',
+                title: 'Función no implementada',
+                text: 'La edición de garantías estará disponible próximamente.',
+                confirmButtonColor: '#1a1a1a'
+            });
+        }
+
+        async function deleteGarantia(id) {
+            const result = await Swal.fire({
+                title: '¿Está seguro?',
+                text: '¿Desea eliminar esta garantía?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            });
+
+            if (result.isConfirmed) {
+                try {
+                    const response = await fetch(`../../controlador/Administrador/garantias_controller.php?action=deleteGarantia&id=${id}`);
+
+                    const res = await response.json();
+
+                    if (res.success) {
+                        await Swal.fire({
+                            icon: 'success',
+                            title: 'Eliminada',
+                            text: 'La garantía ha sido eliminada exitosamente.',
+                            confirmButtonColor: '#1a1a1a',
+                            timer: 2000,
+                            showConfirmButton: false
+                        });
+                        loadGarantias();
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: res.message || 'Ocurrió un error al eliminar la garantía.',
+                            confirmButtonColor: '#1a1a1a'
+                        });
+                    }
+                } catch (error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error de conexión',
+                        text: 'No se pudo conectar con el servidor.',
+                        confirmButtonColor: '#1a1a1a'
+                    });
+                }
             }
         }
 
@@ -924,11 +1399,54 @@
         function exportToPDF(type) {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
-            
+
             let data = [];
             let filename = '';
-            
-            if (type === 'proveedores') {
+
+            if (type === 'garantias') {
+                data = arregloGarantias.map(garantia => ({
+                    'ID': garantia.id_garantia,
+                    'Bicicleta': `${garantia.marca_bicicleta || 'N/A'} ${garantia.modelo_bicicleta || ''}`.trim(),
+                    'Dueño': `${garantia.nombres || ''} ${garantia.apellidos || ''}`.trim(),
+                    'Tipo': garantia.tipo_garantia,
+                    'Cobertura': garantia.cobertura || 'Sin descripción',
+                    'Fecha Inicio': new Date(garantia.fecha_inicio).toLocaleDateString('es-MX'),
+                    'Fecha Vencimiento': new Date(garantia.fecha_fin).toLocaleDateString('es-MX'),
+                    'Estado': garantia.estado,
+                    'Zona Afectada': garantia.zona_afectada || 'N/A',
+                    'Tipo Trabajo': garantia.tipo_trabajo || 'N/A',
+                    'Tipo Reparación': garantia.tipo_reparacion || 'N/A'
+                }));
+                filename = 'garantias';
+
+                // Agregar título al PDF
+                doc.setFontSize(20);
+                doc.setFont('helvetica', 'bold');
+                doc.text('REPORTE DE GARANTÍAS - TOTALCARBON', 14, 25);
+                doc.setFontSize(12);
+                doc.setFont('helvetica', 'normal');
+                doc.text(`Generado el: ${new Date().toLocaleDateString('es-MX')} ${new Date().toLocaleTimeString('es-MX')}`, 14, 35);
+                doc.text(`Total de garantías: ${data.length}`, 14, 45);
+
+                doc.autoTable({
+                    head: [Object.keys(data[0])],
+                    body: data.map(Object.values),
+                    startY: 55,
+                    styles: {
+                        fontSize: 8,
+                        cellPadding: 3,
+                    },
+                    headStyles: {
+                        fillColor: [26, 26, 26],
+                        textColor: 255,
+                        fontStyle: 'bold',
+                    },
+                    alternateRowStyles: {
+                        fillColor: [248, 249, 250],
+                    },
+                    margin: { top: 55 },
+                });
+            } else if (type === 'proveedores') {
                 data = arregloProveedores.map(proveedor => ({
                     'Proveedor': proveedor.nombre_proveedor,
                     'Contacto': proveedor.contacto || 'N/A',
@@ -991,8 +1509,37 @@
         function exportToExcel(type) {
             let data = [];
             let filename = '';
-            
-            if (type === 'proveedores') {
+
+            if (type === 'garantias') {
+                // Agregar fila de título al Excel
+                const tituloData = [
+                    { 'ID': 'REPORTE DE GARANTÍAS - TOTALCARBON' },
+                    { 'ID': `Generado el: ${new Date().toLocaleDateString('es-MX')} ${new Date().toLocaleTimeString('es-MX')}` },
+                    { 'ID': `Total de garantías: ${arregloGarantias.length}` },
+                    {}, // Fila vacía
+                ];
+
+                data = [
+                    ...tituloData,
+                    ...arregloGarantias.map(garantia => ({
+                        'ID': garantia.id_garantia,
+                        'Bicicleta': `${garantia.marca_bicicleta || 'N/A'} ${garantia.modelo_bicicleta || ''}`.trim(),
+                        'Dueño': `${garantia.nombres || ''} ${garantia.apellidos || ''}`.trim(),
+                        'Tipo': garantia.tipo_garantia,
+                        'Cobertura': garantia.cobertura || 'Sin descripción',
+                        'Fecha Inicio': new Date(garantia.fecha_inicio).toLocaleDateString('es-MX'),
+                        'Fecha Vencimiento': new Date(garantia.fecha_fin).toLocaleDateString('es-MX'),
+                        'Estado': garantia.estado,
+                        'Zona Afectada': garantia.zona_afectada || 'N/A',
+                        'Tipo Trabajo': garantia.tipo_trabajo || 'N/A',
+                        'Tipo Reparación': garantia.tipo_reparacion || 'N/A',
+                        'Correo Dueño': garantia.correo_electronico || 'N/A',
+                        'Creado': new Date(garantia.creado_en).toLocaleDateString('es-MX'),
+                        'Actualizado': new Date(garantia.actualizado_en).toLocaleDateString('es-MX')
+                    }))
+                ];
+                filename = 'garantias';
+            } else if (type === 'proveedores') {
                 // Agregar fila de título al Excel
                 const tituloData = [
                     { 'Nombre Proveedor': 'Lista de Proveedores - TotalCarbon' },
@@ -1053,15 +1600,16 @@
             });
         }
 
+
         // Inicializar la aplicación
         document.addEventListener('DOMContentLoaded', function() {
             initializeData();
-            
+
             // Responsive sidebar
             function handleResize() {
                 const sidebar = document.getElementById('sidebar');
                 const mainContent = document.querySelector('.main-content');
-                
+
                 if (window.innerWidth <= 992) {
                     sidebar.classList.add('hidden');
                     mainContent.classList.add('expanded');
@@ -1070,7 +1618,7 @@
                     mainContent.classList.remove('expanded');
                 }
             }
-            
+
             window.addEventListener('resize', handleResize);
             handleResize();
         });

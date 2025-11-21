@@ -571,6 +571,20 @@
             word-wrap: break-word;
         }
 
+        .cobertura-cell {
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            cursor: help;
+            line-height: 1.4;
+        }
+
+        .cobertura-cell:hover {
+            white-space: normal;
+            word-wrap: break-word;
+        }
+
         /* Client Info */
         .client-info {
             display: flex;
@@ -1246,6 +1260,31 @@
             margin-top: 2px;
         }
 
+        .chat-user-info button {
+            margin-left: auto;
+            padding: 6px 8px;
+            font-size: 12px;
+            border-radius: 6px;
+            background: transparent;
+            color: #dc3545;
+            border: 1px solid #dc3545;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .chat-user-info button:hover {
+            background: #dc3545;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .chat-user-info button i {
+            font-size: 14px;
+        }
+
         .chat-messages {
             flex: 1;
             padding: 20px;
@@ -1613,3 +1652,243 @@
                 font-size: 10px;
             }
         }
+
+        /* Modal personalizado para detalles de garantía */
+        .custom-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .custom-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .custom-modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        .custom-modal-content {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+            max-width: 900px;
+            width: 90%;
+            max-height: 90vh;
+            overflow: hidden;
+            position: relative;
+            z-index: 2001;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .custom-modal.active .custom-modal-content {
+            transform: scale(1);
+        }
+
+        .custom-modal-header {
+            padding: 20px 30px 0;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .custom-modal-close {
+            background: none;
+            border: none;
+            font-size: 28px;
+            color: #666;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .custom-modal-close:hover {
+            background: #f0f0f0;
+            color: var(--primary-color);
+            transform: scale(1.1);
+        }
+
+        .custom-modal-body {
+            padding: 20px 30px 30px;
+            max-height: calc(90vh - 60px);
+            overflow-y: auto;
+        }
+
+        .garantia-detalles-modal {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .garantia-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .garantia-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .garantia-title h2 {
+            margin: 0;
+            color: var(--primary-color);
+            font-size: 28px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .garantia-title h2 i {
+            color: var(--info-color);
+            font-size: 32px;
+        }
+
+        .garantia-status {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .garantia-status-activa {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+        }
+
+        .garantia-status-vencida {
+            background: linear-gradient(135deg, #dc3545 0%, #fd7e14 100%);
+            color: white;
+        }
+
+        .garantia-status-cancelada {
+            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+            color: white;
+        }
+
+        .garantia-status-reclamada {
+            background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
+            color: #212529;
+        }
+
+        .garantia-content {
+            display: grid;
+            gap: 25px;
+        }
+
+        .info-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .info-section h3 {
+            margin: 0 0 20px 0;
+            color: var(--primary-color);
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-section h3 i {
+            color: var(--info-color);
+            font-size: 20px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .info-item label {
+            font-size: 12px;
+            color: #666;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .info-item span {
+            font-size: 14px;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .cobertura-content {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #333;
+            white-space: pre-line;
+        }
+
+        .cobertura-content:empty::before {
+            content: "Sin descripción específica";
+            color: #999;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .custom-modal-content {
+                width: 95%;
+                margin: 20px;
+            }
+
+            .custom-modal-body {
+                padding: 15px 20px 20px;
+            }
+
+            .garantia-title h2 {
+                font-size: 24px;
+            }
+
+            .garantia-title h2 i {
+                font-size: 28px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-section {
+                padding: 20px;
+            }
+        }
+

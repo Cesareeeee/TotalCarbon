@@ -13,7 +13,7 @@ function getConversaciones() {
             return ['success' => false, 'error' => 'Connection failed: ' . $conexion->connect_error];
         }
 
-        // Obtener conversaciones con el último mensaje
+        // Obtener todos los clientes con el último mensaje si existe
         $query = "SELECT
                     u.id_usuario,
                     u.nombres,
@@ -21,20 +21,13 @@ function getConversaciones() {
                     u.correo_electronico,
                     u.numero_telefono,
                     u.estado_usuario,
-                    m.mensaje as ultimo_mensaje,
-                    m.creado_en as ultimo_mensaje_fecha,
-                    m.leido,
-                    COUNT(CASE WHEN m.leido = 0 AND m.id_emisor = u.id_usuario THEN 1 END) as mensajes_no_leidos
+                    (SELECT mensaje FROM chat_mensajes WHERE (id_emisor = u.id_usuario AND id_receptor = 13) OR (id_emisor = 13 AND id_receptor = u.id_usuario) ORDER BY creado_en DESC LIMIT 1) as ultimo_mensaje,
+                    (SELECT creado_en FROM chat_mensajes WHERE (id_emisor = u.id_usuario AND id_receptor = 13) OR (id_emisor = 13 AND id_receptor = u.id_usuario) ORDER BY creado_en DESC LIMIT 1) as ultimo_mensaje_fecha,
+                    (SELECT leido FROM chat_mensajes WHERE (id_emisor = u.id_usuario AND id_receptor = 13) OR (id_emisor = 13 AND id_receptor = u.id_usuario) ORDER BY creado_en DESC LIMIT 1) as leido,
+                    (SELECT COUNT(*) FROM chat_mensajes WHERE id_emisor = u.id_usuario AND id_receptor = 13 AND leido = 0) as mensajes_no_leidos
                   FROM usuarios u
-                  LEFT JOIN (
-                      SELECT id_emisor, id_receptor, mensaje, creado_en, leido,
-                             ROW_NUMBER() OVER (PARTITION BY LEAST(id_emisor, id_receptor), GREATEST(id_emisor, id_receptor) ORDER BY creado_en DESC) as rn
-                      FROM chat_mensajes
-                      WHERE id_receptor = 13 OR id_emisor = 13 -- ID del administrador
-                  ) m ON (m.id_emisor = u.id_usuario OR m.id_receptor = u.id_usuario) AND m.rn = 1
                   WHERE u.id_rol = 2 AND u.estado_usuario = 1
-                  GROUP BY u.id_usuario, u.nombres, u.apellidos, u.correo_electronico, u.numero_telefono, u.estado_usuario, m.mensaje, m.creado_en, m.leido
-                  ORDER BY COALESCE(m.creado_en, '1970-01-01') DESC";
+                  ORDER BY COALESCE((SELECT creado_en FROM chat_mensajes WHERE (id_emisor = u.id_usuario AND id_receptor = 13) OR (id_emisor = 13 AND id_receptor = u.id_usuario) ORDER BY creado_en DESC LIMIT 1), '1970-01-01') DESC";
 
         $result = $conexion->query($query);
         if (!$result) {
@@ -185,6 +178,32 @@ function getNotificaciones() {
     }
 }
 
+function borrarConversacion($id_cliente) {
+    try {
+        $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
+        if ($conexion->connect_error) {
+            return ['success' => false, 'error' => 'Connection failed: ' . $conexion->connect_error];
+        }
+
+        $query = "DELETE FROM chat_mensajes WHERE (id_emisor = ? AND id_receptor = 13) OR (id_emisor = 13 AND id_receptor = ?)";
+        $stmt = $conexion->prepare($query);
+        $stmt->bind_param('ii', $id_cliente, $id_cliente);
+
+        $response = [];
+        if ($stmt->execute()) {
+            $response['success'] = true;
+        } else {
+            $response['success'] = false;
+            $response['error'] = $stmt->error;
+        }
+
+        $conexion->close();
+        return $response;
+    } catch (Exception $e) {
+        return ['success' => false, 'error' => 'Database error: ' . $e->getMessage()];
+    }
+}
+
 $action = $_GET['action'] ?? '';
 
 try {
@@ -213,6 +232,11 @@ try {
             break;
         case 'getNotificaciones':
             $result = getNotificaciones();
+            echo json_encode($result);
+            break;
+        case 'borrarConversacion':
+            $id_cliente = $_GET['id_cliente'] ?? 0;
+            $result = borrarConversacion($id_cliente);
             echo json_encode($result);
             break;
         default:
