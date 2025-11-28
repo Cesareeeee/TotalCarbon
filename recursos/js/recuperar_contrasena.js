@@ -165,22 +165,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
             });
 
-            console.log('Respuesta del servidor:', respuesta);
-            console.log('Status:', respuesta.status);
-            console.log('Headers:', respuesta.headers);
-
+            
             // Verificar si la respuesta es JSON válido
             const contentType = respuesta.headers.get('content-type');
-            console.log('Content-Type:', contentType);
-
+            
             if (!contentType || !contentType.includes('application/json')) {
                 const textResponse = await respuesta.text();
-                console.log('Respuesta de texto:', textResponse);
                 throw new Error('Respuesta no válida del servidor: ' + textResponse);
             }
 
             const datos = await respuesta.json();
-            console.log('Datos JSON:', datos);
             
             if (datos.exito) {
                 // Guardar datos para siguientes pasos
@@ -303,22 +297,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
             });
 
-            console.log('Respuesta verificar código:', respuesta);
-            console.log('Status verificar:', respuesta.status);
-            console.log('Headers verificar:', respuesta.headers);
-
+            
             // Verificar si la respuesta es JSON válido
             const contentType = respuesta.headers.get('content-type');
-            console.log('Content-Type verificar:', contentType);
-
+            
             if (!contentType || !contentType.includes('application/json')) {
                 const textResponse = await respuesta.text();
-                console.log('Respuesta de texto verificar:', textResponse);
                 throw new Error('Respuesta no válida del servidor: ' + textResponse);
             }
 
             const datos = await respuesta.json();
-            console.log('Datos JSON verificar:', datos);
             
             if (datos.exito) {
                 // Cambiar al paso 3
@@ -379,22 +367,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
             });
 
-            console.log('Respuesta reenviar código:', respuesta);
-            console.log('Status reenviar:', respuesta.status);
-            console.log('Headers reenviar:', respuesta.headers);
-
+            
             // Verificar si la respuesta es JSON válido
             const contentType = respuesta.headers.get('content-type');
-            console.log('Content-Type reenviar:', contentType);
-
+            
             if (!contentType || !contentType.includes('application/json')) {
                 const textResponse = await respuesta.text();
-                console.log('Respuesta de texto reenviar:', textResponse);
                 throw new Error('Respuesta no válida del servidor: ' + textResponse);
             }
 
             const datos = await respuesta.json();
-            console.log('Datos JSON reenviar:', datos);
             
             if (datos.exito) {
                 Swal.fire({
@@ -547,22 +529,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
             });
 
-            console.log('Respuesta actualizar contraseña:', respuesta);
-            console.log('Status actualizar:', respuesta.status);
-            console.log('Headers actualizar:', respuesta.headers);
-
+            
             // Verificar si la respuesta es JSON válido
             const contentType = respuesta.headers.get('content-type');
-            console.log('Content-Type actualizar:', contentType);
-
+            
             if (!contentType || !contentType.includes('application/json')) {
                 const textResponse = await respuesta.text();
-                console.log('Respuesta de texto actualizar:', textResponse);
                 throw new Error('Respuesta no válida del servidor: ' + textResponse);
             }
 
             const datos = await respuesta.json();
-            console.log('Datos JSON actualizar:', datos);
             
             if (datos.exito) {
                 Swal.fire({

@@ -68,6 +68,28 @@
     display: flex;
     align-items: center;
     gap: 12px;
+    position: relative;
+}
+
+/* Botón cerrar para móvil */
+.chat-close-btn {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px;
+    display: none; /* Solo mostrar en móvil */
+}
+
+@media (max-width: 768px) {
+    .chat-close-btn {
+        display: block;
+    }
 }
 
 .chat-info-bar i {
@@ -362,12 +384,32 @@
 /* Responsive - Ajustado para versión integrada */
 @media (max-width: 768px) {
     .chat-test-container {
-        height: 530px; /* Más pequeño en móvil pero con aumento */
+        position: fixed; /* Mantener fijo pero no fullscreen */
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100vw;
+        height: 80vh; /* Altura aumentada para cubrir más espacio */
+        z-index: 9998; /* Reducido para que el sidebar esté encima */
+        border-radius: 15px 15px 0 0;
+        margin: 0;
     }
 
     .chat-messages-area {
-        padding: 15px 15px 100px 15px;
-        max-height: calc(530px - 140px);
+        padding: 15px 15px 120px 15px;
+        max-height: calc(80vh - 140px);
+    }
+
+    .chat-input-area {
+        position: fixed; /* Fijo en la parte inferior */
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 15px;
+        background: #ffffff;
+        border-top: 1px solid #cccccc;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 10000; /* Encima de todo */
     }
 
     .chat-input-area {
@@ -427,6 +469,7 @@
 
     .chat-messages-area {
         padding: 15px;
+        max-height: calc(80vh - 140px);
     }
 
     .message {

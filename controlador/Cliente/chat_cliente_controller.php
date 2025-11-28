@@ -8,14 +8,14 @@ function getMensajesCliente($id_cliente) {
     }
 
     $query = "SELECT m.*, u.nombres, u.apellidos,
-                     CASE
-                         WHEN m.id_emisor = ? THEN 'cliente'
-                         ELSE 'admin'
-                     END as tipo_remitente
-              FROM chat_mensajes m
-              LEFT JOIN usuarios u ON m.id_emisor = u.id_usuario
-              WHERE (m.id_emisor = ? AND m.id_receptor = 13) OR (m.id_emisor = 13 AND m.id_receptor = ?)
-              ORDER BY m.creado_en ASC";
+                      CASE
+                          WHEN m.id_emisor = ? THEN 'cliente'
+                          ELSE 'admin'
+                      END as tipo_remitente
+               FROM chat_mensajes m
+               LEFT JOIN usuarios u ON m.id_emisor = u.id_usuario
+               WHERE (m.id_emisor = ? AND m.id_receptor = 13) OR (m.id_emisor = 13 AND m.id_receptor = ?)
+               ORDER BY m.creado_en ASC";
 
     $stmt = $conexion->prepare($query);
     $stmt->bind_param('iii', $id_cliente, $id_cliente, $id_cliente);

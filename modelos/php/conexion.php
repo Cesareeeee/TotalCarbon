@@ -139,7 +139,10 @@ function iniciarSesion($usuario, $contrasena) {
             $_SESSION['apellidos'] = $usuario_data['apellidos'];
             $_SESSION['correo_electronico'] = $usuario_data['correo_electronico'];
             $_SESSION['id_rol'] = $usuario_data['id_rol'];
-            
+
+            // Detectar si es usuario nuevo (nombres y apellidos vacíos)
+            $_SESSION['usuario_nuevo'] = empty($usuario_data['nombres']) && empty($usuario_data['apellidos']);
+
             return true;
         }
     }

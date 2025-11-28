@@ -167,6 +167,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <!-- JS Personalizado -->
-    <script src="../recursos/js/recuperar_contrasena.js?v=234567"></script>
+    <script src="../recursos/js/recuperar_contrasena.js?v=1732762734"></script>
 </body>
 </html>

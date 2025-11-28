@@ -153,6 +153,12 @@ try {
     $_SESSION['pais'] = $pais;
     $_SESSION['fecha_nacimiento'] = $fecha_nacimiento;
 
+    // Si era usuario nuevo, quitar la marca de primer inicio de sesión
+    if (isset($_SESSION['usuario_nuevo']) && $_SESSION['usuario_nuevo']) {
+        $_SESSION['usuario_nuevo'] = false;
+        escribirLog("Usuario nuevo completó su perfil por primera vez");
+    }
+
     escribirLog("Sesión actualizada. Perfil actualizado exitosamente");
     escribirLog("=== FIN: Perfil actualizado correctamente ===");
 

@@ -106,7 +106,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const datos = await respuesta.json();
             
             if (datos.conexion) {
-                console.log('✅ Conexión a la base de datos establecida correctamente');
                 return true;
             } else {
                 console.error('❌ Error en la conexión a la base de datos:', datos.error);

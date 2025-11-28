@@ -114,6 +114,24 @@ class CotizacionCliente
                 ':activo' => 1,
             ]);
 
+            // Guardar piezas enviadas por el cliente
+            if (isset($datos['piezas_cliente']) && !empty($datos['piezas_cliente'])) {
+                $piezasCliente = json_decode($datos['piezas_cliente'], true);
+                if (is_array($piezasCliente)) {
+                    $stmtPieza = $this->db->prepare("INSERT INTO piezas_movimientos (id_cotizacion, tipo, nombre_pieza, cantidad, nota) VALUES (:id_cotizacion, 'RECIBIDO', :nombre_pieza, :cantidad, :nota)");
+                    foreach ($piezasCliente as $pieza) {
+                        if (!empty($pieza['nombre'])) {
+                            $stmtPieza->execute([
+                                ':id_cotizacion' => $idCotizacion,
+                                ':nombre_pieza' => $pieza['nombre'],
+                                ':cantidad' => $pieza['cantidad'] ?? 1,
+                                ':nota' => $pieza['nota'] ?? null,
+                            ]);
+                        }
+                    }
+                }
+            }
+
             $this->db->commit();
             return ['success' => true, 'id_cotizacion' => $idCotizacion];
         } catch (PDOException $e) {

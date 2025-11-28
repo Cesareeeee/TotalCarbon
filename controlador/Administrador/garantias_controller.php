@@ -151,9 +151,9 @@ function createGarantia() {
         return ['success' => false, 'message' => 'Cotización no encontrada o no completada'];
     }
 
-    // Calcular fecha de fin (1 año por defecto)
-    $fechaInicio = date('Y-m-d');
-    $fechaFin = date('Y-m-d', strtotime('+1 year'));
+    // Usar fechas proporcionadas o calcular por defecto
+    $fechaInicio = $data['fecha_inicio'] ?? date('Y-m-d');
+    $fechaFin = $data['fecha_fin'] ?? date('Y-m-d', strtotime('+1 year'));
 
     $tipoGarantia = $data['tipo_garantia'] ?? 'Estandar';
     $cobertura = $data['cobertura'] ?? '';
@@ -218,12 +218,13 @@ function updateGarantia($id, $data) {
     $query = "UPDATE garantias_bicicletas SET
                 tipo_garantia = ?,
                 cobertura = ?,
+                fecha_inicio = ?,
                 fecha_fin = ?,
                 estado = ?
               WHERE id_garantia = ?";
 
     $stmt = $conexion->prepare($query);
-    $stmt->bind_param('ssssi', $data['tipo_garantia'], $data['cobertura'], $data['fecha_fin'], $data['estado'], $id);
+    $stmt->bind_param('sssssi', $data['tipo_garantia'], $data['cobertura'], $data['fecha_inicio'], $data['fecha_fin'], $data['estado'], $id);
 
     $response = [];
     if ($stmt->execute()) {

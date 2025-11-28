@@ -1,12 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Preloader
-    const preloader = document.getElementById('preloader');
-    window.addEventListener('load', function() {
-        setTimeout(() => {
-            preloader.classList.add('hidden');
-        }, 1500);
-    });
-
     // Crear partículas en el hero
     const heroParticles = document.getElementById('heroParticles');
     for (let i = 0; i < 20; i++) {

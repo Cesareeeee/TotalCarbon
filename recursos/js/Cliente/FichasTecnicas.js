@@ -4,15 +4,12 @@
  * Propósito: Manejar la visualización de fichas técnicas
  */
 
-console.log('=== FichasTecnicas.js cargado ===');
-
-// Variables globales
+ // Variables globales
 let fichasActuales = [];
 let fichaSeleccionada = null;
 
 // Inicializar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('=== INICIO: Inicializando fichas técnicas ===');
     cargarFichasTecnicas();
 
     // Inicializar filtro de fichas técnicas
@@ -28,34 +25,26 @@ document.addEventListener('DOMContentLoaded', function() {
  * Carga todas las fichas técnicas del usuario
  */
 function cargarFichasTecnicas() {
-    console.log('=== INICIO: Cargando fichas técnicas ===');
     
     fetch('../../controlador/Cliente/obtener_fichas_tecnicas.php')
     .then(response => {
-        console.log('Respuesta recibida. Status:', response.status);
         return response.json();
     })
     .then(data => {
-        console.log('Datos JSON parseados:', data);
         
         if (data.success && data.fichas) {
-            console.log(`Fichas técnicas encontradas: ${data.fichas.length}`);
             fichasActuales = data.fichas;
             mostrarListaFichas(data.fichas);
         } else if (data.fichas && data.fichas.length === 0) {
-            console.log('El usuario no tiene fichas técnicas');
             mostrarMensajeVacio();
         } else {
-            console.error('ERROR:', data.message);
             Swal.fire('Error', data.message || 'Error al cargar fichas técnicas', 'error');
         }
     })
     .catch(error => {
-        console.error('ERROR de conexión:', error);
         Swal.fire('Error', 'Error de conexión: ' + error.message, 'error');
     })
     .finally(() => {
-        console.log('=== FIN: Carga de fichas técnicas completada ===');
     });
 }
 
@@ -63,18 +52,15 @@ function cargarFichasTecnicas() {
  * Muestra la lista de fichas técnicas
  */
 function mostrarListaFichas(fichas) {
-    console.log('=== Mostrando lista de fichas técnicas ===');
     
     const contenedor = document.getElementById('listaFichasTecnicas');
     if (!contenedor) {
-        console.error('ERROR: Contenedor de fichas técnicas no encontrado');
         return;
     }
     
     contenedor.innerHTML = '';
     
     fichas.forEach((ficha, indice) => {
-        console.log(`Procesando ficha ID: ${ficha.id_cotizacion}`);
         
         const estadoClase = `estado-${ficha.estado.toLowerCase().replace('_', '-')}`;
         const div = document.createElement('div');
@@ -111,10 +97,8 @@ function mostrarListaFichas(fichas) {
  * Filtra las fichas técnicas por estado
  */
 function filtrarFichasTecnicas(estadoFiltro) {
-    console.log(`Filtrando fichas técnicas por estado: ${estadoFiltro}`);
 
     if (!fichasActuales || fichasActuales.length === 0) {
-        console.log('No hay fichas para filtrar');
         return;
     }
 
@@ -125,8 +109,6 @@ function filtrarFichasTecnicas(estadoFiltro) {
     } else {
         fichasFiltradas = fichasActuales.filter(ficha => ficha.estado === estadoFiltro);
     }
-
-    console.log(`Fichas encontradas después del filtro: ${fichasFiltradas.length}`);
 
     if (fichasFiltradas.length === 0) {
         mostrarMensajeVacioFiltro(estadoFiltro);
@@ -139,11 +121,9 @@ function filtrarFichasTecnicas(estadoFiltro) {
  * Muestra el mensaje cuando no hay fichas técnicas para el filtro seleccionado
  */
 function mostrarMensajeVacioFiltro(estadoFiltro) {
-    console.log(`Mostrando mensaje de sin fichas técnicas para filtro: ${estadoFiltro}`);
 
     const contenedor = document.getElementById('listaFichasTecnicas');
     if (!contenedor) {
-        console.error('ERROR: Contenedor de fichas técnicas no encontrado');
         return;
     }
 
@@ -165,11 +145,9 @@ function mostrarMensajeVacioFiltro(estadoFiltro) {
  * Muestra el mensaje cuando no hay fichas técnicas
  */
 function mostrarMensajeVacio() {
-    console.log('Mostrando mensaje de sin fichas técnicas');
 
     const contenedor = document.getElementById('listaFichasTecnicas');
     if (!contenedor) {
-        console.error('ERROR: Contenedor de fichas técnicas no encontrado');
         return;
     }
 
@@ -186,15 +164,12 @@ function mostrarMensajeVacio() {
  * Ver detalles de una ficha técnica
  */
 function verFichaTecnica(indice) {
-    console.log(`=== INICIO: Ver ficha técnica índice: ${indice} ===`);
     
     if (indice < 0 || indice >= fichasActuales.length) {
-        console.error('ERROR: Índice de ficha inválido');
         return;
     }
     
     fichaSeleccionada = fichasActuales[indice];
-    console.log('Ficha seleccionada:', fichaSeleccionada);
     
     mostrarDetallesFicha(fichaSeleccionada);
 }
@@ -203,11 +178,9 @@ function verFichaTecnica(indice) {
  * Muestra los detalles completos de una ficha técnica
  */
 function mostrarDetallesFicha(ficha) {
-    console.log('=== Mostrando detalles de ficha técnica ===');
     
     const contenedor = document.getElementById('detallesFichaTecnica');
     if (!contenedor) {
-        console.error('ERROR: Contenedor de detalles no encontrado');
         return;
     }
     
@@ -215,7 +188,6 @@ function mostrarDetallesFicha(ficha) {
     
     let htmlImagenes = '';
     if (ficha.imagenes && ficha.imagenes.length > 0) {
-        console.log(`Procesando ${ficha.imagenes.length} imágenes`);
         htmlImagenes = ficha.imagenes.map((img, idx) => `
             <div class="col-md-4 mb-3">
                 <img src="${img.ruta_imagen}" alt="${img.nombre_archivo}" class="img-fluid rounded status-image" 
@@ -262,7 +234,6 @@ function mostrarDetallesFicha(ficha) {
     // Piezas
     let htmlPiezas = '';
     if (ficha.piezas && ficha.piezas.length > 0) {
-        console.log(`Procesando ${ficha.piezas.length} piezas`);
         const piezasRecibidas = ficha.piezas.filter(p => p.tipo === 'RECIBIDO');
         const piezasEntregadas = ficha.piezas.filter(p => p.tipo === 'ENTREGADO');
 
@@ -398,14 +369,12 @@ function mostrarDetallesFicha(ficha) {
     contenedor.style.display = 'block';
     document.getElementById('listaFichasTecnicas').style.display = 'none';
     
-    console.log('=== FIN: Detalles mostrados ===');
 }
 
 /**
  * Vuelve a la lista de fichas
  */
 function volverListaFichas() {
-    console.log('Volviendo a la lista de fichas');
     document.getElementById('listaFichasTecnicas').style.display = 'block';
     document.getElementById('detallesFichaTecnica').style.display = 'none';
     fichaSeleccionada = null;
@@ -415,7 +384,6 @@ function volverListaFichas() {
  * Abre una imagen en modal
  */
 function abrirImagenModal(ruta, nombre) {
-    console.log(`Abriendo imagen: ${nombre}`);
     
     Swal.fire({
         title: nombre,
@@ -433,8 +401,7 @@ function abrirImagenModal(ruta, nombre) {
  * Descarga la ficha técnica como PDF profesional
  */
 function descargarFicha(idCotizacion) {
-    console.log(`Descargando ficha técnica ID: ${idCotizacion}`);
-
+    
     // Buscar la ficha en las fichas actuales
     const ficha = fichasActuales.find(f => f.id_cotizacion == idCotizacion);
     if (!ficha) {
@@ -446,308 +413,325 @@ function descargarFicha(idCotizacion) {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
-    // Configuración de colores y fuentes
-    const primaryColor = [102, 126, 234]; // Azul primario
-    const secondaryColor = [108, 117, 125]; // Gris
-    const successColor = [40, 167, 69]; // Verde
-    const dangerColor = [220, 53, 69]; // Rojo
+    // Configuración de colores para diseño tipo formulario
+    const blackColor = [0, 0, 0]; // Negro para texto y líneas
+    const whiteColor = [255, 255, 255]; // Blanco para fondos
+    const orangeColor = [255, 165, 0]; // Naranja para etiquetas de tipos de trabajo
+    const grayColor = [200, 200, 200]; // Gris claro para fondos suaves
 
     let yPosition = 20;
 
-    // Encabezado con logo y título
-    doc.setFillColor(...primaryColor);
-    doc.rect(0, 0, 210, 30, 'F');
+    // Encabezado tipo formulario
+    // Logo en esquina superior izquierda
+    try {
+        // Intentar agregar logo
+        const logoWidth = 30;
+        const logoHeight = 20;
+        const logoX = 20;
+        const logoY = 15;
 
-    doc.setTextColor(255, 255, 255);
-    doc.setFontSize(24);
+        // Placeholder para logo - en producción cargar imagen real
+        doc.setFillColor(...blackColor);
+        doc.rect(logoX, logoY, logoWidth, logoHeight, 'F');
+        doc.setTextColor(...whiteColor);
+        doc.setFontSize(8);
+        doc.setFont('helvetica', 'bold');
+        doc.text('TOTAL', logoX + 2, logoY + 7);
+        doc.text('CARBON', logoX + 2, logoY + 15);
+    } catch (e) {
+        // Si no se puede cargar el logo, continuar
+    }
+
+    // Título centrado
+    doc.setTextColor(...blackColor);
+    doc.setFontSize(20);
     doc.setFont('helvetica', 'bold');
-    doc.text('TOTAL CARBON', 20, 20);
+    doc.text('FICHA TÉCNICA', 105, 25, { align: 'center' });
 
+    // Espacio para códigos escritos a mano (derecha)
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'normal');
+    doc.text('Código:', 160, 15);
+    doc.rect(160, 18, 30, 8);
+
+    doc.text('Fecha:', 160, 30);
+    doc.rect(160, 33, 30, 8);
+
+    // Sección DATOS - Formulario tipo ficha
+    yPosition = 50;
+    doc.setTextColor(...blackColor);
     doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.text('DATOS', 20, yPosition);
+
+    yPosition += 10;
+
+    // Dibujar recuadros para datos
+    const telefonoFinal = ficha.telefono_usuario || ficha.telefono || '';
+    const correoFinal = ficha.correo_usuario || ficha.correo_electronico || '';
+
+    // Fecha
+    doc.setFontSize(10);
     doc.setFont('helvetica', 'normal');
-    doc.text('Ficha Técnica de Reparación', 20, 28);
+    doc.text('Fecha:', 20, yPosition);
+    doc.rect(40, yPosition - 4, 50, 8);
+    doc.text(new Date(ficha.creado_en).toLocaleDateString('es-ES'), 42, yPosition);
 
-    // Información del cliente - Tabla
-    yPosition = 45;
-    doc.setTextColor(0, 0, 0);
-    doc.setFontSize(16);
+    // Nombre
+    doc.text('Nombre:', 110, yPosition);
+    doc.rect(130, yPosition - 4, 60, 8);
+    doc.text(ficha.nombre_completo, 132, yPosition);
+
+    yPosition += 15;
+
+    // Dirección
+    doc.text('Dirección:', 20, yPosition);
+    doc.rect(40, yPosition - 4, 80, 8);
+    doc.text(ficha.direccion || '', 42, yPosition);
+
+    // Marca
+    doc.text('Marca:', 130, yPosition);
+    doc.rect(145, yPosition - 4, 45, 8);
+    doc.text(ficha.marca_bicicleta, 147, yPosition);
+
+    yPosition += 15;
+
+    // Teléfono
+    doc.text('Teléfono:', 20, yPosition);
+    doc.rect(40, yPosition - 4, 50, 8);
+    doc.text(telefonoFinal, 42, yPosition);
+
+    // Modelo
+    doc.text('Modelo:', 110, yPosition);
+    doc.rect(125, yPosition - 4, 65, 8);
+    doc.text(ficha.modelo_bicicleta, 127, yPosition);
+
+    yPosition += 15;
+
+    // Correo
+    doc.text('Correo:', 20, yPosition);
+    doc.rect(35, yPosition - 4, 75, 8);
+    doc.text(correoFinal, 37, yPosition);
+
+    // Tipo de trabajo con etiqueta naranja
+    doc.setFillColor(...orangeColor);
+    doc.rect(120, yPosition - 6, 25, 10, 'F');
+    doc.setTextColor(...whiteColor);
+    doc.setFontSize(8);
     doc.setFont('helvetica', 'bold');
-    doc.text('Información del Cliente', 20, yPosition);
+    doc.text(ficha.tipo_trabajo, 122, yPosition);
+    doc.setTextColor(...blackColor);
 
+    // Revisión circuito de cámaras
     yPosition += 10;
-    const telefonoFinal = ficha.telefono_usuario || ficha.telefono || 'No especificado';
-    const correoFinal = ficha.correo_usuario || ficha.correo_electronico || 'No especificado';
-
-    const clienteData = [
-        ['Nombre Completo', ficha.nombre_completo],
-        ['Dirección', ficha.direccion || 'No especificada'],
-        ['Teléfono', telefonoFinal],
-        ['Correo Electrónico', correoFinal]
-    ];
-
-    doc.autoTable({
-        startY: yPosition,
-        head: [['Campo', 'Valor']],
-        body: clienteData,
-        theme: 'grid',
-        headStyles: { fillColor: [0, 0, 0], textColor: 255 },
-        styles: { fontSize: 10 },
-        columnStyles: {
-            0: { fontStyle: 'bold', cellWidth: 50 },
-            1: { cellWidth: 120 }
-        },
-        margin: { left: 20, right: 20 }
-    });
-
-    // Información de la bicicleta - Tabla
-    yPosition = doc.lastAutoTable.finalY + 15;
-    doc.setFontSize(16);
-    doc.setFont('helvetica', 'bold');
-    doc.text('Información de la Bicicleta', 20, yPosition);
-
-    yPosition += 10;
-    const biciData = [
-        ['Marca', ficha.marca_bicicleta],
-        ['Modelo', ficha.modelo_bicicleta],
-        ['Zona Afectada', ficha.zona_afectada],
-        ['Tipo de Trabajo', ficha.tipo_trabajo],
-        ['Tipo de Reparación', ficha.tipo_reparacion],
-        ['Estado Actual', ficha.estado],
-        ['Fecha de Solicitud', new Date(ficha.creado_en).toLocaleDateString('es-ES')]
-    ];
-
-    doc.autoTable({
-        startY: yPosition,
-        head: [['Especificación', 'Detalle']],
-        body: biciData,
-        theme: 'grid',
-        headStyles: { fillColor: [0, 0, 0], textColor: 255 },
-        styles: { fontSize: 10 },
-        columnStyles: {
-            0: { fontStyle: 'bold', cellWidth: 50 },
-            1: { cellWidth: 120 }
-        },
-        margin: { left: 20, right: 20 }
-    });
-
-    // Estado de aceptación - Checklist en PDF
-    yPosition = doc.lastAutoTable.finalY + 15;
-    doc.setFontSize(16);
-    doc.setFont('helvetica', 'bold');
-    doc.text('Estado de Aceptación de Reparaciones', 20, yPosition);
-
-    yPosition += 10;
-    const estadoAceptacion = ficha.reparacion_aceptada_cliente === 'ACEPTADA' ? 'ACEPTADAS' :
-                            ficha.reparacion_aceptada_cliente === 'NO_ACEPTADA' ? 'RECHAZADAS' : 'PENDIENTE';
-
-    // Dibujar checklist
-    const checklistY = yPosition;
     doc.setFontSize(12);
+    doc.setFont('helvetica', 'bold');
+    doc.text('REVISIÓN CIRCUITO DE CÁMARAS', 20, yPosition);
+
+    yPosition += 8;
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    doc.text('Fecha:', 20, yPosition);
+    doc.rect(35, yPosition - 4, 40, 8);
+
+    doc.text('Hora:', 85, yPosition);
+    doc.rect(95, yPosition - 4, 30, 8);
+
+    // Inspección estética
+    yPosition += 20;
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'bold');
+    doc.text('INSPECCIÓN ESTÉTICA', 20, yPosition);
+
+    yPosition += 8;
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    doc.text('Daños estéticos encontrados:', 20, yPosition);
+
+    yPosition += 5;
+    // Recuadro grande para observaciones
+    doc.rect(20, yPosition, 170, 25);
+    // Líneas para escritura a mano
+    for (let i = 0; i < 4; i++) {
+        doc.line(20, yPosition + 6 + (i * 6), 190, yPosition + 6 + (i * 6));
+    }
+
+    // Observaciones del técnico
+    yPosition += 35;
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'bold');
+    doc.text('OBSERVACIONES DEL TÉCNICO', 20, yPosition);
+
+    yPosition += 8;
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    doc.text('Notas técnicas:', 20, yPosition);
+
+    yPosition += 5;
+    // Recuadro grande para observaciones técnicas
+    doc.rect(20, yPosition, 170, 30);
+    // Líneas para escritura a mano
+    for (let i = 0; i < 6; i++) {
+        doc.line(20, yPosition + 5 + (i * 5), 190, yPosition + 5 + (i * 5));
+    }
+
+    // Zona afectada / Tipo de reparación
+    yPosition += 45;
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'bold');
+    doc.text('ZONA AFECTADA / TIPO DE REPARACIÓN', 20, yPosition);
+
+    yPosition += 10;
+
+    // Dibujar diagrama simple de bicicleta
+    doc.setDrawColor(...blackColor);
+    doc.setLineWidth(1);
+
+    // Marco de la bici (simplificado)
+    const bikeCenterX = 140;
+    const bikeCenterY = yPosition + 20;
+
+    // Triángulo principal (cuadro)
+    doc.line(bikeCenterX - 15, bikeCenterY - 10, bikeCenterX + 15, bikeCenterY - 10); // tubo superior
+    doc.line(bikeCenterX - 15, bikeCenterY - 10, bikeCenterX - 5, bikeCenterY + 10); // tubo de sillín
+    doc.line(bikeCenterX + 15, bikeCenterY - 10, bikeCenterX + 5, bikeCenterY + 10); // tubo diagonal
+    doc.line(bikeCenterX - 5, bikeCenterY + 10, bikeCenterX + 5, bikeCenterY + 10); // puente
+
+    // Ruedas
+    doc.circle(bikeCenterX - 12, bikeCenterY + 10, 8); // rueda trasera
+    doc.circle(bikeCenterX + 12, bikeCenterY + 10, 8); // rueda delantera
+
+    // Centro de las ruedas
+    doc.circle(bikeCenterX - 12, bikeCenterY + 10, 2, 'F');
+    doc.circle(bikeCenterX + 12, bikeCenterY + 10, 2, 'F');
+
+    // Manillar y horquilla
+    doc.line(bikeCenterX + 15, bikeCenterY - 10, bikeCenterX + 20, bikeCenterY - 15); // horquilla
+    doc.line(bikeCenterX + 20, bikeCenterY - 15, bikeCenterX + 25, bikeCenterY - 10); // manillar
+
+    // Pedalier
+    doc.circle(bikeCenterX, bikeCenterY + 10, 3, 'F');
+
+    // Texto explicativo
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'normal');
+    doc.text('Marque las zonas afectadas', bikeCenterX - 25, bikeCenterY + 35);
+
+    // Checkboxes para tipos de reparación
+    yPosition += 50;
+    doc.setFontSize(10);
     doc.setFont('helvetica', 'normal');
 
-    // Opción Aceptar
-    doc.circle(25, checklistY + 3, 2, ficha.reparacion_aceptada_cliente === 'ACEPTADA' ? 'FD' : 'S');
-    if (ficha.reparacion_aceptada_cliente === 'ACEPTADA') {
-        doc.setTextColor(...successColor);
-        doc.text('✓', 23.5, checklistY + 5);
-    }
-    doc.setTextColor(0, 0, 0);
-    doc.text('Reparaciones Aceptadas', 35, checklistY + 5);
+    const repairTypes = [
+        'Fisura', 'Fractura', 'Reconstrucción', 'Adaptación', 'Otros'
+    ];
 
-    // Opción Rechazar
-    doc.circle(25, checklistY + 13, 2, ficha.reparacion_aceptada_cliente === 'NO_ACEPTADA' ? 'FD' : 'S');
-    if (ficha.reparacion_aceptada_cliente === 'NO_ACEPTADA') {
-        doc.setTextColor(...dangerColor);
-        doc.text('✗', 23.5, checklistY + 15);
-    }
-    doc.setTextColor(0, 0, 0);
-    doc.text('Reparaciones Rechazadas', 35, checklistY + 15);
+    repairTypes.forEach((type, index) => {
+        const checkboxX = 20 + (index * 35);
+        const checkboxY = yPosition;
 
-    yPosition += 25;
+        // Dibujar checkbox
+        doc.rect(checkboxX, checkboxY - 3, 5, 5);
 
-    // Comentarios - Tabla
-    if (ficha.comentarios && ficha.comentarios.length > 0) {
-        if (yPosition > 250) {
-            doc.addPage();
-            yPosition = 20;
+        // Marcar si corresponde al tipo de reparación actual
+        if (ficha.tipo_reparacion.toLowerCase().includes(type.toLowerCase()) ||
+            (type === 'Otros' && ficha.descripcion_otros)) {
+            doc.text('✓', checkboxX + 1.5, checkboxY + 1);
         }
 
-        doc.setFontSize(16);
-        doc.setFont('helvetica', 'bold');
-        doc.text('Comentarios del Proceso', 20, yPosition);
+        // Texto del tipo
+        doc.text(type, checkboxX + 8, checkboxY + 1);
+    });
 
-        yPosition += 10;
-        const comentariosData = ficha.comentarios.map(com => [
-            com.autor,
-            new Date(com.creado_en).toLocaleDateString('es-ES'),
-            com.mensaje
-        ]);
+    // Zona afectada
+    yPosition += 15;
+    doc.text('Zona afectada específica:', 20, yPosition);
+    doc.rect(60, yPosition - 4, 80, 8);
+    doc.text(ficha.zona_afectada, 62, yPosition);
 
-        doc.autoTable({
-            startY: yPosition,
-            head: [['Autor', 'Fecha', 'Comentario']],
-            body: comentariosData,
-            theme: 'grid',
-            headStyles: { fillColor: [0, 0, 0], textColor: 255 },
-            styles: { fontSize: 9 },
-            columnStyles: {
-                0: { cellWidth: 40 },
-                1: { cellWidth: 35 },
-                2: { cellWidth: 95 }
-            },
-            margin: { left: 20, right: 20 }
-        });
 
-        yPosition = doc.lastAutoTable.finalY + 15;
-    }
+    // Piezas recibidas/enviadas - Tabla tipo formulario
+    yPosition += 20;
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'bold');
+    doc.text('PIEZAS RECIBIDAS/ENVIADAS', 20, yPosition);
 
-    // Imágenes de la ficha técnica
-    if (ficha.imagenes && ficha.imagenes.length > 0) {
-        if (yPosition > 220) {
-            doc.addPage();
-            yPosition = 20;
+    yPosition += 10;
+
+    // Lista de piezas comunes para formulario
+    const piezasComunes = [
+        'Cuadro completo',
+        'Horquilla',
+        'Rueda delantera',
+        'Rueda trasera',
+        'Manillar',
+        'Tija de sillín',
+        'Sillín',
+        'Pedales',
+        'Cadena',
+        'Piñón',
+        'Platos',
+        'Frenos',
+        'Cambio',
+        'Cableado',
+        'Otros'
+    ];
+
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'normal');
+
+    piezasComunes.forEach((pieza, index) => {
+        if (index > 0 && index % 10 === 0) {
+            yPosition += 15;
         }
 
-        doc.setFontSize(16);
-        doc.setFont('helvetica', 'bold');
-        doc.text('Imágenes de la Ficha Técnica', 20, yPosition);
-        yPosition += 10;
+        const rowY = yPosition + (index % 10) * 8;
 
-        doc.setFontSize(10);
-        doc.setFont('helvetica', 'normal');
-        doc.text(`Total de imágenes: ${ficha.imagenes.length}`, 20, yPosition);
-        yPosition += 15;
+        // Checkbox
+        doc.rect(20, rowY - 2, 4, 4);
 
-        // Mostrar información de las imágenes (no podemos mostrar las imágenes reales en PDF desde JS)
-        const imagenesData = ficha.imagenes.map((img, index) => [
-            (index + 1).toString(),
-            img.nombre_archivo,
-            new Date().toLocaleDateString('es-ES'), // No tenemos fecha de subida en los datos actuales
-            'Disponible en sistema'
-        ]);
+        // Marcar checkboxes basadas en piezas reales si existen
+        const piezasRecibidas = ficha.piezas ? ficha.piezas.filter(p => p.tipo === 'RECIBIDO') : [];
+        const piezaEncontrada = piezasRecibidas.find(p => p.nombre_pieza && p.nombre_pieza.toLowerCase().includes(pieza.toLowerCase().split(' ')[0]));
+        if (piezaEncontrada) {
+            doc.text('✓', 21.5, rowY + 1);
+        }
 
-        doc.autoTable({
-            startY: yPosition,
-            head: [['#', 'Nombre del Archivo', 'Fecha', 'Estado']],
-            body: imagenesData,
-            theme: 'grid',
-            headStyles: { fillColor: [0, 0, 0], textColor: 255 },
-            styles: { fontSize: 8 },
-            columnStyles: {
-                0: { cellWidth: 15, halign: 'center' },
-                1: { cellWidth: 80 },
-                2: { cellWidth: 30 },
-                3: { cellWidth: 45 }
-            },
-            margin: { left: 20, right: 20 }
-        });
+        // Nombre de pieza
+        doc.text(pieza, 30, rowY);
 
-        yPosition = doc.lastAutoTable.finalY + 15;
-    }
+        // Línea para cantidad/notas
+        doc.line(90, rowY, 150, rowY);
+    });
 
-    // Piezas Recibidas - Siempre mostrar título
-    if (yPosition > 200) {
-        doc.addPage();
-        yPosition = 20;
-    }
-
-    doc.setFontSize(16);
+    // Empacado / Salida
+    yPosition += 90;
+    doc.setFontSize(12);
     doc.setFont('helvetica', 'bold');
-    doc.text('Piezas Recibidas', 20, yPosition);
+    doc.text('EMPACADO / SALIDA', 20, yPosition);
+
     yPosition += 10;
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    doc.text('Fecha:', 20, yPosition);
+    doc.rect(35, yPosition - 4, 40, 8);
 
-    const piezasRecibidas = ficha.piezas ? ficha.piezas.filter(p => p.tipo === 'RECIBIDO') : [];
+    doc.text('Firma de autorización:', 90, yPosition);
+    doc.line(130, yPosition, 180, yPosition);
 
-    if (piezasRecibidas.length > 0) {
-        const piezasRecibidasData = piezasRecibidas.map(pieza => [
-            pieza.nombre_pieza || 'N/A',
-            pieza.codigo_pieza || 'N/A',
-            pieza.cantidad.toString(),
-            new Date(pieza.creado_en).toLocaleDateString('es-ES'),
-            pieza.nota || ''
-        ]);
-
-        doc.autoTable({
-            startY: yPosition,
-            head: [['Nombre', 'Código', 'Cantidad', 'Fecha', 'Nota']],
-            body: piezasRecibidasData,
-            theme: 'grid',
-            headStyles: { fillColor: [0, 0, 0], textColor: 255 },
-            styles: { fontSize: 8 },
-            columnStyles: {
-                0: { cellWidth: 35 },
-                1: { cellWidth: 25 },
-                2: { cellWidth: 20, halign: 'center' },
-                3: { cellWidth: 30 },
-                4: { cellWidth: 60 }
-            },
-            margin: { left: 20, right: 20 }
-        });
-
-        yPosition = doc.lastAutoTable.finalY + 15;
-    } else {
-        doc.setFontSize(10);
-        doc.setFont('helvetica', 'italic');
-        doc.text('No hay piezas recibidas registradas', 20, yPosition);
-        yPosition += 15;
-    }
-
-    // Piezas Entregadas - Siempre mostrar título
-    if (yPosition > 200) {
-        doc.addPage();
-        yPosition = 20;
-    }
-
-    doc.setFontSize(16);
-    doc.setFont('helvetica', 'bold');
-    doc.text('Piezas Entregadas', 20, yPosition);
-    yPosition += 10;
-
-    const piezasEntregadas = ficha.piezas ? ficha.piezas.filter(p => p.tipo === 'ENTREGADO') : [];
-
-    if (piezasEntregadas.length > 0) {
-        const piezasEntregadasData = piezasEntregadas.map(pieza => [
-            pieza.nombre_pieza || 'N/A',
-            pieza.codigo_pieza || 'N/A',
-            pieza.cantidad.toString(),
-            new Date(pieza.creado_en).toLocaleDateString('es-ES'),
-            pieza.nota || ''
-        ]);
-
-        doc.autoTable({
-            startY: yPosition,
-            head: [['Nombre', 'Código', 'Cantidad', 'Fecha', 'Nota']],
-            body: piezasEntregadasData,
-            theme: 'grid',
-            headStyles: { fillColor: [0, 0, 0], textColor: 255 },
-            styles: { fontSize: 8 },
-            columnStyles: {
-                0: { cellWidth: 35 },
-                1: { cellWidth: 25 },
-                2: { cellWidth: 20, halign: 'center' },
-                3: { cellWidth: 30 },
-                4: { cellWidth: 60 }
-            },
-            margin: { left: 20, right: 20 }
-        });
-    } else {
-        doc.setFontSize(10);
-        doc.setFont('helvetica', 'italic');
-        doc.text('No hay piezas entregadas registradas', 20, yPosition);
-    }
-
-    // Pie de página en todas las páginas
+    // Pie de página simple tipo formulario
     const pageCount = doc.internal.getNumberOfPages();
     for (let i = 1; i <= pageCount; i++) {
         doc.setPage(i);
-        doc.setFontSize(8);
-        doc.setTextColor(...secondaryColor);
 
         // Línea separadora
-        doc.setDrawColor(...secondaryColor);
+        doc.setDrawColor(...blackColor);
         doc.line(20, 280, 190, 280);
 
-        // Información del pie
+        // Información del documento
+        doc.setFontSize(8);
+        doc.setTextColor(...blackColor);
+        doc.setFont('helvetica', 'normal');
         doc.text(`Ficha Técnica - Total Carbon - ID: ${ficha.id_cotizacion}`, 20, 288);
         doc.text(`Página ${i} de ${pageCount}`, 160, 288);
         doc.text(`Generado el ${new Date().toLocaleDateString('es-ES')} a las ${new Date().toLocaleTimeString('es-ES')}`, 20, 295);
@@ -766,5 +750,4 @@ function descargarFicha(idCotizacion) {
     });
 }
 
-console.log('=== FichasTecnicas.js inicializado ===');
 

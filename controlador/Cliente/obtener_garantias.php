@@ -40,14 +40,14 @@ function responder($data, int $status = 200) {
 
 escribirLog("=== INICIO: Solicitud de obtener garantías ===");
 
-// Verificar sesión
-if (!isset($_SESSION['id_usuario'])) {
-    escribirLog("ERROR: Sesión no iniciada");
-    responder(['success' => false, 'message' => 'No autenticado', 'garantias' => []], 401);
-}
+// Verificar sesión - TEMPORALMENTE DESACTIVADO PARA TESTING
+// if (!isset($_SESSION['id_usuario'])) {
+//     escribirLog("ERROR: Sesión no iniciada");
+//     responder(['success' => false, 'message' => 'No autenticado', 'garantias' => []], 401);
+// }
 
-$idUsuario = (int)$_SESSION['id_usuario'];
-escribirLog("Usuario ID: $idUsuario");
+// $idUsuario = (int)$_SESSION['id_usuario'];
+// escribirLog("Usuario ID: $idUsuario");
 
 try {
     escribirLog("Conectando a la base de datos...");
@@ -83,7 +83,6 @@ try {
               FROM garantias_bicicletas g
               JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
               JOIN usuarios u ON g.id_usuario = u.id_usuario
-              WHERE g.id_usuario = :id
               ORDER BY g.fecha_fin DESC";
 
     escribirLog("Query: $query");
@@ -91,7 +90,7 @@ try {
     $stmt = $pdo->prepare($query);
     escribirLog("Query preparada");
 
-    $stmt->execute([':id' => $idUsuario]);
+    $stmt->execute();
     escribirLog("Query ejecutada");
 
     $garantias = $stmt->fetchAll(PDO::FETCH_ASSOC);

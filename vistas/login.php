@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     
     <!-- CSS Personalizado -->
-    <link rel="stylesheet" href="../recursos/css/login.css?v=3456">
+    <link rel="stylesheet" href="../recursos/css/login.css?v=3222461">
     
     <!-- FAVICON -->
     <link rel="icon" href="../recursos/img/image.png">
@@ -84,16 +84,6 @@
                 </div>
                 
                 <button type="submit" class="btn-accion">INICIAR SESIÓN</button>
-                
-                <div class="separador">
-                    <span>O inicia sesión con</span>
-                </div>
-                
-                <div class="login-social">
-                    <div class="btn-social" title="Iniciar con Google">
-                        <i class="fab fa-google"></i>
-                    </div>
-                </div>
             </form>
             
             <!-- Formulario de Registro -->
@@ -150,16 +140,6 @@
                 <input type="hidden" id="csrfTokenRegistro" name="csrf_token" value="">
                 
                 <button type="submit" class="btn-accion">REGISTRARSE</button>
-                
-                <div class="separador">
-                    <span>O regístrate con</span>
-                </div>
-                
-                <div class="login-social">
-                    <div class="btn-social" title="Registrarse con Google">
-                        <i class="fab fa-google"></i>
-                    </div>
-                </div>
             </form>
         </div>
         
@@ -211,6 +191,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <!-- JS Personalizado -->
-    <script src="../recursos/js/login.js?v=3456"></script>
+    <script src="../recursos/js/login.js?v=1732762735"></script>
 </body>
 </html>

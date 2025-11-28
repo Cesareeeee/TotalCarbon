@@ -66,6 +66,6 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../../recursos/js/Cliente/chat_test_cliente.js?v=3454444444444444444484"></script>
+    <script src="../../recursos/js/Cliente/chat_test_cliente.js?v=1732762740"></script>
 </body>
 </html>

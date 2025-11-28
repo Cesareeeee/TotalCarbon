@@ -324,6 +324,7 @@ body {
     color: var(--color-secundario);
 }
 
+
 .grupo-campo .mensaje-error {
     color: var(--color-error);
     font-size: 13px;

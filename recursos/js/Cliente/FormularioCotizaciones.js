@@ -4,16 +4,13 @@
  * Propósito: Manejar el envío de cotizaciones con imágenes
  */
 
-console.log('=== FormularioCotizaciones.js cargado ===');
-
-// Variables globales
+ // Variables globales
 let imagenesSeleccionadas = [];
 const MAX_IMAGENES = 5;
 const MAX_TAMAÑO = 5 * 1024 * 1024; // 5MB
 
 // Inicializar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('=== INICIO: Inicializando formulario de cotizaciones ===');
     
     const formulario = document.getElementById('formularioCotizacion');
     const inputImagenes = document.getElementById('imagenesCotizacion');
@@ -25,19 +22,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const inputTipoReparacion = document.getElementById('tipoReparacion');
     
     if (!formulario) {
-        console.error('ERROR: Formulario de cotización no encontrado');
         return;
     }
     
-    console.log('Formulario encontrado. Agregando listeners...');
 
     // 1) Auto-rellenar datos del cliente (nombre, correo, teléfono) manteniendo edición
     try {
-        console.log('Enviando GET a: ../../controlador/Cliente/perfil_obtener.php');
         fetch('../../controlador/Cliente/perfil_obtener.php')
             .then(r => r.json())
             .then(datos => {
-                console.log('Perfil recibido:', datos);
                 if (datos && datos.success && datos.perfil) {
                     const p = datos.perfil;
                     if (inputNombre && !inputNombre.value) inputNombre.value = p.nombre_completo || '';
@@ -58,7 +51,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 b.classList.add('seleccionado');
                 const valor = b.getAttribute('data-valor');
                 if (inputTipoReparacion) inputTipoReparacion.value = valor;
-                console.log('Tipo de reparación seleccionado:', valor);
             });
         });
     }
@@ -66,46 +58,38 @@ document.addEventListener('DOMContentLoaded', function() {
     // Listener para cambio de imágenes
     if (inputImagenes) {
         inputImagenes.addEventListener('change', function(e) {
-            console.log('=== Cambio de imágenes detectado ===');
             manejarSeleccionImagenes(e, previewImagenes);
         });
     }
     
     // Listener para envío del formulario
     formulario.addEventListener('submit', function(e) {
-        console.log('=== INICIO: Envío de formulario de cotización ===');
         e.preventDefault();
         enviarCotizacion(formulario);
     });
     
-    console.log('=== FIN: Inicialización completada ===');
 });
 
 /**
  * Maneja la selección de imágenes
  */
 function manejarSeleccionImagenes(evento, previewContainer) {
-    console.log('=== INICIO: Manejo de selección de imágenes ===');
     
     const archivos = evento.target.files;
-    console.log('Archivos seleccionados:', archivos.length);
     
     imagenesSeleccionadas = [];
     previewContainer.innerHTML = '';
     
     for (let i = 0; i < archivos.length && i < MAX_IMAGENES; i++) {
         const archivo = archivos[i];
-        console.log(`Procesando archivo ${i + 1}:`, archivo.name, `Tamaño: ${archivo.size} bytes`);
         
         // Validar tipo
         if (!archivo.type.startsWith('image/')) {
-            console.warn(`ADVERTENCIA: ${archivo.name} no es una imagen`);
             continue;
         }
         
         // Validar tamaño
         if (archivo.size > MAX_TAMAÑO) {
-            console.warn(`ADVERTENCIA: ${archivo.name} excede el tamaño máximo`);
             continue;
         }
         
@@ -123,20 +107,16 @@ function manejarSeleccionImagenes(evento, previewContainer) {
                 </button>
             `;
             previewContainer.appendChild(div);
-            console.log(`Preview creado para: ${archivo.name}`);
         };
         reader.readAsDataURL(archivo);
     }
     
-    console.log(`Total de imágenes válidas: ${imagenesSeleccionadas.length}`);
-    console.log('=== FIN: Selección de imágenes completada ===');
 }
 
 /**
  * Elimina una imagen del preview
  */
 function eliminarImagen(indice) {
-    console.log(`Eliminando imagen en índice: ${indice}`);
     imagenesSeleccionadas.splice(indice, 1);
     
     // Recrear preview
@@ -164,11 +144,9 @@ function eliminarImagen(indice) {
  * Envía la cotización al servidor
  */
 function enviarCotizacion(formulario) {
-    console.log('=== INICIO: Envío de cotización ===');
     
     // Validar que haya imágenes
     if (imagenesSeleccionadas.length === 0) {
-        console.error('ERROR: No hay imágenes seleccionadas');
         Swal.fire('Error', 'Debes seleccionar al menos una imagen', 'error');
         return;
     }
@@ -179,15 +157,12 @@ function enviarCotizacion(formulario) {
         return;
     }
     
-    console.log(`Imágenes a enviar: ${imagenesSeleccionadas.length}`);
-    
     // Obtener datos del formulario
     const formData = new FormData(formulario);
     
     // Agregar imágenes al FormData
     imagenesSeleccionadas.forEach((archivo, indice) => {
         formData.append(`imagen_${indice}`, archivo);
-        console.log(`Imagen ${indice} agregada: ${archivo.name}`);
     });
     
     // Mostrar cargando
@@ -196,7 +171,6 @@ function enviarCotizacion(formulario) {
     btnEnviar.disabled = true;
     btnEnviar.textContent = 'Enviando...';
     
-    console.log('Enviando POST a: ../../controlador/Cliente/cotizacion_cliente.php');
     
     // Enviar al servidor
     fetch('../../controlador/Cliente/cotizacion_cliente.php', {
@@ -204,14 +178,11 @@ function enviarCotizacion(formulario) {
         body: formData
     })
     .then(response => {
-        console.log('Respuesta recibida. Status:', response.status);
         return response.json();
     })
     .then(data => {
-        console.log('Datos JSON parseados:', data);
         
         if (data.success) {
-            console.log('Cotización enviada exitosamente. ID:', data.id_cotizacion);
             
             Swal.fire({
                 title: '¡Éxito!',
@@ -219,22 +190,18 @@ function enviarCotizacion(formulario) {
                 icon: 'success',
                 confirmButtonText: 'Aceptar'
             }).then(() => {
-                console.log('Recargando página...');
                 location.reload();
             });
         } else {
-            console.error('ERROR:', data.message);
             Swal.fire('Error', data.message || 'Error al enviar la cotización', 'error');
         }
     })
     .catch(error => {
-        console.error('ERROR de conexión:', error);
         Swal.fire('Error', 'Error de conexión: ' + error.message, 'error');
     })
     .finally(() => {
         btnEnviar.disabled = false;
         btnEnviar.textContent = textoOriginal;
-        console.log('=== FIN: Envío de cotización completado ===');
     });
 }
 
@@ -242,33 +209,25 @@ function enviarCotizacion(formulario) {
  * Carga y muestra las cotizaciones del usuario
  */
 function cargarCotizaciones() {
-    console.log('=== INICIO: Cargando cotizaciones del usuario ===');
     
     fetch('../../controlador/Cliente/obtener_cotizaciones.php')
     .then(response => {
-        console.log('Respuesta recibida. Status:', response.status);
         return response.json();
     })
     .then(data => {
-        console.log('Datos JSON parseados:', data);
         
         if (data.success && data.cotizaciones) {
-            console.log(`Cotizaciones encontradas: ${data.cotizaciones.length}`);
             mostrarCotizaciones(data.cotizaciones);
         } else if (data.cotizaciones && data.cotizaciones.length === 0) {
-            console.log('El usuario no tiene cotizaciones');
             mostrarMensajeVacio();
         } else {
-            console.error('ERROR:', data.message);
             Swal.fire('Error', data.message || 'Error al cargar cotizaciones', 'error');
         }
     })
     .catch(error => {
-        console.error('ERROR de conexión:', error);
         Swal.fire('Error', 'Error de conexión: ' + error.message, 'error');
     })
     .finally(() => {
-        console.log('=== FIN: Carga de cotizaciones completada ===');
     });
 }
 
@@ -276,18 +235,15 @@ function cargarCotizaciones() {
  * Muestra las cotizaciones en la interfaz
  */
 function mostrarCotizaciones(cotizaciones) {
-    console.log('=== Mostrando cotizaciones ===');
     
     const contenedor = document.getElementById('listaCotizaciones');
     if (!contenedor) {
-        console.error('ERROR: Contenedor de cotizaciones no encontrado');
         return;
     }
     
     contenedor.innerHTML = '';
     
     cotizaciones.forEach(cotizacion => {
-        console.log(`Procesando cotización ID: ${cotizacion.id_cotizacion}`);
         
         const div = document.createElement('div');
         div.className = 'cotizacion-item';
@@ -317,11 +273,9 @@ function mostrarCotizaciones(cotizaciones) {
  * Muestra mensaje cuando no hay cotizaciones
  */
 function mostrarMensajeVacio() {
-    console.log('Mostrando mensaje de sin cotizaciones');
     
     const contenedor = document.getElementById('listaCotizaciones');
     if (!contenedor) {
-        console.error('ERROR: Contenedor de cotizaciones no encontrado');
         return;
     }
     
@@ -338,9 +292,7 @@ function mostrarMensajeVacio() {
  * Ver detalles de una cotización
  */
 function verDetalles(idCotizacion) {
-    console.log(`Viendo detalles de cotización ID: ${idCotizacion}`);
     // Implementar según necesidad
 }
 
-console.log('=== FormularioCotizaciones.js inicializado ===');
 

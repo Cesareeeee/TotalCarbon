@@ -47,20 +47,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (iniciarSesion($usuario, $contrasena)) {
             // Reiniciar contador de intentos fallidos
             reiniciarIntentosFallidos($ip);
-            
-            // Obtener información del rol para redirección
-            $rolUsuario = obtenerNombreRol($_SESSION['id_rol']);
-            $paginaRedireccion = obtenerPaginaPorRol($rolUsuario);
-            
+
+            // Verificar si es usuario nuevo (primer inicio de sesión)
+            if (isset($_SESSION['usuario_nuevo']) && $_SESSION['usuario_nuevo']) {
+                // Usuario nuevo - redirigir a la página del cliente con sección de perfil
+                $paginaRedireccion = '../vistas/Cliente/PaginaCliente.php?section=perfil';
+                $esUsuarioNuevo = true;
+            } else {
+                // Usuario existente - redirección normal
+                $rolUsuario = obtenerNombreRol($_SESSION['id_rol']);
+                $paginaRedireccion = obtenerPaginaPorRol($rolUsuario);
+                $esUsuarioNuevo = false;
+            }
+
             // Registrar actividad exitosa
             registrarActividad("Inicio de sesión exitoso", $_SESSION['id_usuario'], $ip);
-            
+
             // Inicio de sesión exitoso
             $respuesta = array(
                 'exito' => true,
                 'mensaje' => 'Inicio de sesión exitoso',
                 'redireccion' => $paginaRedireccion,
-                'rol' => $rolUsuario
+                'rol' => isset($rolUsuario) ? $rolUsuario : 'CLIENTE',
+                'usuario_nuevo' => $esUsuarioNuevo
             );
         } else {
             // Incrementar contador de intentos fallidos

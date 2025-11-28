@@ -4,25 +4,19 @@ let intervaloActualizacionCliente = null;
 
 // Funciones de inicialización
 async function initializeChatCliente() {
-    console.log('🚀 Inicializando chat del cliente...');
     await cargarMensajesCliente();
     iniciarActualizacionAutomaticaCliente();
     actualizarNotificacionesCliente();
     configurarEventosChatCliente();
-    console.log('✅ Chat del cliente inicializado');
 }
 
 async function cargarMensajesCliente() {
     try {
-        console.log('📡 Cargando mensajes del cliente...');
         const response = await fetch('../../controlador/Cliente/chat_cliente_controller.php?action=getMensajes');
         mensajesCliente = await response.json();
 
-        console.log('💬 Mensajes cargados:', mensajesCliente.length);
-
         const container = document.getElementById('chatMessages');
         if (!container) {
-            console.error('❌ Container de mensajes no encontrado');
             return;
         }
 
@@ -47,9 +41,7 @@ async function cargarMensajesCliente() {
         // Scroll al final
         container.scrollTop = container.scrollHeight;
 
-        console.log('✅ Mensajes renderizados');
     } catch (error) {
-        console.error('❌ Error cargando mensajes:', error);
     }
 }
 
@@ -99,7 +91,6 @@ async function enviarMensajeCliente() {
     }
 
     try {
-        console.log('📤 Enviando mensaje:', mensaje);
         const response = await fetch('../../controlador/Cliente/chat_cliente_controller.php?action=enviarMensaje', {
             method: 'POST',
             headers: {
@@ -111,11 +102,9 @@ async function enviarMensajeCliente() {
         const result = await response.json();
 
         if (result.success) {
-            console.log('✅ Mensaje enviado exitosamente');
             inputMensaje.value = '';
             await cargarMensajesCliente(); // Recargar mensajes
         } else {
-            console.error('❌ Error enviando mensaje:', result.error);
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
@@ -124,7 +113,6 @@ async function enviarMensajeCliente() {
             });
         }
     } catch (error) {
-        console.error('❌ Error en la petición:', error);
         Swal.fire({
             icon: 'error',
             title: 'Error de conexión',
@@ -152,7 +140,6 @@ function configurarEventosChatCliente() {
         btnEnviar.addEventListener('click', enviarMensajeCliente);
     }
 
-    console.log('🎧 Eventos del chat configurados');
 }
 
 function iniciarActualizacionAutomaticaCliente() {
@@ -165,7 +152,6 @@ function iniciarActualizacionAutomaticaCliente() {
         actualizarNotificacionesCliente();
     }, 5000); // Actualizar cada 5 segundos
 
-    console.log('🔄 Actualización automática iniciada');
 }
 
 async function actualizarNotificacionesCliente() {
@@ -191,9 +177,7 @@ async function actualizarNotificacionesCliente() {
             }
         }
 
-        console.log('🔔 Notificaciones actualizadas:', data.no_leidos);
     } catch (error) {
-        console.error('❌ Error actualizando notificaciones:', error);
     }
 }
 
@@ -203,9 +187,7 @@ async function marcarMensajesLeidosCliente() {
             method: 'POST'
         });
         actualizarNotificacionesCliente();
-        console.log('✅ Mensajes marcados como leídos');
     } catch (error) {
-        console.error('❌ Error marcando mensajes como leídos:', error);
     }
 }
 
@@ -247,7 +229,6 @@ function mostrarSeccion(seccion) {
 
 // Inicializar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('📄 DOM cargado, inicializando chat del cliente...');
 
     // Configurar navegación del menú
     document.querySelectorAll('.menu-item').forEach(item => {
@@ -263,7 +244,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (notificationBell) {
         notificationBell.addEventListener('click', function() {
             // Aquí puedes mostrar un dropdown con notificaciones
-            console.log('🔔 Campanita clickeada');
         });
     }
 

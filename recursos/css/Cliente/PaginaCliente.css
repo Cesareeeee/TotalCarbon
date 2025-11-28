@@ -60,6 +60,12 @@ body {
 .notification-bell:hover {
     transform: scale(1.1);
 }
+.notification-bell.has-notifications {
+    color: var(--danger-color);
+}
+.notification-bell.has-notifications i {
+    color: var(--danger-color);
+}
 .notification-badge {
     position: absolute;
     top: -5px;
@@ -74,6 +80,8 @@ body {
     justify-content: center;
     font-size: 0.7rem;
     font-weight: bold;
+    box-sizing: border-box;
+    z-index: 10;
 }
 .profile-icon {
     width: 40px;
@@ -112,7 +120,7 @@ body {
     background: var(--gradient-primary);
     color: var(--secondary-color);
     padding: 0;
-    z-index: 1000;
+    z-index: 10000;
     transform: translateX(0);
     transition: var(--sidebar-transition);
     box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
@@ -187,6 +195,9 @@ body {
 }
 .sidebar-menu a:hover span {
     transform: translateX(5px);
+}
+.sidebar-menu a.has-chat-notifications span {
+    color: var(--danger-color);
 }
 .sidebar-footer {
     position: absolute;
@@ -1222,6 +1233,12 @@ body {
     transform: scale(1.1);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
+.chat-fab.has-notifications {
+    background: var(--danger-color);
+}
+.chat-fab.has-notifications:hover {
+    background: #c82333;
+}
 .chat-fab i {
     font-size: 1.5rem;
 }
@@ -1238,6 +1255,94 @@ body {
     z-index: 1002;
     transform: translateX(120%);
     transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Notification Badges */
+.notification-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #dc3545;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    min-width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.notification-badge {
+    font-size: 8px;
+    line-height: 1;
+    transition: opacity 0.3s ease;
+}
+
+.notification-bell .notification-badge {
+    top: -5px;
+    right: -5px;
+    font-size: 0.7rem;
+    min-width: 16px;
+    height: 16px;
+    padding: 1px 5px;
+    left: auto;
+}
+
+.notification-bell .notification-badge:empty,
+.notification-bell .notification-badge.notification-dot {
+    width: 8px !important;
+    height: 8px !important;
+    min-width: 8px !important;
+    padding: 0 !important;
+}
+
+/* Chat badges */
+.chat-badge {
+    background: #28a745 !important;
+}
+
+.menu-item .chat-badge {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.7rem;
+    min-width: 16px;
+    height: 16px;
+    padding: 1px 5px;
+    border-radius: 50%;
+}
+
+.menu-item .chat-badge:empty,
+.menu-item .chat-badge.notification-dot {
+    width: 8px !important;
+    height: 8px !important;
+    min-width: 8px !important;
+    padding: 0 !important;
+}
+
+.chat-fab .chat-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    font-size: 0.7rem;
+    min-width: 16px;
+    height: 16px;
+    padding: 1px 5px;
+    border-radius: 50%;
+}
+
+.chat-fab .chat-badge:empty,
+.chat-fab .chat-badge.notification-dot {
+    width: 8px !important;
+    height: 8px !important;
+    min-width: 8px !important;
+    padding: 0 !important;
 }
 .notification.show {
     transform: translateX(0);
@@ -1363,18 +1468,76 @@ body {
         flex-wrap: wrap;
         justify-content: center;
     }
-   
+
     .progress-step {
         width: 50%;
         margin-bottom: 20px;
     }
-   
+
     .progress-steps::before {
         display: none;
     }
-   
+
     .top-bar-left h4 {
         font-size: 1.2rem;
+    }
+}
+
+/* Responsive para garantías */
+@media (max-width: 768px) {
+    .warranty-item {
+        margin-bottom: 20px;
+        padding: 20px;
+    }
+
+    .warranty-dates {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .warranty-date {
+        font-size: 0.85rem;
+    }
+
+    .btn-ver-detalles {
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    /* Piezas en móvil */
+    .pieza-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .pieza-row .flex-grow-1 {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .pieza-row .flex-shrink-0 {
+        align-self: flex-end;
+        margin-bottom: 10px;
+    }
+
+    .pieza-row .flex-shrink-0:first-child {
+        align-self: flex-start;
+        width: 100px;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .warranty-item {
+        padding: 15px;
+    }
+
+    .warranty-item h6 {
+        font-size: 1rem;
+    }
+
+    .warranty-item p {
+        font-size: 0.9rem;
     }
 }
 
@@ -1388,4 +1551,113 @@ body {
 .photo-guide-image:hover {
     transform: scale(1.05);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Requisitos de Envío Section */
+.requisitos-envio-section {
+    margin: 20px 0;
+}
+
+.requisitos-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.requisito-btn {
+    border: none;
+    border-radius: 15px;
+    padding: 20px 25px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: white;
+    min-width: 120px;
+    font-weight: 600;
+}
+
+.requisito-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.requisito-btn i {
+    font-size: 2rem;
+    transition: all 0.3s ease;
+}
+
+.requisito-btn:hover i {
+    transform: scale(1.1);
+}
+
+.requisito-btn span {
+    font-size: 0.9rem;
+}
+
+/* Colores específicos para cada botón */
+.btn-piezas {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+}
+
+.btn-piezas:hover {
+    background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+}
+
+.btn-rines {
+    background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+}
+
+.btn-rines:hover {
+    background: linear-gradient(135deg, #1e7e34 0%, #155724 100%);
+}
+
+.btn-pintura {
+    background: linear-gradient(135deg, #fd7e14 0%, #e8680d 100%);
+}
+
+.btn-pintura:hover {
+    background: linear-gradient(135deg, #e8680d 0%, #d35400 100%);
+}
+
+.btn-fabrica {
+    background: linear-gradient(135deg, #6f42c1 0%, #5a32a3 100%);
+}
+
+.btn-fabrica:hover {
+    background: linear-gradient(135deg, #5a32a3 0%, #4a148c 100%);
+}
+
+/* Botón de cerrar grande */
+.btn-close-large {
+    width: 2rem !important;
+    height: 2rem !important;
+    font-size: 1.2rem !important;
+}
+
+/* Responsive para requisitos */
+@media (max-width: 768px) {
+    .requisitos-buttons {
+        gap: 15px;
+    }
+
+    .requisito-btn {
+        padding: 15px 20px;
+        min-width: 100px;
+    }
+
+    .requisito-btn i {
+        font-size: 1.8rem;
+    }
+
+    .requisito-btn span {
+        font-size: 0.85rem;
+    }
 }

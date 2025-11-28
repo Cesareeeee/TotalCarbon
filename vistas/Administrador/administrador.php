@@ -612,8 +612,26 @@ if (!isset($_SESSION['id_usuario']) || obtenerNombreRol($_SESSION['id_rol']) !==
                     </div>
                     <div class="form-row">
                         <div class="form-group">
+                            <label for="fecha_inicio">Fecha de Inicio *</label>
+                            <input type="date" id="fecha_inicio" class="form-control" required>
+                            <span class="error-message"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="periodo_garantia">Período de Garantía *</label>
+                            <select id="periodo_garantia" class="form-control" required onchange="calcularFechaFin()">
+                                <option value="">Seleccionar período</option>
+                                <option value="1">1 Mes</option>
+                                <option value="3">3 Meses</option>
+                                <option value="12">1 Año</option>
+                            </select>
+                            <span class="error-message"></span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
                             <label for="fecha_fin">Fecha de Vencimiento *</label>
                             <input type="date" id="fecha_fin" class="form-control" required>
+                            <small class="form-text text-muted">Se calcula automáticamente al seleccionar un período, pero puedes editarlo manualmente.</small>
                             <span class="error-message"></span>
                         </div>
                         <div class="form-group">
@@ -665,7 +683,7 @@ if (!isset($_SESSION['id_usuario']) || obtenerNombreRol($_SESSION['id_rol']) !==
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
-    <script src="../../recursos/js/Administrador/administrador.js?v=345211265687"></script>
+    <script src="../../recursos/js/Administrador/administrador.js?v=1732762741"></script>
     <script src="../../recursos/js/Administrador/clientes.js?v=456211278562"></script>
     <script src="../../recursos/js/Administrador/chat.js?v=3411115222280"></script>
 

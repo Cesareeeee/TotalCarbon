@@ -63,13 +63,6 @@
         </div>
     </div>
 
-    <!-- Preloader CARGADOR DE PAGINA--> 
-    <div class="preloader" id="preloader">
-        <div class="preloader-content">
-            <div class="preloader-logo"></div>
-            <div class="preloader-text">TOTAL CARBON</div>
-        </div>
-    </div>
 
    <!-- Navegación -->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="navbarPrincipal">
@@ -122,7 +115,7 @@
                             <a href="#servicios" class="btn-hero btn-primary-hero">
                                 <i class="fas fa-wrench me-2"></i>Nuestros Servicios
                             </a>
-                            <a href="#contacto" class="btn-hero btn-outline-hero">
+                            <a href="#cotizacion" class="btn-hero btn-outline-hero">
                                 <i class="fas fa-phone me-2"></i>Contactar
                             </a>
                         </div>
@@ -464,7 +457,7 @@ ciclismo. .
                 
                 <div class="col-lg-8" data-aos="fade-left">
                     <div class="contact-form">
-                        <h3>Solicita tu Cotización</h3>
+                        <h3 id="cotizacion">Solicita tu Cotización</h3>
                         <form id="formContacto">
                             <div class="row">
                                 <div class="col-md-6 mb-3">

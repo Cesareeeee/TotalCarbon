@@ -30,8 +30,8 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link rel="stylesheet" href="../../recursos/css/Cliente/PaginaCliente.css?v=999999999996">
-    <link rel="stylesheet" href="../../recursos/css/Cliente/chat_test_cliente.css?v=34333586">
+    <link rel="stylesheet" href="../../recursos/css/Cliente/PaginaCliente.css?v=136">
+    <link rel="stylesheet" href="../../recursos/css/Cliente/chat_test_cliente.css?v=136">
 
     
     <!-- Estilos adicionales para el botón Actualizar (se integran con el proyecto) -->
@@ -185,7 +185,7 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
             </button>
             <div class="notification-bell" id="notificationBell" title="Notificaciones">
                 <i class="fas fa-bell fa-lg"></i>
-                <span class="notification-badge" id="notificationBadge" style="display:none">0</span>
+                <span class="notification-badge" id="notificationBadge" style="display:none;"></span>
             </div>
             <div class="profile-icon" id="profileIcon" title="Mi Perfil">
                 <img src="../../recursos/img/iconoReg.png" alt="Profile">
@@ -218,7 +218,7 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
             <li>
                 <a href="#" class="menu-item" data-section="cotizacion">
                     <i class="fas fa-plus-circle"></i>
-                    <span>Nueva Cotización</span>
+                    <span>Nuevo Servicio</span>
                 </a>
             </li>
             <li>
@@ -243,6 +243,7 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
                 <a href="#" class="menu-item" data-section="chat-soporte">
                     <i class="fas fa-comments"></i>
                     <span>Chat con Soporte</span>
+                    <span class="notification-badge chat-badge" id="chatMenuBadge" style="display:none;"></span>
                 </a>
             </li>
             <li>
@@ -251,13 +252,13 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
                     <span>Mi Perfil</span>
                 </a>
             </li>
+            <li>
+                <a href="../../controlador/Cliente/logout.php" id="logoutBtn" class="menu-item" style="color: rgba(255, 255, 255, 0.7); text-decoration: none;">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Cerrar Sesión</span>
+                </a>
+            </li>
         </ul>
-        <div class="sidebar-footer">
-            <a href="../../controlador/Cliente/logout.php" id="logoutBtn" style="color: rgba(255, 255, 255, 0.7); text-decoration: none; display: flex; align-items: center; padding: 15px 25px;">
-                <i class="fas fa-sign-out-alt" style="width: 24px; margin-right: 15px;"></i>
-                <span>Cerrar Sesión</span>
-            </a>
-        </div>
     </aside>
     <!-- Main Content -->
     <main class="main-content" id="mainContent">
@@ -272,7 +273,7 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
             <div class="dashboard-cards">
                 <a href="#" class="dashboard-card primary" data-section="cotizacion">
                     <i class="fas fa-plus-circle"></i>
-                    <h3>Nueva Cotización</h3>
+                    <h3>Nuevo Servicio</h3>
                     <p>Solicita una reparación para tu bicicleta</p>
                 </a>
                 <a href="#" class="dashboard-card info" data-section="proceso">
@@ -300,7 +301,7 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
         <!-- Cotización Section -->
         <section class="content-section" id="cotizacion">
             <div class="page-header">
-                <h1>Nueva Cotización</h1>
+                <h1>Nuevo Servicio</h1>
                 <p>Completa el formulario para solicitar una reparación</p>
             </div>
             <div class="card">
@@ -371,7 +372,15 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
                                         <i class="fas fa-tag"></i>
                                         Marca de la Bicicleta *
                                     </label>
-                                    <input type="text" class="form-control" id="marca" required>
+                                    <input type="text" class="form-control" id="marca" list="marcasBicicleta" required>
+                                    <datalist id="marcasBicicleta">
+                                        <option value="SPECIALIZED">
+                                        <option value="TREK">
+                                        <option value="CANNONDALE">
+                                        <option value="GIANT">
+                                        <option value="BIANCHI">
+                                        <option value="CERVÉLO">
+                                    </datalist>
                                     <div class="invalid-feedback">Por favor, ingresa la marca de tu bicicleta.</div>
                                 </div>
                             </div>
@@ -527,9 +536,9 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
                         </div>
                        
                         <div class="form-group">
-                            <label class="form-label">
+                            <label class="form-label" style="font-size: 1.1rem; font-weight: 600; color: var(--primary-color);">
                                 <i class="fas fa-images"></i>
-                                Imágenes de la Bicicleta (Máximo 10) *
+                                📸 Imágenes de la Bicicleta (Máximo 10) *
                             </label>
                             <div class="image-upload-container">
                                 <i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted"></i>
@@ -541,10 +550,63 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
                             <div class="image-preview" id="imagePreview"></div>
                             <div class="invalid-feedback">Por favor, sube al menos una imagen.</div>
                         </div>
-                       
+
+                        <!-- Piezas que el cliente enviará -->
+                        <div class="form-group">
+                            <label class="form-label" style="font-size: 1.1rem; font-weight: 600; color: var(--primary-color);">
+                                <i class="fas fa-tools"></i>
+                                🛠️ Piezas que enviarás con la bicicleta
+                            </label>
+                            <small class="text-muted" style="font-size: 0.9rem;">Opcional: Especifica las piezas adicionales que enviarás para facilitar la reparación.</small>
+
+                            <div id="piezasContainer" style="margin-top: 15px;">
+                                <!-- Las filas de piezas se agregarán aquí dinámicamente -->
+                            </div>
+
+                            <button type="button" class="btn btn-success mt-3" id="agregarPiezaBtn" style="font-size: 1rem; padding: 10px 20px;">
+                                <i class="fas fa-plus-circle"></i> <strong>Agregar Pieza</strong>
+                            </button>
+                        </div>
+
+                        <!-- Requisitos de Envío -->
+                        <div class="requisitos-envio-section mt-4">
+                            <div class="alert alert-dark border-0 shadow-sm" style="background: linear-gradient(135deg, #000000 0%, #333333 100%); color: white; border-radius: 15px;">
+                                <div class="d-flex align-items-center justify-content-center flex-wrap gap-3">
+                                    <i class="fas fa-exclamation-triangle fa-2x" style="color: #ffcc00;"></i>
+                                    <div class="text-center">
+                                        <h5 class="mb-2 fw-bold">IMPORTANTE PARA ENVIO</h5>
+                                        <p class="mb-0 small">Selecciona el tipo de servicio para ver los requisitos</p>
+                                    </div>
+                                </div>
+                                <div class="requisitos-buttons mt-3">
+                                    <button type="button" class="requisito-btn btn-piezas" data-bs-toggle="modal" data-bs-target="#modalPiezas">
+                                        <i class="fas fa-tools"></i>
+                                        <span>Piezas</span>
+                                    </button>
+                                    <button type="button" class="requisito-btn btn-rines" data-bs-toggle="modal" data-bs-target="#modalRin">
+                                        <i class="fas fa-circle"></i>
+                                        <span>Rines</span>
+                                    </button>
+                                    <button type="button" class="requisito-btn btn-pintura" data-bs-toggle="modal" data-bs-target="#modalPintura">
+                                        <i class="fas fa-paint-brush"></i>
+                                        <span>Pintura</span>
+                                    </button>
+                                    <button type="button" class="requisito-btn btn-fabrica" data-bs-toggle="modal" data-bs-target="#modalFabrica">
+                                        <i class="fas fa-industry"></i>
+                                        <span>Fábrica</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Enhanced Ficha Técnica -->
                         <div class="ficha-tecnica">
-                            <h5><i class="fas fa-file-alt"></i> Ficha Técnica</h5>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5><i class="fas fa-file-alt"></i> Confirmar Ficha Técnica</h5>
+                                <button type="button" class="btn btn-outline-primary btn-sm ver-todas-fichas" title="Ver todas las fichas técnicas">
+                                    <i class="fas fa-list"></i> Ver Todas
+                                </button>
+                            </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <label><i class="fas fa-calendar"></i> Fecha:</label>
@@ -574,6 +636,10 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
                                     <label><i class="fas fa-exclamation-triangle"></i> Observaciones:</label>
                                     <p id="fichaObservaciones">--</p>
                                 </div>
+                                <div class="col-12">
+                                    <label><i class="fas fa-tools"></i> Piezas Enviadas:</label>
+                                    <p id="fichaPiezas">--</p>
+                                </div>
                             </div>
                         </div>
 
@@ -596,37 +662,7 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
                 <p>Consulta tus garantías activas y fechas de vencimiento</p>
             </div>
             <div class="warranty-section">
-                <h5><i class="fas fa-shield-alt"></i> Garantías Activas</h5>
-               
-                <div class="warranty-item">
-                    <h6>Reparación de Cuadro - Tracer LILA</h6>
-                    <p>Reparación estructural completa con garantía de 6 meses</p>
-                    <div class="warranty-dates">
-                        <span class="warranty-date">Inicio: 15/01/2025</span>
-                        <span class="warranty-date">Fin: 15/07/2025</span>
-                    </div>
-                    <span class="warranty-status active">Activa</span>
-                </div>
-               
-                <div class="warranty-item">
-                    <h6>Pintura Personalizada - INTENSE</h6>
-                    <p>Servicio de pintura con garantía de 3 meses</p>
-                    <div class="warranty-dates">
-                        <span class="warranty-date">Inicio: 01/02/2025</span>
-                        <span class="warranty-date">Fin: 01/05/2025</span>
-                    </div>
-                    <span class="warranty-status expiring">Por vencer</span>
-                </div>
-               
-                <div class="warranty-item">
-                    <h6>Reparación de Horquilla - ROCKSHOX</h6>
-                    <p>Reparación y mantenimiento con garantía de 12 meses</p>
-                    <div class="warranty-dates">
-                        <span class="warranty-date">Inicio: 10/12/2025</span>
-                        <span class="warranty-date">Fin: 10/12/2025</span>
-                    </div>
-                    <span class="warranty-status active">Activa</span>
-                </div>
+                <!-- Contenido dinámico cargado por JavaScript -->
             </div>
            
             <div class="card mt-4">
@@ -1071,6 +1107,9 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
                                 <div class="user-info">
                                     <h3>Soporte TotalCarbon</h3>
                                 </div>
+                                <button class="chat-close-btn" id="chatCloseBtn" title="Cerrar chat">
+                                    <i class="fas fa-times"></i>
+                                </button>
                             </div>
 
                             <div class="chat-messages-area" id="chatMessages">
@@ -1104,6 +1143,7 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
     <!-- Chat FAB -->
     <button class="chat-fab" id="chatFab" style="display: none;">
         <i class="fas fa-comments"></i>
+        <span class="notification-badge chat-badge" id="chatFabBadge" style="opacity:0; display:inline-block;"></span>
     </button>
     <!-- Notification -->
     <div class="notification" id="notification"></div>
@@ -1145,15 +1185,518 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
     <!-- Estilos para Fichas Técnicas -->
-    <link rel="stylesheet" href="../../recursos/css/Cliente/FichasTecnicas.css?v=100000000001">
+    <link rel="stylesheet" href="../../recursos/css/Cliente/FichasTecnicas.css?v=NOTIFICATIONS_RED_DOTS_FINAL_2025_V122">
     <!-- Estilos para Servicios en Proceso -->
-    <link rel="stylesheet" href="../../recursos/css/Cliente/ServiciosProceso.css">
+    <link rel="stylesheet" href="../../recursos/css/Cliente/ServiciosProceso.css?v=NOTIFICATIONS_RED_DOTS_FINAL_2025_V122">
     <!-- Scripts -->
 
-    <script src="../../recursos/js/Cliente/PaginaCliente.js?v=993499999999995"></script>
-    <script src="../../recursos/js/Cliente/FichasTecnicas.js?V=99999235000009"></script>
-    <script src="../../recursos/js/Cliente/ServiciosProceso.js?V=66666666666671"></script>
-    <script src="../../recursos/js/Cliente/chat_test_cliente.js?v=3454444444444444444485"></script>
+    <script src="../../recursos/js/Cliente/PaginaCliente.js?v=1732762736"></script>
+    <script src="../../recursos/js/Cliente/FichasTecnicas.js?V=1732762737"></script>
+    <script src="../../recursos/js/Cliente/ServiciosProceso.js?V=1732762738"></script>
+    <script src="../../recursos/js/Cliente/chat_test_cliente.js?v=1732762739"></script>
+
+    <!-- Script para manejar usuarios nuevos -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar si es usuario nuevo (primer inicio de sesión)
+            const urlParams = new URLSearchParams(window.location.search);
+            const section = urlParams.get('section');
+
+            if (section === 'perfil') {
+                // Usar la misma lógica que el código existente para cambiar de sección
+                // Remove active class from all menu items and sections
+                const menuItems = document.querySelectorAll('.menu-item');
+                const contentSections = document.querySelectorAll('.content-section');
+
+                menuItems.forEach(i => i.classList.remove('active'));
+                contentSections.forEach(section => section.classList.remove('active'));
+
+                // Add active class to profile menu item
+                const profileMenuItem = document.querySelector('.menu-item[data-section="perfil"]');
+                if (profileMenuItem) {
+                    profileMenuItem.classList.add('active');
+                }
+
+                // Show profile section
+                const perfilSection = document.getElementById('perfil');
+                if (perfilSection) {
+                    perfilSection.classList.add('active');
+                }
+
+                // Close sidebar on mobile
+                const sidebar = document.getElementById('sidebar');
+                const sidebarToggle = document.getElementById('sidebarToggle');
+                const sidebarOverlay = document.getElementById('sidebarOverlay');
+                const mainContent = document.getElementById('mainContent');
+
+                if (window.innerWidth <= 992) {
+                    if (sidebar) sidebar.classList.remove('mobile-visible');
+                    if (sidebarToggle) sidebarToggle.classList.remove('active');
+                    if (sidebarOverlay) sidebarOverlay.classList.remove('active');
+                    if (mainContent) mainContent.classList.remove('mobile-expanded');
+                }
+
+                // Mostrar SweetAlert para usuario nuevo
+                setTimeout(() => {
+                    Swal.fire({
+                        title: '<span style="color: #1a1a1a; font-weight: 700; font-size: 24px;">¡Bienvenido a Total Carbon!</span>',
+                        html: `
+                            <div style="text-align: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                                <div style="background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%); color: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                                    <i class="fas fa-check-circle" style="font-size: 48px; color: #28a745; margin-bottom: 15px;"></i>
+                                    <h3 style="margin: 0 0 10px 0; font-size: 20px; font-weight: 600;">¡Cuenta creada exitosamente!</h3>
+                                    <p style="margin: 0; font-size: 16px; opacity: 0.9;">Tu registro se ha completado correctamente</p>
+                                </div>
+
+                                <div style="background: #f8f9fa; border: 2px solid #e9ecef; border-radius: 12px; padding: 25px; margin: 20px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                    <h4 style="color: #1a1a1a; margin: 0 0 20px 0; font-size: 18px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                                        <i class="fas fa-info-circle" style="color: #17a2b8;"></i>
+                                        Próximos pasos recomendados
+                                    </h4>
+
+                                    <div style="display: grid; grid-template-columns: 1fr; gap: 15px; text-align: left;">
+                                        <div style="display: flex; align-items: flex-start; gap: 15px; padding: 15px; background: white; border-radius: 8px; border-left: 4px solid #1a1a1a;">
+                                            <i class="fas fa-user-edit" style="color: #1a1a1a; font-size: 20px; margin-top: 2px;"></i>
+                                            <div>
+                                                <strong style="color: #1a1a1a; display: block; margin-bottom: 5px;">Completa tu perfil</strong>
+                                                <span style="color: #666; font-size: 14px;">Agrega tu información personal para una mejor experiencia</span>
+                                            </div>
+                                        </div>
+
+                                        <div style="display: flex; align-items: flex-start; gap: 15px; padding: 15px; background: white; border-radius: 8px; border-left: 4px solid #dc3545;">
+                                            <i class="fas fa-shield-alt" style="color: #dc3545; font-size: 20px; margin-top: 2px;"></i>
+                                            <div>
+                                                <strong style="color: #1a1a1a; display: block; margin-bottom: 5px;">Cambia tu contraseña</strong>
+                                                <span style="color: #666; font-size: 14px;">Establece una contraseña segura y personal</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div style="background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%); border: 1px solid #f39c12; border-radius: 8px; padding: 15px; margin-top: 15px;">
+                                    <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                                        <i class="fas fa-exclamation-triangle" style="color: #f39c12; font-size: 20px;"></i>
+                                        <span style="color: #8b4513; font-weight: 600; font-size: 14px;">Importante: Completa estos pasos antes de continuar</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `,
+                        icon: null,
+                        confirmButtonText: '<i class="fas fa-arrow-right me-2"></i>Ir al perfil',
+                        confirmButtonColor: '#1a1a1a',
+                        confirmButtonStyle: 'background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%); border: none; padding: 12px 30px; font-weight: 600; font-size: 16px;',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        width: '600px',
+                        padding: '20px'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Enfocar en el botón de editar perfil
+                            const editBtn = document.getElementById('editProfileBtn');
+                            if (editBtn) {
+                                editBtn.focus();
+                                // Hacer scroll suave hacia el botón
+                                editBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            }
+                        }
+                    });
+                }, 500); // Pequeño delay para asegurar que la sección esté visible
+            }
+        });
+    </script>
+
+    <!-- Modales para Requisitos de Envío -->
+    <!-- Modal para Envío de Piezas -->
+    <div class="modal fade" id="modalPiezas" tabindex="-1" aria-labelledby="modalPiezasLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content" style="border: none; border-radius: 15px; box-shadow: 0 15px 40px rgba(0,0,0,0.4);">
+                <div class="modal-header" style="background: linear-gradient(135deg, #007bff 0%, #0056b3 100%); color: white; border-radius: 15px 15px 0 0; border-bottom: none;">
+                    <h5 class="modal-title fw-bold" id="modalPiezasLabel">
+                        <i class="fas fa-tools me-2"></i>Requisitos para enviar piezas a reparación
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white btn-close-large" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="background: #f8f9fa; padding: 30px;">
+                    <div class="alert alert-warning border-0 mb-4" style="background: #fff3cd; border-radius: 10px; border-left: 4px solid #ffc107;">
+                        <i class="fas fa-exclamation-triangle me-2 text-warning"></i>
+                        <strong>Por favor, LEE CON ATENCIÓN</strong>
+                    </div>
+
+                    <div class="requisitos-list">
+                        <div class="requisito-item mb-3 p-3 bg-white rounded shadow-sm">
+                            <div class="d-flex align-items-start">
+                                <span class="badge bg-primary me-3 mt-1" style="min-width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</span>
+                                <div>
+                                    <p class="mb-0 fw-semibold">Enviar cuadro/pieza desmontado y limpio.</p>
+                                    <small class="text-muted">No enviar ninguna pieza que no se repare y que se puede extraviar. Enviar sin cableado interno.</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="requisito-item mb-3 p-3 bg-white rounded shadow-sm">
+                            <div class="d-flex align-items-start">
+                                <span class="badge bg-primary me-3 mt-1" style="min-width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; font-weight: bold;">2</span>
+                                <div>
+                                    <p class="mb-0 fw-semibold">Indicar la zona dañada con masking tape y plumón.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="requisito-item mb-3 p-3 bg-white rounded shadow-sm">
+                            <div class="d-flex align-items-start">
+                                <span class="badge bg-primary me-3 mt-1" style="min-width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; font-weight: bold;">3</span>
+                                <div>
+                                    <p class="mb-0 fw-semibold">Escribir nombre de propietario y telefono en cuadro/pieza con masking tape o en una hoja a parte.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="requisito-item mb-3 p-3 bg-white rounded shadow-sm">
+                            <div class="d-flex align-items-start">
+                                <span class="badge bg-primary me-3 mt-1" style="min-width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; font-weight: bold;">4</span>
+                                <div>
+                                    <p class="mb-0 fw-semibold">Empacar con suficiente protección y muy importante sobre todo en esquinas y que sea en caja de cartón rigido.</p>
+                                    <small class="text-muted"><i class="fas fa-box me-1"></i>Eje trasero puesto para que no se cierren las vainas tras estibar en paqueteria.</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="requisito-item mb-3 p-3 bg-white rounded shadow-sm">
+                            <div class="d-flex align-items-start">
+                                <span class="badge bg-primary me-3 mt-1" style="min-width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; font-weight: bold;">5</span>
+                                <div>
+                                    <p class="mb-0 fw-semibold">Para reconstrucción de puntera enviar hanger anterior y nuevo ( o buen estado ).</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="requisito-item mb-3 p-3 bg-white rounded shadow-sm">
+                            <div class="d-flex align-items-start">
+                                <span class="badge bg-primary me-3 mt-1" style="min-width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; font-weight: bold;">6</span>
+                                <div>
+                                    <p class="mb-0 fw-semibold">Daño en BBracket enviar juego completo de baleros anteriores y si se van a cambiar tambien los nuevos, y por último pressfit.</p>
+                                    <small class="text-muted">( no aplica en caso bottom bracket BSA )</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="requisito-item mb-3 p-3 bg-white rounded shadow-sm">
+                            <div class="d-flex align-items-start">
+                                <span class="badge bg-primary me-3 mt-1" style="min-width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; font-weight: bold;">7</span>
+                                <div>
+                                    <p class="mb-0 fw-semibold">Daño en básculante enviar con eje trasero puesto.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="requisito-item mb-3 p-3 bg-white rounded shadow-sm">
+                            <div class="d-flex align-items-start">
+                                <span class="badge bg-primary me-3 mt-1" style="min-width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; font-weight: bold;">8</span>
+                                <div>
+                                    <p class="mb-0 fw-semibold">Daño en tubo de tijera enviar potencia.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="requisito-item mb-3 p-3 bg-white rounded shadow-sm">
+                            <div class="d-flex align-items-start">
+                                <span class="badge bg-primary me-3 mt-1" style="min-width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; font-weight: bold;">9</span>
+                                <div>
+                                    <p class="mb-0 fw-semibold">El envio de ida NO puede ser por MexPost o Envia ya que no entregan a domicilio.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info border-0 mt-4" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-radius: 10px;">
+                        <i class="fas fa-clock me-2 text-info"></i>
+                        <strong>Reparación Express:</strong> Si necesitas una reparación express pregúntanos por la disponibilidad en la semana que lo envías y anexa con una hojita "Express" (costo adicional)
+                    </div>
+
+                    <hr style="border: 1px solid #dee2e6; margin: 30px 0;">
+
+                    <div class="datos-envio">
+                        <h6 class="fw-bold mb-3" style="color: #333;"><i class="fas fa-map-marker-alt me-2 text-danger"></i>Datos de recepción de piezas:</h6>
+                        <div class="bg-white p-3 rounded shadow-sm">
+                            <p class="mb-1"><strong>David Parra Garcia</strong></p>
+                            <p class="mb-1">Calle Estado de Chiapas #1</p>
+                            <p class="mb-1">Col Centro CP 74000</p>
+                            <p class="mb-1">San Martín Texmelucan Puebla</p>
+                            <p class="mb-1"><i class="fas fa-envelope me-2 text-primary"></i>email: totalcarbonmx@gmail.com</p>
+                            <p class="mb-1"><i class="fas fa-id-card me-2 text-primary"></i>RFC PAGM920420M74</p>
+                            <p class="mb-0"><i class="fas fa-store me-2 text-success"></i>Referencias: "tienda bicicletas The Road"</p>
+                            <p class="mb-0"><i class="fas fa-phone me-2 text-success"></i>Cel 2482263605</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="background: #f8f9fa; border-top: 1px solid #dee2e6; border-radius: 0 0 15px 15px;">
+                    <button type="button" class="btn btn-primary fw-bold" data-bs-dismiss="modal" style="border-radius: 10px;">
+                        <i class="fas fa-times me-2"></i>Cerrar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Envío de Rin -->
+    <div class="modal fade" id="modalRin" tabindex="-1" aria-labelledby="modalRinLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content" style="border: none; border-radius: 15px; box-shadow: 0 15px 40px rgba(0,0,0,0.4);">
+                <div class="modal-header" style="background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%); color: white; border-radius: 15px 15px 0 0; border-bottom: none;">
+                    <h5 class="modal-title fw-bold" id="modalRinLabel">
+                        <i class="fas fa-circle me-2"></i>Requisitos para enviar rin a reparación
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white btn-close-large" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="background: #f8f9fa; padding: 30px;">
+                    <div class="alert alert-warning border-0 mb-4" style="background: #fff3cd; border-radius: 10px; border-left: 4px solid #ffc107;">
+                        <i class="fas fa-exclamation-triangle me-2 text-warning"></i>
+                        <strong>Por favor, LEE CON ATENCIÓN</strong>
+                    </div>
+
+                    <div class="requisitos-list">
+                        <div class="requisito-item mb-3 p-3 bg-white rounded shadow-sm">
+                            <div class="d-flex align-items-start">
+                                <span class="badge bg-success me-3 mt-1" style="min-width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</span>
+                                <div>
+                                    <p class="mb-0 fw-semibold">Escribir nombre y número de teléfono y pegarlo con cinta azul en el rin.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="requisito-item mb-3 p-3 bg-white rounded shadow-sm">
+                            <div class="d-flex align-items-start">
+                                <span class="badge bg-success me-3 mt-1" style="min-width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; font-weight: bold;">2</span>
+                                <div>
+                                    <p class="mb-0 fw-semibold">Enviar rin, con RAYOS SIN TENSION, Sin llanta, Sin Eje, Sin cassette, Sin disco.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr style="border: 1px solid #dee2e6; margin: 30px 0;">
+
+                    <div class="datos-envio">
+                        <h6 class="fw-bold mb-3" style="color: #333;"><i class="fas fa-map-marker-alt me-2 text-danger"></i>Dirección de envio en caso de paquetería:</h6>
+                        <div class="bg-white p-3 rounded shadow-sm">
+                            <p class="mb-1"><strong>David Parra Garcia</strong></p>
+                            <p class="mb-1">Calle Estado de Chiapas #1</p>
+                            <p class="mb-1">Colonia: Centro, CP 74000</p>
+                            <p class="mb-1">San Martín Texmelucan</p>
+                            <p class="mb-1">Puebla</p>
+                            <p class="mb-1"><i class="fas fa-id-card me-2 text-primary"></i>Rfc: PAGM920420M74</p>
+                            <p class="mb-0"><i class="fas fa-store me-2 text-success"></i>Referencias: "tienda bicicleta, en frente de Total Training"</p>
+                            <p class="mb-0"><i class="fas fa-phone me-2 text-success"></i>Cel 2482263605</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="background: #f8f9fa; border-top: 1px solid #dee2e6; border-radius: 0 0 15px 15px;">
+                    <button type="button" class="btn btn-success fw-bold" data-bs-dismiss="modal" style="border-radius: 10px;">
+                        <i class="fas fa-times me-2"></i>Cerrar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Envío de Pintura -->
+    <div class="modal fade" id="modalPintura" tabindex="-1" aria-labelledby="modalPinturaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content" style="border: none; border-radius: 15px; box-shadow: 0 15px 40px rgba(0,0,0,0.4);">
+                <div class="modal-header" style="background: linear-gradient(135deg, #fd7e14 0%, #e8680d 100%); color: white; border-radius: 15px 15px 0 0; border-bottom: none;">
+                    <h5 class="modal-title fw-bold" id="modalPinturaLabel">
+                        <i class="fas fa-paint-brush me-2"></i>Requisitos para enviar pieza a pintura
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white btn-close-large" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="background: #f8f9fa; padding: 30px;">
+                    <div class="alert alert-success border-0 mb-4" style="background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%); border-radius: 10px; border-left: 4px solid #28a745;">
+                        <i class="fas fa-palette me-2 text-success"></i>
+                        <strong>Estamos listos para darle nueva vida a tu bici!!</strong>
+                    </div>
+
+                    <div class="requisitos-list">
+                        <div class="requisito-item mb-3 p-3 bg-white rounded shadow-sm">
+                            <div class="d-flex align-items-start">
+                                <span class="badge bg-warning me-3 mt-1" style="min-width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</span>
+                                <div>
+                                    <p class="mb-0 fw-semibold">Enviar cuadro/pieza desmontado COMPLETAMENTE.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="requisito-item mb-3 p-3 bg-white rounded shadow-sm">
+                            <div class="d-flex align-items-start">
+                                <span class="badge bg-warning me-3 mt-1" style="min-width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; font-weight: bold;">2</span>
+                                <div>
+                                    <p class="mb-0 fw-semibold">No enviar piezas que no se van a pintar (pata de desviador, tapas, tornillos etc.)</p>
+                                    <small class="text-muted">eso para evitar extravíos de las piezas por las que no podemos hacernos responsables.</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="requisito-item mb-3 p-3 bg-white rounded shadow-sm">
+                            <div class="d-flex align-items-start">
+                                <span class="badge bg-warning me-3 mt-1" style="min-width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; font-weight: bold;">3</span>
+                                <div>
+                                    <p class="mb-0 fw-semibold">Escribir nombre de propietario y telefono en cuadro/pieza con masking tape.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="requisito-item mb-3 p-3 bg-white rounded shadow-sm">
+                            <div class="d-flex align-items-start">
+                                <span class="badge bg-warning me-3 mt-1" style="min-width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; font-weight: bold;">4</span>
+                                <div>
+                                    <p class="mb-0 fw-semibold">Empacar con suficiente protección y de preferencia en caja.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="requisito-item mb-3 p-3 bg-white rounded shadow-sm">
+                            <div class="d-flex align-items-start">
+                                <span class="badge bg-warning me-3 mt-1" style="min-width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; font-weight: bold;">5</span>
+                                <div>
+                                    <p class="mb-0 fw-semibold">Utilizar un separador en la zona de eje trasero para dar soporte y evitar posibles daños en traslado (si es cuadro)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="requisito-item mb-3 p-3 bg-white rounded shadow-sm">
+                            <div class="d-flex align-items-start">
+                                <span class="badge bg-warning me-3 mt-1" style="min-width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; font-weight: bold;">6</span>
+                                <div>
+                                    <p class="mb-0 fw-semibold">el paquete NO tiene que medir mas de 105 cm de largo, 25 de alto y 70 de ancho.</p>
+                                    <small class="text-muted">El paquete tiene que estar en caja. De lo contrario se cobrará costo de caja en el envío de regreso.</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="requisito-item mb-3 p-3 bg-white rounded shadow-sm">
+                            <div class="d-flex align-items-start">
+                                <span class="badge bg-warning me-3 mt-1" style="min-width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; font-weight: bold;">7</span>
+                                <div>
+                                    <p class="mb-0 fw-semibold">Si cuenta con una muestra física del color favor de anexarla a la caja, ya que es la unica forma de igualar 100%.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info border-0 mt-4" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-radius: 10px;">
+                        <i class="fas fa-info-circle me-2 text-info"></i>
+                        <strong>Información adicional:</strong><br>
+                        Suspensión: enviar pieza sin baleros y sin botellas<br>
+                        Rines: Sin rayos ni piezas adicionales
+                    </div>
+
+                    <div class="alert alert-warning border-0 mt-3" style="background: #fff3cd; border-radius: 10px;">
+                        <i class="fas fa-search me-2 text-warning"></i>
+                        <strong>Te recordamos que haremos un chequeo Estructural a tu cuadro, en caso de encontrar algún daño se le hará saber</strong>
+                    </div>
+
+                    <hr style="border: 1px solid #dee2e6; margin: 30px 0;">
+
+                    <div class="datos-envio">
+                        <h6 class="fw-bold mb-3" style="color: #333;"><i class="fas fa-map-marker-alt me-2 text-danger"></i>Datos de recepción de piezas:</h6>
+                        <div class="bg-white p-3 rounded shadow-sm">
+                            <p class="mb-1"><strong>David Parra Garcia</strong></p>
+                            <p class="mb-1">Calle Estado de Chiapas #1</p>
+                            <p class="mb-1">Col Centro CP 74000</p>
+                            <p class="mb-1">San Martín Texmelucan</p>
+                            <p class="mb-1">Puebla</p>
+                            <p class="mb-0"><i class="fas fa-store me-2 text-success"></i>Referencias: "tienda bicicletas The Road"</p>
+                            <p class="mb-0"><i class="fas fa-phone me-2 text-success"></i>Cel 2482263605</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="background: #f8f9fa; border-top: 1px solid #dee2e6; border-radius: 0 0 15px 15px;">
+                    <button type="button" class="btn btn-warning fw-bold" data-bs-dismiss="modal" style="border-radius: 10px;">
+                        <i class="fas fa-times me-2"></i>Cerrar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Recoger en Fábrica -->
+    <div class="modal fade" id="modalFabrica" tabindex="-1" aria-labelledby="modalFabricaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content" style="border: none; border-radius: 15px; box-shadow: 0 15px 40px rgba(0,0,0,0.4);">
+                <div class="modal-header" style="background: linear-gradient(135deg, #6f42c1 0%, #5a32a3 100%); color: white; border-radius: 15px 15px 0 0; border-bottom: none;">
+                    <h5 class="modal-title fw-bold" id="modalFabricaLabel">
+                        <i class="fas fa-industry me-2"></i>Requisitos para recoger en fábrica
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white btn-close-large" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="background: #f8f9fa; padding: 30px;">
+                    <div class="alert alert-primary border-0 mb-4" style="background: linear-gradient(135deg, #cce5ff 0%, #b3d7ff 100%); border-radius: 10px; border-left: 4px solid #007bff;">
+                        <i class="fas fa-industry me-2 text-primary"></i>
+                        <strong>Total Carbon Fabrica</strong>
+                    </div>
+
+                    <div class="requisitos-list">
+                        <div class="requisito-item mb-3 p-3 bg-white rounded shadow-sm">
+                            <div class="d-flex align-items-start">
+                                <span class="badge bg-primary me-3 mt-1" style="min-width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</span>
+                                <div>
+                                    <p class="mb-0 fw-semibold"><strong>Para Rin:</strong> Traer rin, con RAYOS SIN TENSION, Sin llanta, Sin Eje, Sin cassette, Sin disco</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="requisito-item mb-3 p-3 bg-white rounded shadow-sm">
+                            <div class="d-flex align-items-start">
+                                <span class="badge bg-primary me-3 mt-1" style="min-width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; font-weight: bold;">2</span>
+                                <div>
+                                    <p class="mb-0 fw-semibold"><strong>Para Pintura:</strong> Traer cuadro/pieza desmontado COMPLETAMENTE.</p>
+                                    <small class="text-muted">No enviar piezas que no se van a pintar (pata de desviador, tapas, tornillos etc.) para evitar extravíos de las piezas por las que no podemos hacernos responsables.</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info border-0 mt-4" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-radius: 10px;">
+                        <i class="fas fa-clock me-2 text-info"></i>
+                        <strong>Horario de lunes a viernes</strong><br>
+                        8 am a 11.15am<br>
+                        12.30 a 16.30<br>
+                        <small class="text-muted">Nota: 11,30 a 12,30 Estamos en nuestro horario de comida</small><br><br>
+                        <strong>Sábado:</strong> de 8am a 9,30 y de 10,30 a 2pm
+                    </div>
+
+                    <div class="alert alert-warning border-0 mt-3" style="background: #fff3cd; border-radius: 10px;">
+                        <i class="fas fa-exclamation-triangle me-2 text-warning"></i>
+                        <strong>Información importante:</strong><br>
+                        La fábrica está en una privada sin embargo te pedimos no cerrar la entrada estacionandose, mejor busca un lugar en la calle principal (como referencia un Kinder o un OXXO). No hay letreros<br><br>
+                        <strong>Cita necesaria:</strong> avisar un dia antes el posible horario de llegada<br>
+                        <strong>Llamar al llegar:</strong> <a href="tel:2482263605" class="text-decoration-none fw-bold">248 226 3605</a>
+                    </div>
+
+                    <hr style="border: 1px solid #dee2e6; margin: 30px 0;">
+
+                    <div class="datos-envio">
+                        <h6 class="fw-bold mb-3" style="color: #333;"><i class="fas fa-map-marker-alt me-2 text-danger"></i>Ubicación de la Fábrica:</h6>
+                        <div class="bg-white p-3 rounded shadow-sm">
+                            <p class="mb-1"><strong>David Parra</strong></p>
+                            <p class="mb-1">Priv niños heroes 2</p>
+                            <p class="mb-1">Col tlanalapan</p>
+                            <p class="mb-1">Cp 74122</p>
+                            <p class="mb-1">San Martín Texmelucan Puebla</p>
+                            <p class="mb-0"><a href="https://maps.app.goo.gl/DjjrEH4NkMkiKhey5" target="_blank" class="text-decoration-none">
+                                <i class="fas fa-external-link-alt me-2 text-primary"></i>Ver ubicación en Maps
+                            </a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="background: #f8f9fa; border-top: 1px solid #dee2e6; border-radius: 0 0 15px 15px;">
+                    <button type="button" class="btn btn-primary fw-bold" data-bs-dismiss="modal" style="border-radius: 10px;">
+                        <i class="fas fa-times me-2"></i>Cerrar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>

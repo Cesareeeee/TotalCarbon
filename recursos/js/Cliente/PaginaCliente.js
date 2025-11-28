@@ -2,7 +2,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Variables globales en español
     let uploadedImages = [];
     let idCotizacion = null;
-    let contadorNotificaciones = 3;
+    let contadorNotificaciones = 0;
+    let contadorMensajesChat = 0;
+    let notificacionesVistas = [];
+    let intervaloNotificaciones = null;
+    let piezasCliente = []; // Array para almacenar las piezas
    
     // Elementos del DOM
     const sidebar = document.getElementById('sidebar');
@@ -108,36 +112,135 @@ document.addEventListener('DOMContentLoaded', function() {
    
     // Notification bell click
     notificationBell.addEventListener('click', function() {
-        // Reset notification count
-        contadorNotificaciones = 0;
-        notificationBadge.style.display = 'none';
-       
-        // Show notification panel (simulated)
-        Swal.fire({
-            title: 'Notificaciones',
-            html: `
-                <div style="text-align: left;">
-                    <div class="mb-3">
-                        <strong><i class="fas fa-comment text-primary"></i> Nuevo mensaje de soporte</strong>
-                        <p class="mb-0">Hemos recibido una respuesta sobre tu cotización #1234</p>
-                        <small>Hace 5 minutos</small>
-                    </div>
-                    <div class="mb-3">
-                        <strong><i class="fas fa-wrench text-info"></i> Actualización de reparación</strong>
-                        <p class="mb-0">Tu bicicleta ha pasado a la fase de pintura</p>
-                        <small>Hace 2 horas</small>
-                    </div>
-                    <div class="mb-3">
-                        <strong><i class="fas fa-shield-alt text-warning"></i> Garantía por vencer</strong>
-                        <p class="mb-0">Tu garantía de pintura vence en 15 días</p>
-                        <small>Ayer</small>
+        mostrarPanelNotificaciones();
+    });
+
+    function mostrarPanelNotificaciones() {
+        // Obtener todas las notificaciones recientes
+        const ultimaVerificacion = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(); // Últimos 7 días
+
+        fetch(`../../controlador/Cliente/obtener_notificaciones.php?ultima_verificacion=${encodeURIComponent(ultimaVerificacion)}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    mostrarNotificacionesEnPanel(data.notificaciones);
+                } else {
+                    Swal.fire('Error', 'No se pudieron cargar las notificaciones', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error al cargar notificaciones:', error);
+                Swal.fire('Error', 'Error de conexión', 'error');
+            });
+    }
+
+    function mostrarNotificacionesEnPanel(notificaciones) {
+        if (!notificaciones || notificaciones.length === 0) {
+            Swal.fire({
+                title: 'Notificaciones',
+                html: '<p>No tienes notificaciones nuevas.</p>',
+                confirmButtonColor: '#1a1a1a',
+                width: '500px'
+            });
+            return;
+        }
+
+        let html = '<div style="text-align: left; max-height: 400px; overflow-y: auto;">';
+
+        notificaciones.forEach(notif => {
+            const icono = getIconoNotificacion(notif.tipo);
+            const fecha = new Date(notif.fecha).toLocaleString('es-ES', {
+                day: '2-digit',
+                month: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            const esVista = notificacionesVistas.includes(notif.id);
+            const claseVista = esVista ? 'opacity-50' : '';
+
+            html += `
+                <div class="notificacion-item mb-3 p-3 border rounded ${claseVista}" style="cursor: pointer;" onclick="marcarNotificacionVista('${notif.id}')">
+                    <div class="d-flex align-items-start">
+                        <i class="${icono} me-3 mt-1"></i>
+                        <div class="flex-grow-1">
+                            <strong>${notif.titulo}</strong>
+                            <p class="mb-1">${notif.mensaje}</p>
+                            <small class="text-muted">${fecha}</small>
+                        </div>
                     </div>
                 </div>
-            `,
-            confirmButtonColor: '#1a1a1a',
-            width: '500px'
+            `;
         });
-    });
+
+        html += '</div>';
+
+        Swal.fire({
+            title: 'Notificaciones',
+            html: html,
+            confirmButtonText: 'Marcar todas como leídas',
+            confirmButtonColor: '#1a1a1a',
+            showCancelButton: true,
+            cancelButtonText: 'Cerrar',
+            width: '600px'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Marcar todas como vistas
+                notificaciones.forEach(notif => {
+                    if (!notificacionesVistas.includes(notif.id)) {
+                        notificacionesVistas.push(notif.id);
+                    }
+                });
+                guardarNotificacionesVistas();
+                contadorNotificaciones = 0;
+                contadorMensajesChat = 0;
+                actualizarContadorNotificaciones();
+                actualizarContadorMensajesChat();
+
+                // Marcar mensajes de chat como leídos en la base de datos
+                fetch('../../controlador/Cliente/chat_cliente_controller.php?action=marcarLeidos', {
+                    method: 'POST'
+                }).catch(error => {
+                    console.error('Error al marcar mensajes como leídos:', error);
+                });
+            }
+        });
+    }
+
+    function marcarNotificacionVista(idNotificacion) {
+        if (!notificacionesVistas.includes(idNotificacion)) {
+            notificacionesVistas.push(idNotificacion);
+            guardarNotificacionesVistas();
+
+            // Reducir contador general (ya incluye chat)
+            contadorNotificaciones = Math.max(0, contadorNotificaciones - 1);
+            actualizarContadorNotificaciones();
+
+            // Si es una notificación de chat, reducir contador específico de chat
+            if (idNotificacion.startsWith('chat_')) {
+                contadorMensajesChat = Math.max(0, contadorMensajesChat - 1);
+                actualizarContadorMensajesChat();
+            }
+        }
+    }
+
+    function getIconoNotificacion(tipo) {
+        switch (tipo) {
+            case 'comentario':
+                return 'fas fa-comment text-primary';
+            case 'imagen':
+                return 'fas fa-image text-success';
+            case 'estado':
+                return 'fas fa-info-circle text-info';
+            case 'chat':
+                return 'fas fa-comments text-warning';
+            default:
+                return 'fas fa-bell text-secondary';
+        }
+    }
+
+    // Función global para marcar notificación como vista (desde el HTML onclick)
+    window.marcarNotificacionVista = marcarNotificacionVista;
 
     // Chat FAB click - navigate to chat section
     if (chatFab) {
@@ -154,6 +257,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Show chat section
             document.getElementById('chat-soporte').classList.add('active');
+
+            // Marcar mensajes como leídos
+            marcarMensajesChatComoLeidos();
+
+            // Hacer scroll al final del chat
+            setTimeout(() => {
+                const chatMessages = document.getElementById('chatMessages');
+                if (chatMessages) {
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }
+            }, 100);
 
             // Close sidebar on mobile
             if (window.innerWidth <= 992) {
@@ -200,7 +314,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (sectionId === 'garantias') {
                     cargarGarantias();
                 }
+
+                // Si se abre el chat, marcar mensajes como leídos y hacer scroll al final
+                if (sectionId === 'chat-soporte') {
+                    marcarMensajesChatComoLeidos();
+                    // Hacer scroll al final del chat después de un pequeño delay para asegurar que se renderice
+                    setTimeout(() => {
+                        const chatMessages = document.getElementById('chatMessages');
+                        if (chatMessages) {
+                            chatMessages.scrollTop = chatMessages.scrollHeight;
+                        }
+                    }, 100);
+                }
             }
+
+            // Update chat FAB visibility
+            updateChatFabVisibility();
 
             // Update chat FAB visibility
             updateChatFabVisibility();
@@ -219,21 +348,26 @@ document.addEventListener('DOMContentLoaded', function() {
     dashboardCards.forEach(card => {
         card.addEventListener('click', function(e) {
             e.preventDefault();
-           
+
             // Remove active class from all menu items and sections
             menuItems.forEach(i => i.classList.remove('active'));
             contentSections.forEach(section => section.classList.remove('active'));
-           
+
             // Add active class to corresponding menu item
             const sectionId = this.getAttribute('data-section');
             const menuItem = document.querySelector(`.menu-item[data-section="${sectionId}"]`);
             if (menuItem) {
                 menuItem.classList.add('active');
             }
-           
+
             // Show corresponding section
             if (sectionId) {
                 document.getElementById(sectionId).classList.add('active');
+
+                // Cargar datos específicos de la sección
+                if (sectionId === 'garantias') {
+                    cargarGarantias();
+                }
             }
 
             // Update chat FAB visibility
@@ -241,10 +375,43 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
    
+    // Ver todas las fichas técnicas
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('ver-todas-fichas') || e.target.closest('.ver-todas-fichas')) {
+            e.preventDefault();
+            // Remove active class from all menu items and sections
+            menuItems.forEach(i => i.classList.remove('active'));
+            contentSections.forEach(section => section.classList.remove('active'));
+
+            // Add active class to ficha-tecnica menu item
+            const fichaMenuItem = document.querySelector('.menu-item[data-section="ficha-tecnica"]');
+            if (fichaMenuItem) {
+                fichaMenuItem.classList.add('active');
+            }
+
+            // Show ficha-tecnica section
+            const fichaSection = document.getElementById('ficha-tecnica');
+            if (fichaSection) {
+                fichaSection.classList.add('active');
+            }
+
+            // Update chat FAB visibility
+            updateChatFabVisibility();
+        }
+    });
+
     // Logout with SweetAlert
     logoutBtn.addEventListener('click', function(e) {
         e.preventDefault();
-       
+
+        // Close sidebar on mobile before showing alert
+        if (window.innerWidth <= 992) {
+            sidebar.classList.remove('mobile-visible');
+            sidebarToggle.classList.remove('active');
+            sidebarOverlay.classList.remove('active');
+            mainContent.classList.remove('mobile-expanded');
+        }
+
         Swal.fire({
             title: '¿Estás seguro?',
             text: "¿Deseas cerrar tu sesión?",
@@ -253,7 +420,10 @@ document.addEventListener('DOMContentLoaded', function() {
             confirmButtonColor: '#1a1a1a',
             cancelButtonColor: '#6c757d',
             confirmButtonText: 'Sí, cerrar sesión',
-            cancelButtonText: 'Cancelar'
+            cancelButtonText: 'Cancelar',
+            zIndex: 10001, // Higher than sidebar
+            allowOutsideClick: false, // Prevent closing when clicking outside, including hamburger
+            allowEscapeKey: false
         }).then((result) => {
             if (result.isConfirmed) {
                 // En una implementación real, aquí se haría una llamada al servidor para cerrar sesión
@@ -263,7 +433,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     icon: 'success',
                     confirmButtonColor: '#1a1a1a',
                     timer: 2000,
-                    showConfirmButton: false
+                    showConfirmButton: false,
+                    zIndex: 10001
                 }).then(() => {
                     window.location.href = '../../controlador/logout.php';
                 });
@@ -326,26 +497,89 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     document.getElementById('fecha').value = formattedDate;
     document.getElementById('fichaFecha').textContent = formattedDate;
+
+    // Inicializar gestión de piezas al final
+    setTimeout(inicializarPiezas, 100);
+
+    // Inicializar sistema de notificaciones
+    inicializarNotificaciones();
+
+    // Resetear contadores al inicio para asegurar estado limpio
+    contadorNotificaciones = 0;
+    contadorMensajesChat = 0;
+    actualizarContadorNotificaciones();
+    actualizarContadorMensajesChat();
+
+    // Forzar verificación inmediata de notificaciones al cargar
+    setTimeout(() => {
+        verificarNotificaciones();
+    }, 500);
    
     // Actualizar ficha técnica en tiempo real
     document.getElementById('nombre').addEventListener('input', function() {
         document.getElementById('fichaNombre').textContent = this.value || '--';
     });
-   
+
     document.getElementById('marca').addEventListener('input', function() {
         document.getElementById('fichaMarca').textContent = this.value || '--';
     });
-   
+
     document.getElementById('modelo').addEventListener('input', function() {
         document.getElementById('fichaModelo').textContent = this.value || '--';
     });
-   
+
     document.getElementById('telefono').addEventListener('input', function() {
         document.getElementById('fichaTelefono').textContent = this.value || '--';
     });
-   
+
     document.getElementById('zonaAfectada').addEventListener('input', function() {
         document.getElementById('fichaObservaciones').textContent = this.value || '--';
+    });
+
+    // Actualizar piezas en ficha técnica
+    function actualizarFichaPiezas() {
+        const piezas = obtenerPiezasCliente();
+        const fichaPiezas = document.getElementById('fichaPiezas');
+
+        if (piezas.length === 0) {
+            fichaPiezas.textContent = '--';
+            return;
+        }
+
+        let piezasText = '';
+        piezas.forEach(pieza => {
+            piezasText += `${pieza.cantidad}x ${pieza.nombre}`;
+            if (pieza.nota) {
+                piezasText += ` (${pieza.nota})`;
+            }
+            piezasText += ', ';
+        });
+
+        // Remover la última coma y espacio
+        piezasText = piezasText.slice(0, -2);
+
+        fichaPiezas.textContent = piezasText;
+    }
+
+    // Event listener para cambios en piezas
+    document.addEventListener('input', function(e) {
+        if (e.target.classList.contains('pieza-nombre') || e.target.classList.contains('pieza-cantidad') || e.target.classList.contains('pieza-nota')) {
+            actualizarFichaPiezas();
+        }
+    });
+
+    // Event listener para remover piezas
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('remover-pieza') || e.target.closest('.remover-pieza')) {
+            // Esperar un poco para que se remueva la fila
+            setTimeout(actualizarFichaPiezas, 10);
+        }
+    });
+
+    // Event listener para agregar piezas
+    document.getElementById('agregarPiezaBtn').addEventListener('click', function() {
+        // Esperar un poco para que se agregue la fila
+        setTimeout(actualizarFichaPiezas, 10);
     });
    
     // Tipo de Trabajo Buttons
@@ -635,6 +869,12 @@ document.addEventListener('DOMContentLoaded', function() {
         uploadedImages.forEach((image, index) => {
             formData.append(`imagen_${index}`, image.file);
         });
+
+        // Agregar piezas del cliente
+        const piezasCliente = obtenerPiezasCliente();
+        if (piezasCliente.length > 0) {
+            formData.append('piezas_cliente', JSON.stringify(piezasCliente));
+        }
        
         // Envío real al backend PHP
         fetch('../../controlador/Cliente/cotizacion_cliente.php', {
@@ -668,22 +908,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('fichaTelefono').textContent = '--';
                 document.getElementById('fichaTipoReparacion').textContent = '--';
                 document.getElementById('fichaObservaciones').textContent = '--';
+                document.getElementById('fichaPiezas').textContent = '--';
 
                 // Actualizar automáticamente todas las secciones
                 if (typeof cargarServiciosProceso === 'function') {
-                    console.log('Actualizando servicios en proceso después del envío...');
                     cargarServiciosProceso();
                 }
 
                 // Actualizar fichas técnicas si existe la función
                 if (typeof cargarFichasTecnicas === 'function') {
-                    console.log('Actualizando fichas técnicas...');
                     cargarFichasTecnicas();
                 }
 
                 // Actualizar garantías si existe la función
                 if (typeof cargarGarantias === 'function') {
-                    console.log('Actualizando garantías...');
                     cargarGarantias();
                 }
 
@@ -740,22 +978,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // Validación del formulario de perfil
     perfilForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        console.log('=== INICIO: Envío de formulario de perfil ===');
 
         let isValid = true;
 
         // Validar campos requeridos
         const requiredFields = perfilForm.querySelectorAll('[required]');
-        console.log('Campos requeridos encontrados:', requiredFields.length);
 
         requiredFields.forEach(field => {
             if (!field.value.trim()) {
                 field.classList.add('is-invalid');
                 isValid = false;
-                console.warn('Campo vacío:', field.id, field.value);
             } else {
                 field.classList.remove('is-invalid');
-                console.log('Campo válido:', field.id, '=', field.value);
             }
         });
 
@@ -765,13 +999,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!emailRegex.test(emailField.value)) {
             emailField.classList.add('is-invalid');
             isValid = false;
-            console.error('Email inválido:', emailField.value);
-        } else {
-            console.log('Email válido:', emailField.value);
         }
 
         if (!isValid) {
-            console.error('Validación fallida');
             Swal.fire({
                 icon: 'error',
                 title: 'Error de validación',
@@ -782,7 +1012,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         showLoading(true);
-        console.log('Cargando...');
 
         const payload = new URLSearchParams();
         payload.append('nombres', document.getElementById('nombres').value);
@@ -796,35 +1025,21 @@ document.addEventListener('DOMContentLoaded', function() {
         payload.append('pais', document.getElementById('perfil_pais').value);
         payload.append('fecha_nacimiento', document.getElementById('perfil_fecha_nacimiento').value);
 
-        console.log('Datos a enviar:', {
-            nombres: document.getElementById('nombres').value,
-            apellidos: document.getElementById('apellidos').value,
-            correo: document.getElementById('perfil_email').value,
-            telefono: document.getElementById('perfil_telefono').value
-        });
-
-        console.log('Enviando POST a: ../../controlador/Cliente/perfil_actualizar.php');
-
         fetch('../../controlador/Cliente/perfil_actualizar.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: payload.toString()
         })
         .then(r => {
-            console.log('Respuesta recibida. Status:', r.status);
             return r.json();
         })
         .then(data => {
-            console.log('Datos JSON parseados:', data);
             showLoading(false);
 
             if (!data || !data.success) {
-                console.error('Error en respuesta:', data);
                 Swal.fire({ icon: 'error', title: 'Error', text: (data && data.message) ? data.message : 'No se pudo actualizar el perfil', confirmButtonColor: '#1a1a1a' });
                 return;
             }
-
-            console.log('Actualización exitosa. Actualizando UI...');
 
             // Actualizar datos mostrados desde inputs
             document.getElementById('displayNombres').textContent = document.getElementById('nombres').value;
@@ -842,11 +1057,9 @@ document.addEventListener('DOMContentLoaded', function() {
             profileDisplay.style.display = 'block';
             editProfileForm.style.display = 'none';
 
-            console.log('=== FIN: Perfil actualizado exitosamente ===');
             Swal.fire({ icon: 'success', title: 'Perfil actualizado', text: data.message || 'Actualización exitosa', confirmButtonColor: '#1a1a1a' });
         })
         .catch(err => {
-            console.error('Error de conexión:', err);
             showLoading(false);
             Swal.fire({ icon: 'error', title: 'Error de conexión', text: err.message, confirmButtonColor: '#1a1a1a' });
         });
@@ -855,22 +1068,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // Validación del formulario de contraseña
     passwordForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        console.log('=== INICIO: Envío de formulario de cambio de contraseña ===');
 
         let isValid = true;
 
         // Validar campos requeridos
         const requiredFields = passwordForm.querySelectorAll('[required]');
-        console.log('Campos requeridos encontrados:', requiredFields.length);
 
         requiredFields.forEach(field => {
             if (!field.value.trim()) {
                 field.classList.add('is-invalid');
                 isValid = false;
-                console.warn('Campo vacío:', field.id);
             } else {
                 field.classList.remove('is-invalid');
-                console.log('Campo válido:', field.id);
             }
         });
 
@@ -878,19 +1087,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const passwordNueva = document.getElementById('password_nueva').value;
         const passwordConfirmar = document.getElementById('password_confirmar').value;
 
-        console.log('Longitud contraseña nueva:', passwordNueva.length);
-        console.log('Longitud contraseña confirmar:', passwordConfirmar.length);
-
         if (passwordNueva !== passwordConfirmar) {
             document.getElementById('password_confirmar').classList.add('is-invalid');
             isValid = false;
-            console.error('Las contraseñas no coinciden');
-        } else {
-            console.log('Las contraseñas coinciden');
         }
 
         if (!isValid) {
-            console.error('Validación fallida');
             Swal.fire({
                 icon: 'error',
                 title: 'Error de validación',
@@ -901,15 +1103,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         showLoading(true);
-        console.log('Cargando...');
 
         const payload = new URLSearchParams();
         payload.append('password_actual', document.getElementById('password_actual').value);
         payload.append('password_nueva', passwordNueva);
         payload.append('password_confirmar', passwordConfirmar);
-
-        console.log('Datos a enviar (sin mostrar contraseñas por seguridad)');
-        console.log('Enviando POST a: ../../controlador/Cliente/cambiar_contrasena.php');
 
         fetch('../../controlador/Cliente/cambiar_contrasena.php', {
             method: 'POST',
@@ -917,30 +1115,23 @@ document.addEventListener('DOMContentLoaded', function() {
             body: payload.toString()
         })
         .then(r => {
-            console.log('Respuesta recibida. Status:', r.status);
             return r.json();
         })
         .then(data => {
-            console.log('Datos JSON parseados:', data);
             showLoading(false);
 
             if (!data || !data.success) {
-                console.error('Error en respuesta:', data);
                 Swal.fire({ icon: 'error', title: 'Error', text: (data && data.message) ? data.message : 'No se pudo cambiar la contraseña', confirmButtonColor: '#1a1a1a' });
                 return;
             }
-
-            console.log('Cambio de contraseña exitoso. Actualizando UI...');
 
             profileDisplay.style.display = 'block';
             changePasswordForm.style.display = 'none';
             passwordForm.reset();
 
-            console.log('=== FIN: Contraseña cambiada exitosamente ===');
             Swal.fire({ icon: 'success', title: 'Contraseña cambiada', text: data.message || 'Actualización exitosa', confirmButtonColor: '#1a1a1a' });
         })
         .catch(err => {
-            console.error('Error de conexión:', err);
             showLoading(false);
             Swal.fire({ icon: 'error', title: 'Error de conexión', text: err.message, confirmButtonColor: '#1a1a1a' });
         });
@@ -948,27 +1139,20 @@ document.addEventListener('DOMContentLoaded', function() {
    
     // Cargar perfil al entrar a la sección perfil o al cargar
     function cargarPerfil() {
-        console.log('=== INICIO: Cargando perfil del usuario ===');
-        console.log('Enviando GET a: ../../controlador/Cliente/perfil_obtener.php');
 
         fetch('../../controlador/Cliente/perfil_obtener.php')
             .then(r => {
-                console.log('Respuesta recibida. Status:', r.status);
                 return r.json();
             })
             .then(data => {
-                console.log('Datos JSON parseados:', data);
 
                 if (!data || !data.success) {
-                    console.error('Error al obtener perfil:', data);
                     return;
                 }
 
                 const p = data.perfil || {};
-                console.log('Perfil obtenido:', p);
 
                 // Inputs de edición
-                console.log('Llenando inputs de edición...');
                 document.getElementById('nombres').value = p.nombres || '';
                 document.getElementById('apellidos').value = p.apellidos || '';
                 document.getElementById('perfil_email').value = p.correo_electronico || '';
@@ -981,7 +1165,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('perfil_fecha_nacimiento').value = p.fecha_nacimiento || '';
 
                 // Displays de lectura
-                console.log('Llenando displays de lectura...');
                 document.getElementById('displayNombres').textContent = p.nombres || '--';
                 document.getElementById('displayApellidos').textContent = p.apellidos || '--';
                 document.getElementById('displayEmail').textContent = p.correo_electronico || '--';
@@ -993,10 +1176,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('displayPais').textContent = p.pais || '--';
                 document.getElementById('displayFechaNacimiento').textContent = p.fecha_nacimiento ? new Date(p.fecha_nacimiento).toLocaleDateString('es-ES') : '--';
 
-                console.log('=== FIN: Perfil cargado exitosamente ===');
             })
             .catch(err => {
-                console.error('Error de conexión al cargar perfil:', err);
             });
     }
     // Carga inicial al abrir la página
@@ -1115,7 +1296,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Función para cargar garantías
     function cargarGarantias() {
-        console.log('Cargando garantías...');
         const warrantySection = document.querySelector('#garantias .warranty-section');
         const notificationsCard = document.querySelector('#garantias .card-body');
 
@@ -1128,7 +1308,6 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(r => r.json())
             .then(data => {
                 if (!data || !data.success) {
-                    console.error('Error al cargar garantías:', data);
                     if (warrantySection) {
                         warrantySection.innerHTML = '<h5><i class="fas fa-shield-alt"></i> Garantías Activas</h5><p>No se pudieron cargar las garantías.</p>';
                     }
@@ -1136,7 +1315,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
 
                 const garantias = data.garantias || [];
-                console.log('Garantías cargadas:', garantias);
 
                 // Renderizar garantías
                 let html = '<h5><i class="fas fa-shield-alt"></i> Garantías Activas</h5>';
@@ -1252,6 +1430,34 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize chat FAB visibility
     updateChatFabVisibility();
 
+    // Chat close button for mobile
+    const chatCloseBtn = document.getElementById('chatCloseBtn');
+    if (chatCloseBtn) {
+        chatCloseBtn.addEventListener('click', function() {
+            // Navigate to welcome section
+            menuItems.forEach(i => i.classList.remove('active'));
+            contentSections.forEach(section => section.classList.remove('active'));
+
+            const welcomeMenuItem = document.querySelector('.menu-item[data-section="welcome"]');
+            if (welcomeMenuItem) {
+                welcomeMenuItem.classList.add('active');
+            }
+
+            document.getElementById('welcome').classList.add('active');
+
+            // Update chat FAB visibility
+            updateChatFabVisibility();
+
+            // Close sidebar on mobile
+            if (window.innerWidth <= 992) {
+                sidebar.classList.remove('mobile-visible');
+                sidebarToggle.classList.remove('active');
+                sidebarOverlay.classList.remove('active');
+                mainContent.classList.remove('mobile-expanded');
+            }
+        });
+    }
+
     // Handle photo guide image modal
     const imageModal = document.getElementById('imageModal');
     if (imageModal) {
@@ -1272,5 +1478,213 @@ document.addEventListener('DOMContentLoaded', function() {
                 modalTitle.textContent = title;
             }
         });
+    }
+
+    // Funciones para gestión de piezas dinámicas
+    function inicializarPiezas() {
+        const agregarBtn = document.getElementById('agregarPiezaBtn');
+        if (agregarBtn) {
+            agregarBtn.addEventListener('click', agregarFilaPieza);
+        }
+        // Agregar una fila inicial vacía
+        agregarFilaPieza();
+    }
+
+    // Funciones para sistema de notificaciones
+    function inicializarNotificaciones() {
+        // Cargar notificaciones vistas desde localStorage
+        cargarNotificacionesVistas();
+
+        // Verificar notificaciones inmediatamente
+        verificarNotificaciones();
+
+        // Configurar verificación periódica cada 10 segundos
+        intervaloNotificaciones = setInterval(verificarNotificaciones, 10000);
+    }
+
+    function cargarNotificacionesVistas() {
+        const vistas = localStorage.getItem('notificacionesVistas');
+        if (vistas) {
+            notificacionesVistas = JSON.parse(vistas);
+        }
+    }
+
+    function guardarNotificacionesVistas() {
+        localStorage.setItem('notificacionesVistas', JSON.stringify(notificacionesVistas));
+    }
+
+    function verificarNotificaciones() {
+
+        // Buscar notificaciones de los últimos 7 días
+        const ultimaVerificacion = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+
+        const url = `../../controlador/Cliente/obtener_notificaciones.php?ultima_verificacion=${encodeURIComponent(ultimaVerificacion)}`;
+
+        fetch(url)
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+
+                if (data.success && data.notificaciones) {
+
+                    // Filtrar notificaciones no vistas
+                    const nuevasNotificaciones = data.notificaciones.filter(notif => !notificacionesVistas.includes(notif.id));
+
+                    // Separar mensajes de chat
+                    const mensajesChat = nuevasNotificaciones.filter(notif => notif.tipo === 'chat');
+
+                    // Actualizar contadores: notificaciones generales excluyendo chat
+                    contadorNotificaciones = nuevasNotificaciones.filter(notif => notif.tipo !== 'chat').length;
+                    contadorMensajesChat = mensajesChat.length;
+
+                    // Forzar actualización visual
+                    actualizarContadorNotificaciones();
+                    actualizarContadorMensajesChat();
+
+                    // No actualizar última verificación, mantener búsqueda de últimos 7 días
+
+                } else {
+                    // Resetear contadores si no hay notificaciones
+                    contadorNotificaciones = 0;
+                    contadorMensajesChat = 0;
+                    actualizarContadorNotificaciones();
+                    actualizarContadorMensajesChat();
+                }
+            })
+            .catch(error => {
+            });
+    }
+
+    function actualizarContadorNotificaciones() {
+        const badge = document.getElementById('notificationBadge');
+        const bell = document.getElementById('notificationBell');
+        if (badge) {
+            if (contadorNotificaciones > 0) {
+                badge.textContent = contadorNotificaciones > 99 ? '99+' : contadorNotificaciones.toString();
+                badge.style.display = 'inline-block';
+                badge.style.opacity = '1';
+                if (bell) bell.classList.add('has-notifications');
+            } else {
+                badge.textContent = '';
+                badge.style.display = 'none';
+                badge.style.opacity = '0';
+                if (bell) bell.classList.remove('has-notifications');
+            }
+        }
+    }
+
+    function actualizarContadorMensajesChat() {
+
+        // Actualizar badge del menú lateral
+        const menuBadge = document.getElementById('chatMenuBadge');
+        const menuItem = document.querySelector('.menu-item[data-section="chat-soporte"]');
+        if (menuBadge) {
+            if (contadorMensajesChat > 0) {
+                menuBadge.textContent = contadorMensajesChat > 99 ? '99+' : contadorMensajesChat.toString();
+                menuBadge.style.display = 'inline-block';
+                menuBadge.style.opacity = '1';
+                if (menuItem) menuItem.classList.add('has-chat-notifications');
+            } else {
+                menuBadge.textContent = '';
+                menuBadge.style.display = 'none';
+                menuBadge.style.opacity = '0';
+                if (menuItem) menuItem.classList.remove('has-chat-notifications');
+            }
+        }
+
+        // Actualizar badge del FAB
+        const fabBadge = document.getElementById('chatFabBadge');
+        const fab = document.getElementById('chatFab');
+        if (fabBadge) {
+            if (contadorMensajesChat > 0) {
+                fabBadge.textContent = contadorMensajesChat > 99 ? '99+' : contadorMensajesChat.toString();
+                fabBadge.style.display = 'inline-block';
+                fabBadge.style.opacity = '1';
+                if (fab) fab.classList.add('has-notifications');
+            } else {
+                fabBadge.textContent = '';
+                fabBadge.style.display = 'none';
+                fabBadge.style.opacity = '0';
+                if (fab) fab.classList.remove('has-notifications');
+            }
+        }
+    }
+
+
+    // Función para marcar mensajes de chat como leídos
+    function marcarMensajesChatComoLeidos() {
+        fetch('../../controlador/Cliente/chat_cliente_controller.php?action=marcarLeidos', {
+            method: 'POST'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Resetear contador de mensajes de chat
+                contadorMensajesChat = 0;
+                actualizarContadorMensajesChat();
+            }
+        })
+        .catch(error => {
+            console.error('Error al marcar mensajes como leídos:', error);
+        });
+    }
+
+    function agregarFilaPieza() {
+        const container = document.getElementById('piezasContainer');
+        if (!container) return;
+
+        const filaId = Date.now(); // ID único para la fila
+        const filaHTML = `
+            <div class="pieza-row d-flex gap-2 mb-2 align-items-end" data-id="${filaId}">
+                <div class="flex-shrink-0" style="width: 100px;">
+                    <label class="form-label small">Cantidad</label>
+                    <input type="number" class="form-control form-control-sm pieza-cantidad" placeholder="1" min="1" value="1">
+                </div>
+                <div class="flex-grow-1">
+                    <label class="form-label small">Nombre de la Pieza</label>
+                    <input type="text" class="form-control form-control-sm pieza-nombre" placeholder="Ej: tornillo, valero, etc.">
+                </div>
+                <div class="flex-grow-1">
+                    <label class="form-label small">Nota/Observación</label>
+                    <input type="text" class="form-control form-control-sm pieza-nota" placeholder="Opcional: estado, color, etc.">
+                </div>
+                <div class="flex-shrink-0">
+                    <button type="button" class="btn btn-outline-danger btn-sm remover-pieza" title="Remover pieza">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+
+        container.insertAdjacentHTML('beforeend', filaHTML);
+
+        // Agregar evento al botón de remover
+        const nuevaFila = container.lastElementChild;
+        const btnRemover = nuevaFila.querySelector('.remover-pieza');
+        btnRemover.addEventListener('click', function() {
+            nuevaFila.remove();
+        });
+    }
+
+    function obtenerPiezasCliente() {
+        const piezas = [];
+        const filas = document.querySelectorAll('.pieza-row');
+
+        filas.forEach(fila => {
+            const nombre = fila.querySelector('.pieza-nombre').value.trim();
+            const cantidad = parseInt(fila.querySelector('.pieza-cantidad').value) || 1;
+            const nota = fila.querySelector('.pieza-nota').value.trim();
+
+            if (nombre) { // Solo agregar si tiene nombre
+                piezas.push({
+                    nombre: nombre,
+                    cantidad: cantidad,
+                    nota: nota
+                });
+            }
+        });
+
+        return piezas;
     }
 });
