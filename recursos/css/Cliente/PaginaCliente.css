@@ -1642,6 +1642,40 @@ body {
     font-size: 1.2rem !important;
 }
 
+/* Contact Info Bar */
+.contact-info {
+    display: flex;
+    align-items: center;
+    gap: 19px; /* 0.5 cm aproximadamente */
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.contact-info span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.contact-info i {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+}
+
+.contact-info i.fa-envelope {
+    color: #ffcc00;
+}
+
+.contact-info i.fa-phone {
+    color: #28a745;
+}
+
+.contact-info i.fa-map-marker-alt {
+    color: #dc3545;
+}
+
 /* Responsive para requisitos */
 @media (max-width: 768px) {
     .requisitos-buttons {
@@ -1659,5 +1693,11 @@ body {
 
     .requisito-btn span {
         font-size: 0.85rem;
+    }
+
+    .contact-info {
+        flex-direction: column;
+        gap: 10px;
+        font-size: 0.8rem;
     }
 }

@@ -30,8 +30,8 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link rel="stylesheet" href="../../recursos/css/Cliente/PaginaCliente.css?v=136">
-    <link rel="stylesheet" href="../../recursos/css/Cliente/chat_test_cliente.css?v=136">
+    <link rel="stylesheet" href="../../recursos/css/Cliente/PaginaCliente.css?v=12237">
+    <link rel="stylesheet" href="../../recursos/css/Cliente/chat_test_cliente.css?v=13226">
 
     
     <!-- Estilos adicionales para el botón Actualizar (se integran con el proyecto) -->
@@ -176,7 +176,11 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
     <!-- Top Bar -->
     <div class="top-bar">
         <div class="top-bar-left">
-            <h4 class="mb-0 fw-bold"></h4>
+            <div class="contact-info">
+                <span><i class="fas fa-envelope"></i> hola@totalcarbon.com.mx</span>
+                <span><i class="fas fa-phone"></i> Contáctanos +52 248 226 3605</span>
+                <span><i class="fas fa-map-marker-alt"></i> San Martin Texmelucan, Puebla</span>
+            </div>
         </div>
         <div class="top-bar-right">
             <button type="button" class="btn btn-outline-primary btn-sm me-3" id="btnActualizar" title="Actualizar" aria-label="Actualizar página">
@@ -1191,7 +1195,7 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
     <!-- Scripts -->
 
     <script src="../../recursos/js/Cliente/PaginaCliente.js?v=1732762736"></script>
-    <script src="../../recursos/js/Cliente/FichasTecnicas.js?V=1732762737"></script>
+    <script src="../../recursos/js/Cliente/FichasTecnicas.js?v=999"></script>
     <script src="../../recursos/js/Cliente/ServiciosProceso.js?V=1732762738"></script>
     <script src="../../recursos/js/Cliente/chat_test_cliente.js?v=1732762739"></script>
 

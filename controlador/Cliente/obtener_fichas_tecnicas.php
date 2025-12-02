@@ -81,6 +81,9 @@ try {
                 c.creado_en,
                 c.actualizado_en,
                 c.reparacion_aceptada_cliente,
+                c.revision_camaras,
+                c.inspeccion_estetica,
+                c.empacado_salida,
                 COUNT(DISTINCT ci.id_imagen) as total_imagenes,
                 COUNT(DISTINCT cc.id_comentario) as total_comentarios
               FROM cotizaciones_cliente c

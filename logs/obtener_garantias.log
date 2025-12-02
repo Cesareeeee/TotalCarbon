@@ -3419,3 +3419,539 @@
 [2025-11-28 05:02:45] Garantías obtenidas: 7
 [2025-11-28 05:02:45] Garantías obtenidas exitosamente | Datos: [{"id_garantia":12,"tipo_garantia":"Extendida","cobertura":"Cobertura extendida para reparaci\u00f3n de fisura en bicicleta BENOTOO modelo FGHYJUI","fecha_inicio":"2025-11-14","fecha_fin":"2027-11-14","estado":"Activa","creado_en":"2025-11-13 23:59:19","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"45t6yui","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"},{"id_garantia":14,"tipo_garantia":"Est\u00e1ndar","cobertura":"La garantia ofece uan cosa bmuy buena","fecha_inicio":"2025-11-28","fecha_fin":"2026-11-28","estado":"Activa","creado_en":"2025-11-27 20:53:51","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"CANNONDALE","modelo_bicicleta":"FGHYJUI","zona_afectada":"CUADRO","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"},{"id_garantia":15,"tipo_garantia":"B\u00e1sica","cobertura":"VFFFFFFFFFFFFFFFFFFFFFF","fecha_inicio":"2025-11-28","fecha_fin":"2026-11-28","estado":"Activa","creado_en":"2025-11-27 21:55:17","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"ghjkl\u00f1","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"},{"id_garantia":16,"tipo_garantia":"Est\u00e1ndar","cobertura":"FFFFFFFFFFFFFFFFFFFFFFF","fecha_inicio":"2025-11-28","fecha_fin":"2026-11-28","estado":"Activa","creado_en":"2025-11-27 21:56:33","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"ghjkl\u00f1","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"},{"id_garantia":13,"tipo_garantia":"Premium","cobertura":"Cobertura premium de prueba","fecha_inicio":"2025-11-21","fecha_fin":"2026-11-21","estado":"Activa","creado_en":"2025-11-20 20:35:49","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"ghjkl\u00f1","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"},{"id_garantia":11,"tipo_garantia":"Estandar","cobertura":"Cobertura est\u00e1ndar para reparaci\u00f3n de fisura en bicicleta BENOTOO modelo FGHYJUI","fecha_inicio":"2025-11-14","fecha_fin":"2026-11-14","estado":"Activa","creado_en":"2025-11-13 23:47:57","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"45t6yui","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"},{"id_garantia":17,"tipo_garantia":"B\u00e1sica","cobertura":"DDDDDDDDEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE","fecha_inicio":"2025-11-28","fecha_fin":"2025-11-30","estado":"Activa","creado_en":"2025-11-27 21:57:19","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"ghjkl\u00f1","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"}]
 [2025-11-28 05:02:45] === FIN: Garantías obtenidas correctamente ===
+[2025-12-01 21:40:03] === INICIO: Solicitud de obtener garantías ===
+[2025-12-01 21:40:03] Conectando a la base de datos...
+[2025-12-01 21:40:03] Conexión exitosa. Preparando query...
+[2025-12-01 21:40:03] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              ORDER BY g.fecha_fin DESC
+[2025-12-01 21:40:03] Query preparada
+[2025-12-01 21:40:03] Query ejecutada
+[2025-12-01 21:40:03] Garantías obtenidas: 1
+[2025-12-01 21:40:03] Garantías obtenidas exitosamente | Datos: [{"id_garantia":19,"tipo_garantia":"B\u00e1sica","cobertura":"FRRRRRRRRRRRRRRRRRRRRR","fecha_inicio":"2025-11-14","fecha_fin":"2025-12-13","estado":"Activa","creado_en":"2025-11-27 22:32:06","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"ghjkl\u00f1","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"}]
+[2025-12-01 21:40:03] === FIN: Garantías obtenidas correctamente ===
+[2025-12-01 21:40:53] === INICIO: Solicitud de obtener garantías ===
+[2025-12-01 21:40:53] Conectando a la base de datos...
+[2025-12-01 21:40:53] Conexión exitosa. Preparando query...
+[2025-12-01 21:40:53] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              ORDER BY g.fecha_fin DESC
+[2025-12-01 21:40:53] Query preparada
+[2025-12-01 21:40:53] Query ejecutada
+[2025-12-01 21:40:53] Garantías obtenidas: 1
+[2025-12-01 21:40:53] Garantías obtenidas exitosamente | Datos: [{"id_garantia":19,"tipo_garantia":"B\u00e1sica","cobertura":"Esta garantia te cubre fallos en alguna rearacion que te haya fallado durante lso siguientes 3 mees ","fecha_inicio":"2025-11-14","fecha_fin":"2026-02-13","estado":null,"creado_en":"2025-11-27 22:32:06","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"ghjkl\u00f1","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"}]
+[2025-12-01 21:40:53] === FIN: Garantías obtenidas correctamente ===
+[2025-12-01 22:26:56] === INICIO: Solicitud de obtener garantías ===
+[2025-12-01 22:26:56] Conectando a la base de datos...
+[2025-12-01 22:26:56] Conexión exitosa. Preparando query...
+[2025-12-01 22:26:56] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              ORDER BY g.fecha_fin DESC
+[2025-12-01 22:26:56] Query preparada
+[2025-12-01 22:26:56] Query ejecutada
+[2025-12-01 22:26:56] Garantías obtenidas: 1
+[2025-12-01 22:26:56] Garantías obtenidas exitosamente | Datos: [{"id_garantia":19,"tipo_garantia":"B\u00e1sica","cobertura":"Esta garantia te cubre fallos en alguna rearacion que te haya fallado durante lso siguientes 3 mees ","fecha_inicio":"2025-11-14","fecha_fin":"2026-02-13","estado":null,"creado_en":"2025-11-27 22:32:06","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"ghjkl\u00f1","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"}]
+[2025-12-01 22:26:56] === FIN: Garantías obtenidas correctamente ===
+[2025-12-01 22:26:58] === INICIO: Solicitud de obtener garantías ===
+[2025-12-01 22:26:58] Conectando a la base de datos...
+[2025-12-01 22:26:58] Conexión exitosa. Preparando query...
+[2025-12-01 22:26:58] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              ORDER BY g.fecha_fin DESC
+[2025-12-01 22:26:58] Query preparada
+[2025-12-01 22:26:58] Query ejecutada
+[2025-12-01 22:26:58] Garantías obtenidas: 1
+[2025-12-01 22:26:58] Garantías obtenidas exitosamente | Datos: [{"id_garantia":19,"tipo_garantia":"B\u00e1sica","cobertura":"Esta garantia te cubre fallos en alguna rearacion que te haya fallado durante lso siguientes 3 mees ","fecha_inicio":"2025-11-14","fecha_fin":"2026-02-13","estado":null,"creado_en":"2025-11-27 22:32:06","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"ghjkl\u00f1","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"}]
+[2025-12-01 22:26:58] === FIN: Garantías obtenidas correctamente ===
+[2025-12-02 00:35:19] === INICIO: Solicitud de obtener garantías ===
+[2025-12-02 00:35:19] Conectando a la base de datos...
+[2025-12-02 00:35:19] Conexión exitosa. Preparando query...
+[2025-12-02 00:35:19] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              ORDER BY g.fecha_fin DESC
+[2025-12-02 00:35:19] Query preparada
+[2025-12-02 00:35:19] Query ejecutada
+[2025-12-02 00:35:19] Garantías obtenidas: 1
+[2025-12-02 00:35:19] Garantías obtenidas exitosamente | Datos: [{"id_garantia":19,"tipo_garantia":"B\u00e1sica","cobertura":"Esta garantia te cubre fallos en alguna rearacion que te haya fallado durante lso siguientes 3 mees ","fecha_inicio":"2025-11-14","fecha_fin":"2026-02-13","estado":null,"creado_en":"2025-11-27 22:32:06","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"ghjkl\u00f1","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"}]
+[2025-12-02 00:35:19] === FIN: Garantías obtenidas correctamente ===
+[2025-12-02 05:14:17] === INICIO: Solicitud de obtener garantías ===
+[2025-12-02 05:14:17] Conectando a la base de datos...
+[2025-12-02 05:14:17] Conexión exitosa. Preparando query...
+[2025-12-02 05:14:17] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              ORDER BY g.fecha_fin DESC
+[2025-12-02 05:14:17] Query preparada
+[2025-12-02 05:14:17] Query ejecutada
+[2025-12-02 05:14:17] Garantías obtenidas: 2
+[2025-12-02 05:14:17] Garantías obtenidas exitosamente | Datos: [{"id_garantia":20,"tipo_garantia":"B\u00e1sica","cobertura":"Cubre defectos en la reparaci\u00f3n por 3 meses","fecha_inicio":"2025-12-01","fecha_fin":"2026-03-01","estado":"Activa","creado_en":"2025-12-01 20:56:06","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"SPECIALIZED","modelo_bicicleta":"Epic EVO","zona_afectada":"Cuadro y horquilla","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":"Reparaci\u00f3n de fisuras en m\u00faltiples zonas con pintura parcial","nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"},{"id_garantia":19,"tipo_garantia":"B\u00e1sica","cobertura":"Esta garantia te cubre fallos en alguna rearacion que te haya fallado durante lso siguientes 3 mees ","fecha_inicio":"2025-11-14","fecha_fin":"2026-02-13","estado":null,"creado_en":"2025-11-27 22:32:06","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"ghjkl\u00f1","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"}]
+[2025-12-02 05:14:17] === FIN: Garantías obtenidas correctamente ===
+[2025-12-02 05:30:36] === INICIO: Solicitud de obtener garantías ===
+[2025-12-02 05:30:36] Conectando a la base de datos...
+[2025-12-02 05:30:36] Conexión exitosa. Preparando query...
+[2025-12-02 05:30:36] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              ORDER BY g.fecha_fin DESC
+[2025-12-02 05:30:36] Query preparada
+[2025-12-02 05:30:36] Query ejecutada
+[2025-12-02 05:30:36] Garantías obtenidas: 2
+[2025-12-02 05:30:36] Garantías obtenidas exitosamente | Datos: [{"id_garantia":20,"tipo_garantia":"B\u00e1sica","cobertura":"Cubre defectos en la reparaci\u00f3n por 3 meses","fecha_inicio":"2025-12-01","fecha_fin":"2026-03-01","estado":"Activa","creado_en":"2025-12-01 20:56:06","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"SPECIALIZED","modelo_bicicleta":"Epic EVO","zona_afectada":"Cuadro y horquilla","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":"Reparaci\u00f3n de fisuras en m\u00faltiples zonas con pintura parcial","nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"},{"id_garantia":19,"tipo_garantia":"B\u00e1sica","cobertura":"Esta garantia te cubre fallos en alguna rearacion que te haya fallado durante lso siguientes 3 mees ","fecha_inicio":"2025-11-14","fecha_fin":"2026-02-13","estado":null,"creado_en":"2025-11-27 22:32:06","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"ghjkl\u00f1","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"}]
+[2025-12-02 05:30:36] === FIN: Garantías obtenidas correctamente ===
+[2025-12-02 05:30:40] === INICIO: Solicitud de obtener garantías ===
+[2025-12-02 05:30:40] Conectando a la base de datos...
+[2025-12-02 05:30:40] Conexión exitosa. Preparando query...
+[2025-12-02 05:30:40] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              ORDER BY g.fecha_fin DESC
+[2025-12-02 05:30:40] Query preparada
+[2025-12-02 05:30:40] Query ejecutada
+[2025-12-02 05:30:40] Garantías obtenidas: 2
+[2025-12-02 05:30:40] Garantías obtenidas exitosamente | Datos: [{"id_garantia":20,"tipo_garantia":"B\u00e1sica","cobertura":"Cubre defectos en la reparaci\u00f3n por 3 meses","fecha_inicio":"2025-12-01","fecha_fin":"2026-03-01","estado":"Activa","creado_en":"2025-12-01 20:56:06","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"SPECIALIZED","modelo_bicicleta":"Epic EVO","zona_afectada":"Cuadro y horquilla","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":"Reparaci\u00f3n de fisuras en m\u00faltiples zonas con pintura parcial","nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"},{"id_garantia":19,"tipo_garantia":"B\u00e1sica","cobertura":"Esta garantia te cubre fallos en alguna rearacion que te haya fallado durante lso siguientes 3 mees ","fecha_inicio":"2025-11-14","fecha_fin":"2026-02-13","estado":null,"creado_en":"2025-11-27 22:32:06","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"ghjkl\u00f1","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"}]
+[2025-12-02 05:30:40] === FIN: Garantías obtenidas correctamente ===
+[2025-12-02 05:36:40] === INICIO: Solicitud de obtener garantías ===
+[2025-12-02 05:36:40] Usuario ID: 51
+[2025-12-02 05:36:40] Conectando a la base de datos...
+[2025-12-02 05:36:40] Conexión exitosa. Preparando query...
+[2025-12-02 05:36:40] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id_usuario
+              ORDER BY g.fecha_fin DESC
+[2025-12-02 05:36:40] Query preparada
+[2025-12-02 05:36:40] Query ejecutada
+[2025-12-02 05:36:40] Garantías obtenidas: 1
+[2025-12-02 05:36:40] Garantías obtenidas exitosamente | Datos: [{"id_garantia":20,"tipo_garantia":"B\u00e1sica","cobertura":"Cubre defectos en la reparaci\u00f3n por 3 meses","fecha_inicio":"2025-12-01","fecha_fin":"2026-03-01","estado":"Activa","creado_en":"2025-12-01 20:56:06","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"SPECIALIZED","modelo_bicicleta":"Epic EVO","zona_afectada":"Cuadro y horquilla","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":"Reparaci\u00f3n de fisuras en m\u00faltiples zonas con pintura parcial","nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"}]
+[2025-12-02 05:36:40] === FIN: Garantías obtenidas correctamente ===
+[2025-12-02 05:37:03] === INICIO: Solicitud de obtener garantías ===
+[2025-12-02 05:37:03] Usuario ID: 51
+[2025-12-02 05:37:03] Conectando a la base de datos...
+[2025-12-02 05:37:03] Conexión exitosa. Preparando query...
+[2025-12-02 05:37:03] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id_usuario
+              ORDER BY g.fecha_fin DESC
+[2025-12-02 05:37:03] Query preparada
+[2025-12-02 05:37:03] Query ejecutada
+[2025-12-02 05:37:03] Garantías obtenidas: 1
+[2025-12-02 05:37:03] Garantías obtenidas exitosamente | Datos: [{"id_garantia":20,"tipo_garantia":"B\u00e1sica","cobertura":"Cubre defectos en la reparaci\u00f3n por 3 meses","fecha_inicio":"2025-12-01","fecha_fin":"2026-03-01","estado":"Activa","creado_en":"2025-12-01 20:56:06","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"SPECIALIZED","modelo_bicicleta":"Epic EVO","zona_afectada":"Cuadro y horquilla","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":"Reparaci\u00f3n de fisuras en m\u00faltiples zonas con pintura parcial","nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"}]
+[2025-12-02 05:37:03] === FIN: Garantías obtenidas correctamente ===
+[2025-12-02 05:37:12] === INICIO: Solicitud de obtener garantías ===
+[2025-12-02 05:37:12] Usuario ID: 51
+[2025-12-02 05:37:12] Conectando a la base de datos...
+[2025-12-02 05:37:12] Conexión exitosa. Preparando query...
+[2025-12-02 05:37:12] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id_usuario
+              ORDER BY g.fecha_fin DESC
+[2025-12-02 05:37:12] Query preparada
+[2025-12-02 05:37:12] Query ejecutada
+[2025-12-02 05:37:12] Garantías obtenidas: 1
+[2025-12-02 05:37:12] Garantías obtenidas exitosamente | Datos: [{"id_garantia":20,"tipo_garantia":"B\u00e1sica","cobertura":"Cubre defectos en la reparaci\u00f3n por 3 meses","fecha_inicio":"2025-12-01","fecha_fin":"2026-03-01","estado":"Activa","creado_en":"2025-12-01 20:56:06","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"SPECIALIZED","modelo_bicicleta":"Epic EVO","zona_afectada":"Cuadro y horquilla","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":"Reparaci\u00f3n de fisuras en m\u00faltiples zonas con pintura parcial","nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"}]
+[2025-12-02 05:37:12] === FIN: Garantías obtenidas correctamente ===
+[2025-12-02 05:37:18] === INICIO: Solicitud de obtener garantías ===
+[2025-12-02 05:37:18] Usuario ID: 51
+[2025-12-02 05:37:18] Conectando a la base de datos...
+[2025-12-02 05:37:18] Conexión exitosa. Preparando query...
+[2025-12-02 05:37:18] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id_usuario
+              ORDER BY g.fecha_fin DESC
+[2025-12-02 05:37:18] Query preparada
+[2025-12-02 05:37:18] Query ejecutada
+[2025-12-02 05:37:18] Garantías obtenidas: 1
+[2025-12-02 05:37:18] Garantías obtenidas exitosamente | Datos: [{"id_garantia":20,"tipo_garantia":"B\u00e1sica","cobertura":"Cubre defectos en la reparaci\u00f3n por 3 meses","fecha_inicio":"2025-12-01","fecha_fin":"2026-03-01","estado":"Activa","creado_en":"2025-12-01 20:56:06","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"SPECIALIZED","modelo_bicicleta":"Epic EVO","zona_afectada":"Cuadro y horquilla","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":"Reparaci\u00f3n de fisuras en m\u00faltiples zonas con pintura parcial","nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"}]
+[2025-12-02 05:37:18] === FIN: Garantías obtenidas correctamente ===
+[2025-12-02 05:37:22] === INICIO: Solicitud de obtener garantías ===
+[2025-12-02 05:37:22] Usuario ID: 51
+[2025-12-02 05:37:22] Conectando a la base de datos...
+[2025-12-02 05:37:22] Conexión exitosa. Preparando query...
+[2025-12-02 05:37:22] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id_usuario
+              ORDER BY g.fecha_fin DESC
+[2025-12-02 05:37:22] Query preparada
+[2025-12-02 05:37:22] Query ejecutada
+[2025-12-02 05:37:22] Garantías obtenidas: 1
+[2025-12-02 05:37:22] Garantías obtenidas exitosamente | Datos: [{"id_garantia":20,"tipo_garantia":"B\u00e1sica","cobertura":"Cubre defectos en la reparaci\u00f3n por 3 meses","fecha_inicio":"2025-12-01","fecha_fin":"2026-03-01","estado":"Activa","creado_en":"2025-12-01 20:56:06","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"SPECIALIZED","modelo_bicicleta":"Epic EVO","zona_afectada":"Cuadro y horquilla","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":"Reparaci\u00f3n de fisuras en m\u00faltiples zonas con pintura parcial","nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"}]
+[2025-12-02 05:37:22] === FIN: Garantías obtenidas correctamente ===
+[2025-12-02 05:39:18] === INICIO: Solicitud de obtener garantías ===
+[2025-12-02 05:39:18] Usuario ID: 51
+[2025-12-02 05:39:18] Conectando a la base de datos...
+[2025-12-02 05:39:18] Conexión exitosa. Preparando query...
+[2025-12-02 05:39:18] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id_usuario
+              ORDER BY g.fecha_fin DESC
+[2025-12-02 05:39:18] Query preparada
+[2025-12-02 05:39:18] Query ejecutada
+[2025-12-02 05:39:18] Garantías obtenidas: 1
+[2025-12-02 05:39:18] Garantías obtenidas exitosamente | Datos: [{"id_garantia":20,"tipo_garantia":"B\u00e1sica","cobertura":"Cubre defectos en la reparaci\u00f3n por 3 meses","fecha_inicio":"2025-12-01","fecha_fin":"2026-03-01","estado":"activa","creado_en":"2025-12-01 20:56:06","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"SPECIALIZED","modelo_bicicleta":"Epic EVO","zona_afectada":"Cuadro y horquilla","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":"Reparaci\u00f3n de fisuras en m\u00faltiples zonas con pintura parcial","nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"}]
+[2025-12-02 05:39:18] === FIN: Garantías obtenidas correctamente ===
+[2025-12-02 05:39:20] === INICIO: Solicitud de obtener garantías ===
+[2025-12-02 05:39:20] Usuario ID: 51
+[2025-12-02 05:39:20] Conectando a la base de datos...
+[2025-12-02 05:39:20] Conexión exitosa. Preparando query...
+[2025-12-02 05:39:20] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              WHERE g.id_usuario = :id_usuario
+              ORDER BY g.fecha_fin DESC
+[2025-12-02 05:39:20] Query preparada
+[2025-12-02 05:39:20] Query ejecutada
+[2025-12-02 05:39:20] Garantías obtenidas: 1
+[2025-12-02 05:39:20] Garantías obtenidas exitosamente | Datos: [{"id_garantia":20,"tipo_garantia":"B\u00e1sica","cobertura":"Cubre defectos en la reparaci\u00f3n por 3 meses","fecha_inicio":"2025-12-01","fecha_fin":"2026-03-01","estado":"activa","creado_en":"2025-12-01 20:56:06","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"SPECIALIZED","modelo_bicicleta":"Epic EVO","zona_afectada":"Cuadro y horquilla","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":"Reparaci\u00f3n de fisuras en m\u00faltiples zonas con pintura parcial","nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"}]
+[2025-12-02 05:39:20] === FIN: Garantías obtenidas correctamente ===
+[2025-12-02 05:40:01] === INICIO: Solicitud de obtener garantías ===
+[2025-12-02 05:40:01] Conectando a la base de datos...
+[2025-12-02 05:40:01] Conexión exitosa. Preparando query...
+[2025-12-02 05:40:01] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              ORDER BY g.fecha_fin DESC
+[2025-12-02 05:40:01] Query preparada
+[2025-12-02 05:40:01] Query ejecutada
+[2025-12-02 05:40:01] Garantías obtenidas: 2
+[2025-12-02 05:40:01] Garantías obtenidas exitosamente | Datos: [{"id_garantia":20,"tipo_garantia":"B\u00e1sica","cobertura":"Cubre defectos en la reparaci\u00f3n por 3 meses","fecha_inicio":"2025-12-01","fecha_fin":"2026-03-01","estado":"activa","creado_en":"2025-12-01 20:56:06","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"SPECIALIZED","modelo_bicicleta":"Epic EVO","zona_afectada":"Cuadro y horquilla","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":"Reparaci\u00f3n de fisuras en m\u00faltiples zonas con pintura parcial","nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"},{"id_garantia":19,"tipo_garantia":"B\u00e1sica","cobertura":"Esta garantia te cubre fallos en alguna rearacion que te haya fallado durante lso siguientes 3 mees ","fecha_inicio":"2025-11-14","fecha_fin":"2026-02-13","estado":"activa","creado_en":"2025-11-27 22:32:06","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"ghjkl\u00f1","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"}]
+[2025-12-02 05:40:01] === FIN: Garantías obtenidas correctamente ===
+[2025-12-02 05:40:20] === INICIO: Solicitud de obtener garantías ===
+[2025-12-02 05:40:20] Conectando a la base de datos...
+[2025-12-02 05:40:20] Conexión exitosa. Preparando query...
+[2025-12-02 05:40:20] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              ORDER BY g.fecha_fin DESC
+[2025-12-02 05:40:20] Query preparada
+[2025-12-02 05:40:20] Query ejecutada
+[2025-12-02 05:40:20] Garantías obtenidas: 2
+[2025-12-02 05:40:20] Garantías obtenidas exitosamente | Datos: [{"id_garantia":20,"tipo_garantia":"B\u00e1sica","cobertura":"Cubre defectos en la reparaci\u00f3n por 3 meses","fecha_inicio":"2025-12-01","fecha_fin":"2026-03-01","estado":"activa","creado_en":"2025-12-01 20:56:06","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"SPECIALIZED","modelo_bicicleta":"Epic EVO","zona_afectada":"Cuadro y horquilla","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":"Reparaci\u00f3n de fisuras en m\u00faltiples zonas con pintura parcial","nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"},{"id_garantia":19,"tipo_garantia":"B\u00e1sica","cobertura":"Esta garantia te cubre fallos en alguna rearacion que te haya fallado durante lso siguientes 3 mees ","fecha_inicio":"2025-11-14","fecha_fin":"2026-02-13","estado":"cancelada","creado_en":"2025-11-27 22:32:06","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"ghjkl\u00f1","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"}]
+[2025-12-02 05:40:20] === FIN: Garantías obtenidas correctamente ===
+[2025-12-02 05:48:00] === INICIO: Solicitud de obtener garantías ===
+[2025-12-02 05:48:00] Conectando a la base de datos...
+[2025-12-02 05:48:00] Conexión exitosa. Preparando query...
+[2025-12-02 05:48:00] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              ORDER BY g.fecha_fin DESC
+[2025-12-02 05:48:00] Query preparada
+[2025-12-02 05:48:00] Query ejecutada
+[2025-12-02 05:48:00] Garantías obtenidas: 2
+[2025-12-02 05:48:00] Garantías obtenidas exitosamente | Datos: [{"id_garantia":20,"tipo_garantia":"B\u00e1sica","cobertura":"Cubre defectos en la reparaci\u00f3n por 3 meses","fecha_inicio":"2025-12-01","fecha_fin":"2026-03-01","estado":"activa","creado_en":"2025-12-01 20:56:06","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"SPECIALIZED","modelo_bicicleta":"Epic EVO","zona_afectada":"Cuadro y horquilla","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":"Reparaci\u00f3n de fisuras en m\u00faltiples zonas con pintura parcial","nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"},{"id_garantia":19,"tipo_garantia":"B\u00e1sica","cobertura":"Esta garantia te cubre fallos en alguna rearacion que te haya fallado durante lso siguientes 3 mees ","fecha_inicio":"2025-11-14","fecha_fin":"2026-02-13","estado":"cancelada","creado_en":"2025-11-27 22:32:06","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"ghjkl\u00f1","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"}]
+[2025-12-02 05:48:00] === FIN: Garantías obtenidas correctamente ===
