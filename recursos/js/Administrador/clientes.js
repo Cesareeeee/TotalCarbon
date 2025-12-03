@@ -3,6 +3,33 @@ let arregloClientes = [];
 let clienteActual = null;
 let ordenClientes = 'desc'; // 'desc' para más nuevos primero, 'asc' para más viejos primero
 
+// Funciones de modales
+function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    modal.classList.add('active');
+}
+
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    modal.classList.remove('active');
+    clearForm(modalId);
+    clienteActual = null;
+}
+
+function clearForm(modalId) {
+    const form = document.querySelector(`#${modalId} form`);
+    if (form) {
+        form.reset();
+        // Limpiar errores
+        form.querySelectorAll('.form-control').forEach(input => {
+            input.classList.remove('error');
+        });
+        form.querySelectorAll('.error-message').forEach(error => {
+            error.classList.remove('show');
+        });
+    }
+}
+
 // Funciones de inicialización
 async function initializeClientes() {
     await loadClientes();
@@ -12,9 +39,51 @@ async function initializeClientes() {
 async function loadClientes() {
     try {
         const response = await fetch(`../../controlador/Administrador/clientes_controller.php?action=getClientes&order=${ordenClientes}`);
+        if (!response.ok) {
+            throw new Error('Error en la respuesta del servidor');
+        }
         arregloClientes = await response.json();
 
+        if (!Array.isArray(arregloClientes)) {
+            arregloClientes = [];
+        }
+
+        // Crear tabla si no existe
+        let tableContainer = document.getElementById('clientesTable');
+        if (!tableContainer) {
+            console.error('Contenedor clientesTable no encontrado');
+            return;
+        }
+
+        // Limpiar contenedor
+        tableContainer.innerHTML = '';
+
+        // Crear estructura de tabla
+        const table = document.createElement('table');
+        table.className = 'data-table';
+        table.innerHTML = `
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Cliente</th>
+                    <th>Teléfono</th>
+                    <th>Ubicación</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="clientesTableBody">
+            </tbody>
+        `;
+
+        tableContainer.appendChild(table);
+
         const tbody = document.getElementById('clientesTableBody');
+        if (!tbody) {
+            console.error('No se pudo crear el tbody');
+            return;
+        }
+
         tbody.innerHTML = '';
 
         arregloClientes.forEach(cliente => {
@@ -73,9 +142,7 @@ function createClienteRow(cliente) {
                 <button class="action-btn" onclick="viewServiciosCliente(${cliente.id_usuario})" title="Ver servicios">
                     <i class="fas fa-tools"></i>
                 </button>
-                <button class="action-btn" onclick="editCliente(${cliente.id_usuario})" title="Editar">
-                    <i class="fas fa-edit"></i>
-                </button>
+
                 <button class="action-btn delete" onclick="deleteCliente(${cliente.id_usuario})" title="Eliminar">
                     <i class="fas fa-trash"></i>
                 </button>
@@ -98,59 +165,6 @@ function closeClienteModal() {
 }
 
 // Funciones de clientes
-async function editCliente(id) {
-    try {
-        const response = await fetch(`../../controlador/Administrador/clientes_controller.php?action=getCliente&id=${id}`);
-        const cliente = await response.json();
-
-        if (!cliente) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'Cliente no encontrado.',
-                confirmButtonColor: '#1a1a1a'
-            });
-            return;
-        }
-
-        clienteActual = cliente;
-
-        // Llenar formulario
-        const nombres = document.getElementById('nombres');
-        const apellidos = document.getElementById('apellidos');
-        const correo = document.getElementById('correo');
-        const telefono = document.getElementById('telefono');
-        const direccion = document.getElementById('direccion');
-        const ciudad = document.getElementById('ciudad');
-        const estado = document.getElementById('estado');
-        const estadoUsuario = document.getElementById('estado_usuario');
-
-        if (nombres) nombres.value = cliente.nombres;
-        if (apellidos) apellidos.value = cliente.apellidos;
-        if (correo) correo.value = cliente.correo_electronico;
-        if (telefono) telefono.value = cliente.numero_telefono || '';
-        if (direccion) direccion.value = cliente.direccion || '';
-        if (ciudad) ciudad.value = cliente.ciudad || '';
-        if (estado) estado.value = cliente.estado || '';
-        if (estadoUsuario) estadoUsuario.value = cliente.estado_usuario;
-
-        // Limpiar campos de contraseña para edición
-        const contrasena = document.getElementById('contrasena');
-        const confirmarContrasena = document.getElementById('confirmar_contrasena');
-        if (contrasena) contrasena.value = '';
-        if (confirmarContrasena) confirmarContrasena.value = '';
-
-        openClienteModal();
-    } catch (error) {
-        console.error('Error fetching cliente:', error);
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'No se pudo cargar la información del cliente.',
-            confirmButtonColor: '#1a1a1a'
-        });
-    }
-}
 
 async function saveCliente() {
     if (!validateClienteForm()) {
@@ -316,9 +330,15 @@ function validateClienteForm() {
         isValid = false;
     }
 
-    // Validar contraseña (solo para nuevos clientes)
-    if (contrasena && contrasena.value.trim()) {
-        if (contrasena.value.length < 6) {
+    // Validar contraseña (requerida para nuevos clientes)
+    if (!clienteActual) {
+        // Nuevo cliente: contraseña requerida
+        if (!contrasena || !contrasena.value.trim()) {
+            contrasena.classList.add('error');
+            contrasena.nextElementSibling.classList.add('show');
+            contrasena.nextElementSibling.textContent = 'La contraseña es requerida para nuevos clientes';
+            isValid = false;
+        } else if (contrasena.value.length < 6) {
             contrasena.classList.add('error');
             contrasena.nextElementSibling.classList.add('show');
             contrasena.nextElementSibling.textContent = 'La contraseña debe tener al menos 6 caracteres';
@@ -333,6 +353,26 @@ function validateClienteForm() {
             confirmarContrasena.nextElementSibling.classList.add('show');
             confirmarContrasena.nextElementSibling.textContent = 'Las contraseñas no coinciden';
             isValid = false;
+        }
+    } else {
+        // Cliente existente: contraseña opcional
+        if (contrasena && contrasena.value.trim()) {
+            if (contrasena.value.length < 6) {
+                contrasena.classList.add('error');
+                contrasena.nextElementSibling.classList.add('show');
+                contrasena.nextElementSibling.textContent = 'La contraseña debe tener al menos 6 caracteres';
+                isValid = false;
+            } else if (!confirmarContrasena || !confirmarContrasena.value.trim()) {
+                confirmarContrasena.classList.add('error');
+                confirmarContrasena.nextElementSibling.classList.add('show');
+                confirmarContrasena.nextElementSibling.textContent = 'Debe confirmar la contraseña';
+                isValid = false;
+            } else if (contrasena.value !== confirmarContrasena.value) {
+                confirmarContrasena.classList.add('error');
+                confirmarContrasena.nextElementSibling.classList.add('show');
+                confirmarContrasena.nextElementSibling.textContent = 'Las contraseñas no coinciden';
+                isValid = false;
+            }
         }
     }
 
@@ -631,7 +671,7 @@ function exportToExcelClientes() {
 }
 
 // Inicializar cuando se carga la página
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Solo inicializar si estamos en la sección de clientes
     if (document.getElementById('clientes-section')) {
         initializeClientes();

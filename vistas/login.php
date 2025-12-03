@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     
     <!-- CSS Personalizado -->
-    <link rel="stylesheet" href="../recursos/css/login.css?v=3222461">
+    <link rel="stylesheet" href="../recursos/css/login.css?v=3222462">
     
     <!-- FAVICON -->
     <link rel="icon" href="../recursos/img/image.png">
@@ -191,6 +191,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <!-- JS Personalizado -->
-    <script src="../recursos/js/login.js?v=1732762735"></script>
+    <script src="../recursos/js/login.js?v=1732762736"></script>
 </body>
 </html>

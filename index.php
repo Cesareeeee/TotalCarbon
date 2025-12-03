@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
     
     <!-- CSS Personalizado -->
-    <link rel="stylesheet" href="presentacion/css/presentacion.css?v=367898764567">
+    <link rel="stylesheet" href="presentacion/css/presentacion.css?v=367898764571">
         
     <!-- FAVICON -->
     <link rel="icon" href="presentacion/assets/image.png">
@@ -41,25 +41,52 @@
             <i class="fab fa-whatsapp"></i>
         </a>
         <button class="floating-btn chatbot-btn" id="chatbotBtn" title="Chatbot">
-            <i class="fas fa-comments"></i>
+            <i class="fas fa-robot"></i>
         </button>
     </div>
 
     <!-- Chatbot Modal -->
     <div class="chatbot-modal" id="chatbotModal">
         <div class="chatbot-header">
-            <h4>Asistente Virtual</h4>
-            <button class="chatbot-close" id="chatbotClose">
-                <i class="fas fa-times"></i>
-            </button>
+            <h4><i class="fas fa-robot"></i> Asistente Virtual</h4>
+            <div class="header-buttons">
+                <button class="chatbot-reset" id="chatbotReset" title="Reiniciar chat">
+                    <i class="fas fa-refresh"></i>
+                </button>
+                <button class="chatbot-close" id="chatbotClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
         </div>
         <div class="chatbot-body">
-            <div class="chatbot-avatar">
-                <i class="fas fa-robot"></i>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot-message">
+                    <div class="message-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        <p>¡Hola! Soy el asistente virtual de Total Carbon. ¿En qué puedo ayudarte?</p>
+                    </div>
+                </div>
             </div>
-            <h5>CHATBOT</h5>
-            <p>AQUI TIENE QUE IR EL CHATBOT.</p>
-            <p><small>PROXIMAMNETE.</small></p>
+            <div class="chat-input">
+                <div class="quick-questions">
+                    <button class="question-btn" data-question="servicios">¿Qué servicios ofrecen?</button>
+                    <button class="question-btn" data-question="cotizaciones">¿Cómo cotizan?</button>
+                    <button class="question-btn" data-question="tiempos">¿Cuánto tardan?</button>
+                    <button class="question-btn" data-question="garantia">¿Tienen garantía?</button>
+                    <button class="question-btn" data-question="precios">¿Cuánto cuesta?</button>
+                    <button class="question-btn" data-question="envio">¿Cómo envío mi pieza?</button>
+                    <button class="question-btn" data-question="trabajos">Ver trabajos realizados</button>
+                    <button class="question-btn" data-question="contacto">Información de contacto</button>
+                </div>
+                <div class="message-input">
+                    <input type="text" id="messageInput" placeholder="Escribe tu mensaje..." maxlength="200">
+                    <button id="sendMessage" class="send-btn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -530,6 +557,6 @@ ciclismo. .
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
     <!-- JS Personalizado -->
-    <script src="presentacion/js/presentacion.js?v=6233564"></script>
+    <script src="presentacion/js/presentacion.js?v=6233570"></script>
 </body>
 </html>

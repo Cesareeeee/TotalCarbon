@@ -6600,3 +6600,873 @@
 [2025-12-02 05:54:34] Query ejecutada
 [2025-12-02 05:54:34] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
 [2025-12-02 05:54:34] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:01:52] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:01:52] Usuario ID: 51
+[2025-12-02 06:01:52] Intentando conectar a la base de datos...
+[2025-12-02 06:01:52] Usando conexión PDO directa
+[2025-12-02 06:01:52] Conexión exitosa. Preparando query...
+[2025-12-02 06:01:52] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:01:52] Query preparada
+[2025-12-02 06:01:52] Query ejecutada
+[2025-12-02 06:01:52] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:01:52] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:01:52] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:01:52] Usuario ID: 51
+[2025-12-02 06:01:52] Intentando conectar a la base de datos...
+[2025-12-02 06:01:52] Usando conexión PDO directa
+[2025-12-02 06:01:52] Conexión exitosa. Preparando query...
+[2025-12-02 06:01:52] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:01:52] Query preparada
+[2025-12-02 06:01:52] Query ejecutada
+[2025-12-02 06:01:52] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:01:52] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:02:01] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:02:01] Usuario ID: 51
+[2025-12-02 06:02:01] Intentando conectar a la base de datos...
+[2025-12-02 06:02:01] Usando conexión PDO directa
+[2025-12-02 06:02:01] Conexión exitosa. Preparando query...
+[2025-12-02 06:02:01] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:02:01] Query preparada
+[2025-12-02 06:02:01] Query ejecutada
+[2025-12-02 06:02:01] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:02:01] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:02:02] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:02:02] Usuario ID: 51
+[2025-12-02 06:02:02] Intentando conectar a la base de datos...
+[2025-12-02 06:02:02] Usando conexión PDO directa
+[2025-12-02 06:02:02] Conexión exitosa. Preparando query...
+[2025-12-02 06:02:02] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:02:02] Query preparada
+[2025-12-02 06:02:02] Query ejecutada
+[2025-12-02 06:02:02] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:02:02] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:02:03] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:02:03] Usuario ID: 51
+[2025-12-02 06:02:03] Intentando conectar a la base de datos...
+[2025-12-02 06:02:03] Usando conexión PDO directa
+[2025-12-02 06:02:03] Conexión exitosa. Preparando query...
+[2025-12-02 06:02:03] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:02:03] Query preparada
+[2025-12-02 06:02:03] Query ejecutada
+[2025-12-02 06:02:03] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:02:03] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:02:36] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:02:36] Usuario ID: 51
+[2025-12-02 06:02:36] Intentando conectar a la base de datos...
+[2025-12-02 06:02:36] Usando conexión PDO directa
+[2025-12-02 06:02:36] Conexión exitosa. Preparando query...
+[2025-12-02 06:02:36] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:02:36] Query preparada
+[2025-12-02 06:02:36] Query ejecutada
+[2025-12-02 06:02:36] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:02:36] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:03:06] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:03:06] Usuario ID: 51
+[2025-12-02 06:03:06] Intentando conectar a la base de datos...
+[2025-12-02 06:03:06] Usando conexión PDO directa
+[2025-12-02 06:03:06] Conexión exitosa. Preparando query...
+[2025-12-02 06:03:06] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:03:06] Query preparada
+[2025-12-02 06:03:06] Query ejecutada
+[2025-12-02 06:03:06] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:03:06] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:03:33] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:03:33] Usuario ID: 51
+[2025-12-02 06:03:33] Intentando conectar a la base de datos...
+[2025-12-02 06:03:33] Usando conexión PDO directa
+[2025-12-02 06:03:33] Conexión exitosa. Preparando query...
+[2025-12-02 06:03:33] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:03:33] Query preparada
+[2025-12-02 06:03:33] Query ejecutada
+[2025-12-02 06:03:33] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:03:33] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:04:30] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:04:30] Usuario ID: 51
+[2025-12-02 06:04:30] Intentando conectar a la base de datos...
+[2025-12-02 06:04:30] Usando conexión PDO directa
+[2025-12-02 06:04:30] Conexión exitosa. Preparando query...
+[2025-12-02 06:04:30] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:04:30] Query preparada
+[2025-12-02 06:04:30] Query ejecutada
+[2025-12-02 06:04:30] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:04:30] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:05:25] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:05:25] Usuario ID: 51
+[2025-12-02 06:05:25] Intentando conectar a la base de datos...
+[2025-12-02 06:05:25] Usando conexión PDO directa
+[2025-12-02 06:05:25] Conexión exitosa. Preparando query...
+[2025-12-02 06:05:25] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:05:25] Query preparada
+[2025-12-02 06:05:25] Query ejecutada
+[2025-12-02 06:05:25] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:05:25] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:06:05] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:06:05] Usuario ID: 51
+[2025-12-02 06:06:05] Intentando conectar a la base de datos...
+[2025-12-02 06:06:05] Usando conexión PDO directa
+[2025-12-02 06:06:05] Conexión exitosa. Preparando query...
+[2025-12-02 06:06:05] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:06:05] Query preparada
+[2025-12-02 06:06:05] Query ejecutada
+[2025-12-02 06:06:05] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:06:05] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:10:34] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:10:34] Usuario ID: 51
+[2025-12-02 06:10:34] Intentando conectar a la base de datos...
+[2025-12-02 06:10:34] Usando conexión PDO directa
+[2025-12-02 06:10:34] Conexión exitosa. Preparando query...
+[2025-12-02 06:10:34] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:10:34] Query preparada
+[2025-12-02 06:10:34] Query ejecutada
+[2025-12-02 06:10:34] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:10:34] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:13:10] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:13:10] Usuario ID: 51
+[2025-12-02 06:13:10] Intentando conectar a la base de datos...
+[2025-12-02 06:13:10] Usando conexión PDO directa
+[2025-12-02 06:13:10] Conexión exitosa. Preparando query...
+[2025-12-02 06:13:10] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:13:10] Query preparada
+[2025-12-02 06:13:10] Query ejecutada
+[2025-12-02 06:13:10] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:13:10] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:14:48] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:14:48] Usuario ID: 51
+[2025-12-02 06:14:48] Intentando conectar a la base de datos...
+[2025-12-02 06:14:48] Usando conexión PDO directa
+[2025-12-02 06:14:48] Conexión exitosa. Preparando query...
+[2025-12-02 06:14:48] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:14:48] Query preparada
+[2025-12-02 06:14:48] Query ejecutada
+[2025-12-02 06:14:48] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:14:48] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:15:32] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:15:32] Usuario ID: 51
+[2025-12-02 06:15:32] Intentando conectar a la base de datos...
+[2025-12-02 06:15:32] Usando conexión PDO directa
+[2025-12-02 06:15:32] Conexión exitosa. Preparando query...
+[2025-12-02 06:15:32] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:15:32] Query preparada
+[2025-12-02 06:15:32] Query ejecutada
+[2025-12-02 06:15:32] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:15:32] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:15:39] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:15:39] Usuario ID: 51
+[2025-12-02 06:15:39] Intentando conectar a la base de datos...
+[2025-12-02 06:15:39] Usando conexión PDO directa
+[2025-12-02 06:15:39] Conexión exitosa. Preparando query...
+[2025-12-02 06:15:39] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:15:39] Query preparada
+[2025-12-02 06:15:39] Query ejecutada
+[2025-12-02 06:15:39] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:15:39] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:17:03] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:17:03] Usuario ID: 51
+[2025-12-02 06:17:03] Intentando conectar a la base de datos...
+[2025-12-02 06:17:03] Usando conexión PDO directa
+[2025-12-02 06:17:03] Conexión exitosa. Preparando query...
+[2025-12-02 06:17:03] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:17:03] Query preparada
+[2025-12-02 06:17:03] Query ejecutada
+[2025-12-02 06:17:03] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:17:03] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:17:31] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:17:31] Usuario ID: 51
+[2025-12-02 06:17:31] Intentando conectar a la base de datos...
+[2025-12-02 06:17:31] Usando conexión PDO directa
+[2025-12-02 06:17:31] Conexión exitosa. Preparando query...
+[2025-12-02 06:17:31] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:17:31] Query preparada
+[2025-12-02 06:17:31] Query ejecutada
+[2025-12-02 06:17:31] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:17:31] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:17:34] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:17:34] Usuario ID: 51
+[2025-12-02 06:17:34] Intentando conectar a la base de datos...
+[2025-12-02 06:17:34] Usando conexión PDO directa
+[2025-12-02 06:17:34] Conexión exitosa. Preparando query...
+[2025-12-02 06:17:34] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:17:34] Query preparada
+[2025-12-02 06:17:34] Query ejecutada
+[2025-12-02 06:17:34] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:17:34] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:20:27] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:20:27] Usuario ID: 51
+[2025-12-02 06:20:27] Intentando conectar a la base de datos...
+[2025-12-02 06:20:27] Usando conexión PDO directa
+[2025-12-02 06:20:27] Conexión exitosa. Preparando query...
+[2025-12-02 06:20:27] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:20:27] Query preparada
+[2025-12-02 06:20:27] Query ejecutada
+[2025-12-02 06:20:27] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:20:27] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:20:29] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:20:29] Usuario ID: 51
+[2025-12-02 06:20:29] Intentando conectar a la base de datos...
+[2025-12-02 06:20:29] Usando conexión PDO directa
+[2025-12-02 06:20:29] Conexión exitosa. Preparando query...
+[2025-12-02 06:20:29] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:20:29] Query preparada
+[2025-12-02 06:20:29] Query ejecutada
+[2025-12-02 06:20:29] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:20:29] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:20:32] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:20:32] Usuario ID: 51
+[2025-12-02 06:20:32] Intentando conectar a la base de datos...
+[2025-12-02 06:20:32] Usando conexión PDO directa
+[2025-12-02 06:20:32] Conexión exitosa. Preparando query...
+[2025-12-02 06:20:32] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:20:32] Query preparada
+[2025-12-02 06:20:32] Query ejecutada
+[2025-12-02 06:20:32] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:20:32] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:20:35] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:20:35] Usuario ID: 51
+[2025-12-02 06:20:35] Intentando conectar a la base de datos...
+[2025-12-02 06:20:35] Usando conexión PDO directa
+[2025-12-02 06:20:35] Conexión exitosa. Preparando query...
+[2025-12-02 06:20:35] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:20:35] Query preparada
+[2025-12-02 06:20:35] Query ejecutada
+[2025-12-02 06:20:35] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:20:35] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:20:45] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:20:45] Usuario ID: 51
+[2025-12-02 06:20:45] Intentando conectar a la base de datos...
+[2025-12-02 06:20:45] Usando conexión PDO directa
+[2025-12-02 06:20:45] Conexión exitosa. Preparando query...
+[2025-12-02 06:20:45] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:20:45] Query preparada
+[2025-12-02 06:20:45] Query ejecutada
+[2025-12-02 06:20:45] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:20:45] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:21:19] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:21:19] Usuario ID: 51
+[2025-12-02 06:21:19] Intentando conectar a la base de datos...
+[2025-12-02 06:21:19] Usando conexión PDO directa
+[2025-12-02 06:21:19] Conexión exitosa. Preparando query...
+[2025-12-02 06:21:19] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:21:19] Query preparada
+[2025-12-02 06:21:19] Query ejecutada
+[2025-12-02 06:21:19] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:21:19] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:22:12] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:22:12] Usuario ID: 51
+[2025-12-02 06:22:12] Intentando conectar a la base de datos...
+[2025-12-02 06:22:12] Usando conexión PDO directa
+[2025-12-02 06:22:12] Conexión exitosa. Preparando query...
+[2025-12-02 06:22:12] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:22:12] Query preparada
+[2025-12-02 06:22:12] Query ejecutada
+[2025-12-02 06:22:12] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:22:12] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:24:38] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:24:38] Usuario ID: 51
+[2025-12-02 06:24:38] Intentando conectar a la base de datos...
+[2025-12-02 06:24:38] Usando conexión PDO directa
+[2025-12-02 06:24:38] Conexión exitosa. Preparando query...
+[2025-12-02 06:24:38] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:24:38] Query preparada
+[2025-12-02 06:24:38] Query ejecutada
+[2025-12-02 06:24:38] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:24:38] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:24:39] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:24:39] Usuario ID: 51
+[2025-12-02 06:24:39] Intentando conectar a la base de datos...
+[2025-12-02 06:24:39] Usando conexión PDO directa
+[2025-12-02 06:24:39] Conexión exitosa. Preparando query...
+[2025-12-02 06:24:39] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:24:39] Query preparada
+[2025-12-02 06:24:39] Query ejecutada
+[2025-12-02 06:24:39] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:24:39] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:24:40] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:24:40] Usuario ID: 51
+[2025-12-02 06:24:40] Intentando conectar a la base de datos...
+[2025-12-02 06:24:40] Usando conexión PDO directa
+[2025-12-02 06:24:40] Conexión exitosa. Preparando query...
+[2025-12-02 06:24:40] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:24:40] Query preparada
+[2025-12-02 06:24:40] Query ejecutada
+[2025-12-02 06:24:40] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:24:40] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:24:42] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:24:42] Usuario ID: 51
+[2025-12-02 06:24:42] Intentando conectar a la base de datos...
+[2025-12-02 06:24:42] Usando conexión PDO directa
+[2025-12-02 06:24:42] Conexión exitosa. Preparando query...
+[2025-12-02 06:24:42] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:24:42] Query preparada
+[2025-12-02 06:24:42] Query ejecutada
+[2025-12-02 06:24:42] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:24:42] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:25:00] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:25:00] Usuario ID: 51
+[2025-12-02 06:25:00] Intentando conectar a la base de datos...
+[2025-12-02 06:25:00] Usando conexión PDO directa
+[2025-12-02 06:25:00] Conexión exitosa. Preparando query...
+[2025-12-02 06:25:00] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:25:00] Query preparada
+[2025-12-02 06:25:00] Query ejecutada
+[2025-12-02 06:25:00] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:25:00] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:25:19] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:25:19] Usuario ID: 51
+[2025-12-02 06:25:19] Intentando conectar a la base de datos...
+[2025-12-02 06:25:19] Usando conexión PDO directa
+[2025-12-02 06:25:19] Conexión exitosa. Preparando query...
+[2025-12-02 06:25:19] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:25:19] Query preparada
+[2025-12-02 06:25:19] Query ejecutada
+[2025-12-02 06:25:19] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:25:19] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:25:23] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:25:23] Usuario ID: 51
+[2025-12-02 06:25:23] Intentando conectar a la base de datos...
+[2025-12-02 06:25:23] Usando conexión PDO directa
+[2025-12-02 06:25:23] Conexión exitosa. Preparando query...
+[2025-12-02 06:25:23] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:25:23] Query preparada
+[2025-12-02 06:25:23] Query ejecutada
+[2025-12-02 06:25:23] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:25:23] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:25:23] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:25:23] Usuario ID: 51
+[2025-12-02 06:25:23] Intentando conectar a la base de datos...
+[2025-12-02 06:25:23] Usando conexión PDO directa
+[2025-12-02 06:25:23] Conexión exitosa. Preparando query...
+[2025-12-02 06:25:23] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:25:23] Query preparada
+[2025-12-02 06:25:23] Query ejecutada
+[2025-12-02 06:25:23] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:25:23] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:25:25] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:25:25] Usuario ID: 51
+[2025-12-02 06:25:25] Intentando conectar a la base de datos...
+[2025-12-02 06:25:25] Usando conexión PDO directa
+[2025-12-02 06:25:25] Conexión exitosa. Preparando query...
+[2025-12-02 06:25:25] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:25:25] Query preparada
+[2025-12-02 06:25:25] Query ejecutada
+[2025-12-02 06:25:25] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:25:25] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:26:19] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:26:19] Usuario ID: 51
+[2025-12-02 06:26:19] Intentando conectar a la base de datos...
+[2025-12-02 06:26:19] Usando conexión PDO directa
+[2025-12-02 06:26:19] Conexión exitosa. Preparando query...
+[2025-12-02 06:26:19] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:26:19] Query preparada
+[2025-12-02 06:26:19] Query ejecutada
+[2025-12-02 06:26:19] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:26:19] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:26:19] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:26:19] Usuario ID: 51
+[2025-12-02 06:26:19] Intentando conectar a la base de datos...
+[2025-12-02 06:26:19] Usando conexión PDO directa
+[2025-12-02 06:26:19] Conexión exitosa. Preparando query...
+[2025-12-02 06:26:19] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:26:19] Query preparada
+[2025-12-02 06:26:19] Query ejecutada
+[2025-12-02 06:26:19] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:26:19] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:26:19] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:26:19] Usuario ID: 51
+[2025-12-02 06:26:19] Intentando conectar a la base de datos...
+[2025-12-02 06:26:19] Usando conexión PDO directa
+[2025-12-02 06:26:19] Conexión exitosa. Preparando query...
+[2025-12-02 06:26:19] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:26:19] Query preparada
+[2025-12-02 06:26:19] Query ejecutada
+[2025-12-02 06:26:19] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:26:19] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:26:20] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:26:20] Usuario ID: 51
+[2025-12-02 06:26:20] Intentando conectar a la base de datos...
+[2025-12-02 06:26:20] Usando conexión PDO directa
+[2025-12-02 06:26:20] Conexión exitosa. Preparando query...
+[2025-12-02 06:26:20] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:26:20] Query preparada
+[2025-12-02 06:26:20] Query ejecutada
+[2025-12-02 06:26:20] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-02 06:26:20] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:35:15] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:35:15] Usuario ID: 66
+[2025-12-02 06:35:15] Intentando conectar a la base de datos...
+[2025-12-02 06:35:15] Usando conexión PDO directa
+[2025-12-02 06:35:15] Conexión exitosa. Preparando query...
+[2025-12-02 06:35:15] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:35:15] Query preparada
+[2025-12-02 06:35:15] Query ejecutada
+[2025-12-02 06:35:15] Perfil obtenido exitosamente | Datos: {"id_usuario":66,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"23434234@gmail.com"}
+[2025-12-02 06:35:15] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:35:22] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:35:22] Usuario ID: 66
+[2025-12-02 06:35:22] Intentando conectar a la base de datos...
+[2025-12-02 06:35:22] Usando conexión PDO directa
+[2025-12-02 06:35:22] Conexión exitosa. Preparando query...
+[2025-12-02 06:35:22] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:35:22] Query preparada
+[2025-12-02 06:35:22] Query ejecutada
+[2025-12-02 06:35:22] Perfil obtenido exitosamente | Datos: {"id_usuario":66,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"23434234@gmail.com"}
+[2025-12-02 06:35:22] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:35:59] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:35:59] Usuario ID: 66
+[2025-12-02 06:35:59] Intentando conectar a la base de datos...
+[2025-12-02 06:35:59] Usando conexión PDO directa
+[2025-12-02 06:35:59] Conexión exitosa. Preparando query...
+[2025-12-02 06:35:59] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:35:59] Query preparada
+[2025-12-02 06:35:59] Query ejecutada
+[2025-12-02 06:35:59] Perfil obtenido exitosamente | Datos: {"id_usuario":66,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"23434234@gmail.com"}
+[2025-12-02 06:35:59] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:36:46] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:36:46] Usuario ID: 66
+[2025-12-02 06:36:46] Intentando conectar a la base de datos...
+[2025-12-02 06:36:46] Usando conexión PDO directa
+[2025-12-02 06:36:46] Conexión exitosa. Preparando query...
+[2025-12-02 06:36:46] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:36:46] Query preparada
+[2025-12-02 06:36:46] Query ejecutada
+[2025-12-02 06:36:46] Perfil obtenido exitosamente | Datos: {"id_usuario":66,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"23434234@gmail.com"}
+[2025-12-02 06:36:46] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:37:16] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:37:16] Usuario ID: 66
+[2025-12-02 06:37:16] Intentando conectar a la base de datos...
+[2025-12-02 06:37:16] Usando conexión PDO directa
+[2025-12-02 06:37:17] Conexión exitosa. Preparando query...
+[2025-12-02 06:37:17] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:37:17] Query preparada
+[2025-12-02 06:37:17] Query ejecutada
+[2025-12-02 06:37:17] Perfil obtenido exitosamente | Datos: {"id_usuario":66,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"23434234@gmail.com"}
+[2025-12-02 06:37:17] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:39:58] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:39:58] Usuario ID: 66
+[2025-12-02 06:39:58] Intentando conectar a la base de datos...
+[2025-12-02 06:39:58] Usando conexión PDO directa
+[2025-12-02 06:39:58] Conexión exitosa. Preparando query...
+[2025-12-02 06:39:58] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:39:58] Query preparada
+[2025-12-02 06:39:58] Query ejecutada
+[2025-12-02 06:39:58] Perfil obtenido exitosamente | Datos: {"id_usuario":66,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"23434234@gmail.com"}
+[2025-12-02 06:39:58] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:40:05] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:40:05] Usuario ID: 66
+[2025-12-02 06:40:05] Intentando conectar a la base de datos...
+[2025-12-02 06:40:05] Usando conexión PDO directa
+[2025-12-02 06:40:05] Conexión exitosa. Preparando query...
+[2025-12-02 06:40:05] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:40:05] Query preparada
+[2025-12-02 06:40:05] Query ejecutada
+[2025-12-02 06:40:05] Perfil obtenido exitosamente | Datos: {"id_usuario":66,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"23434234@gmail.com"}
+[2025-12-02 06:40:05] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:40:12] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:40:12] Usuario ID: 66
+[2025-12-02 06:40:12] Intentando conectar a la base de datos...
+[2025-12-02 06:40:12] Usando conexión PDO directa
+[2025-12-02 06:40:12] Conexión exitosa. Preparando query...
+[2025-12-02 06:40:12] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:40:12] Query preparada
+[2025-12-02 06:40:12] Query ejecutada
+[2025-12-02 06:40:12] Perfil obtenido exitosamente | Datos: {"id_usuario":66,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"23434234@gmail.com"}
+[2025-12-02 06:40:12] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:40:15] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:40:15] Usuario ID: 66
+[2025-12-02 06:40:15] Intentando conectar a la base de datos...
+[2025-12-02 06:40:15] Usando conexión PDO directa
+[2025-12-02 06:40:15] Conexión exitosa. Preparando query...
+[2025-12-02 06:40:15] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:40:15] Query preparada
+[2025-12-02 06:40:15] Query ejecutada
+[2025-12-02 06:40:15] Perfil obtenido exitosamente | Datos: {"id_usuario":66,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"23434234@gmail.com"}
+[2025-12-02 06:40:15] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:40:17] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:40:17] Usuario ID: 66
+[2025-12-02 06:40:17] Intentando conectar a la base de datos...
+[2025-12-02 06:40:17] Usando conexión PDO directa
+[2025-12-02 06:40:17] Conexión exitosa. Preparando query...
+[2025-12-02 06:40:17] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:40:17] Query preparada
+[2025-12-02 06:40:17] Query ejecutada
+[2025-12-02 06:40:17] Perfil obtenido exitosamente | Datos: {"id_usuario":66,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"23434234@gmail.com"}
+[2025-12-02 06:40:17] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:40:18] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:40:18] Usuario ID: 66
+[2025-12-02 06:40:18] Intentando conectar a la base de datos...
+[2025-12-02 06:40:18] Usando conexión PDO directa
+[2025-12-02 06:40:18] Conexión exitosa. Preparando query...
+[2025-12-02 06:40:18] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:40:18] Query preparada
+[2025-12-02 06:40:18] Query ejecutada
+[2025-12-02 06:40:18] Perfil obtenido exitosamente | Datos: {"id_usuario":66,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"23434234@gmail.com"}
+[2025-12-02 06:40:18] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:40:25] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:40:25] Usuario ID: 66
+[2025-12-02 06:40:25] Intentando conectar a la base de datos...
+[2025-12-02 06:40:25] Usando conexión PDO directa
+[2025-12-02 06:40:25] Conexión exitosa. Preparando query...
+[2025-12-02 06:40:25] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:40:25] Query preparada
+[2025-12-02 06:40:25] Query ejecutada
+[2025-12-02 06:40:25] Perfil obtenido exitosamente | Datos: {"id_usuario":66,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"23434234@gmail.com"}
+[2025-12-02 06:40:25] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:40:32] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:40:32] Usuario ID: 66
+[2025-12-02 06:40:32] Intentando conectar a la base de datos...
+[2025-12-02 06:40:32] Usando conexión PDO directa
+[2025-12-02 06:40:32] Conexión exitosa. Preparando query...
+[2025-12-02 06:40:32] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:40:32] Query preparada
+[2025-12-02 06:40:32] Query ejecutada
+[2025-12-02 06:40:32] Perfil obtenido exitosamente | Datos: {"id_usuario":66,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"23434234@gmail.com"}
+[2025-12-02 06:40:32] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:40:46] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:40:46] Usuario ID: 66
+[2025-12-02 06:40:46] Intentando conectar a la base de datos...
+[2025-12-02 06:40:46] Usando conexión PDO directa
+[2025-12-02 06:40:46] Conexión exitosa. Preparando query...
+[2025-12-02 06:40:46] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:40:46] Query preparada
+[2025-12-02 06:40:46] Query ejecutada
+[2025-12-02 06:40:46] Perfil obtenido exitosamente | Datos: {"id_usuario":66,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"23434234@gmail.com"}
+[2025-12-02 06:40:46] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 06:40:51] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 06:40:51] Usuario ID: 66
+[2025-12-02 06:40:51] Intentando conectar a la base de datos...
+[2025-12-02 06:40:51] Usando conexión PDO directa
+[2025-12-02 06:40:51] Conexión exitosa. Preparando query...
+[2025-12-02 06:40:51] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 06:40:51] Query preparada
+[2025-12-02 06:40:51] Query ejecutada
+[2025-12-02 06:40:51] Perfil obtenido exitosamente | Datos: {"id_usuario":66,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"23434234@gmail.com"}
+[2025-12-02 06:40:51] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 20:10:09] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 20:10:09] Usuario ID: 67
+[2025-12-02 20:10:09] Intentando conectar a la base de datos...
+[2025-12-02 20:10:09] Usando conexión PDO directa
+[2025-12-02 20:10:09] Conexión exitosa. Preparando query...
+[2025-12-02 20:10:09] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 20:10:09] Query preparada
+[2025-12-02 20:10:09] Query ejecutada
+[2025-12-02 20:10:09] Perfil obtenido exitosamente | Datos: {"id_usuario":67,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"11111@gmail.com"}
+[2025-12-02 20:10:09] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 20:12:34] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 20:12:34] Usuario ID: 13
+[2025-12-02 20:12:34] Intentando conectar a la base de datos...
+[2025-12-02 20:12:34] Usando conexión PDO directa
+[2025-12-02 20:12:34] Conexión exitosa. Preparando query...
+[2025-12-02 20:12:34] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 20:12:34] Query preparada
+[2025-12-02 20:12:34] Query ejecutada
+[2025-12-02 20:12:34] Perfil obtenido exitosamente | Datos: {"id_usuario":13,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"7u7thin@gmail.com"}
+[2025-12-02 20:12:34] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 20:28:23] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 20:28:23] Usuario ID: 13
+[2025-12-02 20:28:23] Intentando conectar a la base de datos...
+[2025-12-02 20:28:23] Usando conexión PDO directa
+[2025-12-02 20:28:23] Conexión exitosa. Preparando query...
+[2025-12-02 20:28:23] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 20:28:23] Query preparada
+[2025-12-02 20:28:23] Query ejecutada
+[2025-12-02 20:28:23] Perfil obtenido exitosamente | Datos: {"id_usuario":13,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"7u7thin@gmail.com"}
+[2025-12-02 20:28:23] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 20:28:24] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 20:28:24] Usuario ID: 13
+[2025-12-02 20:28:24] Intentando conectar a la base de datos...
+[2025-12-02 20:28:24] Usando conexión PDO directa
+[2025-12-02 20:28:24] Conexión exitosa. Preparando query...
+[2025-12-02 20:28:24] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 20:28:24] Query preparada
+[2025-12-02 20:28:24] Query ejecutada
+[2025-12-02 20:28:24] Perfil obtenido exitosamente | Datos: {"id_usuario":13,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"7u7thin@gmail.com"}
+[2025-12-02 20:28:24] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 23:29:51] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 23:29:51] Usuario ID: 13
+[2025-12-02 23:29:51] Intentando conectar a la base de datos...
+[2025-12-02 23:29:51] Usando conexión PDO directa
+[2025-12-02 23:29:51] Conexión exitosa. Preparando query...
+[2025-12-02 23:29:51] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 23:29:51] Query preparada
+[2025-12-02 23:29:51] Query ejecutada
+[2025-12-02 23:29:51] Perfil obtenido exitosamente | Datos: {"id_usuario":13,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"7u7thin@gmail.com"}
+[2025-12-02 23:29:51] === FIN: Perfil obtenido correctamente ===
+[2025-12-02 23:29:53] === INICIO: Solicitud de obtener perfil ===
+[2025-12-02 23:29:53] Usuario ID: 13
+[2025-12-02 23:29:53] Intentando conectar a la base de datos...
+[2025-12-02 23:29:53] Usando conexión PDO directa
+[2025-12-02 23:29:53] Conexión exitosa. Preparando query...
+[2025-12-02 23:29:53] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-02 23:29:53] Query preparada
+[2025-12-02 23:29:53] Query ejecutada
+[2025-12-02 23:29:53] Perfil obtenido exitosamente | Datos: {"id_usuario":13,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"7u7thin@gmail.com"}
+[2025-12-02 23:29:53] === FIN: Perfil obtenido correctamente ===
+[2025-12-03 00:43:43] === INICIO: Solicitud de obtener perfil ===
+[2025-12-03 00:43:43] Usuario ID: 13
+[2025-12-03 00:43:43] Intentando conectar a la base de datos...
+[2025-12-03 00:43:43] Usando conexión PDO directa
+[2025-12-03 00:43:43] Conexión exitosa. Preparando query...
+[2025-12-03 00:43:43] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-03 00:43:43] Query preparada
+[2025-12-03 00:43:43] Query ejecutada
+[2025-12-03 00:43:43] Perfil obtenido exitosamente | Datos: {"id_usuario":13,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"7u7thin@gmail.com"}
+[2025-12-03 00:43:43] === FIN: Perfil obtenido correctamente ===
+[2025-12-03 00:46:13] === INICIO: Solicitud de obtener perfil ===
+[2025-12-03 00:46:13] Usuario ID: 13
+[2025-12-03 00:46:13] Intentando conectar a la base de datos...
+[2025-12-03 00:46:13] Usando conexión PDO directa
+[2025-12-03 00:46:13] Conexión exitosa. Preparando query...
+[2025-12-03 00:46:13] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-03 00:46:13] Query preparada
+[2025-12-03 00:46:13] Query ejecutada
+[2025-12-03 00:46:13] Perfil obtenido exitosamente | Datos: {"id_usuario":13,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"7u7thin@gmail.com"}
+[2025-12-03 00:46:13] === FIN: Perfil obtenido correctamente ===
+[2025-12-03 00:46:30] === INICIO: Solicitud de obtener perfil ===
+[2025-12-03 00:46:30] Usuario ID: 51
+[2025-12-03 00:46:30] Intentando conectar a la base de datos...
+[2025-12-03 00:46:30] Usando conexión PDO directa
+[2025-12-03 00:46:30] Conexión exitosa. Preparando query...
+[2025-12-03 00:46:30] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-03 00:46:30] Query preparada
+[2025-12-03 00:46:30] Query ejecutada
+[2025-12-03 00:46:30] Perfil obtenido exitosamente | Datos: {"id_usuario":51,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"123456789@gmail.com"}
+[2025-12-03 00:46:30] === FIN: Perfil obtenido correctamente ===
+[2025-12-03 01:16:16] === INICIO: Solicitud de obtener perfil ===
+[2025-12-03 01:16:16] Usuario ID: 13
+[2025-12-03 01:16:16] Intentando conectar a la base de datos...
+[2025-12-03 01:16:16] Usando conexión PDO directa
+[2025-12-03 01:16:16] Conexión exitosa. Preparando query...
+[2025-12-03 01:16:16] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-03 01:16:16] Query preparada
+[2025-12-03 01:16:16] Query ejecutada
+[2025-12-03 01:16:16] Perfil obtenido exitosamente | Datos: {"id_usuario":13,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"7u7thin@gmail.com"}
+[2025-12-03 01:16:16] === FIN: Perfil obtenido correctamente ===
+[2025-12-03 02:29:11] === INICIO: Solicitud de obtener perfil ===
+[2025-12-03 02:29:11] Usuario ID: 13
+[2025-12-03 02:29:11] Intentando conectar a la base de datos...
+[2025-12-03 02:29:11] Usando conexión PDO directa
+[2025-12-03 02:29:11] Conexión exitosa. Preparando query...
+[2025-12-03 02:29:11] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-03 02:29:11] Query preparada
+[2025-12-03 02:29:11] Query ejecutada
+[2025-12-03 02:29:11] Perfil obtenido exitosamente | Datos: {"id_usuario":13,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"7u7thin@gmail.com"}
+[2025-12-03 02:29:11] === FIN: Perfil obtenido correctamente ===
+[2025-12-03 02:34:57] === INICIO: Solicitud de obtener perfil ===
+[2025-12-03 02:34:57] Usuario ID: 13
+[2025-12-03 02:34:57] Intentando conectar a la base de datos...
+[2025-12-03 02:34:57] Usando conexión PDO directa
+[2025-12-03 02:34:57] Conexión exitosa. Preparando query...
+[2025-12-03 02:34:57] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-03 02:34:57] Query preparada
+[2025-12-03 02:34:57] Query ejecutada
+[2025-12-03 02:34:57] Perfil obtenido exitosamente | Datos: {"id_usuario":13,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"7u7thin@gmail.com"}
+[2025-12-03 02:34:57] === FIN: Perfil obtenido correctamente ===
+[2025-12-03 02:36:24] === INICIO: Solicitud de obtener perfil ===
+[2025-12-03 02:36:24] Usuario ID: 13
+[2025-12-03 02:36:24] Intentando conectar a la base de datos...
+[2025-12-03 02:36:24] Usando conexión PDO directa
+[2025-12-03 02:36:24] Conexión exitosa. Preparando query...
+[2025-12-03 02:36:24] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-03 02:36:24] Query preparada
+[2025-12-03 02:36:24] Query ejecutada
+[2025-12-03 02:36:24] Perfil obtenido exitosamente | Datos: {"id_usuario":13,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"7u7thin@gmail.com"}
+[2025-12-03 02:36:24] === FIN: Perfil obtenido correctamente ===
+[2025-12-03 02:38:01] === INICIO: Solicitud de obtener perfil ===
+[2025-12-03 02:38:01] Usuario ID: 13
+[2025-12-03 02:38:01] Intentando conectar a la base de datos...
+[2025-12-03 02:38:01] Usando conexión PDO directa
+[2025-12-03 02:38:01] Conexión exitosa. Preparando query...
+[2025-12-03 02:38:01] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-03 02:38:01] Query preparada
+[2025-12-03 02:38:01] Query ejecutada
+[2025-12-03 02:38:01] Perfil obtenido exitosamente | Datos: {"id_usuario":13,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"7u7thin@gmail.com"}
+[2025-12-03 02:38:01] === FIN: Perfil obtenido correctamente ===
+[2025-12-03 02:53:23] === INICIO: Solicitud de obtener perfil ===
+[2025-12-03 02:53:23] Usuario ID: 13
+[2025-12-03 02:53:23] Intentando conectar a la base de datos...
+[2025-12-03 02:53:23] Usando conexión PDO directa
+[2025-12-03 02:53:23] Conexión exitosa. Preparando query...
+[2025-12-03 02:53:23] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-03 02:53:23] Query preparada
+[2025-12-03 02:53:23] Query ejecutada
+[2025-12-03 02:53:23] Perfil obtenido exitosamente | Datos: {"id_usuario":13,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"7u7thin@gmail.com"}
+[2025-12-03 02:53:23] === FIN: Perfil obtenido correctamente ===
+[2025-12-03 02:53:30] === INICIO: Solicitud de obtener perfil ===
+[2025-12-03 02:53:30] Usuario ID: 13
+[2025-12-03 02:53:30] Intentando conectar a la base de datos...
+[2025-12-03 02:53:30] Usando conexión PDO directa
+[2025-12-03 02:53:30] Conexión exitosa. Preparando query...
+[2025-12-03 02:53:30] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-03 02:53:30] Query preparada
+[2025-12-03 02:53:30] Query ejecutada
+[2025-12-03 02:53:30] Perfil obtenido exitosamente | Datos: {"id_usuario":13,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"7u7thin@gmail.com"}
+[2025-12-03 02:53:30] === FIN: Perfil obtenido correctamente ===
+[2025-12-03 03:40:05] === INICIO: Solicitud de obtener perfil ===
+[2025-12-03 03:40:05] Usuario ID: 13
+[2025-12-03 03:40:05] Intentando conectar a la base de datos...
+[2025-12-03 03:40:05] Usando conexión PDO directa
+[2025-12-03 03:40:05] Conexión exitosa. Preparando query...
+[2025-12-03 03:40:05] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-03 03:40:05] Query preparada
+[2025-12-03 03:40:05] Query ejecutada
+[2025-12-03 03:40:05] Perfil obtenido exitosamente | Datos: {"id_usuario":13,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"7u7thin@gmail.com"}
+[2025-12-03 03:40:05] === FIN: Perfil obtenido correctamente ===
+[2025-12-03 03:40:31] === INICIO: Solicitud de obtener perfil ===
+[2025-12-03 03:40:31] Usuario ID: 13
+[2025-12-03 03:40:31] Intentando conectar a la base de datos...
+[2025-12-03 03:40:31] Usando conexión PDO directa
+[2025-12-03 03:40:31] Conexión exitosa. Preparando query...
+[2025-12-03 03:40:31] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-03 03:40:31] Query preparada
+[2025-12-03 03:40:31] Query ejecutada
+[2025-12-03 03:40:31] Perfil obtenido exitosamente | Datos: {"id_usuario":13,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"7u7thin@gmail.com"}
+[2025-12-03 03:40:31] === FIN: Perfil obtenido correctamente ===
+[2025-12-03 03:45:22] === INICIO: Solicitud de obtener perfil ===
+[2025-12-03 03:45:22] Usuario ID: 13
+[2025-12-03 03:45:22] Intentando conectar a la base de datos...
+[2025-12-03 03:45:22] Usando conexión PDO directa
+[2025-12-03 03:45:22] Conexión exitosa. Preparando query...
+[2025-12-03 03:45:22] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-03 03:45:22] Query preparada
+[2025-12-03 03:45:22] Query ejecutada
+[2025-12-03 03:45:22] Perfil obtenido exitosamente | Datos: {"id_usuario":13,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"7u7thin@gmail.com"}
+[2025-12-03 03:45:22] === FIN: Perfil obtenido correctamente ===
+[2025-12-03 03:46:41] === INICIO: Solicitud de obtener perfil ===
+[2025-12-03 03:46:41] Usuario ID: 13
+[2025-12-03 03:46:41] Intentando conectar a la base de datos...
+[2025-12-03 03:46:41] Usando conexión PDO directa
+[2025-12-03 03:46:41] Conexión exitosa. Preparando query...
+[2025-12-03 03:46:41] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-03 03:46:41] Query preparada
+[2025-12-03 03:46:41] Query ejecutada
+[2025-12-03 03:46:41] Perfil obtenido exitosamente | Datos: {"id_usuario":13,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"7u7thin@gmail.com"}
+[2025-12-03 03:46:41] === FIN: Perfil obtenido correctamente ===
+[2025-12-03 03:46:43] === INICIO: Solicitud de obtener perfil ===
+[2025-12-03 03:46:43] Usuario ID: 13
+[2025-12-03 03:46:43] Intentando conectar a la base de datos...
+[2025-12-03 03:46:43] Usando conexión PDO directa
+[2025-12-03 03:46:43] Conexión exitosa. Preparando query...
+[2025-12-03 03:46:43] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-03 03:46:43] Query preparada
+[2025-12-03 03:46:43] Query ejecutada
+[2025-12-03 03:46:43] Perfil obtenido exitosamente | Datos: {"id_usuario":13,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"7u7thin@gmail.com"}
+[2025-12-03 03:46:43] === FIN: Perfil obtenido correctamente ===
+[2025-12-03 04:11:46] === INICIO: Solicitud de obtener perfil ===
+[2025-12-03 04:11:46] Usuario ID: 13
+[2025-12-03 04:11:46] Intentando conectar a la base de datos...
+[2025-12-03 04:11:46] Usando conexión PDO directa
+[2025-12-03 04:11:46] Conexión exitosa. Preparando query...
+[2025-12-03 04:11:46] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-03 04:11:46] Query preparada
+[2025-12-03 04:11:46] Query ejecutada
+[2025-12-03 04:11:46] Perfil obtenido exitosamente | Datos: {"id_usuario":13,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"7u7thin@gmail.com"}
+[2025-12-03 04:11:46] === FIN: Perfil obtenido correctamente ===
+[2025-12-03 04:16:05] === INICIO: Solicitud de obtener perfil ===
+[2025-12-03 04:16:05] Usuario ID: 13
+[2025-12-03 04:16:05] Intentando conectar a la base de datos...
+[2025-12-03 04:16:05] Usando conexión PDO directa
+[2025-12-03 04:16:05] Conexión exitosa. Preparando query...
+[2025-12-03 04:16:05] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-03 04:16:05] Query preparada
+[2025-12-03 04:16:05] Query ejecutada
+[2025-12-03 04:16:05] Perfil obtenido exitosamente | Datos: {"id_usuario":13,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"7u7thin@gmail.com"}
+[2025-12-03 04:16:05] === FIN: Perfil obtenido correctamente ===
+[2025-12-03 04:22:20] === INICIO: Solicitud de obtener perfil ===
+[2025-12-03 04:22:20] Usuario ID: 13
+[2025-12-03 04:22:20] Intentando conectar a la base de datos...
+[2025-12-03 04:22:20] Usando conexión PDO directa
+[2025-12-03 04:22:20] Conexión exitosa. Preparando query...
+[2025-12-03 04:22:20] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-03 04:22:20] Query preparada
+[2025-12-03 04:22:20] Query ejecutada
+[2025-12-03 04:22:20] Perfil obtenido exitosamente | Datos: {"id_usuario":13,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"7u7thin@gmail.com"}
+[2025-12-03 04:22:20] === FIN: Perfil obtenido correctamente ===
+[2025-12-03 04:54:24] === INICIO: Solicitud de obtener perfil ===
+[2025-12-03 04:54:24] Usuario ID: 13
+[2025-12-03 04:54:24] Intentando conectar a la base de datos...
+[2025-12-03 04:54:24] Usando conexión PDO directa
+[2025-12-03 04:54:24] Conexión exitosa. Preparando query...
+[2025-12-03 04:54:24] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-03 04:54:24] Query preparada
+[2025-12-03 04:54:24] Query ejecutada
+[2025-12-03 04:54:24] Perfil obtenido exitosamente | Datos: {"id_usuario":13,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"7u7thin@gmail.com"}
+[2025-12-03 04:54:24] === FIN: Perfil obtenido correctamente ===
+[2025-12-03 04:54:27] === INICIO: Solicitud de obtener perfil ===
+[2025-12-03 04:54:27] Usuario ID: 13
+[2025-12-03 04:54:27] Intentando conectar a la base de datos...
+[2025-12-03 04:54:27] Usando conexión PDO directa
+[2025-12-03 04:54:27] Conexión exitosa. Preparando query...
+[2025-12-03 04:54:27] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-03 04:54:27] Query preparada
+[2025-12-03 04:54:27] Query ejecutada
+[2025-12-03 04:54:27] Perfil obtenido exitosamente | Datos: {"id_usuario":13,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"7u7thin@gmail.com"}
+[2025-12-03 04:54:27] === FIN: Perfil obtenido correctamente ===
+[2025-12-03 06:22:16] === INICIO: Solicitud de obtener perfil ===
+[2025-12-03 06:22:16] Usuario ID: 13
+[2025-12-03 06:22:16] Intentando conectar a la base de datos...
+[2025-12-03 06:22:16] Usando conexión PDO directa
+[2025-12-03 06:22:16] Conexión exitosa. Preparando query...
+[2025-12-03 06:22:16] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-03 06:22:16] Query preparada
+[2025-12-03 06:22:16] Query ejecutada
+[2025-12-03 06:22:16] Perfil obtenido exitosamente | Datos: {"id_usuario":13,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"7u7thin@gmail.com"}
+[2025-12-03 06:22:16] === FIN: Perfil obtenido correctamente ===
+[2025-12-03 06:22:20] === INICIO: Solicitud de obtener perfil ===
+[2025-12-03 06:22:20] Usuario ID: 13
+[2025-12-03 06:22:20] Intentando conectar a la base de datos...
+[2025-12-03 06:22:20] Usando conexión PDO directa
+[2025-12-03 06:22:20] Conexión exitosa. Preparando query...
+[2025-12-03 06:22:20] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-03 06:22:20] Query preparada
+[2025-12-03 06:22:20] Query ejecutada
+[2025-12-03 06:22:20] Perfil obtenido exitosamente | Datos: {"id_usuario":13,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"7u7thin@gmail.com"}
+[2025-12-03 06:22:20] === FIN: Perfil obtenido correctamente ===
+[2025-12-03 06:30:50] === INICIO: Solicitud de obtener perfil ===
+[2025-12-03 06:30:50] Usuario ID: 13
+[2025-12-03 06:30:50] Intentando conectar a la base de datos...
+[2025-12-03 06:30:50] Usando conexión PDO directa
+[2025-12-03 06:30:50] Conexión exitosa. Preparando query...
+[2025-12-03 06:30:50] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-03 06:30:50] Query preparada
+[2025-12-03 06:30:50] Query ejecutada
+[2025-12-03 06:30:50] Perfil obtenido exitosamente | Datos: {"id_usuario":13,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"7u7thin@gmail.com"}
+[2025-12-03 06:30:50] === FIN: Perfil obtenido correctamente ===
+[2025-12-03 06:31:38] === INICIO: Solicitud de obtener perfil ===
+[2025-12-03 06:31:38] Usuario ID: 13
+[2025-12-03 06:31:38] Intentando conectar a la base de datos...
+[2025-12-03 06:31:38] Usando conexión PDO directa
+[2025-12-03 06:31:38] Conexión exitosa. Preparando query...
+[2025-12-03 06:31:38] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-03 06:31:38] Query preparada
+[2025-12-03 06:31:38] Query ejecutada
+[2025-12-03 06:31:38] Perfil obtenido exitosamente | Datos: {"id_usuario":13,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"7u7thin@gmail.com"}
+[2025-12-03 06:31:38] === FIN: Perfil obtenido correctamente ===
+[2025-12-03 08:42:28] === INICIO: Solicitud de obtener perfil ===
+[2025-12-03 08:42:28] Usuario ID: 13
+[2025-12-03 08:42:28] Intentando conectar a la base de datos...
+[2025-12-03 08:42:28] Usando conexión PDO directa
+[2025-12-03 08:42:28] Conexión exitosa. Preparando query...
+[2025-12-03 08:42:28] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-03 08:42:28] Query preparada
+[2025-12-03 08:42:28] Query ejecutada
+[2025-12-03 08:42:28] Perfil obtenido exitosamente | Datos: {"id_usuario":13,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez","correo_electronico":"7u7thin@gmail.com"}
+[2025-12-03 08:42:28] === FIN: Perfil obtenido correctamente ===
+[2025-12-03 09:07:43] === INICIO: Solicitud de obtener perfil ===
+[2025-12-03 09:07:43] Usuario ID: 73
+[2025-12-03 09:07:43] Intentando conectar a la base de datos...
+[2025-12-03 09:07:43] Usando conexión PDO directa
+[2025-12-03 09:07:43] Conexión exitosa. Preparando query...
+[2025-12-03 09:07:43] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-03 09:07:43] Query preparada
+[2025-12-03 09:07:43] Query ejecutada
+[2025-12-03 09:07:43] Perfil obtenido exitosamente | Datos: {"id_usuario":73,"nombres":"","apellidos":"","correo_electronico":"crkendok@gmail.com"}
+[2025-12-03 09:07:43] === FIN: Perfil obtenido correctamente ===
+[2025-12-03 09:12:54] === INICIO: Solicitud de obtener perfil ===
+[2025-12-03 09:12:54] Usuario ID: 74
+[2025-12-03 09:12:54] Intentando conectar a la base de datos...
+[2025-12-03 09:12:54] Usando conexión PDO directa
+[2025-12-03 09:12:54] Conexión exitosa. Preparando query...
+[2025-12-03 09:12:54] Query: SELECT id_usuario, nombres, apellidos, correo_electronico, numero_telefono, direccion, ciudad, estado, codigo_postal, pais, fecha_nacimiento FROM usuarios WHERE id_usuario = :id LIMIT 1
+[2025-12-03 09:12:54] Query preparada
+[2025-12-03 09:12:54] Query ejecutada
+[2025-12-03 09:12:54] Perfil obtenido exitosamente | Datos: {"id_usuario":74,"nombres":"","apellidos":"","correo_electronico":"crkendok@gmail.com"}
+[2025-12-03 09:12:54] === FIN: Perfil obtenido correctamente ===

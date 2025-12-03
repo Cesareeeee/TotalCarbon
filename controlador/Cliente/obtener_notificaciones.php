@@ -235,6 +235,135 @@ try {
         escribirLog("Error en consulta de chat: " . $e->getMessage());
     }
 
+    // 5. Movimientos en garantías del usuario
+    try {
+        $queryGarantias = "
+            SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.estado,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.creado_en,
+                g.actualizado_en,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada
+            FROM garantias_bicicletas g
+            JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+            WHERE g.id_usuario = :id_usuario
+            AND (
+                g.creado_en > :ultima_verificacion
+                OR g.actualizado_en > :ultima_verificacion
+            )
+            ORDER BY COALESCE(g.actualizado_en, g.creado_en) DESC
+        ";
+
+        $stmtGarantias = $pdo->prepare($queryGarantias);
+        $stmtGarantias->execute([
+            ':id_usuario' => $idUsuario,
+            ':ultima_verificacion' => $ultimaVerificacion
+        ]);
+
+        $garantias = $stmtGarantias->fetchAll(PDO::FETCH_ASSOC);
+        escribirLog("Garantías con movimientos encontrados: " . count($garantias));
+
+        foreach ($garantias as $garantia) {
+            escribirLog("Procesando garantía ID: " . $garantia['id_garantia']);
+
+            // Determinar el tipo de movimiento
+            $esNueva = $garantia['creado_en'] > $ultimaVerificacion;
+            $esActualizada = $garantia['actualizado_en'] > $ultimaVerificacion && $garantia['actualizado_en'] != $garantia['creado_en'];
+
+            if ($esNueva) {
+                // Nueva garantía creada
+                $titulo = 'Nueva garantía activada';
+                $mensaje = 'Se ha activado una nueva garantía para tu bicicleta ' . $garantia['marca_bicicleta'] . ' ' . $garantia['modelo_bicicleta'] . ' (' . $garantia['zona_afectada'] . ')';
+                $fecha = $garantia['creado_en'];
+            } elseif ($esActualizada) {
+                // Garantía actualizada (cambio de estado)
+                $estadoTexto = match($garantia['estado']) {
+                    'Activa' => 'activada',
+                    'Vencida' => 'ha vencido',
+                    'Cancelada' => 'ha sido cancelada',
+                    'Reclamada' => 'ha sido reclamada',
+                    default => 'actualizada'
+                };
+
+                $titulo = 'Actualización de garantía';
+                $mensaje = 'La garantía de tu bicicleta ' . $garantia['marca_bicicleta'] . ' ' . $garantia['modelo_bicicleta'] . ' (' . $garantia['zona_afectada'] . ') ' . $estadoTexto;
+                $fecha = $garantia['actualizado_en'];
+            } else {
+                continue; // No debería llegar aquí, pero por seguridad
+            }
+
+            $notificaciones[] = [
+                'id' => 'garantia_' . $garantia['id_garantia'] . '_' . strtotime($fecha),
+                'tipo' => 'garantia',
+                'titulo' => $titulo,
+                'mensaje' => $mensaje,
+                'fecha' => $fecha,
+                'id_cotizacion' => $garantia['id_garantia'], // Usamos id_garantia como referencia
+                'estado_garantia' => $garantia['estado'],
+                'fecha_fin' => $garantia['fecha_fin']
+            ];
+        }
+    } catch (PDOException $e) {
+        escribirLog("Error en consulta de garantías: " . $e->getMessage());
+    }
+
+    // 6. Alertas de garantías próximas a vencer (dentro de 30 días)
+    try {
+        $fechaLimite = date('Y-m-d', strtotime('+30 days'));
+
+        $queryGarantiasVencimiento = "
+            SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.fecha_fin,
+                g.estado,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada
+            FROM garantias_bicicletas g
+            JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+            WHERE g.id_usuario = :id_usuario
+            AND g.estado = 'Activa'
+            AND g.fecha_fin <= :fecha_limite
+            AND g.fecha_fin > CURDATE()
+        ";
+
+        $stmtGarantiasVencimiento = $pdo->prepare($queryGarantiasVencimiento);
+        $stmtGarantiasVencimiento->execute([
+            ':id_usuario' => $idUsuario,
+            ':fecha_limite' => $fechaLimite
+        ]);
+
+        $garantiasVencimiento = $stmtGarantiasVencimiento->fetchAll(PDO::FETCH_ASSOC);
+        escribirLog("Garantías próximas a vencer: " . count($garantiasVencimiento));
+
+        foreach ($garantiasVencimiento as $garantia) {
+            $diasRestantes = floor((strtotime($garantia['fecha_fin']) - time()) / (60 * 60 * 24));
+
+            // Solo notificar si no se ha notificado recientemente (evitar spam)
+            $idNotificacion = 'vencimiento_' . $garantia['id_garantia'] . '_' . date('Y-m-d');
+
+            $notificaciones[] = [
+                'id' => $idNotificacion,
+                'tipo' => 'vencimiento_garantia',
+                'titulo' => 'Garantía próxima a vencer',
+                'mensaje' => 'La garantía de tu bicicleta ' . $garantia['marca_bicicleta'] . ' ' . $garantia['modelo_bicicleta'] . ' (' . $garantia['zona_afectada'] . ') vencerá en ' . $diasRestantes . ' días (' . date('d/m/Y', strtotime($garantia['fecha_fin'])) . ')',
+                'fecha' => date('Y-m-d H:i:s'), // Fecha actual para la notificación
+                'id_cotizacion' => $garantia['id_garantia'],
+                'estado_garantia' => $garantia['estado'],
+                'fecha_fin' => $garantia['fecha_fin'],
+                'dias_restantes' => $diasRestantes
+            ];
+        }
+    } catch (PDOException $e) {
+        escribirLog("Error en consulta de vencimientos de garantías: " . $e->getMessage());
+    }
+
 
     // Ordenar notificaciones por fecha (más recientes primero)
     usort($notificaciones, function($a, $b) {

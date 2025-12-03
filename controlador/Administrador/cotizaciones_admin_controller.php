@@ -1,0 +1,283 @@
+<?php
+header('Content-Type: application/json; charset=utf-8');
+session_start();
+
+require_once __DIR__ . '/../../modelos/php/conexion.php';
+
+// Conexión a la base de datos
+$db = new PDO(
+    'mysql:host=localhost;dbname=totalcarbon;charset=utf8',
+    'root',
+    '',
+    [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
+);
+
+// Verificar sesión de admin
+if (!isset($_SESSION['id_usuario']) || !isset($_SESSION['id_rol'])) {
+    http_response_code(401);
+    echo json_encode(['success' => false, 'message' => 'No autorizado']);
+    exit;
+}
+
+$logFile = __DIR__ . '/../../logs/cotizaciones_admin.log';
+
+function escribirLog($mensaje, $datos = null) {
+    global $logFile;
+    $timestamp = date('Y-m-d H:i:s');
+    $logMessage = "[$timestamp] $mensaje";
+
+    if ($datos !== null) {
+        $logMessage .= " | Datos: " . json_encode($datos);
+    }
+
+    $logMessage .= "\n";
+
+    if (!file_exists(dirname($logFile))) {
+        mkdir(dirname($logFile), 0777, true);
+    }
+
+    file_put_contents($logFile, $logMessage, FILE_APPEND);
+}
+
+function responder($data, int $status = 200) {
+    http_response_code($status);
+    echo json_encode($data, JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
+$metodo = $_SERVER['REQUEST_METHOD'] ?? 'GET';
+$accion = $_GET['accion'] ?? '';
+
+escribirLog("=== Solicitud: $metodo $accion ===");
+
+try {
+
+    switch ($metodo) {
+        case 'GET':
+            if ($accion === 'obtener_todas') {
+                $sql = "SELECT c.*, CONCAT(u.nombres, ' ', u.apellidos) as nombre_usuario, u.correo_electronico as usuario_email
+                        FROM cotizaciones_cliente c
+                        LEFT JOIN usuarios u ON c.id_usuario = u.id_usuario
+                        ORDER BY c.creado_en DESC";
+                $stmt = $db->prepare($sql);
+                $stmt->execute();
+                $cotizaciones = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                escribirLog("Cotizaciones obtenidas: " . count($cotizaciones));
+                responder(['success' => true, 'cotizaciones' => $cotizaciones]);
+            } elseif ($accion === 'obtener_cotizacion') {
+                $id = (int)($_GET['id_cotizacion'] ?? 0);
+                if ($id <= 0) {
+                    responder(['success' => false, 'message' => 'ID inválido'], 400);
+                }
+                $sql = "SELECT c.*, CONCAT(u.nombres, ' ', u.apellidos) as nombre_usuario, u.correo_electronico as usuario_email
+                        FROM cotizaciones_cliente c
+                        LEFT JOIN usuarios u ON c.id_usuario = u.id_usuario
+                        WHERE c.id_cotizacion = :id";
+                $stmt = $db->prepare($sql);
+                $stmt->execute([':id' => $id]);
+                $cotizacion = $stmt->fetch(PDO::FETCH_ASSOC);
+                if (!$cotizacion) {
+                    responder(['success' => false, 'message' => 'Cotización no encontrada'], 404);
+                }
+                $sql = "SELECT * FROM cotizacion_progreso_cliente WHERE id_cotizacion = :id ORDER BY paso";
+                $stmt = $db->prepare($sql);
+                $stmt->execute([':id' => $id]);
+                $progreso = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                $sql = "SELECT * FROM cotizacion_imagenes_cliente WHERE id_cotizacion = :id ORDER BY creado_en DESC";
+                $stmt = $db->prepare($sql);
+                $stmt->execute([':id' => $id]);
+                $imagenes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                $sql = "SELECT * FROM cotizacion_comentarios_cliente WHERE id_cotizacion = :id ORDER BY creado_en DESC";
+                $stmt = $db->prepare($sql);
+                $stmt->execute([':id' => $id]);
+                $comentarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                $sql = "SELECT * FROM piezas_movimientos WHERE id_cotizacion = :id ORDER BY creado_en DESC";
+                $stmt = $db->prepare($sql);
+                $stmt->execute([':id' => $id]);
+                $piezas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                responder([
+                    'success' => true,
+                    'cotizacion' => $cotizacion,
+                    'progreso' => $progreso,
+                    'imagenes' => $imagenes,
+                    'comentarios' => $comentarios,
+                    'piezas' => $piezas
+                ]);
+            }
+            break;
+
+        case 'POST':
+            $input = json_decode(file_get_contents('php://input'), true);
+            if ($input === null) {
+                $input = $_POST;
+                if (empty($input)) {
+                    responder(['success' => false, 'message' => 'Datos inválidos'], 400);
+                }
+            }
+
+            if ($accion === 'actualizar_estado') {
+                $idCotizacion = (int)($input['id_cotizacion'] ?? 0);
+                $estado = $input['estado'] ?? '';
+                $estadosPermitidos = ['PENDIENTE', 'EN_REVISION', 'APROBADA', 'RECHAZADA', 'EN_PROCESO', 'COMPLETADA', 'COTIZACION_ENVIADA', 'COTIZACIÓN ENVIADA', 'ACEPTADA', 'REPARACION_INICIADA', 'REPARACIÓN INICIADA', 'PINTURA', 'EMPACADO', 'ENVIADO'];
+                if ($idCotizacion <= 0 || !in_array($estado, $estadosPermitidos)) {
+                    responder(['success' => false, 'message' => 'Datos inválidos'], 400);
+                }
+                $sql = "UPDATE cotizaciones_cliente SET estado = :estado WHERE id_cotizacion = :id";
+                $stmt = $db->prepare($sql);
+                $resultado = $stmt->execute([':estado' => $estado, ':id' => $idCotizacion]);
+                escribirLog("Estado actualizado: $idCotizacion -> $estado");
+                responder(['success' => $resultado, 'message' => $resultado ? 'Estado actualizado' : 'Error al actualizar']);
+            } elseif ($accion === 'agregar_comentario') {
+                $idCotizacion = (int)($input['id_cotizacion'] ?? 0);
+                $mensaje = trim($input['mensaje'] ?? '');
+                $autor = 'Administrador'; // O usar $_SESSION['nombre_usuario']
+                if ($idCotizacion <= 0 || empty($mensaje)) {
+                    responder(['success' => false, 'message' => 'Datos inválidos'], 400);
+                }
+                $sql = "INSERT INTO cotizacion_comentarios_cliente (id_cotizacion, autor, mensaje) VALUES (:id_cotizacion, :autor, :mensaje)";
+                $stmt = $db->prepare($sql);
+                $resultado = $stmt->execute([
+                    ':id_cotizacion' => $idCotizacion,
+                    ':autor' => $autor,
+                    ':mensaje' => $mensaje
+                ]);
+                escribirLog("Comentario agregado: $idCotizacion");
+                responder(['success' => $resultado, 'message' => $resultado ? 'Comentario agregado' : 'Error al agregar comentario']);
+            } elseif ($accion === 'agregar_imagen') {
+                $idCotizacion = (int)($_POST['id_cotizacion'] ?? 0);
+                if ($idCotizacion <= 0 || !isset($_FILES['imagen'])) {
+                    responder(['success' => false, 'message' => 'Datos inválidos'], 400);
+                }
+                $baseProjectDir = realpath(__DIR__ . '/../../..');
+                $imgBaseDir = $baseProjectDir . DIRECTORY_SEPARATOR . 'Img_Servicios';
+                $uploadDir = $imgBaseDir . DIRECTORY_SEPARATOR . $idCotizacion;
+
+                if (!is_dir($imgBaseDir)) {
+                    mkdir($imgBaseDir, 0777, true);
+                }
+                if (!is_dir($uploadDir)) {
+                    mkdir($uploadDir, 0777, true);
+                }
+
+                $archivo = $_FILES['imagen'];
+                $nombreOriginal = basename($archivo['name']);
+                $tipoMime = mime_content_type($archivo['tmp_name']);
+                $tamano = (int)$archivo['size'];
+
+                if (!preg_match('/^image\//', (string)$tipoMime)) {
+                    responder(['success' => false, 'message' => 'Tipo de archivo no válido']);
+                }
+                if ($tamano > 5 * 1024 * 1024) {
+                    responder(['success' => false, 'message' => 'Archivo demasiado grande']);
+                }
+
+                $extension = pathinfo($nombreOriginal, PATHINFO_EXTENSION) ?: 'jpg';
+                $nombreDestino = uniqid('img_admin_', true) . '.' . $extension;
+                $rutaRelativa = 'Img_Servicios/' . $idCotizacion . '/' . $nombreDestino;
+                $rutaAbsoluta = $uploadDir . DIRECTORY_SEPARATOR . $nombreDestino;
+
+                if (!move_uploaded_file($archivo['tmp_name'], $rutaAbsoluta)) {
+                    responder(['success' => false, 'message' => 'Error al subir archivo']);
+                }
+
+                $sql = "INSERT INTO cotizacion_imagenes_cliente (id_cotizacion, ruta_imagen, nombre_archivo, tamano_bytes, tipo_mime) VALUES (:id_cotizacion, :ruta_imagen, :nombre_archivo, :tamano_bytes, :tipo_mime)";
+                $stmt = $db->prepare($sql);
+                $stmt->execute([
+                    ':id_cotizacion' => $idCotizacion,
+                    ':ruta_imagen' => $rutaRelativa,
+                    ':nombre_archivo' => $nombreOriginal,
+                    ':tamano_bytes' => $tamano,
+                    ':tipo_mime' => $tipoMime,
+                ]);
+
+                escribirLog("Imagen agregada: $idCotizacion");
+                responder(['success' => true, 'id_imagen' => $db->lastInsertId()]);
+            } elseif ($accion === 'agregar_paso') {
+                $idCotizacion = (int)($input['id_cotizacion'] ?? 0);
+                $paso = (int)($input['paso'] ?? 0);
+                $descripcion = trim($input['descripcion'] ?? '');
+                if ($idCotizacion <= 0 || $paso <= 0 || empty($descripcion)) {
+                    responder(['success' => false, 'message' => 'Datos inválidos'], 400);
+                }
+                $sql = "INSERT INTO cotizacion_progreso_cliente (id_cotizacion, paso, descripcion, activo) VALUES (:id_cotizacion, :paso, :descripcion, 1)";
+                $stmt = $db->prepare($sql);
+                $resultado = $stmt->execute([
+                    ':id_cotizacion' => $idCotizacion,
+                    ':paso' => $paso,
+                    ':descripcion' => $descripcion
+                ]);
+                escribirLog("Paso agregado: $idCotizacion paso $paso");
+                responder(['success' => $resultado, 'message' => $resultado ? 'Paso agregado' : 'Error al agregar paso']);
+            } elseif ($accion === 'actualizar_paso') {
+                $idCotizacion = (int)($input['id_cotizacion'] ?? 0);
+                $paso = (int)($input['paso'] ?? 0);
+                $activo = (bool)($input['activo'] ?? false);
+                if ($idCotizacion <= 0 || $paso <= 0) {
+                    responder(['success' => false, 'message' => 'Datos inválidos'], 400);
+                }
+                $sql = "UPDATE cotizacion_progreso_cliente SET activo = :activo WHERE id_cotizacion = :id_cotizacion AND paso = :paso";
+                $stmt = $db->prepare($sql);
+                $resultado = $stmt->execute([
+                    ':activo' => $activo ? 1 : 0,
+                    ':id_cotizacion' => $idCotizacion,
+                    ':paso' => $paso
+                ]);
+                escribirLog("Paso actualizado: $idCotizacion paso $paso -> " . ($activo ? 'activo' : 'inactivo'));
+                responder(['success' => $resultado, 'message' => $resultado ? 'Paso actualizado' : 'Error al actualizar paso']);
+            } elseif ($accion === 'agregar_pieza') {
+                $idCotizacion = (int)($input['id_cotizacion'] ?? 0);
+                $nombre = trim($input['nombre'] ?? '');
+                $codigo = trim($input['codigo'] ?? '');
+                $cantidad = (int)($input['cantidad'] ?? 1);
+                $nota = trim($input['nota'] ?? '');
+                if ($idCotizacion <= 0 || empty($nombre) || $cantidad <= 0) {
+                    responder(['success' => false, 'message' => 'Datos inválidos'], 400);
+                }
+                $sql = "INSERT INTO piezas_movimientos (id_cotizacion, tipo, nombre_pieza, codigo_pieza, cantidad, nota) VALUES (:id_cotizacion, 'ENVIADO', :nombre, :codigo, :cantidad, :nota)";
+                $stmt = $db->prepare($sql);
+                $resultado = $stmt->execute([
+                    ':id_cotizacion' => $idCotizacion,
+                    ':nombre' => $nombre,
+                    ':codigo' => $codigo,
+                    ':cantidad' => $cantidad,
+                    ':nota' => $nota
+                ]);
+                escribirLog("Pieza agregada: $idCotizacion - $nombre");
+                responder(['success' => $resultado, 'message' => $resultado ? 'Pieza agregada' : 'Error al agregar pieza']);
+            } elseif ($accion === 'actualizar_campo') {
+                $idCotizacion = (int)($input['id_cotizacion'] ?? 0);
+                $campo = $input['campo'] ?? '';
+                $valor = $input['valor'] ?? '';
+                $camposPermitidos = ['revision_camaras', 'inspeccion_estetica', 'empacado_salida'];
+                if ($idCotizacion <= 0 || !in_array($campo, $camposPermitidos)) {
+                    responder(['success' => false, 'message' => 'Datos inválidos'], 400);
+                }
+                $sql = "UPDATE cotizaciones_cliente SET $campo = :valor WHERE id_cotizacion = :id";
+                $stmt = $db->prepare($sql);
+                $resultado = $stmt->execute([':valor' => $valor, ':id' => $idCotizacion]);
+                escribirLog("Campo actualizado: $idCotizacion $campo = $valor");
+                responder(['success' => $resultado, 'message' => $resultado ? 'Campo actualizado' : 'Error al actualizar campo']);
+            } elseif ($accion === 'agregar_pieza') {
+                $idCotizacion = (int)($input['id_cotizacion'] ?? 0);
+                $campo = $input['campo'] ?? '';
+                $valor = $input['valor'] ?? '';
+                $camposPermitidos = ['revision_camaras', 'inspeccion_estetica', 'empacado_salida'];
+                if ($idCotizacion <= 0 || !in_array($campo, $camposPermitidos)) {
+                    responder(['success' => false, 'message' => 'Datos inválidos'], 400);
+                }
+                $resultado = $servicio->actualizarCampo($idCotizacion, $campo, $valor);
+                escribirLog("Campo actualizado: $idCotizacion $campo = $valor");
+                responder(['success' => $resultado, 'message' => $resultado ? 'Campo actualizado' : 'Error al actualizar campo']);
+            }
+            break;
+
+        default:
+            responder(['success' => false, 'message' => 'Método no permitido'], 405);
+    }
+
+    responder(['success' => false, 'message' => 'Acción no válida'], 400);
+
+} catch (Throwable $e) {
+    escribirLog("ERROR: " . $e->getMessage());
+    responder(['success' => false, 'message' => $e->getMessage()], 500);
+}

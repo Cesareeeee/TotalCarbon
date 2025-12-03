@@ -1,1917 +1,1455 @@
 
-        // Variables globales
-        let arregloUsuarios = [];
-        let arregloProveedores = [];
-        let arregloProductos = [];
-        let arregloGarantias = [];
-        let arregloCotizaciones = [];
-        let arregloServiciosCompletados = [];
-        let seccionActual = 'clientes';
-        let elementoEditando = null;
-        let idEditandoActual = null;
+// Variables globales
+let arregloUsuarios = [];
+let arregloProveedores = [];
+let arregloProductos = [];
+let arregloGarantias = [];
+let arregloServiciosCompletados = [];
+let arregloCotizaciones = [];
+let seccionActual = 'clientes';
+let elementoEditando = null;
+let idEditandoActual = null;
 
-        // Funciones de inicialización
-        async function initializeData() {
-            await loadProveedores();
-            await loadProductos();
-            // Cargar otros datos si es necesario
+// Funciones de inicialización
+async function initializeData() {
+    await loadProveedores();
+    await loadProductos();
+    // Cargar otros datos si es necesario
+}
+
+function confirmLogout() {
+    Swal.fire({
+        title: '¿Está seguro?',
+        text: "¿Desea cerrar la sesión?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#1a1a1a',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Sí, cerrar sesión',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '../../controlador/logout.php';
         }
+    });
+}
 
-        function confirmLogout() {
-            Swal.fire({
-                title: '¿Está seguro?',
-                text: "¿Desea cerrar la sesión?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#1a1a1a',
-                cancelButtonColor: '#6c757d',
-                confirmButtonText: 'Sí, cerrar sesión',
-                cancelButtonText: 'Cancelar'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = '../../controlador/logout.php';
-                }
-            });
+// Funciones de navegación
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const hamburger = document.getElementById('hamburger');
+    const overlay = document.getElementById('sidebarOverlay');
+
+    sidebar.classList.toggle('visible');
+    hamburger.classList.toggle('active');
+    overlay.classList.toggle('active');
+}
+
+function showSection(section) {
+    // Ocultar todas las secciones
+    document.querySelectorAll('.content-section').forEach(sec => {
+        sec.classList.remove('active');
+    });
+
+    
+    // Mostrar la sección seleccionada
+    const targetSection = document.getElementById(section + '-section');
+    if (targetSection) {
+        targetSection.classList.add('active');
+    }
+
+    // Actualizar menú lateral
+    document.querySelectorAll('.sidebar-menu a').forEach(link => {
+        link.classList.remove('active');
+    });
+    if (event && event.target) {
+        event.target.classList.add('active');
+    }
+
+    seccionActual = section;
+
+    // Mostrar/ocultar botón flotante del chat
+    const chatFloatingBtn = document.getElementById('chatFloatingBtn');
+    if (chatFloatingBtn) {
+        if (section === 'chat') {
+            chatFloatingBtn.style.display = 'none';
+        } else {
+            chatFloatingBtn.style.display = 'flex';
         }
+    }
 
-        // Funciones de navegación
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const hamburger = document.getElementById('hamburger');
-            const overlay = document.getElementById('sidebarOverlay');
-            
-            sidebar.classList.toggle('visible');
-            hamburger.classList.toggle('active');
-            overlay.classList.toggle('active');
+    // Cerrar sidebar en móvil
+    if (window.innerWidth <= 992) {
+        toggleSidebar();
+    }
+
+    // Cargar datos específicos de la sección
+    if (section === 'dashboard') {
+        cargarDashboard();
+    } else if (section === 'proveedores') {
+        loadProveedores();
+        loadIngresosGastosProveedores();
+    } else if (section === 'productos') {
+        loadProductos();
+    } else if (section === 'garantias') {
+        loadGarantias();
+    } else if (section === 'clientes') {
+        if (typeof loadClientes === 'function') {
+            loadClientes();
         }
-
-        function showSection(section) {
-            // Ocultar todas las secciones
-            document.querySelectorAll('.content-section').forEach(sec => {
-                sec.classList.remove('active');
-            });
-
-            // Mostrar la sección seleccionada
-            const targetSection = document.getElementById(section + '-section');
-            if (targetSection) {
-                targetSection.classList.add('active');
-            }
-
-            // Actualizar menú lateral
-            document.querySelectorAll('.sidebar-menu a').forEach(link => {
-                link.classList.remove('active');
-            });
-            if (event && event.target) {
-                event.target.classList.add('active');
-            }
-
-            seccionActual = section;
-
-            // Mostrar/ocultar botón flotante del chat
-            const chatFloatingBtn = document.getElementById('chatFloatingBtn');
-            if (chatFloatingBtn) {
-                if (section === 'chat') {
-                    chatFloatingBtn.style.display = 'none';
-                } else {
-                    chatFloatingBtn.style.display = 'flex';
-                }
-            }
-
-            // Cerrar sidebar en móvil
-            if (window.innerWidth <= 992) {
-                toggleSidebar();
-            }
-
-            // Cargar datos específicos de la sección
-            if (section === 'garantias') {
-                loadGarantias();
-            }
-        }
-
-        // Funciones de carga de datos
-        async function loadProveedores() {
-            try {
-                const response = await fetch('../../controlador/Administrador/proveedores_controller.php?action=getProveedores');
-                arregloProveedores = await response.json();
-
-                const tbody = document.getElementById('proveedoresTableBody');
-                tbody.innerHTML = '';
-
-                arregloProveedores.forEach(proveedor => {
-                    const row = createProveedorRow(proveedor);
-                    tbody.appendChild(row);
-                });
-            } catch (error) {
-                // Error silencioso
-            }
-        }
-
-        function createProveedorRow(proveedor) {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>
-                    <div class="client-info">
-                        <div class="client-avatar">
-                            <i class="fas fa-building"></i>
-                        </div>
-                        <div class="client-details">
-                            <h4>${proveedor.nombre_proveedor}</h4>
-                        </div>
-                    </div>
-                </td>
-                <td>${proveedor.contacto || 'N/A'}</td>
-                <td>
-                    <div class="contact-info">
-                        <i class="fas fa-phone"></i>
-                        <span>${proveedor.telefono || 'N/A'}</span>
-                    </div>
-                </td>
-                <td>
-                    <div class="contact-info">
-                        <i class="fas fa-envelope"></i>
-                        <span>${proveedor.correo || 'N/A'}</span>
-                    </div>
-                </td>
-                <td>
-                    <div class="contact-info">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>${proveedor.direccion || 'N/A'}</span>
-                    </div>
-                </td>
-                <td>
-                    <div class="table-actions">
-                        <button class="action-btn" onclick="viewProveedor(${proveedor.id_proveedor})" title="Ver más información">
-                            <i class="fas fa-info-circle"></i>
-                        </button>
-                        <button class="action-btn" onclick="editProveedor(${proveedor.id_proveedor})" title="Editar">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="action-btn delete" onclick="deleteProveedor(${proveedor.id_proveedor})" title="Eliminar">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </td>
-            `;
-            return row;
-        }
-
-        // Funciones de carga de datos para productos
-        async function loadProductos() {
-            try {
-                const response = await fetch('../../controlador/Administrador/compras_proveedores_controller.php?action=getComprasProveedores');
-                arregloProductos = await response.json();
-
-                const tbody = document.getElementById('productosTableBody');
-                tbody.innerHTML = '';
-
-                arregloProductos.forEach(producto => {
-                    const row = createProductoRow(producto);
-                    tbody.appendChild(row);
-                });
-            } catch (error) {
-            }
-        }
-
-        // Funciones de carga de datos para garantías
-        async function loadGarantias() {
-            try {
-                const response = await fetch('../../controlador/Administrador/garantias_controller.php?action=getGarantias');
-                const data = await response.json();
-
-                if (data.success) {
-                    arregloGarantias = data.garantias;
-                    const tbody = document.getElementById('garantiasTableBody');
-                    tbody.innerHTML = '';
-
-                    arregloGarantias.forEach(garantia => {
-                        const row = createGarantiaRow(garantia);
-                        tbody.appendChild(row);
-                    });
-                }
-            } catch (error) {
-            }
-        }
-
-        function createProductoRow(producto) {
-            const precioUnitario = producto.precio_unitario ? parseFloat(producto.precio_unitario) : 0;
-            const cantidad = producto.cantidad || 1;
-            const total = precioUnitario * cantidad;
-
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>
-                    <div class="client-info">
-                        <div class="client-avatar">
-                            <i class="fas fa-cog"></i>
-                        </div>
-                        <div class="client-details">
-                            <h4>${producto.nombre_producto}</h4>
-                            ${producto.descripcion ? `<p>${producto.descripcion}</p>` : ''}
-                        </div>
-                    </div>
-                </td>
-                <td>${producto.nombre_proveedor || 'N/A'}</td>
-                <td>${producto.cantidad || 1}</td>
-                <td>$${precioUnitario.toFixed(2)}</td>
-                <td>$${total.toFixed(2)}</td>
-                <td>${new Date(producto.fecha_adquirido).toLocaleDateString('es-MX')}</td>
-                <td>${producto.numero_factura || 'N/A'}</td>
-                <td>
-                    <div class="notas-cell" title="${producto.notas || ''}">
-                        ${producto.notas ? producto.notas.substring(0, 20) + (producto.notas.length > 20 ? '...' : '') : 'N/A'}
-                    </div>
-                </td>
-                <td>
-                    <div class="table-actions">
-                        <button class="action-btn" onclick="viewProducto(${producto.id_compra})" title="Ver detalles">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                        <button class="action-btn" onclick="editProducto(${producto.id_compra})" title="Editar">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="action-btn delete" onclick="deleteProducto(${producto.id_compra})" title="Eliminar">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </td>
-            `;
-            return row;
-        }
-
-        function createGarantiaRow(garantia) {
-            const nombreBicicleta = `${garantia.marca_bicicleta || 'N/A'} ${garantia.modelo_bicicleta || ''}`.trim();
-            const dueno = `${garantia.nombres || ''} ${garantia.apellidos || ''}`.trim();
-            const fechaVencimiento = new Date(garantia.fecha_fin).toLocaleDateString('es-MX');
-
-            // Determinar clase CSS para el estado
-            let estadoClass = '';
-            if (garantia.estado === 'Activa') estadoClass = 'status-active';
-            else if (garantia.estado === 'Vencida') estadoClass = 'status-expired';
-            else if (garantia.estado === 'Cancelada') estadoClass = 'status-cancelled';
-            else estadoClass = 'status-other';
-
-            // Truncar cobertura para mostrar en tabla
-            const coberturaTruncada = garantia.cobertura ?
-                (garantia.cobertura.length > 50 ? garantia.cobertura.substring(0, 50) + '...' : garantia.cobertura) :
-                'Sin descripción';
-
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${garantia.id_garantia}</td>
-                <td>
-                    <div class="client-info">
-                        <i class="fas fa-bicycle"></i>
-                        <div class="client-details">
-                            <h4>${nombreBicicleta}</h4>
-                            <p>${garantia.zona_afectada || 'N/A'}</p>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="client-info">
-                        <i class="fas fa-user"></i>
-                        <div class="client-details">
-                            <h4>${dueno}</h4>
-                            <p>${garantia.correo_electronico || 'N/A'}</p>
-                        </div>
-                    </div>
-                </td>
-                <td>${garantia.tipo_garantia}</td>
-                <td>
-                    <div class="cobertura-cell" title="${garantia.cobertura || ''}">
-                        ${coberturaTruncada}
-                    </div>
-                </td>
-                <td>${fechaVencimiento}</td>
-                <td>
-                    <span class="status-badge ${estadoClass}">${garantia.estado}</span>
-                </td>
-                <td>
-                    <div class="table-actions">
-                        <button class="action-btn" onclick="viewGarantia(${garantia.id_garantia})" title="Ver detalles">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                        <button class="action-btn" onclick="editGarantia(${garantia.id_garantia})" title="Editar">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="action-btn delete" onclick="deleteGarantia(${garantia.id_garantia})" title="Eliminar">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </td>
-            `;
-            return row;
-        }
-
-        // Funciones de modales
-        function openModal(modalId) {
-            const modal = document.getElementById(modalId);
-            modal.classList.add('active');
-        }
-
-        function closeModal(modalId) {
-            const modal = document.getElementById(modalId);
-            modal.classList.remove('active');
-            clearForm(modalId);
-            elementoEditando = null;
-            idEditandoActual = null;
-        }
-
-        function clearForm(modalId) {
-            const form = document.querySelector(`#${modalId} form`);
-            if (form) {
-                form.reset();
-                // Limpiar errores
-                form.querySelectorAll('.form-control').forEach(input => {
-                    input.classList.remove('error');
-                });
-                form.querySelectorAll('.error-message').forEach(error => {
-                    error.classList.remove('show');
-                });
-            }
-        }
-
-        // Funciones de garantías
-        function openGarantiaModal() {
-            document.getElementById('garantiaModalTitle').textContent = 'Nueva Garantía';
-            document.getElementById('garantiaSaveBtn').textContent = 'Guardar Garantía';
-            loadServiciosCompletados();
-            // Resetear campos
-            document.getElementById('tipo_garantia').value = '';
-            document.getElementById('tipo_garantia_personalizado').value = '';
-            document.getElementById('fecha_inicio').value = '';
-            document.getElementById('periodo_garantia').value = '';
-            document.getElementById('fecha_fin').value = '';
-            toggleTipoGarantiaPersonalizado();
-            openModal('garantiaModal');
-        }
-
-        function toggleTipoGarantiaPersonalizado() {
-            const tipoGarantia = document.getElementById('tipo_garantia').value;
-            const personalizadoGroup = document.getElementById('tipo_personalizado_group');
-            const personalizadoInput = document.getElementById('tipo_garantia_personalizado');
-
-            if (tipoGarantia === 'Otros') {
-                personalizadoGroup.style.display = 'block';
-                personalizadoInput.required = true;
-            } else {
-                personalizadoGroup.style.display = 'none';
-                personalizadoInput.required = false;
-                personalizadoInput.value = '';
-            }
-        }
-
-        async function loadServiciosCompletados() {
-            try {
-                const response = await fetch('../../controlador/Administrador/garantias_controller.php?action=getServiciosCompletados');
-                const data = await response.json();
-
-                if (data.success) {
-                    arregloServiciosCompletados = data.servicios;
-                    const select = document.getElementById('servicio_completado');
-                    select.innerHTML = '<option value="">Seleccionar servicio completado</option>';
-
-                    arregloServiciosCompletados.forEach(servicio => {
-                        const nombreBicicleta = `${servicio.marca_bicicleta || 'N/A'} ${servicio.modelo_bicicleta || ''}`.trim();
-                        const dueno = `${servicio.nombres || ''} ${servicio.apellidos || ''}`.trim();
-                        const option = document.createElement('option');
-                        option.value = servicio.id_cotizacion;
-                        option.textContent = `ID ${servicio.id_cotizacion} - ${nombreBicicleta} (${dueno})`;
-                        select.appendChild(option);
-                    });
-                }
-            } catch (error) {
-            }
-        }
-
-        function calcularFechaFin() {
-            const fechaInicio = document.getElementById('fecha_inicio').value;
-            const periodo = document.getElementById('periodo_garantia').value;
-            const fechaFinInput = document.getElementById('fecha_fin');
-
-            if (fechaInicio && periodo) {
-                const fechaInicioDate = new Date(fechaInicio);
-                let fechaFinDate = new Date(fechaInicioDate);
-
-                if (periodo === '1') {
-                    fechaFinDate.setMonth(fechaFinDate.getMonth() + 1);
-                } else if (periodo === '3') {
-                    fechaFinDate.setMonth(fechaFinDate.getMonth() + 3);
-                } else if (periodo === '12') {
-                    fechaFinDate.setFullYear(fechaFinDate.getFullYear() + 1);
-                }
-
-                const year = fechaFinDate.getFullYear();
-                const month = String(fechaFinDate.getMonth() + 1).padStart(2, '0');
-                const day = String(fechaFinDate.getDate()).padStart(2, '0');
-                fechaFinInput.value = `${year}-${month}-${day}`;
-            }
-        }
-
-        async function saveGarantia() {
-            if (!validateGarantiaForm()) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error de Validación',
-                    text: 'Por favor, complete todos los campos requeridos correctamente.',
-                    confirmButtonColor: '#1a1a1a'
-                });
-                return;
-            }
-
-            let tipoGarantia = document.getElementById('tipo_garantia').value;
-            if (tipoGarantia === 'Otros') {
-                tipoGarantia = document.getElementById('tipo_garantia_personalizado').value;
-            }
-
-            const garantiaData = {
-                id_cotizacion: document.getElementById('servicio_completado').value,
-                tipo_garantia: tipoGarantia,
-                cobertura: document.getElementById('cobertura').value,
-                fecha_inicio: document.getElementById('fecha_inicio').value,
-                fecha_fin: document.getElementById('fecha_fin').value
-            };
-
-            let url = '../../controlador/Administrador/garantias_controller.php?action=createGarantia';
-            let method = 'POST';
-
-            if (elementoEditando) {
-                url = `../../controlador/Administrador/garantias_controller.php?action=updateGarantia&id=${idEditandoActual}`;
-                method = 'PUT'; // Though the controller uses POST for update, but actually it's PUT in the code? Wait, the controller uses json_decode from input, so POST is fine.
-                // Actually, the updateGarantia in controller uses json_decode(file_get_contents('php://input')), so it's POST.
-            }
-
-            try {
-                const response = await fetch(url, {
-                    method: method,
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(garantiaData)
-                });
-
-                const result = await response.json();
-
-                if (result.success) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: elementoEditando ? 'Garantía Actualizada' : 'Garantía Creada',
-                        text: `La garantía ha sido ${elementoEditando ? 'actualizada' : 'creada'} exitosamente.`,
-                        confirmButtonColor: '#1a1a1a'
-                    });
-
-                    loadGarantias();
-                    closeModal('garantiaModal');
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: result.message || 'Ocurrió un error al guardar la garantía.',
-                        confirmButtonColor: '#1a1a1a'
-                    });
-                }
-            } catch (error) {
-                console.error('Error guardando garantía:', error);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error de conexión',
-                    text: 'No se pudo conectar con el servidor.',
-                    confirmButtonColor: '#1a1a1a'
-                });
-            }
-        }
-
-        function validateGarantiaForm() {
-            const servicio_completado = document.getElementById('servicio_completado');
-            const tipo_garantia = document.getElementById('tipo_garantia');
-            const tipo_garantia_personalizado = document.getElementById('tipo_garantia_personalizado');
-            const fecha_inicio = document.getElementById('fecha_inicio');
-            const periodo_garantia = document.getElementById('periodo_garantia');
-            const fecha_fin = document.getElementById('fecha_fin');
-
-            let isValid = true;
-
-            // Limpiar errores anteriores
-            document.querySelectorAll('#garantiaForm .form-control').forEach(input => {
-                input.classList.remove('error');
-            });
-            document.querySelectorAll('#garantiaForm .error-message').forEach(error => {
-                error.classList.remove('show');
-            });
-
-            // Validar servicio completado
-            if (!servicio_completado.value) {
-                servicio_completado.classList.add('error');
-                servicio_completado.nextElementSibling.classList.add('show');
-                servicio_completado.nextElementSibling.textContent = 'Debe seleccionar un servicio completado';
-                isValid = false;
-            }
-
-            // Validar tipo de garantía
-            if (!tipo_garantia.value) {
-                tipo_garantia.classList.add('error');
-                tipo_garantia.nextElementSibling.classList.add('show');
-                tipo_garantia.nextElementSibling.textContent = 'El tipo de garantía es requerido';
-                isValid = false;
-            }
-
-            // Validar tipo personalizado si está seleccionado
-            if (tipo_garantia.value === 'Otros' && !tipo_garantia_personalizado.value.trim()) {
-                tipo_garantia_personalizado.classList.add('error');
-                tipo_garantia_personalizado.nextElementSibling.classList.add('show');
-                tipo_garantia_personalizado.nextElementSibling.textContent = 'Debe especificar el tipo de garantía personalizado';
-                isValid = false;
-            }
-
-            // Validar fecha de inicio
-            if (!fecha_inicio.value) {
-                fecha_inicio.classList.add('error');
-                fecha_inicio.nextElementSibling.classList.add('show');
-                fecha_inicio.nextElementSibling.textContent = 'La fecha de inicio es requerida';
-                isValid = false;
-            }
-
-            // Validar período de garantía
-            if (!periodo_garantia.value) {
-                periodo_garantia.classList.add('error');
-                periodo_garantia.nextElementSibling.classList.add('show');
-                periodo_garantia.nextElementSibling.textContent = 'El período de garantía es requerido';
-                isValid = false;
-            }
-
-            // Validar fecha de fin
-            if (!fecha_fin.value) {
-                fecha_fin.classList.add('error');
-                fecha_fin.nextElementSibling.classList.add('show');
-                fecha_fin.nextElementSibling.textContent = 'La fecha de vencimiento es requerida';
-                isValid = false;
-            }
-
-            return isValid;
-        }
-
-        async function viewGarantia(id) {
-            try {
-                const response = await fetch(`../../controlador/Administrador/garantias_controller.php?action=getGarantia&id=${id}`);
-                const data = await response.json();
-
-                if (data.success) {
-                    const garantia = data.garantia;
-                    // Obtener información completa de la garantía con JOIN
-                    const responseCompleta = await fetch('../../controlador/Administrador/garantias_controller.php?action=getGarantias');
-                    const dataCompleta = await responseCompleta.json();
-
-                    if (dataCompleta.success) {
-                        const garantiaCompleta = dataCompleta.garantias.find(g => g.id_garantia == id);
-
-                        if (garantiaCompleta) {
-                            const nombreBicicleta = `${garantiaCompleta.marca_bicicleta || 'N/A'} ${garantiaCompleta.modelo_bicicleta || ''}`.trim();
-                            const dueno = `${garantiaCompleta.nombres || ''} ${garantiaCompleta.apellidos || ''}`.trim();
-
-                            // Crear modal personalizado
-                            const modalHtml = `
-                                <div class="garantia-detalles-modal">
-                                    <div class="garantia-header">
-                                        <div class="garantia-title">
-                                            <h2><i class="fas fa-shield-alt"></i> Detalles de Garantía #${garantia.id_garantia}</h2>
-                                            <span class="garantia-status status-${garantia.estado.toLowerCase()}">${garantia.estado}</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="garantia-content">
-                                        <div class="info-section">
-                                            <h3><i class="fas fa-info-circle"></i> Información de la Garantía</h3>
-                                            <div class="info-grid">
-                                                <div class="info-item">
-                                                    <label>ID Garantía:</label>
-                                                    <span>${garantia.id_garantia}</span>
-                                                </div>
-                                                <div class="info-item">
-                                                    <label>Tipo de Garantía:</label>
-                                                    <span>${garantia.tipo_garantia}</span>
-                                                </div>
-                                                <div class="info-item">
-                                                    <label>Fecha de Inicio:</label>
-                                                    <span>${new Date(garantia.fecha_inicio).toLocaleDateString('es-MX')}</span>
-                                                </div>
-                                                <div class="info-item">
-                                                    <label>Fecha de Vencimiento:</label>
-                                                    <span>${new Date(garantia.fecha_fin).toLocaleDateString('es-MX')}</span>
-                                                </div>
-                                                <div class="info-item">
-                                                    <label>Creada el:</label>
-                                                    <span>${new Date(garantia.creado_en).toLocaleDateString('es-MX')} ${new Date(garantia.creado_en).toLocaleTimeString('es-MX')}</span>
-                                                </div>
-                                                <div class="info-item">
-                                                    <label>Actualizada el:</label>
-                                                    <span>${new Date(garantia.actualizado_en).toLocaleDateString('es-MX')} ${new Date(garantia.actualizado_en).toLocaleTimeString('es-MX')}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="info-section">
-                                            <h3><i class="fas fa-bicycle"></i> Información de la Bicicleta</h3>
-                                            <div class="info-grid">
-                                                <div class="info-item">
-                                                    <label>Marca:</label>
-                                                    <span>${garantiaCompleta.marca_bicicleta || 'N/A'}</span>
-                                                </div>
-                                                <div class="info-item">
-                                                    <label>Modelo:</label>
-                                                    <span>${garantiaCompleta.modelo_bicicleta || 'N/A'}</span>
-                                                </div>
-                                                <div class="info-item">
-                                                    <label>Zona Afectada:</label>
-                                                    <span>${garantiaCompleta.zona_afectada || 'N/A'}</span>
-                                                </div>
-                                                <div class="info-item">
-                                                    <label>Tipo de Trabajo:</label>
-                                                    <span>${garantiaCompleta.tipo_trabajo || 'N/A'}</span>
-                                                </div>
-                                                <div class="info-item">
-                                                    <label>Tipo de Reparación:</label>
-                                                    <span>${garantiaCompleta.tipo_reparacion || 'N/A'}</span>
-                                                </div>
-                                                <div class="info-item">
-                                                    <label>Descripción Otros:</label>
-                                                    <span>${garantiaCompleta.descripcion_otros || 'N/A'}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="info-section">
-                                            <h3><i class="fas fa-user"></i> Información del Dueño</h3>
-                                            <div class="info-grid">
-                                                <div class="info-item">
-                                                    <label>Nombre Completo:</label>
-                                                    <span>${dueno}</span>
-                                                </div>
-                                                <div class="info-item">
-                                                    <label>Correo Electrónico:</label>
-                                                    <span>${garantiaCompleta.correo_electronico || 'N/A'}</span>
-                                                </div>
-                                                <div class="info-item">
-                                                    <label>ID Cotización:</label>
-                                                    <span>${garantia.id_cotizacion}</span>
-                                                </div>
-                                                <div class="info-item">
-                                                    <label>ID Usuario:</label>
-                                                    <span>${garantia.id_usuario}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="info-section">
-                                            <h3><i class="fas fa-file-alt"></i> Cobertura de la Garantía</h3>
-                                            <div class="cobertura-content">
-                                                ${garantia.cobertura ? garantia.cobertura.replace(/\n/g, '<br>') : '<em>Sin descripción específica</em>'}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            `;
-
-                            // Crear y mostrar modal personalizado
-                            const modal = document.createElement('div');
-                            modal.className = 'custom-modal active';
-                            modal.innerHTML = `
-                                <div class="custom-modal-overlay" onclick="this.parentElement.remove()"></div>
-                                <div class="custom-modal-content garantia-modal">
-                                    <div class="custom-modal-header">
-                                        <button class="custom-modal-close" onclick="this.closest('.custom-modal').remove()">&times;</button>
-                                    </div>
-                                    <div class="custom-modal-body">
-                                        ${modalHtml}
-                                    </div>
-                                </div>
-                            `;
-
-                            document.body.appendChild(modal);
-                        }
-                    }
-                }
-            } catch (error) {
-                console.error('Error obteniendo detalles de garantía:', error);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'No se pudieron cargar los detalles de la garantía.',
-                    confirmButtonColor: '#1a1a1a'
-                });
-            }
-        }
-
-        async function editGarantia(id) {
-            try {
-                const response = await fetch(`../../controlador/Administrador/garantias_controller.php?action=getGarantia&id=${id}`);
-                const data = await response.json();
-
-                if (data.success) {
-                    const garantia = data.garantia;
-                    elementoEditando = garantia;
-                    idEditandoActual = id;
-
-                    document.getElementById('garantiaModalTitle').textContent = 'Editar Garantía';
-                    document.getElementById('garantiaSaveBtn').textContent = 'Actualizar Garantía';
-
-                    // Llenar formulario
-                    await loadServiciosCompletados();
-                    document.getElementById('servicio_completado').value = garantia.id_cotizacion;
-
-                    // Determinar tipo de garantía
-                    let tipoGarantia = garantia.tipo_garantia;
-                    if (['Básica', 'Estándar', 'Premium Carbon', 'Extendida'].includes(tipoGarantia)) {
-                        document.getElementById('tipo_garantia').value = tipoGarantia;
-                        document.getElementById('tipo_garantia_personalizado').value = '';
-                    } else {
-                        document.getElementById('tipo_garantia').value = 'Otros';
-                        document.getElementById('tipo_garantia_personalizado').value = tipoGarantia;
-                    }
-                    toggleTipoGarantiaPersonalizado();
-
-                    document.getElementById('fecha_inicio').value = garantia.fecha_inicio;
-                    // Calcular período basado en fechas
-                    const fechaInicio = new Date(garantia.fecha_inicio);
-                    const fechaFin = new Date(garantia.fecha_fin);
-                    const diffTime = Math.abs(fechaFin - fechaInicio);
-                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-                    let periodo = '';
-                    if (diffDays <= 35) { // Aproximadamente 1 mes
-                        periodo = '1';
-                    } else if (diffDays <= 100) { // Aproximadamente 3 meses
-                        periodo = '3';
-                    } else if (diffDays <= 400) { // Aproximadamente 1 año
-                        periodo = '12';
-                    } else {
-                        periodo = '12'; // Default to 1 year
-                    }
-                    document.getElementById('periodo_garantia').value = periodo;
-                    document.getElementById('fecha_fin').value = garantia.fecha_fin;
-                    document.getElementById('cobertura').value = garantia.cobertura || '';
-
-                    openModal('garantiaModal');
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'No se pudo cargar la garantía.',
-                        confirmButtonColor: '#1a1a1a'
-                    });
-                }
-            } catch (error) {
-                console.error('Error cargando garantía para editar:', error);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error de conexión',
-                    text: 'No se pudo conectar con el servidor.',
-                    confirmButtonColor: '#1a1a1a'
-                });
-            }
-        }
-
-        async function deleteGarantia(id) {
-            const result = await Swal.fire({
-                title: '¿Está seguro?',
-                text: '¿Desea eliminar esta garantía?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#dc3545',
-                cancelButtonColor: '#6c757d',
-                confirmButtonText: 'Sí, eliminar',
-                cancelButtonText: 'Cancelar'
-            });
-
-            if (result.isConfirmed) {
-                try {
-                    const response = await fetch(`../../controlador/Administrador/garantias_controller.php?action=deleteGarantia&id=${id}`);
-
-                    const res = await response.json();
-
-                    if (res.success) {
-                        await Swal.fire({
-                            icon: 'success',
-                            title: 'Eliminada',
-                            text: 'La garantía ha sido eliminada exitosamente.',
-                            confirmButtonColor: '#1a1a1a',
-                            timer: 2000,
-                            showConfirmButton: false
-                        });
-                        loadGarantias();
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: res.message || 'Ocurrió un error al eliminar la garantía.',
-                            confirmButtonColor: '#1a1a1a'
-                        });
-                    }
-                } catch (error) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error de conexión',
-                        text: 'No se pudo conectar con el servidor.',
-                        confirmButtonColor: '#1a1a1a'
-                    });
-                }
-            }
-        }
-
-        // Funciones de productos
-        function openProductoModal() {
-            document.getElementById('productoModalTitle').textContent = 'Nuevo Producto';
-            document.getElementById('productoSaveBtn').textContent = 'Guardar Producto';
-            loadProveedoresForSelect();
-            openModal('productoModal');
-        }
-
-        async function loadProveedoresForSelect() {
-            try {
-                const response = await fetch('../../controlador/Administrador/compras_proveedores_controller.php?action=getProveedoresForSelect');
-                const proveedores = await response.json();
-
-                const select = document.getElementById('proveedor_id');
-                select.innerHTML = '<option value="">Seleccionar proveedor</option>';
-
-                proveedores.forEach(proveedor => {
-                    const option = document.createElement('option');
-                    option.value = proveedor.id_proveedor;
-                    option.textContent = proveedor.nombre_proveedor;
-                    select.appendChild(option);
-                });
-            } catch (error) {
-            }
-        }
-
-        async function editProducto(id) {
-            try {
-                const response = await fetch(`../../controlador/Administrador/compras_proveedores_controller.php?action=getCompraProveedor&id=${id}`);
-                const producto = await response.json();
-
-                if (!producto) return;
-
-                elementoEditando = producto;
-                idEditandoActual = id;
-
-                document.getElementById('productoModalTitle').textContent = 'Editar Producto';
-                document.getElementById('productoSaveBtn').textContent = 'Actualizar Producto';
-
-                // Llenar formulario
-                await loadProveedoresForSelect();
-                document.getElementById('proveedor_id').value = producto.proveedor_id;
-                document.getElementById('nombre_producto').value = producto.nombre_producto;
-                document.getElementById('descripcion').value = producto.descripcion || '';
-                document.getElementById('cantidad').value = producto.cantidad || 1;
-                document.getElementById('precio_unitario').value = producto.precio_unitario || '';
-                document.getElementById('fecha_adquirido').value = producto.fecha_adquirido;
-                document.getElementById('numero_factura').value = producto.numero_factura || '';
-                document.getElementById('notas').value = producto.notas || '';
-
-                openModal('productoModal');
-            } catch (error) {
-            }
-        }
-
-        async function saveProducto() {
-            if (!validateProductoForm()) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error de Validación',
-                    text: 'Por favor, complete todos los campos requeridos correctamente.',
-                    confirmButtonColor: '#1a1a1a'
-                });
-                return;
-            }
-
-            const productoData = {
-                proveedor_id: document.getElementById('proveedor_id').value,
-                nombre_producto: document.getElementById('nombre_producto').value,
-                descripcion: document.getElementById('descripcion').value,
-                cantidad: parseInt(document.getElementById('cantidad').value) || 1,
-                precio_unitario: parseFloat(document.getElementById('precio_unitario').value) || 0,
-                fecha_adquirido: document.getElementById('fecha_adquirido').value,
-                numero_factura: document.getElementById('numero_factura').value,
-                notas: document.getElementById('notas').value
-            };
-
-            let url = '../../controlador/Administrador/compras_proveedores_controller.php?action=createCompraProveedor';
-            let method = 'POST';
-
-            if (elementoEditando) {
-                url = `../../controlador/Administrador/compras_proveedores_controller.php?action=updateCompraProveedor&id=${idEditandoActual}`;
-            }
-
-            try {
-                const response = await fetch(url, {
-                    method: method,
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(productoData)
-                });
-
-                const result = await response.json();
-
-                if (result.success) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: `Producto ${elementoEditando ? 'Actualizado' : 'Creado'}`,
-                        text: `El producto ha sido ${elementoEditando ? 'actualizado' : 'creado'} exitosamente.`,
-                        confirmButtonColor: '#1a1a1a'
-                    });
-
-                    loadProductos();
-                    closeModal('productoModal');
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: result.error || 'Ocurrió un error al guardar el producto.',
-                        confirmButtonColor: '#1a1a1a'
-                    });
-                }
-            } catch (error) {
-            }
-        }
-
-        function validateProductoForm() {
-            const proveedor_id = document.getElementById('proveedor_id');
-            const nombre_producto = document.getElementById('nombre_producto');
-            const descripcion = document.getElementById('descripcion');
-            const cantidad = document.getElementById('cantidad');
-            const precio_unitario = document.getElementById('precio_unitario');
-            const fecha_adquirido = document.getElementById('fecha_adquirido');
-            const numero_factura = document.getElementById('numero_factura');
-            const notas = document.getElementById('notas');
-
-            let isValid = true;
-
-            // Limpiar errores anteriores
-            document.querySelectorAll('#productoForm .form-control').forEach(input => {
-                input.classList.remove('error');
-            });
-            document.querySelectorAll('#productoForm .error-message').forEach(error => {
-                error.classList.remove('show');
-            });
-
-            // Validar proveedor
-            if (!proveedor_id.value) {
-                proveedor_id.classList.add('error');
-                proveedor_id.nextElementSibling.classList.add('show');
-                proveedor_id.nextElementSibling.textContent = 'El proveedor es requerido';
-                isValid = false;
-            }
-
-            // Validar nombre del producto
-            if (!nombre_producto.value.trim()) {
-                nombre_producto.classList.add('error');
-                nombre_producto.nextElementSibling.classList.add('show');
-                nombre_producto.nextElementSibling.textContent = 'El nombre del producto es requerido';
-                isValid = false;
-            }
-
-            // Validar descripción (opcional)
-            // No se requiere validación para este campo
-
-            // Validar cantidad
-            if (!cantidad.value || cantidad.value < 1) {
-                cantidad.classList.add('error');
-                cantidad.nextElementSibling.classList.add('show');
-                cantidad.nextElementSibling.textContent = 'La cantidad debe ser mayor a 0';
-                isValid = false;
-            }
-
-            // Validar precio unitario (opcional, pero si se ingresa debe ser válido)
-            if (precio_unitario.value && parseFloat(precio_unitario.value) < 0) {
-                precio_unitario.classList.add('error');
-                precio_unitario.nextElementSibling.classList.add('show');
-                precio_unitario.nextElementSibling.textContent = 'El precio no puede ser negativo';
-                isValid = false;
-            }
-
-            // Validar fecha
-            if (!fecha_adquirido.value) {
-                fecha_adquirido.classList.add('error');
-                fecha_adquirido.nextElementSibling.classList.add('show');
-                fecha_adquirido.nextElementSibling.textContent = 'La fecha de adquisición es requerida';
-                isValid = false;
-            }
-
-            // Validar número de factura (opcional)
-            // No se requiere validación para este campo
-
-            // Validar notas (opcional)
-            // No se requiere validación para este campo
-
-            return isValid;
-        }
-
-        async function viewProducto(id) {
-            try {
-                const response = await fetch(`../../controlador/Administrador/compras_proveedores_controller.php?action=getCompraProveedor&id=${id}`);
-                const producto = await response.json();
-
-                if (!producto) return;
-
-                const precioUnitario = producto.precio_unitario ? parseFloat(producto.precio_unitario) : 0;
-                const cantidad = producto.cantidad || 1;
-                const total = precioUnitario * cantidad;
-
-                Swal.fire({
-                    title: 'Detalles del Producto',
-                    html: `
-                        <div style="text-align: left; max-height: 400px; overflow-y: auto;">
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
-                                <div style="background: #f0f8ff; padding: 12px; border-radius: 8px; border-left: 4px solid #1a1a1a;">
-                                    <h4 style="margin: 0 0 10px 0; color: #1a1a1a; font-size: 14px;">Información del Producto</h4>
-                                    <p style="margin: 5px 0; font-size: 13px;"><strong>Nombre:</strong> ${producto.nombre_producto}</p>
-                                    <p style="margin: 5px 0; font-size: 13px;"><strong>Descripción:</strong> ${producto.descripcion || 'N/A'}</p>
-                                    <p style="margin: 5px 0; font-size: 13px;"><strong>Proveedor:</strong> ${producto.nombre_proveedor || 'N/A'}</p>
-                                    <p style="margin: 5px 0; font-size: 13px;"><strong>Cantidad:</strong> ${producto.cantidad || 1}</p>
-                                </div>
-                                <div style="background: #fff0f5; padding: 12px; border-radius: 8px; border-left: 4px solid #dc3545;">
-                                    <h4 style="margin: 0 0 10px 0; color: #dc3545; font-size: 14px;">Información Financiera</h4>
-                                    <p style="margin: 5px 0; font-size: 13px;"><strong>Precio Unitario:</strong> $${precioUnitario.toFixed(2)}</p>
-                                    <p style="margin: 5px 0; font-size: 13px;"><strong>Total:</strong> $${total.toFixed(2)}</p>
-                                    <p style="margin: 5px 0; font-size: 13px;"><strong>Factura:</strong> ${producto.numero_factura || 'N/A'}</p>
-                                    <p style="margin: 5px 0; font-size: 13px;"><strong>Fecha Adquirido:</strong> ${new Date(producto.fecha_adquirido).toLocaleDateString('es-MX')}</p>
-                                </div>
-                            </div>
-                            <div style="background: #f5f5f5; padding: 12px; border-radius: 8px; border-left: 4px solid #17a2b8; margin-top: 15px;">
-                                <h4 style="margin: 0 0 10px 0; color: #17a2b8; font-size: 14px;">Información Adicional</h4>
-                                <p style="margin: 5px 0; font-size: 13px;"><strong>Notas:</strong> ${producto.notas || 'Sin notas adicionales'}</p>
-                                <p style="margin: 5px 0; font-size: 13px;"><strong>Creado:</strong> ${new Date(producto.creado_en).toLocaleDateString('es-MX')}</p>
-                            </div>
-                        </div>
-                    `,
-                    confirmButtonColor: '#1a1a1a',
-                    confirmButtonText: 'Cerrar',
-                    width: '700px'
-                });
-            } catch (error) {
-            }
-        }
-
-        async function deleteProducto(id) {
-            // Convertir id a número para comparación correcta
-            const idNum = parseInt(id);
-
-            const producto = arregloProductos.find(p => parseInt(p.id_compra) === idNum);
-
-            if (!producto) {
-                // Recargar productos si no se encuentra
-                await loadProductos();
-                const productoReloaded = arregloProductos.find(p => parseInt(p.id_compra) === idNum);
-
-                if (!productoReloaded) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Producto no encontrado. Intente recargar la página.',
-                        confirmButtonColor: '#1a1a1a'
-                    });
-                    return;
-                }
-                // Usar el producto recargado
-                Object.assign(producto, productoReloaded);
-            }
-
-            const result = await Swal.fire({
-                title: '¿Está seguro?',
-                text: `¿Desea eliminar el producto "${producto.nombre_producto}"?`,
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#dc3545',
-                cancelButtonColor: '#6c757d',
-                confirmButtonText: 'Sí, eliminar',
-                cancelButtonText: 'Cancelar'
-            });
-
-            if (result.isConfirmed) {
-                try {
-                    const response = await fetch(`../../controlador/Administrador/compras_proveedores_controller.php?action=deleteCompraProveedor&id=${id}`);
-
-                    const res = await response.json();
-
-                    if (res.success) {
-                        await Swal.fire({
-                            icon: 'success',
-                            title: 'Eliminado',
-                            text: 'El producto ha sido eliminado exitosamente.',
-                            confirmButtonColor: '#1a1a1a',
-                            timer: 2000,
-                            showConfirmButton: false
-                        });
-                        loadProductos();
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: res.error || 'Ocurrió un error al eliminar el producto.',
-                            confirmButtonColor: '#1a1a1a'
-                        });
-                    }
-                } catch (error) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error de conexión',
-                        text: 'No se pudo conectar con el servidor.',
-                        confirmButtonColor: '#1a1a1a'
-                    });
-                }
-            }
-        }
-
-        function actualizarTablas() {
-            // Mostrar indicador de carga
-            const btnActualizar = document.querySelector('button[onclick="actualizarTablas()"]');
-            const originalText = btnActualizar.innerHTML;
-            btnActualizar.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Actualizando...';
-            btnActualizar.disabled = true;
-
-            // Actualizar datos según la sección actual
-            if (seccionActual === 'proveedores') {
-                loadProveedores();
-            } else if (seccionActual === 'productos') {
-                loadProductos();
-            } else if (seccionActual === 'clientes') {
-                // Si hay función para cargar clientes, llamarla aquí
-                if (typeof loadClientes === 'function') {
-                    loadClientes();
-                }
-            } else if (seccionActual === 'garantias') {
-                // Si hay función para cargar garantías, llamarla aquí
-                if (typeof loadGarantias === 'function') {
-                    loadGarantias();
-                }
-            }
-
-            // Restaurar botón después de un breve delay
+    } else if (section === 'cotizaciones') {
+        // Verificar si la función existe antes de llamarla
+        if (typeof initializeCotizaciones === 'function') {
+            initializeCotizaciones();
+        } else {
+            // Si no existe, intentar cargarla después de un breve delay
             setTimeout(() => {
-                btnActualizar.innerHTML = originalText;
-                btnActualizar.disabled = false;
-
-                // Mostrar mensaje de éxito
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Tablas Actualizadas',
-                    text: 'Los datos han sido actualizados correctamente.',
-                    timer: 1500,
-                    showConfirmButton: false,
-                    confirmButtonColor: '#1a1a1a'
-                });
-            }, 1000);
-        }
-
-        // Funciones de proveedores
-        function openProveedorModal() {
-            document.getElementById('proveedorModalTitle').textContent = 'Nuevo Proveedor';
-            document.getElementById('proveedorSaveBtn').textContent = 'Guardar Proveedor';
-            openModal('proveedorModal');
-        }
-
-        function filtrarProveedores() {
-            const filtro = document.getElementById('buscadorProveedores').value.toLowerCase();
-            const filas = document.querySelectorAll('#proveedoresTableBody tr');
-
-            filas.forEach(fila => {
-                const textoFila = fila.textContent.toLowerCase();
-                if (textoFila.includes(filtro)) {
-                    fila.style.display = '';
+                if (typeof initializeCotizaciones === 'function') {
+                    initializeCotizaciones();
                 } else {
-                    fila.style.display = 'none';
+                    console.error('Función initializeCotizaciones no encontrada');
                 }
-            });
+            }, 100);
         }
-
-        function filtrarProductos() {
-            const filtro = document.getElementById('buscadorProductos').value.toLowerCase();
-            const filas = document.querySelectorAll('#productosTableBody tr');
-
-            filas.forEach(fila => {
-                const textoFila = fila.textContent.toLowerCase();
-                if (textoFila.includes(filtro)) {
-                    fila.style.display = '';
+    } else if (section === 'cotizaciones-pendientes') {
+        // Verificar si la función existe antes de llamarla
+        if (typeof initializeCotizacionesPendientes === 'function') {
+            initializeCotizacionesPendientes();
+        } else {
+            // Si no existe, intentar cargarla después de un breve delay
+            setTimeout(() => {
+                if (typeof initializeCotizacionesPendientes === 'function') {
+                    initializeCotizacionesPendientes();
                 } else {
-                    fila.style.display = 'none';
+                    console.error('Función initializeCotizacionesPendientes no encontrada');
                 }
-            });
+            }, 100);
         }
-
-        async function editProveedor(id) {
-            try {
-                const response = await fetch(`../../controlador/Administrador/proveedores_controller.php?action=getProveedor&id=${id}`);
-                const proveedor = await response.json();
-                
-                if (!proveedor) return;
-                
-                elementoEditando = proveedor;
-                idEditandoActual = id;
-                
-                document.getElementById('proveedorModalTitle').textContent = 'Editar Proveedor';
-                document.getElementById('proveedorSaveBtn').textContent = 'Actualizar Proveedor';
-                
-                // Llenar formulario
-                const nombreProveedor = document.getElementById('nombre_proveedor');
-                const contactoProveedor = document.getElementById('contacto_proveedor');
-                const telefonoProveedor = document.getElementById('telefono_proveedor');
-                const correoProveedor = document.getElementById('correo_proveedor');
-                const direccionProveedor = document.getElementById('direccion_proveedor');
-
-                if (nombreProveedor) nombreProveedor.value = proveedor.nombre_proveedor;
-                if (contactoProveedor) contactoProveedor.value = proveedor.contacto || '';
-                if (telefonoProveedor) telefonoProveedor.value = proveedor.telefono || '';
-                if (correoProveedor) correoProveedor.value = proveedor.correo || '';
-                if (direccionProveedor) direccionProveedor.value = proveedor.direccion || '';
-                
-                openModal('proveedorModal');
-            } catch (error) {
-            }
-        }
-
-        async function saveProveedor() {
-            if (!validateProveedorForm()) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error de Validación',
-                    text: 'Por favor, complete todos los campos requeridos correctamente.',
-                    confirmButtonColor: '#1a1a1a'
-                });
-                return;
-            }
-            
-            const nombreProveedor = document.getElementById('nombre_proveedor');
-            const contactoProveedor = document.getElementById('contacto_proveedor');
-            const telefonoProveedor = document.getElementById('telefono_proveedor');
-            const correoProveedor = document.getElementById('correo_proveedor');
-            const direccionProveedor = document.getElementById('direccion_proveedor');
-
-            if (!nombreProveedor || !contactoProveedor || !telefonoProveedor || !correoProveedor || !direccionProveedor) {
-                return;
-            }
-
-            const proveedorData = {
-                nombre_proveedor: nombreProveedor.value,
-                contacto: contactoProveedor.value,
-                telefono: telefonoProveedor.value,
-                correo: correoProveedor.value,
-                direccion: direccionProveedor.value
-            };
-            
-            let url = '../../controlador/Administrador/proveedores_controller.php?action=createProveedor';
-            let method = 'POST';
-            
-            if (elementoEditando) {
-                url = `../../controlador/Administrador/proveedores_controller.php?action=updateProveedor&id=${idEditandoActual}`;
-            }
-
-            try {
-                const response = await fetch(url, {
-                    method: method,
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(proveedorData)
-                });
-                
-                const result = await response.json();
-                
-                if (result.success) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: `Proveedor ${elementoEditando ? 'Actualizado' : 'Creado'}`,
-                        text: `El proveedor ha sido ${elementoEditando ? 'actualizado' : 'creado'} exitosamente.`,
-                        confirmButtonColor: '#1a1a1a'
-                    });
-                    
-                    loadProveedores();
-                    closeModal('proveedorModal');
+    } else if (section === 'nuevo-servicio') {
+        // Verificar si la función existe antes de llamarla
+        if (typeof initializeNuevoServicio === 'function') {
+            initializeNuevoServicio();
+        } else {
+            // Si no existe, intentar cargarla después de un breve delay
+            setTimeout(() => {
+                if (typeof initializeNuevoServicio === 'function') {
+                    initializeNuevoServicio();
                 } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: result.error || 'Ocurrió un error al guardar el proveedor.',
-                        confirmButtonColor: '#1a1a1a'
-                    });
+                    console.error('Función initializeNuevoServicio no encontrada');
                 }
-            } catch (error) {
-            }
+            }, 100);
         }
+    }
 
-        function validateProveedorForm() {
-            const nombre_proveedor = document.getElementById('nombre_proveedor');
-            const contacto_proveedor = document.getElementById('contacto_proveedor');
-            const telefono_proveedor = document.getElementById('telefono_proveedor');
-            const correo_proveedor = document.getElementById('correo_proveedor');
-            const direccion_proveedor = document.getElementById('direccion_proveedor');
 
-            let isValid = true;
 
-            // Limpiar errores anteriores
-            document.querySelectorAll('#proveedorForm .form-control').forEach(input => {
-                input.classList.remove('error');
-            });
-            document.querySelectorAll('#proveedorForm .error-message').forEach(error => {
-                error.classList.remove('show');
-            });
+// Función para cargar tabla de ingresos/gastos en proveedores
+async function loadIngresosGastosProveedores() {
+    try {
+        const response = await fetch('../../controlador/Administrador/dashboard_controller.php?action=ingresos_gastos');
+        const data = await response.json();
 
-            // Validar nombre
-            if (!nombre_proveedor.value.trim()) {
-                nombre_proveedor.classList.add('error');
-                nombre_proveedor.nextElementSibling.classList.add('show');
-                nombre_proveedor.nextElementSibling.textContent = 'El nombre del proveedor es requerido';
-                isValid = false;
-            }
+        const gridData = data.map(item => ({
+            fecha: new Date(item.fecha).toLocaleDateString('es-MX'),
+            concepto: item.concepto,
+            tipo: `<span class="${item.tipo === 'INGRESO' ? 'tipo-ingreso' : 'tipo-gasto'}">${item.tipo === 'INGRESO' ? 'Ingreso' : 'Salida'}</span>`,
+            monto: '$' + parseFloat(item.monto).toLocaleString('es-MX', { minimumFractionDigits: 2 }),
+            descripcion: item.descripcion || '',
+            id_ingreso_gasto: item.id_ingreso_gasto
+        }));
 
-            // Validar contacto
-            if (!contacto_proveedor.value.trim()) {
-                contacto_proveedor.classList.add('error');
-                contacto_proveedor.nextElementSibling.classList.add('show');
-                contacto_proveedor.nextElementSibling.textContent = 'El contacto es requerido';
-                isValid = false;
-            }
-
-            // Validar teléfono
-            if (!telefono_proveedor.value.trim()) {
-                telefono_proveedor.classList.add('error');
-                telefono_proveedor.nextElementSibling.classList.add('show');
-                telefono_proveedor.nextElementSibling.textContent = 'El teléfono es requerido';
-                isValid = false;
-            }
-
-            // Validar correo
-            if (!correo_proveedor.value.trim()) {
-                correo_proveedor.classList.add('error');
-                correo_proveedor.nextElementSibling.classList.add('show');
-                correo_proveedor.nextElementSibling.textContent = 'El correo es requerido';
-                isValid = false;
-            } else if (!/\S+@\S+\.\S+/.test(correo_proveedor.value)) {
-                correo_proveedor.classList.add('error');
-                correo_proveedor.nextElementSibling.classList.add('show');
-                correo_proveedor.nextElementSibling.textContent = 'El correo no es válido';
-                isValid = false;
-            }
-
-            // Validar dirección
-            if (!direccion_proveedor.value.trim()) {
-                direccion_proveedor.classList.add('error');
-                direccion_proveedor.nextElementSibling.classList.add('show');
-                direccion_proveedor.nextElementSibling.textContent = 'La dirección es requerida';
-                isValid = false;
-            }
-
-            return isValid;
-        }
-
-        async function viewProveedor(id) {
-            try {
-                const response = await fetch(`../../controlador/Administrador/proveedores_controller.php?action=getProveedor&id=${id}`);
-                const proveedor = await response.json();
-
-                if (!proveedor) return;
-
-                // Obtener productos del proveedor
-                let productosHtml = '<p><strong>Productos Comprados:</strong></p>';
-                if (proveedor.productos_comprados && proveedor.productos_comprados !== 'N/A') {
-                    const productos = proveedor.productos_comprados.split(', ');
-                    productosHtml += '<div style="background: #f8f9fa; padding: 10px; border-radius: 5px; margin: 10px 0;">';
-                    productosHtml += '<ul style="margin: 0; padding-left: 20px;">';
-                    productos.forEach(producto => {
-                        productosHtml += `<li style="margin: 5px 0; color: #333;">${producto}</li>`;
-                    });
-                    productosHtml += '</ul></div>';
-                } else {
-                    productosHtml += '<div style="background: #f8f9fa; padding: 10px; border-radius: 5px; margin: 10px 0; color: #666;">No hay productos registrados</div>';
-                }
-
-                Swal.fire({
-                    title: 'Detalles del Proveedor',
-                    html: `
-                        <div style="text-align: left; max-height: 400px; overflow-y: auto;">
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
-                                <div style="background: #f0f8ff; padding: 12px; border-radius: 8px; border-left: 4px solid #1a1a1a;">
-                                    <h4 style="margin: 0 0 10px 0; color: #1a1a1a; font-size: 14px;">Información General</h4>
-                                    <p style="margin: 5px 0; font-size: 13px;"><strong>Nombre:</strong> ${proveedor.nombre_proveedor}</p>
-                                    <p style="margin: 5px 0; font-size: 13px;"><strong>Contacto:</strong> ${proveedor.contacto || 'N/A'}</p>
-                                    <p style="margin: 5px 0; font-size: 13px;"><strong>Cantidad Total:</strong> ${proveedor.cantidad || 1}</p>
-                                    <p style="margin: 5px 0; font-size: 13px;"><strong>Creado:</strong> ${new Date(proveedor.creado_en).toLocaleDateString('es-MX')}</p>
+        new gridjs.Grid({
+            columns: [
+                { name: 'Fecha', id: 'fecha' },
+                { name: 'Concepto', id: 'concepto' },
+                { name: 'Tipo', id: 'tipo', html: true },
+                { name: 'Monto', id: 'monto' },
+                { name: 'Descripción', id: 'descripcion' },
+                {
+                    name: 'Acciones',
+                    formatter: (cell, row) => gridjs.html(`
+                                <div class="table-actions">
+                                    <button class="action-btn btn-edit-income" onclick="editarIngresoGasto(${row.cells[5].data})" title="Editar">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn btn-delete-income" onclick="eliminarIngresoGasto(${row.cells[5].data})" title="Eliminar">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
                                 </div>
-                                <div style="background: #fff0f5; padding: 12px; border-radius: 8px; border-left: 4px solid #dc3545;">
-                                    <h4 style="margin: 0 0 10px 0; color: #dc3545; font-size: 14px;">Información de Contacto</h4>
-                                    <p style="margin: 5px 0; font-size: 13px;"><strong>Teléfono:</strong> ${proveedor.telefono || 'N/A'}</p>
-                                    <p style="margin: 5px 0; font-size: 13px;"><strong>Correo:</strong> ${proveedor.correo || 'N/A'}</p>
-                                    <p style="margin: 5px 0; font-size: 13px;"><strong>Dirección:</strong> ${proveedor.direccion || 'N/A'}</p>
-                                </div>
-                            </div>
-                            ${productosHtml}
-                            <div style="background: #f5f5f5; padding: 12px; border-radius: 8px; border-left: 4px solid #17a2b8; margin-top: 15px;">
-                                <h4 style="margin: 0 0 10px 0; color: #17a2b8; font-size: 14px;">Notas Adicionales</h4>
-                                <p style="margin: 0; font-size: 13px; color: #333;">${proveedor.notas_proveedor || 'Sin notas adicionales'}</p>
-                            </div>
-                        </div>
-                    `,
-                    confirmButtonColor: '#1a1a1a',
-                    confirmButtonText: 'Cerrar',
-                    width: '700px'
-                });
-            } catch (error) {
-            }
-        }
-
-        async function deleteProveedor(id) {
-
-            // Convertir id a número para comparación correcta
-            const idNum = parseInt(id);
-
-            const proveedor = arregloProveedores.find(p => parseInt(p.id_proveedor) === idNum);
-
-            if (!proveedor) {
-                // Recargar proveedores si no se encuentra
-                await loadProveedores();
-                const proveedorReloaded = arregloProveedores.find(p => parseInt(p.id_proveedor) === idNum);
-
-                if (!proveedorReloaded) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Proveedor no encontrado. Intente recargar la página.',
-                        confirmButtonColor: '#1a1a1a'
-                    });
-                    return;
+                            `)
                 }
-                // Usar el proveedor recargado
-                Object.assign(proveedor, proveedorReloaded);
-            }
-
-            const result = await Swal.fire({
-                title: '¿Está seguro?',
-                text: `¿Desea eliminar al proveedor "${proveedor.nombre_proveedor}"?`,
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#dc3545',
-                cancelButtonColor: '#6c757d',
-                confirmButtonText: 'Sí, eliminar',
-                cancelButtonText: 'Cancelar'
-            });
-
-            if (result.isConfirmed) {
-                try {
-                    const response = await fetch(`../../controlador/Administrador/proveedores_controller.php?action=deleteProveedor&id=${id}`);
-
-                    const res = await response.json();
-
-                    if (res.success) {
-                        await Swal.fire({
-                            icon: 'success',
-                            title: 'Eliminado',
-                            text: 'El proveedor ha sido eliminado exitosamente.',
-                            confirmButtonColor: '#1a1a1a',
-                            timer: 2000,
-                            showConfirmButton: false
-                        });
-                        loadProveedores();
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: res.error || 'Ocurrió un error al eliminar el proveedor.',
-                            confirmButtonColor: '#1a1a1a'
-                        });
-                    }
-                } catch (error) {
-                    console.error('Error deleting proveedor:', error);
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error de conexión',
-                        text: 'No se pudo conectar con el servidor.',
-                        confirmButtonColor: '#1a1a1a'
-                    });
+            ],
+            data: gridData,
+            search: {
+                placeholder: '🔍 Buscar registros...'
+            },
+            pagination: {
+                limit: 10,
+                summary: true,
+                prevButton: '⬅️ Anterior',
+                nextButton: 'Siguiente ➡️',
+                buttonsCount: 3
+            },
+            sort: true,
+            language: {
+                'search': {
+                    'placeholder': '🔍 Buscar...'
+                },
+                'pagination': {
+                    'showing': 'Mostrando',
+                    'of': 'de',
+                    'to': 'a',
+                    'results': 'resultados'
                 }
-            } else {
-            }
-        }
-
-        // Funciones de exportación
-        function exportToPDF(type) {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-
-            let data = [];
-            let filename = '';
-
-            if (type === 'garantias') {
-                data = arregloGarantias.map(garantia => ({
-                    'ID': garantia.id_garantia,
-                    'Bicicleta': `${garantia.marca_bicicleta || 'N/A'} ${garantia.modelo_bicicleta || ''}`.trim(),
-                    'Dueño': `${garantia.nombres || ''} ${garantia.apellidos || ''}`.trim(),
-                    'Tipo': garantia.tipo_garantia,
-                    'Cobertura': garantia.cobertura || 'Sin descripción',
-                    'Fecha Inicio': new Date(garantia.fecha_inicio).toLocaleDateString('es-MX'),
-                    'Fecha Vencimiento': new Date(garantia.fecha_fin).toLocaleDateString('es-MX'),
-                    'Estado': garantia.estado,
-                    'Zona Afectada': garantia.zona_afectada || 'N/A',
-                    'Tipo Trabajo': garantia.tipo_trabajo || 'N/A',
-                    'Tipo Reparación': garantia.tipo_reparacion || 'N/A'
-                }));
-                filename = 'garantias';
-
-                // Configurar página
-                doc.setProperties({
-                    title: 'Reporte de Garantías - TotalCarbon',
-                    subject: 'Lista completa de garantías activas',
-                    author: 'TotalCarbon',
-                    keywords: 'garantías, reparaciones, bicicletas',
-                    creator: 'Sistema TotalCarbon'
-                });
-
-                // Agregar logo/encabezado profesional
-                doc.setFontSize(24);
-                doc.setFont('helvetica', 'bold');
-                doc.setTextColor(26, 26, 26);
-                doc.text('TOTALCARBON', 14, 25);
-
-                doc.setFontSize(14);
-                doc.setFont('helvetica', 'normal');
-                doc.setTextColor(100, 100, 100);
-                doc.text('Especialistas en Fibra de Carbono', 14, 35);
-
-                // Información del reporte
-                doc.setFontSize(16);
-                doc.setFont('helvetica', 'bold');
-                doc.setTextColor(26, 26, 26);
-                doc.text('REPORTE DE GARANTÍAS', 14, 50);
-
-                doc.setFontSize(10);
-                doc.setFont('helvetica', 'normal');
-                doc.setTextColor(100, 100, 100);
-                doc.text(`Generado el: ${new Date().toLocaleDateString('es-MX')} ${new Date().toLocaleTimeString('es-MX')}`, 14, 60);
-                doc.text(`Total de garantías: ${arregloGarantias.length}`, 14, 68);
-
-                // Estadísticas
-                const activas = arregloGarantias.filter(g => g.estado === 'Activa').length;
-                const vencidas = arregloGarantias.filter(g => g.estado === 'Vencida').length;
-                const canceladas = arregloGarantias.filter(g => g.estado === 'Cancelada').length;
-
-                doc.text(`Garantías Activas: ${activas}`, 14, 76);
-                doc.text(`Garantías Vencidas: ${vencidas}`, 80, 76);
-                doc.text(`Garantías Canceladas: ${canceladas}`, 140, 76);
-
-                // Línea separadora
-                doc.setDrawColor(26, 26, 26);
-                doc.setLineWidth(0.5);
-                doc.line(14, 85, 196, 85);
-
-                // Tabla principal con mejor formato
-                const tableData = arregloGarantias.map(garantia => ({
-                    'ID': garantia.id_garantia,
-                    'Bicicleta': `${garantia.marca_bicicleta || 'N/A'} ${garantia.modelo_bicicleta || ''}`.trim(),
-                    'Dueño': `${garantia.nombres || ''} ${garantia.apellidos || ''}`.trim(),
-                    'Tipo': garantia.tipo_garantia,
-                    'Inicio': new Date(garantia.fecha_inicio).toLocaleDateString('es-MX'),
-                    'Vencimiento': new Date(garantia.fecha_fin).toLocaleDateString('es-MX'),
-                    'Estado': garantia.estado,
-                    'Zona': garantia.zona_afectada || 'N/A',
-                    'Trabajo': garantia.tipo_trabajo || 'N/A'
-                }));
-
-                doc.autoTable({
-                    head: [Object.keys(tableData[0])],
-                    body: tableData.map(Object.values),
-                    startY: 95,
-                    styles: {
-                        fontSize: 7,
-                        cellPadding: 2,
-                        overflow: 'linebreak',
-                        cellWidth: 'wrap'
-                    },
-                    headStyles: {
-                        fillColor: [26, 26, 26],
-                        textColor: 255,
-                        fontStyle: 'bold',
-                        fontSize: 8,
-                        halign: 'center'
-                    },
-                    alternateRowStyles: {
-                        fillColor: [248, 249, 250],
-                    },
-                    columnStyles: {
-                        0: { cellWidth: 15 }, // ID
-                        1: { cellWidth: 25 }, // Bicicleta
-                        2: { cellWidth: 30 }, // Dueño
-                        3: { cellWidth: 20 }, // Tipo
-                        4: { cellWidth: 20 }, // Inicio
-                        5: { cellWidth: 20 }, // Vencimiento
-                        6: { cellWidth: 15 }, // Estado
-                        7: { cellWidth: 25 }, // Zona
-                        8: { cellWidth: 25 }  // Trabajo
-                    },
-                    margin: { top: 95, left: 14, right: 14 },
-                    didDrawPage: function(data) {
-                        // Pie de página
-                        const pageCount = doc.internal.getNumberOfPages();
-                        doc.setFontSize(8);
-                        doc.setTextColor(150, 150, 150);
-                        doc.text('Página ' + doc.internal.getCurrentPageInfo().pageNumber + ' de ' + pageCount, 14, doc.internal.pageSize.height - 10);
-                        doc.text('TotalCarbon - Especialistas en Fibra de Carbono', doc.internal.pageSize.width - 100, doc.internal.pageSize.height - 10);
-                    }
-                });
-
-                // Agregar sección de cobertura detallada si hay espacio
-                const finalY = doc.lastAutoTable.finalY;
-                if (finalY < doc.internal.pageSize.height - 60) {
-                    doc.setFontSize(12);
-                    doc.setFont('helvetica', 'bold');
-                    doc.setTextColor(26, 26, 26);
-                    doc.text('DETALLE DE COBERTURAS', 14, finalY + 15);
-
-                    arregloGarantias.forEach((garantia, index) => {
-                        if (garantia.cobertura && garantia.cobertura.trim()) {
-                            const yPos = finalY + 25 + (index * 8);
-                            if (yPos > doc.internal.pageSize.height - 20) return;
-
-                            doc.setFontSize(8);
-                            doc.setFont('helvetica', 'normal');
-                            doc.setTextColor(50, 50, 50);
-                            doc.text(`ID ${garantia.id_garantia}: ${garantia.cobertura.substring(0, 80)}${garantia.cobertura.length > 80 ? '...' : ''}`, 14, yPos);
-                        }
-                    });
-                }
-            } else if (type === 'proveedores') {
-                data = arregloProveedores.map(proveedor => ({
-                    'Proveedor': proveedor.nombre_proveedor,
-                    'Contacto': proveedor.contacto || 'N/A',
-                    'Teléfono': proveedor.telefono || 'N/A',
-                    'Correo': proveedor.correo || 'N/A',
-                    'Dirección': proveedor.direccion || 'N/A',
-                    'Productos Comprados': proveedor.productos_comprados || 'N/A',
-                    'Notas': proveedor.notas_proveedor || 'N/A',
-                    'Cantidad': proveedor.cantidad || 1
-                }));
-                filename = 'proveedores';
-
-                // Agregar título al PDF
-                doc.setFontSize(18);
-                doc.text('Lista de Proveedores - TotalCarbon', 14, 20);
-                doc.setFontSize(12);
-                doc.text(`Generado el: ${new Date().toLocaleDateString('es-MX')} ${new Date().toLocaleTimeString('es-MX')}`, 14, 30);
-
-                doc.autoTable({
-                    head: [Object.keys(data[0])],
-                    body: data.map(Object.values),
-                    startY: 40,
-                });
-            } else if (type === 'productos') {
-                data = arregloProductos.map(producto => ({
-                    'Producto': producto.nombre_producto,
-                    'Descripción': producto.descripcion || 'N/A',
-                    'Proveedor': producto.nombre_proveedor || 'N/A',
-                    'Cantidad': producto.cantidad || 1,
-                    'Precio Unitario': producto.precio_unitario ? `$${parseFloat(producto.precio_unitario).toFixed(2)}` : '$0.00',
-                    'Total': producto.total ? `$${parseFloat(producto.total).toFixed(2)}` : '$0.00',
-                    'Fecha Adquirido': new Date(producto.fecha_adquirido).toLocaleDateString('es-MX'),
-                    'Factura': producto.numero_factura || 'N/A'
-                }));
-                filename = 'productos';
-
-                // Agregar título al PDF
-                doc.setFontSize(18);
-                doc.text('Lista de Productos/Piezas - TotalCarbon', 14, 20);
-                doc.setFontSize(12);
-                doc.text(`Generado el: ${new Date().toLocaleDateString('es-MX')} ${new Date().toLocaleTimeString('es-MX')}`, 14, 30);
-
-                doc.autoTable({
-                    head: [Object.keys(data[0])],
-                    body: data.map(Object.values),
-                    startY: 40,
-                });
-            }
-
-            doc.save(`${filename}.pdf`);
-            
-            Swal.fire({
-                icon: 'success',
-                title: 'Exportación Exitosa',
-                text: `El archivo ${filename}.pdf ha sido descargado exitosamente.`,
-                confirmButtonColor: '#1a1a1a'
-            });
-        }
-
-        function exportToExcel(type) {
-            let data = [];
-            let filename = '';
-
-            if (type === 'garantias') {
-                // Crear workbook profesional con múltiples hojas
-                const wb = XLSX.utils.book_new();
-
-                // Estadísticas
-                const activas = arregloGarantias.filter(g => g.estado === 'Activa').length;
-                const vencidas = arregloGarantias.filter(g => g.estado === 'Vencida').length;
-                const canceladas = arregloGarantias.filter(g => g.estado === 'Cancelada').length;
-                const reclamadas = arregloGarantias.filter(g => g.estado === 'Reclamada').length;
-
-                // Hoja principal de garantías
-                const tituloData = [
-                    { 'A': 'TOTALCARBON - ESPECIALISTAS EN FIBRA DE CARBONO', 'B': '', 'C': '', 'D': '', 'E': '', 'F': '', 'G': '', 'H': '', 'I': '', 'J': '', 'K': '', 'L': '', 'M': '', 'N': '' },
-                    { 'A': '', 'B': '', 'C': '', 'D': '', 'E': '', 'F': '', 'G': '', 'H': '', 'I': '', 'J': '', 'K': '', 'L': '', 'M': '', 'N': '' },
-                    { 'A': 'REPORTE DETALLADO DE GARANTÍAS', 'B': '', 'C': '', 'D': '', 'E': '', 'F': '', 'G': '', 'H': '', 'I': '', 'J': '', 'K': '', 'L': '', 'M': '', 'N': '' },
-                    { 'A': `Generado el: ${new Date().toLocaleDateString('es-MX')} ${new Date().toLocaleTimeString('es-MX')}`, 'B': '', 'C': '', 'D': '', 'E': '', 'F': '', 'G': '', 'H': '', 'I': '', 'J': '', 'K': '', 'L': '', 'M': '', 'N': '' },
-                    { 'A': `Total de garantías registradas: ${arregloGarantias.length}`, 'B': '', 'C': '', 'D': '', 'E': '', 'F': '', 'G': '', 'H': '', 'I': '', 'J': '', 'K': '', 'L': '', 'M': '', 'N': '' },
-                    { 'A': '', 'B': '', 'C': '', 'D': '', 'E': '', 'F': '', 'G': '', 'H': '', 'I': '', 'J': '', 'K': '', 'L': '', 'M': '', 'N': '' },
-                ];
-
-                // Encabezados de tabla
-                const headersData = [
-                    { 'A': 'ID Garantía', 'B': 'Marca Bicicleta', 'C': 'Modelo Bicicleta', 'D': 'Nombre Dueño', 'E': 'Apellidos Dueño', 'F': 'Tipo Garantía', 'G': 'Cobertura', 'H': 'Fecha Inicio', 'I': 'Fecha Vencimiento', 'J': 'Estado', 'K': 'Zona Afectada', 'L': 'Tipo Trabajo', 'M': 'Tipo Reparación', 'N': 'Correo Electrónico' }
-                ];
-
-                // Datos de garantías
-                const garantiasData = arregloGarantias.map(garantia => ({
-                    'A': garantia.id_garantia,
-                    'B': garantia.marca_bicicleta || 'N/A',
-                    'C': garantia.modelo_bicicleta || 'N/A',
-                    'D': garantia.nombres || 'N/A',
-                    'E': garantia.apellidos || 'N/A',
-                    'F': garantia.tipo_garantia,
-                    'G': garantia.cobertura || 'Sin descripción específica',
-                    'H': new Date(garantia.fecha_inicio).toLocaleDateString('es-MX'),
-                    'I': new Date(garantia.fecha_fin).toLocaleDateString('es-MX'),
-                    'J': garantia.estado,
-                    'K': garantia.zona_afectada || 'N/A',
-                    'L': garantia.tipo_trabajo || 'N/A',
-                    'M': garantia.tipo_reparacion || 'N/A',
-                    'N': garantia.correo_electronico || 'N/A'
-                }));
-
-                // Combinar todos los datos
-                const allData = [
-                    ...tituloData,
-                    ...headersData,
-                    ...garantiasData
-                ];
-
-                // Crear hoja principal
-                const ws = XLSX.utils.json_to_sheet(allData, { header: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N'], skipHeader: true });
-
-                // Establecer anchos de columna
-                ws['!cols'] = [
-                    { wch: 12 },  // ID Garantía
-                    { wch: 18 },  // Marca Bicicleta
-                    { wch: 18 },  // Modelo Bicicleta
-                    { wch: 20 },  // Nombre Dueño
-                    { wch: 20 },  // Apellidos Dueño
-                    { wch: 15 },  // Tipo Garantía
-                    { wch: 50 },  // Cobertura
-                    { wch: 15 },  // Fecha Inicio
-                    { wch: 18 },  // Fecha Vencimiento
-                    { wch: 12 },  // Estado
-                    { wch: 20 },  // Zona Afectada
-                    { wch: 15 },  // Tipo Trabajo
-                    { wch: 18 },  // Tipo Reparación
-                    { wch: 30 }   // Correo Electrónico
-                ];
-
-                // Agregar hoja al workbook
-                XLSX.utils.book_append_sheet(wb, ws, 'Garantías Detalladas');
-
-                // Crear hoja de resumen estadístico
-                const resumenData = [
-                    { 'A': 'TOTALCARBON - RESUMEN DE GARANTÍAS', 'B': '', 'C': '', 'D': '', 'E': '' },
-                    { 'A': `Fecha de generación: ${new Date().toLocaleDateString('es-MX')}`, 'B': '', 'C': '', 'D': '', 'E': '' },
-                    { 'A': '', 'B': '', 'C': '', 'D': '', 'E': '' },
-                    { 'A': 'ESTADO DE GARANTÍAS', 'B': 'CANTIDAD', 'C': 'PORCENTAJE', 'D': 'DESCRIPCIÓN', 'E': 'OBSERVACIONES' },
-                    { 'A': 'Activas', 'B': activas, 'C': arregloGarantias.length > 0 ? `${((activas / arregloGarantias.length) * 100).toFixed(1)}%` : '0%', 'D': 'Garantías vigentes y válidas', 'E': 'Pueden ser reclamadas por el cliente' },
-                    { 'A': 'Vencidas', 'B': vencidas, 'C': arregloGarantias.length > 0 ? `${((vencidas / arregloGarantias.length) * 100).toFixed(1)}%` : '0%', 'D': 'Garantías expiradas', 'E': 'No pueden ser reclamadas' },
-                    { 'A': 'Canceladas', 'B': canceladas, 'C': arregloGarantias.length > 0 ? `${((canceladas / arregloGarantias.length) * 100).toFixed(1)}%` : '0%', 'D': 'Garantías canceladas', 'E': 'Anuladas por diversos motivos' },
-                    { 'A': 'Reclamadas', 'B': reclamadas, 'C': arregloGarantias.length > 0 ? `${((reclamadas / arregloGarantias.length) * 100).toFixed(1)}%` : '0%', 'D': 'Garantías ya utilizadas', 'E': 'Servicio de garantía completado' },
-                    { 'A': '', 'B': '', 'C': '', 'D': '', 'E': '' },
-                    { 'A': 'TOTAL DE GARANTÍAS', 'B': arregloGarantias.length, 'C': '100%', 'D': 'Total registrado en el sistema', 'E': '' }
-                ];
-
-                const wsResumen = XLSX.utils.json_to_sheet(resumenData, { header: ['A', 'B', 'C', 'D', 'E'], skipHeader: true });
-                wsResumen['!cols'] = [
-                    { wch: 25 },  // Estado
-                    { wch: 12 },  // Cantidad
-                    { wch: 12 },  // Porcentaje
-                    { wch: 30 },  // Descripción
-                    { wch: 35 }   // Observaciones
-                ];
-
-                XLSX.utils.book_append_sheet(wb, wsResumen, 'Resumen Estadístico');
-
-                // Crear hoja de coberturas detalladas
-                const coberturasData = [
-                    { 'A': 'TOTALCARBON - DETALLE DE COBERTURAS', 'B': '', 'C': '', 'D': '' },
-                    { 'A': `Fecha: ${new Date().toLocaleDateString('es-MX')}`, 'B': '', 'C': '', 'D': '' },
-                    { 'A': '', 'B': '', 'C': '', 'D': '' },
-                    { 'A': 'ID GARANTÍA', 'B': 'TIPO DE GARANTÍA', 'C': 'DESCRIPCIÓN DE COBERTURA', 'D': 'ESTADO' }
-                ];
-
-                arregloGarantias.forEach(garantia => {
-                    if (garantia.cobertura && garantia.cobertura.trim()) {
-                        coberturasData.push({
-                            'A': garantia.id_garantia,
-                            'B': garantia.tipo_garantia,
-                            'C': garantia.cobertura,
-                            'D': garantia.estado
-                        });
-                    }
-                });
-
-                const wsCoberturas = XLSX.utils.json_to_sheet(coberturasData, { header: ['A', 'B', 'C', 'D'], skipHeader: true });
-                wsCoberturas['!cols'] = [
-                    { wch: 15 },  // ID
-                    { wch: 20 },  // Tipo
-                    { wch: 80 },  // Cobertura
-                    { wch: 12 }   // Estado
-                ];
-
-                XLSX.utils.book_append_sheet(wb, wsCoberturas, 'Coberturas');
-
-                // Guardar el archivo
-                XLSX.writeFile(wb, 'garantias_totalcarbon.xlsx');
-
-                filename = 'garantias_totalcarbon';
-            } else if (type === 'proveedores') {
-                // Agregar fila de título al Excel
-                const tituloData = [
-                    { 'Nombre Proveedor': 'Lista de Proveedores - TotalCarbon' },
-                    { 'Nombre Proveedor': `Generado el: ${new Date().toLocaleDateString('es-MX')} ${new Date().toLocaleTimeString('es-MX')}` },
-                    {}, // Fila vacía
-                ];
-
-                data = [
-                    ...tituloData,
-                    ...arregloProveedores.map(proveedor => ({
-                        'Nombre Proveedor': proveedor.nombre_proveedor,
-                        'Contacto': proveedor.contacto || '',
-                        'Teléfono': proveedor.telefono || '',
-                        'Correo': proveedor.correo || '',
-                        'Dirección': proveedor.direccion || '',
-                        'Productos Comprados': proveedor.productos_comprados || '',
-                        'Notas': proveedor.notas_proveedor || '',
-                        'Cantidad': proveedor.cantidad || 1,
-                        'Creado': new Date(proveedor.creado_en).toLocaleDateString('es-MX')
-                    }))
-                ];
-                filename = 'proveedores';
-            } else if (type === 'productos') {
-                // Agregar fila de título al Excel
-                const tituloData = [
-                    { 'Producto': 'Lista de Productos/Piezas - TotalCarbon' },
-                    { 'Producto': `Generado el: ${new Date().toLocaleDateString('es-MX')} ${new Date().toLocaleTimeString('es-MX')}` },
-                    {}, // Fila vacía
-                ];
-
-                data = [
-                    ...tituloData,
-                    ...arregloProductos.map(producto => ({
-                        'Producto': producto.nombre_producto,
-                        'Descripción': producto.descripcion || '',
-                        'Proveedor': producto.nombre_proveedor || '',
-                        'Cantidad': producto.cantidad || 1,
-                        'Precio Unitario': producto.precio_unitario ? parseFloat(producto.precio_unitario) : 0,
-                        'Total': producto.total ? parseFloat(producto.total) : 0,
-                        'Fecha Adquirido': new Date(producto.fecha_adquirido).toLocaleDateString('es-MX'),
-                        'Factura': producto.numero_factura || '',
-                        'Creado': new Date(producto.creado_en).toLocaleDateString('es-MX')
-                    }))
-                ];
-                filename = 'productos';
-            }
-
-            const ws = XLSX.utils.json_to_sheet(data);
-            const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, filename);
-            XLSX.writeFile(wb, `${filename}.xlsx`);
-            
-            Swal.fire({
-                icon: 'success',
-                title: 'Exportación Exitosa',
-                text: `El archivo ${filename}.xlsx ha sido descargado exitosamente.`,
-                confirmButtonColor: '#1a1a1a'
-            });
-        }
-
-
-        // Inicializar la aplicación
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeData();
-
-            // Responsive sidebar
-            function handleResize() {
-                const sidebar = document.getElementById('sidebar');
-                const mainContent = document.querySelector('.main-content');
-
-                if (window.innerWidth <= 992) {
-                    sidebar.classList.add('hidden');
-                    mainContent.classList.add('expanded');
-                } else {
-                    sidebar.classList.remove('hidden');
-                    mainContent.classList.remove('expanded');
+            },
+            style: {
+                table: {
+                    'font-size': '14px',
+                    'border-collapse': 'collapse',
+                    'width': '100%'
+                },
+                th: {
+                    'background-color': '#343a40',
+                    'color': '#ffffff',
+                    'border': '1px solid #dee2e6',
+                    'padding': '12px 8px',
+                    'text-align': 'left',
+                    'font-weight': '600',
+                    'font-size': '13px'
+                },
+                td: {
+                    'padding': '10px 8px',
+                    'border': '1px solid #dee2e6',
+                    'background-color': '#ffffff'
+                },
+                container: {
+                    'box-shadow': '0 2px 8px rgba(0,0,0,0.1)',
+                    'border-radius': '8px',
+                    'overflow': 'hidden'
+                },
+                search: {
+                    'border': '1px solid #ced4da',
+                    'border-radius': '4px',
+                    'padding': '8px 12px',
+                    'margin-bottom': '15px'
+                },
+                pagination: {
+                    'margin-top': '15px'
                 }
             }
+        }).render(document.getElementById('ingresosGastosTableProveedores'));
+    } catch (error) {
+        console.error('Error cargando tabla ingresos/gastos proveedores:', error);
+    }
+}
 
-            window.addEventListener('resize', handleResize);
-            handleResize();
+
+
+// Funciones de modales
+function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    modal.classList.add('active');
+}
+
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    modal.classList.remove('active');
+    clearForm(modalId);
+    elementoEditando = null;
+    idEditandoActual = null;
+}
+
+function clearForm(modalId) {
+    const form = document.querySelector(`#${modalId} form`);
+    if (form) {
+        form.reset();
+        // Limpiar errores
+        form.querySelectorAll('.form-control').forEach(input => {
+            input.classList.remove('error');
         });
+        form.querySelectorAll('.error-message').forEach(error => {
+            error.classList.remove('show');
+        });
+    }
+}
+
+function actualizarTablas() {
+    // Mostrar indicador de carga
+    const btnActualizar = document.querySelector('button[onclick="actualizarTablas()"]');
+    const originalText = btnActualizar.innerHTML;
+    btnActualizar.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Actualizando...';
+    btnActualizar.disabled = true;
+
+    // Actualizar datos según la sección actual
+    if (seccionActual === 'proveedores') {
+        loadProveedores();
+        loadIngresosGastosProveedores();
+    } else if (seccionActual === 'productos') {
+        loadProductos();
+    } else if (seccionActual === 'clientes') {
+        // Si hay función para cargar clientes, llamarla aquí
+        if (typeof loadClientes === 'function') {
+            loadClientes();
+        }
+    } else if (seccionActual === 'garantias') {
+        // Si hay función para cargar garantías, llamarla aquí
+        if (typeof loadGarantias === 'function') {
+            loadGarantias();
+        }
+    }
+
+    // Restaurar botón después de un breve delay
+    setTimeout(() => {
+        btnActualizar.innerHTML = originalText;
+        btnActualizar.disabled = false;
+
+        // Mostrar mensaje de éxito
+        Swal.fire({
+            icon: 'success',
+            title: 'Tablas Actualizadas',
+            text: 'Los datos han sido actualizados correctamente.',
+            timer: 1500,
+            showConfirmButton: false,
+            confirmButtonColor: '#1a1a1a'
+        });
+    }, 1000);
+}
+
+// Dashboard functionality
+let cotizacionesChart = null;
+let trabajosChart = null;
+let reparacionesChart = null;
+let usuariosRolChart = null;
+let cotizacionesMensualesChart = null;
+let ingresosGastosMensualesChart = null;
+
+// Filtros actuales
+let filtrosActuales = {
+    periodo: 'hoy',
+    fechaInicio: null,
+    fechaFin: null,
+    estado: 'todos'
+};
+
+function cargarDashboard() {
+    cargarEstadisticas();
+    cargarGraficos();
+    cargarTablas();
+    cargarResumenIngresosGastos();
+    cargarTablaIngresosGastos();
+}
+
+function cargarEstadisticas() {
+    fetch('../../controlador/Administrador/dashboard_controller.php?action=estadisticas')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error en la respuesta del servidor');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const totalClientesEl = document.getElementById('totalClientes');
+            if (totalClientesEl) totalClientesEl.textContent = data.total_clientes || 0;
+            const totalCotizacionesEl = document.getElementById('totalCotizaciones');
+            if (totalCotizacionesEl) totalCotizacionesEl.textContent = data.total_cotizaciones || 0;
+            const cotizacionesPendientesEl = document.getElementById('cotizacionesPendientes');
+            if (cotizacionesPendientesEl) cotizacionesPendientesEl.textContent = data.cotizaciones_pendientes || 0;
+            const cotizacionesCompletadasEl = document.getElementById('cotizacionesCompletadas');
+            if (cotizacionesCompletadasEl) cotizacionesCompletadasEl.textContent = data.cotizaciones_completadas || 0;
+            const garantiasActivasEl = document.getElementById('garantiasActivas');
+            if (garantiasActivasEl) garantiasActivasEl.textContent = data.garantias_activas || 0;
+            const totalProveedoresEl = document.getElementById('totalProveedores');
+            if (totalProveedoresEl) totalProveedoresEl.textContent = data.total_proveedores || 0;
+            const mensajesSinLeerEl = document.getElementById('mensajesSinLeer');
+            if (mensajesSinLeerEl) mensajesSinLeerEl.textContent = data.mensajes_sin_leer || 0;
+        })
+        .catch(error => {
+            console.error('Error cargando estadísticas:', error);
+            // Valores por defecto
+            const totalClientesEl = document.getElementById('totalClientes');
+            if (totalClientesEl) totalClientesEl.textContent = '0';
+            const totalCotizacionesEl = document.getElementById('totalCotizaciones');
+            if (totalCotizacionesEl) totalCotizacionesEl.textContent = '0';
+            const cotizacionesPendientesEl = document.getElementById('cotizacionesPendientes');
+            if (cotizacionesPendientesEl) cotizacionesPendientesEl.textContent = '0';
+            const cotizacionesCompletadasEl = document.getElementById('cotizacionesCompletadas');
+            if (cotizacionesCompletadasEl) cotizacionesCompletadasEl.textContent = '0';
+            const garantiasActivasEl = document.getElementById('garantiasActivas');
+            if (garantiasActivasEl) garantiasActivasEl.textContent = '0';
+            const totalProveedoresEl = document.getElementById('totalProveedores');
+            if (totalProveedoresEl) totalProveedoresEl.textContent = '0';
+            const mensajesSinLeerEl = document.getElementById('mensajesSinLeer');
+            if (mensajesSinLeerEl) mensajesSinLeerEl.textContent = '0';
+        });
+
+    // Cargar mensajes sin leer
+    fetch('../../controlador/Administrador/dashboard_controller.php?action=mensajes_sin_leer')
+        .then(response => response.json())
+        .then(data => {
+            const mensajesSinLeerEl = document.getElementById('mensajesSinLeer');
+            if (mensajesSinLeerEl) mensajesSinLeerEl.textContent = data.cantidad || 0;
+        })
+        .catch(error => console.error('Error cargando mensajes sin leer:', error));
+}
+
+function cargarGraficos() {
+    cargarGraficoCotizaciones();
+    cargarGraficoTrabajos();
+    cargarGraficoReparaciones();
+    cargarGraficoUsuariosRol();
+    cargarGraficoCotizacionesMensuales();
+    cargarGraficoIngresosGastosMensuales();
+}
+
+function cargarGraficoCotizaciones() {
+    const canvas = document.getElementById('cotizacionesChart');
+    if (!canvas) return;
+
+    const url = construirUrlCotizaciones();
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            const ctx = canvas.getContext('2d');
+
+            if (cotizacionesChart) {
+                cotizacionesChart.destroy();
+                cotizacionesChart = null;
+            }
+
+            const tipoGrafico = document.getElementById('tipoGraficoCotizaciones').value;
+
+            cotizacionesChart = new Chart(ctx, {
+                type: tipoGrafico,
+                data: {
+                    labels: data.map(item => traducirEstado(item.estado)),
+                    datasets: [{
+                        data: data.map(item => item.cantidad),
+                        backgroundColor: [
+                            '#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A',
+                            '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E9'
+                        ],
+                        borderColor: '#ffffff',
+                        borderWidth: 3,
+                        hoverBorderWidth: 5,
+                        hoverBorderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true,
+                                font: { size: 12, weight: 'bold' }
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0,0,0,0.8)',
+                            titleColor: '#ffffff',
+                            bodyColor: '#ffffff',
+                            cornerRadius: 8,
+                            displayColors: true
+                        }
+                    },
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true,
+                        duration: 2000,
+                        easing: 'easeInOutQuart'
+                    }
+                }
+            });
+        })
+        .catch(error => console.error('Error cargando gráfico de cotizaciones:', error));
+}
+
+function cargarGraficoTrabajos() {
+    const canvas = document.getElementById('trabajosChart');
+    if (!canvas) return;
+
+    fetch('../../controlador/Administrador/dashboard_controller.php?action=tipos_trabajo')
+        .then(response => response.json())
+        .then(data => {
+            const ctx = canvas.getContext('2d');
+
+            if (trabajosChart) {
+                trabajosChart.destroy();
+                trabajosChart = null;
+            }
+
+            trabajosChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: data.map(item => traducirTipoTrabajo(item.tipo_trabajo)),
+                    datasets: [{
+                        data: data.map(item => item.cantidad),
+                        backgroundColor: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A'],
+                        borderColor: '#ffffff',
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        tooltip: {
+                            backgroundColor: 'rgba(0,0,0,0.8)',
+                            titleColor: '#ffffff',
+                            bodyColor: '#ffffff',
+                            cornerRadius: 8
+                        }
+                    }
+                }
+            });
+        })
+        .catch(error => console.error('Error cargando gráfico de trabajos:', error));
+}
+
+function cargarGraficoReparaciones() {
+    const canvas = document.getElementById('reparacionesChart');
+    if (!canvas) return;
+
+    fetch('../../controlador/Administrador/dashboard_controller.php?action=tipos_reparacion')
+        .then(response => response.json())
+        .then(data => {
+            const ctx = canvas.getContext('2d');
+
+            if (reparacionesChart) {
+                reparacionesChart.destroy();
+                reparacionesChart = null;
+            }
+
+            reparacionesChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.map(item => traducirTipoReparacion(item.tipo_reparacion)),
+                    datasets: [{
+                        label: 'Cantidad de Reparaciones',
+                        data: data.map(item => item.cantidad),
+                        backgroundColor: 'rgba(78, 205, 196, 0.6)',
+                        borderColor: '#4ECDC4',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { stepSize: 1 }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(0,0,0,0.8)',
+                            titleColor: '#ffffff',
+                            bodyColor: '#ffffff',
+                            cornerRadius: 8
+                        }
+                    }
+                }
+            });
+        })
+        .catch(error => console.error('Error cargando gráfico de reparaciones:', error));
+}
+
+function cargarGraficoUsuariosRol() {
+    fetch('../../controlador/Administrador/dashboard_controller.php?action=usuarios_por_rol')
+        .then(response => response.json())
+        .then(data => {
+            const ctx = document.getElementById('usuariosRolChart').getContext('2d');
+
+            if (usuariosRolChart) {
+                usuariosRolChart.destroy();
+                usuariosRolChart = null;
+            }
+
+            usuariosRolChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: data.map(item => item.nombre_rol),
+                    datasets: [{
+                        data: data.map(item => item.cantidad),
+                        backgroundColor: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8'],
+                        borderColor: '#ffffff',
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        tooltip: {
+                            backgroundColor: 'rgba(0,0,0,0.8)',
+                            titleColor: '#ffffff',
+                            bodyColor: '#ffffff',
+                            cornerRadius: 8
+                        }
+                    }
+                }
+            });
+        })
+        .catch(error => console.error('Error cargando gráfico de usuarios por rol:', error));
+}
+
+function cargarGraficoCotizacionesMensuales() {
+    const canvas = document.getElementById('cotizacionesMensualesChart');
+    if (!canvas) return;
+
+    fetch('../../controlador/Administrador/dashboard_controller.php?action=cotizaciones_mensuales')
+        .then(response => response.json())
+        .then(data => {
+            const ctx = canvas.getContext('2d');
+
+            if (cotizacionesMensualesChart) {
+                cotizacionesMensualesChart.destroy();
+                cotizacionesMensualesChart = null;
+            }
+
+            cotizacionesMensualesChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.map(item => item.mes_formateado),
+                    datasets: [{
+                        label: 'Cotizaciones por Mes',
+                        data: data.map(item => item.cantidad),
+                        borderColor: '#45B7D1',
+                        backgroundColor: 'rgba(69, 183, 209, 0.2)',
+                        borderWidth: 3,
+                        pointBackgroundColor: '#45B7D1',
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        pointRadius: 5,
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { stepSize: 1 }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(0,0,0,0.8)',
+                            titleColor: '#ffffff',
+                            bodyColor: '#ffffff',
+                            cornerRadius: 8
+                        }
+                    }
+                }
+            });
+        })
+        .catch(error => console.error('Error cargando gráfico de cotizaciones mensuales:', error));
+}
+
+function cargarGraficoIngresosGastosMensuales() {
+    const canvas = document.getElementById('ingresosGastosMensualesChart');
+    if (!canvas) return;
+
+    fetch('../../controlador/Administrador/dashboard_controller.php?action=ingresos_gastos')
+        .then(response => response.json())
+        .then(data => {
+            const ctx = canvas.getContext('2d');
+
+            if (ingresosGastosMensualesChart) {
+                ingresosGastosMensualesChart.destroy();
+                ingresosGastosMensualesChart = null;
+            }
+
+            const tipoMostrar = document.getElementById('tipoGraficoIngresosGastos').value;
+            const datasets = [];
+
+            if (tipoMostrar === 'todos' || tipoMostrar === 'ingresos') {
+                const ingresos = data.filter(item => item.tipo === 'INGRESO');
+                datasets.push({
+                    label: 'Ingresos',
+                    data: ingresos.map(item => parseFloat(item.monto)),
+                    borderColor: '#28a745',
+                    backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                    borderWidth: 3,
+                    pointBackgroundColor: '#28a745',
+                    pointBorderColor: '#ffffff',
+                    pointBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
+                    tension: 0.4,
+                    fill: false
+                });
+            }
+
+            if (tipoMostrar === 'todos' || tipoMostrar === 'salidas') {
+                const salidas = data.filter(item => item.tipo === 'SALIDA');
+                datasets.push({
+                    label: 'Salidas',
+                    data: salidas.map(item => parseFloat(item.monto)),
+                    borderColor: '#dc3545',
+                    backgroundColor: 'rgba(220, 53, 69, 0.1)',
+                    borderWidth: 3,
+                    pointBackgroundColor: '#dc3545',
+                    pointBorderColor: '#ffffff',
+                    pointBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
+                    tension: 0.4,
+                    fill: false
+                });
+            }
+
+            if (tipoMostrar === 'balance') {
+                let balance = 0;
+                const balances = [];
+                data.forEach(item => {
+                    if (item.tipo === 'INGRESO') {
+                        balance += parseFloat(item.monto);
+                    } else {
+                        balance -= parseFloat(item.monto);
+                    }
+                    balances.push(balance);
+                });
+                datasets.push({
+                    label: 'Balance',
+                    data: balances,
+                    borderColor: '#17a2b8',
+                    backgroundColor: 'rgba(23, 162, 184, 0.1)',
+                    borderWidth: 3,
+                    pointBackgroundColor: '#17a2b8',
+                    pointBorderColor: '#ffffff',
+                    pointBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
+                    tension: 0.4,
+                    fill: false
+                });
+            }
+
+            let labels = [];
+            if (tipoMostrar === 'todos') {
+                labels = data.map(item => new Date(item.fecha).toLocaleDateString('es-MX'));
+            } else if (tipoMostrar === 'ingresos') {
+                labels = data.filter(item => item.tipo === 'INGRESO').map(item => new Date(item.fecha).toLocaleDateString('es-MX'));
+            } else if (tipoMostrar === 'salidas') {
+                labels = data.filter(item => item.tipo === 'SALIDA').map(item => new Date(item.fecha).toLocaleDateString('es-MX'));
+            } else if (tipoMostrar === 'balance') {
+                labels = data.map(item => new Date(item.fecha).toLocaleDateString('es-MX'));
+            }
+
+            ingresosGastosMensualesChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0,0,0,0.05)'
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + value.toLocaleString('es-MX');
+                                },
+                                font: {
+                                    size: 12,
+                                    weight: 'bold'
+                                }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(0,0,0,0.05)'
+                            },
+                            ticks: {
+                                font: {
+                                    size: 11
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                usePointStyle: true,
+                                padding: 20,
+                                font: {
+                                    size: 12,
+                                    weight: 'bold'
+                                }
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0,0,0,0.9)',
+                            titleColor: '#ffffff',
+                            bodyColor: '#ffffff',
+                            cornerRadius: 12,
+                            titleFont: {
+                                size: 14,
+                                weight: 'bold'
+                            },
+                            bodyFont: {
+                                size: 13
+                            },
+                            padding: 15,
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': $' + context.parsed.y.toLocaleString('es-MX');
+                                }
+                            }
+                        }
+                    },
+                    elements: {
+                        point: {
+                            hoverBorderWidth: 4
+                        }
+                    },
+                    animation: {
+                        duration: 2000,
+                        easing: 'easeInOutQuart'
+                    }
+                }
+            });
+        })
+        .catch(error => console.error('Error cargando gráfico de ingresos/egresos individuales:', error));
+}
+
+function cargarTablas() {
+    cargarTablaClientesFrecuentes();
+    cargarTablaUbicaciones();
+}
+
+function cargarTablaClientesFrecuentes() {
+    fetch('../../controlador/Administrador/dashboard_controller.php?action=clientes_frecuentes')
+        .then(response => response.json())
+        .then(data => {
+            const gridData = data.map(item => ({
+                cliente: item.nombres + ' ' + item.apellidos,
+                total_cotizaciones: item.total_cotizaciones,
+                ultima_cotizacion: new Date(item.ultima_cotizacion).toLocaleDateString('es-MX'),
+                estado: `<span class="badge badge-${item.estado.toLowerCase()}">${traducirEstado(item.estado)}</span>`
+            }));
+
+            new gridjs.Grid({
+                columns: [
+                    { name: 'Cliente', id: 'cliente' },
+                    { name: 'Total de Cotizaciones', id: 'total_cotizaciones' },
+                    { name: 'Última Cotización', id: 'ultima_cotizacion' },
+                    {
+                        name: 'Estado',
+                        formatter: (cell, row) => gridjs.html(cell)
+                    }
+                ],
+                data: gridData,
+                search: {
+                    placeholder: '🔍 Buscar clientes...'
+                },
+                pagination: {
+                    limit: 10,
+                    summary: true,
+                    prevButton: '⬅️ Anterior',
+                    nextButton: 'Siguiente ➡️',
+                    buttonsCount: 3
+                },
+                sort: true,
+                language: {
+                    'search': {
+                        'placeholder': '🔍 Buscar...'
+                    },
+                    'pagination': {
+                        'showing': 'Mostrando',
+                        'of': 'de',
+                        'to': 'a',
+                        'results': 'resultados'
+                    }
+                },
+                style: {
+                    table: {
+                        'font-size': '14px',
+                        'border-collapse': 'collapse',
+                        'width': '100%',
+                        'border-radius': '8px',
+                        'overflow': 'hidden'
+                    },
+                    th: {
+                        'background': 'linear-gradient(135deg, #1a1a1a 0%, #343a40 100%)',
+                        'color': '#ffffff',
+                        'border': '1px solid #495057',
+                        'padding': '15px 12px',
+                        'text-align': 'left',
+                        'font-weight': '700',
+                        'font-size': '14px',
+                        'text-transform': 'uppercase',
+                        'letter-spacing': '0.5px'
+                    },
+                    td: {
+                        'padding': '12px 12px',
+                        'border': '1px solid #e9ecef',
+                        'background-color': '#ffffff',
+                        'transition': 'all 0.2s ease',
+                        'vertical-align': 'middle'
+                    },
+                    tr: {
+                        'transition': 'background-color 0.2s ease'
+                    },
+                    container: {
+                        'box-shadow': '0 4px 20px rgba(0,0,0,0.15)',
+                        'border-radius': '12px',
+                        'overflow': 'hidden',
+                        'border': '1px solid #e9ecef'
+                    },
+                    search: {
+                        'border': '2px solid #ced4da',
+                        'border-radius': '8px',
+                        'padding': '10px 14px',
+                        'margin-bottom': '20px',
+                        'font-size': '14px',
+                        'transition': 'border-color 0.2s ease',
+                    },
+                    pagination: {
+                        'margin-top': '20px',
+                        'padding': '10px 0'
+                    }
+                },
+                columnStyles: {
+                    0: { minWidth: '250px' },
+                    1: { width: '120px' },
+                    2: { width: '150px' },
+                    3: { width: '100px' }
+                }
+            }).render(document.getElementById('clientesFrecuentesTable'));
+        })
+        .catch(error => console.error('Error cargando tabla de clientes frecuentes:', error));
+}
+
+function cargarTablaUbicaciones() {
+    fetch('../../controlador/Administrador/dashboard_controller.php?action=distribucion_geografica')
+        .then(response => response.json())
+        .then(data => {
+            const gridData = data.map(item => ({
+                ubicacion: item.ciudad + ', ' + item.estado,
+                cantidad_clientes: item.cantidad_clientes,
+                porcentaje: item.porcentaje + '%'
+            }));
+
+            new gridjs.Grid({
+                columns: [
+                    { name: 'Ciudad/Estado', id: 'ubicacion' },
+                    { name: 'Cantidad de Clientes', id: 'cantidad_clientes' },
+                    { name: 'Porcentaje', id: 'porcentaje' }
+                ],
+                data: gridData,
+                search: {
+                    placeholder: '🔍 Buscar ubicaciones...'
+                },
+                pagination: {
+                    limit: 10,
+                    summary: true,
+                    prevButton: '⬅️ Anterior',
+                    nextButton: 'Siguiente ➡️',
+                    buttonsCount: 3
+                },
+                sort: true,
+                language: {
+                    'search': {
+                        'placeholder': '🔍 Buscar...'
+                    },
+                    'pagination': {
+                        'showing': 'Mostrando',
+                        'of': 'de',
+                        'to': 'a',
+                        'results': 'resultados'
+                    }
+                },
+                style: {
+                    table: {
+                        'font-size': '14px',
+                        'border-collapse': 'collapse',
+                        'width': '100%',
+                        'border-radius': '8px',
+                        'overflow': 'hidden'
+                    },
+                    th: {
+                        'background': 'linear-gradient(135deg, #1a1a1a 0%, #343a40 100%)',
+                        'color': '#ffffff',
+                        'border': '1px solid #495057',
+                        'padding': '15px 12px',
+                        'text-align': 'left',
+                        'font-weight': '700',
+                        'font-size': '14px',
+                        'text-transform': 'uppercase',
+                        'letter-spacing': '0.5px'
+                    },
+                    td: {
+                        'padding': '12px 12px',
+                        'border': '1px solid #e9ecef',
+                        'background-color': '#ffffff',
+                        'transition': 'all 0.2s ease',
+                        'vertical-align': 'middle'
+                    },
+                    tr: {
+                        'transition': 'background-color 0.2s ease',
+                    },
+                    container: {
+                        'box-shadow': '0 4px 20px rgba(0,0,0,0.15)',
+                        'border-radius': '12px',
+                        'overflow': 'hidden',
+                        'border': '1px solid #e9ecef'
+                    },
+                    search: {
+                        'border': '2px solid #ced4da',
+                        'border-radius': '8px',
+                        'padding': '10px 14px',
+                        'margin-bottom': '20px',
+                        'font-size': '14px',
+                        'transition': 'border-color 0.2s ease',
+                        '&:focus': {
+                            'border-color': '#1a1a1a',
+                            'outline': 'none'
+                        }
+                    },
+                    pagination: {
+                        'margin-top': '20px',
+                        'padding': '10px 0'
+                    }
+                }
+            }).render(document.getElementById('ubicacionesTable'));
+        })
+        .catch(error => console.error('Error cargando tabla de ubicaciones:', error));
+}
+
+function cargarResumenIngresosGastos() {
+    fetch('../../controlador/Administrador/dashboard_controller.php?action=resumen_ingresos_gastos')
+        .then(response => response.json())
+        .then(data => {
+            const totalIngresosEl = document.getElementById('totalIngresos');
+            if (totalIngresosEl) totalIngresosEl.textContent = '$' + (parseFloat(data.total_ingresos || 0)).toLocaleString('es-MX', {minimumFractionDigits: 2});
+            const totalGastosEl = document.getElementById('totalGastos');
+            if (totalGastosEl) totalGastosEl.textContent = '$' + (parseFloat(data.total_gastos || 0)).toLocaleString('es-MX', {minimumFractionDigits: 2});
+            const balanceTotalEl = document.getElementById('balanceTotal');
+            if (balanceTotalEl) {
+                balanceTotalEl.textContent = '$' + (parseFloat(data.balance || 0)).toLocaleString('es-MX', {minimumFractionDigits: 2});
+                const balance = parseFloat(data.balance || 0);
+                if (balance > 0) {
+                    balanceTotalEl.style.color = '#28a745';
+                } else if (balance < 0) {
+                    balanceTotalEl.style.color = '#dc3545';
+                } else {
+                    balanceTotalEl.style.color = '#17a2b8';
+                }
+            }
+        })
+        .catch(error => console.error('Error cargando resumen ingresos/gastos:', error));
+}
+
+function cargarTablaIngresosGastos() {
+    fetch('../../controlador/Administrador/dashboard_controller.php?action=ingresos_gastos')
+        .then(response => response.json())
+        .then(data => {
+            const gridData = data.map(item => {
+                const tipoClass = item.tipo === 'INGRESO' ? 'tipo-ingreso' : 'tipo-gasto';
+                const tipoText = item.tipo === 'INGRESO' ? 'Ingreso' : 'Salida';
+                return {
+                    fecha: new Date(item.fecha).toLocaleDateString('es-MX'),
+                    concepto: item.concepto,
+                    tipo: `<span class="${tipoClass}">${tipoText}</span>`,
+                    monto: '$' + parseFloat(item.monto).toLocaleString('es-MX', {minimumFractionDigits: 2}),
+                    descripcion: item.descripcion || '',
+                    id_ingreso_gasto: item.id_ingreso_gasto
+                };
+            });
+
+            new gridjs.Grid({
+                columns: [
+                    { name: 'Fecha', id: 'fecha' },
+                    { name: 'Concepto', id: 'concepto' },
+                    {
+                        name: 'Tipo',
+                        formatter: (cell, row) => gridjs.html(cell)
+                    },
+                    { name: 'Monto', id: 'monto' },
+                    { name: 'Descripción', id: 'descripcion' },
+                    {
+                        name: 'Acciones',
+                        formatter: (cell, row) => gridjs.html(`
+                            <div class="table-actions">
+                                <button class="action-btn btn-edit-income" onclick="editarIngresoGasto(${row.cells[5].data})" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn btn-delete-income" onclick="eliminarIngresoGasto(${row.cells[5].data})" title="Eliminar">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        `)
+                    }
+                ],
+                data: gridData,
+                search: {
+                    placeholder: '🔍 Buscar registros...'
+                },
+                pagination: {
+                    limit: 10,
+                    summary: true,
+                    prevButton: '⬅️ Anterior',
+                    nextButton: 'Siguiente ➡️',
+                    buttonsCount: 3
+                },
+                sort: true,
+                language: {
+                    'search': {
+                        'placeholder': '🔍 Buscar...'
+                    },
+                    'pagination': {
+                        'showing': 'Mostrando',
+                        'of': 'de',
+                        'to': 'a',
+                        'results': 'resultados'
+                    }
+                },
+                style: {
+                    table: {
+                        'font-size': '14px',
+                        'border-collapse': 'collapse',
+                        'width': '100%',
+                        'border-radius': '8px',
+                        'overflow': 'hidden'
+                    },
+                    th: {
+                        'background': 'linear-gradient(135deg, #1a1a1a 0%, #343a40 100%)',
+                        'color': '#ffffff',
+                        'border': '1px solid #495057',
+                        'padding': '15px 12px',
+                        'text-align': 'left',
+                        'font-weight': '700',
+                        'font-size': '14px',
+                        'text-transform': 'uppercase',
+                        'letter-spacing': '0.5px'
+                    },
+                    td: {
+                        'padding': '12px 12px',
+                        'border': '1px solid #e9ecef',
+                        'background-color': '#ffffff',
+                        'transition': 'all 0.2s ease',
+                        'vertical-align': 'middle'
+                    },
+                    tr: {
+                        'transition': 'background-color 0.2s ease',
+                        '&:hover td': {
+                            'background-color': '#f8f9fa'
+                        }
+                    },
+                    container: {
+                        'box-shadow': '0 4px 20px rgba(0,0,0,0.15)',
+                        'border-radius': '12px',
+                        'overflow': 'hidden',
+                        'border': '1px solid #e9ecef'
+                    },
+                    search: {
+                        'border': '2px solid #ced4da',
+                        'border-radius': '8px',
+                        'padding': '10px 14px',
+                        'margin-bottom': '20px',
+                        'font-size': '14px',
+                        'transition': 'border-color 0.2s ease',
+                        '&:focus': {
+                            'border-color': '#1a1a1a',
+                            'outline': 'none'
+                        }
+                    },
+                    pagination: {
+                        'margin-top': '20px',
+                        'padding': '10px 0'
+                    }
+                }
+            }).render(document.getElementById('ingresosGastosTable'));
+        })
+        .catch(error => console.error('Error cargando tabla ingresos/gastos:', error));
+}
+
+// Funciones de traducción
+function traducirEstado(estado) {
+    const traducciones = {
+        'PENDIENTE': 'Pendiente',
+        'APROBADA': 'Aprobada',
+        'RECHAZADA': 'Rechazada',
+        'EN_PROCESO': 'En Proceso',
+        'COMPLETADO': 'Completada'
+    };
+    return traducciones[estado] || estado;
+}
+
+function traducirTipoTrabajo(tipo) {
+    const traducciones = {
+        'EXPRESS': 'Express',
+        'NORMAL': 'Normal',
+        'PINTURA_TOTAL': 'Pintura Total'
+    };
+    return traducciones[tipo] || tipo;
+}
+
+function traducirTipoReparacion(tipo) {
+    const traducciones = {
+        'FISURA': 'Fisura',
+        'FRACTURA': 'Fractura',
+        'RECONSTRUCCION': 'Reconstrucción',
+        'ADAPTACION': 'Adaptación',
+        'OTROS': 'Otros'
+    };
+    return traducciones[tipo] || tipo;
+}
+
+function construirUrlCotizaciones() {
+    let url = '../../controlador/Administrador/dashboard_controller.php?action=cotizaciones_estado';
+
+    if (filtrosActuales.fechaInicio && filtrosActuales.fechaFin) {
+        url += `&fecha_inicio=${filtrosActuales.fechaInicio}&fecha_fin=${filtrosActuales.fechaFin}`;
+    }
+
+    if (filtrosActuales.estado !== 'todos') {
+        url += `&estado=${filtrosActuales.estado}`;
+    }
+
+    return url;
+}
+
+// Funciones para el buscador de clientes
+let clienteSearchTimeout;
+const clienteBuscador = document.getElementById('cliente_buscador');
+if (clienteBuscador) {
+    clienteBuscador.addEventListener('input', function() {
+        clearTimeout(clienteSearchTimeout);
+        const query = this.value.trim();
+
+        if (query.length >= 2) {
+            clienteSearchTimeout = setTimeout(() => searchClientes(query), 300);
+        } else {
+            const suggestions = document.getElementById('cliente_suggestions');
+            if (suggestions) suggestions.style.display = 'none';
+        }
+    });
+}
+
+async function searchClientes(query) {
+    try {
+        const response = await fetch(`../../controlador/Administrador/cotizaciones_controller.php?action=getClientesForSearch&q=${encodeURIComponent(query)}`);
+        const data = await response.json();
+
+        if (data.success) {
+            showClienteSuggestions(data.clientes);
+        }
+    } catch (error) {
+        console.error('Error buscando clientes:', error);
+    }
+}
+
+function showClienteSuggestions(clientes) {
+    const suggestionsDiv = document.getElementById('cliente_suggestions');
+
+    if (clientes.length === 0) {
+        suggestionsDiv.style.display = 'none';
+        return;
+    }
+
+    suggestionsDiv.innerHTML = '';
+    clientes.forEach(cliente => {
+        const div = document.createElement('div');
+        div.className = 'suggestion-item';
+        div.innerHTML = `
+            <div class="suggestion-info">
+                <strong>${cliente.nombres} ${cliente.apellidos}</strong>
+                <br><small>${cliente.correo_electronico} | ${cliente.numero_telefono || 'Sin teléfono'}</small>
+            </div>
+        `;
+        div.onclick = () => selectCliente(cliente);
+        suggestionsDiv.appendChild(div);
+    });
+
+    suggestionsDiv.style.display = 'block';
+}
+
+function selectCliente(cliente) {
+    document.getElementById('id_usuario_cotizacion').value = cliente.id_usuario;
+    document.getElementById('cliente_buscador').value = `${cliente.nombres} ${cliente.apellidos}`;
+    document.getElementById('nombre_completo').value = `${cliente.nombres} ${cliente.apellidos}`;
+    document.getElementById('correo_electronico').value = cliente.correo_electronico;
+    document.getElementById('telefono').value = cliente.numero_telefono || '';
+    document.getElementById('direccion').value = cliente.direccion || '';
+
+    document.getElementById('cliente_suggestions').style.display = 'none';
+}
+
+// Funciones adicionales del dashboard
+function editarIngresoGasto(id) {
+    // Implementar edición de ingreso/gasto
+    console.log('Editar ingreso/gasto:', id);
+}
+
+function eliminarIngresoGasto(id) {
+    // Implementar eliminación de ingreso/gasto
+    console.log('Eliminar ingreso/gasto:', id);
+}
+
+function actualizarDashboard() {
+    cargarDashboard();
+}
+
+function cambiarTipoGraficoCotizaciones() {
+    cargarGraficoCotizaciones();
+}
+
+function cambiarTipoGraficoIngresosGastos() {
+    cargarGraficoIngresosGastosMensuales();
+}
+
+function cambiarPeriodoCotizaciones() {
+    const periodo = document.getElementById('periodoCotizaciones').value;
+    const fechaPersonalizada = document.getElementById('fechaPersonalizadaCotizaciones');
+
+    filtrosActuales.periodo = periodo;
+
+    if (periodo === 'personalizado') {
+        fechaPersonalizada.style.display = 'flex';
+        // No aplicar filtros automáticamente, esperar a que el usuario seleccione fechas
+    } else {
+        fechaPersonalizada.style.display = 'none';
+        aplicarFiltrosCotizaciones();
+    }
+}
+
+function aplicarFiltrosCotizaciones() {
+    const periodo = filtrosActuales.periodo;
+    let fechaInicio = null;
+    let fechaFin = null;
+
+    const hoy = new Date();
+    const primerDiaMes = new Date(hoy.getFullYear(), hoy.getMonth(), 1);
+    const ultimoDiaMes = new Date(hoy.getFullYear(), hoy.getMonth() + 1, 0);
+
+    switch (periodo) {
+        case 'hoy':
+            fechaInicio = hoy.toISOString().split('T')[0];
+            fechaFin = hoy.toISOString().split('T')[0];
+            break;
+        case 'semana':
+            const primerDiaSemana = new Date(hoy);
+            primerDiaSemana.setDate(hoy.getDate() - hoy.getDay());
+            const ultimoDiaSemana = new Date(primerDiaSemana);
+            ultimoDiaSemana.setDate(primerDiaSemana.getDate() + 6);
+            fechaInicio = primerDiaSemana.toISOString().split('T')[0];
+            fechaFin = ultimoDiaSemana.toISOString().split('T')[0];
+            break;
+        case 'mes':
+            fechaInicio = primerDiaMes.toISOString().split('T')[0];
+            fechaFin = ultimoDiaMes.toISOString().split('T')[0];
+            break;
+        case 'anio':
+            fechaInicio = new Date(hoy.getFullYear(), 0, 1).toISOString().split('T')[0];
+            fechaFin = new Date(hoy.getFullYear(), 11, 31).toISOString().split('T')[0];
+            break;
+        case 'personalizado':
+            fechaInicio = document.getElementById('fechaInicioCotizaciones').value;
+            fechaFin = document.getElementById('fechaFinCotizaciones').value;
+            if (!fechaInicio || !fechaFin) {
+                return; // No aplicar si no hay fechas
+            }
+            break;
+    }
+
+    filtrosActuales.fechaInicio = fechaInicio;
+    filtrosActuales.fechaFin = fechaFin;
+
+    cargarGraficoCotizaciones();
+}
+
+function cambiarPeriodoIngresosGastos() {
+    const periodo = document.getElementById('periodoIngresosGastos').value;
+    const fechaPersonalizada = document.getElementById('fechaPersonalizadaIngresosGastos');
+
+    if (periodo === 'personalizado') {
+        fechaPersonalizada.style.display = 'flex';
+        // No aplicar filtros automáticamente, esperar a que el usuario seleccione fechas
+    } else {
+        fechaPersonalizada.style.display = 'none';
+        aplicarFiltrosIngresosGastos();
+    }
+}
+
+function aplicarFiltrosIngresosGastos() {
+    const periodo = document.getElementById('periodoIngresosGastos').value;
+    let fechaInicio = null;
+    let fechaFin = null;
+
+    const hoy = new Date();
+    const primerDiaMes = new Date(hoy.getFullYear(), hoy.getMonth(), 1);
+    const ultimoDiaMes = new Date(hoy.getFullYear(), hoy.getMonth() + 1, 0);
+
+    switch (periodo) {
+        case 'hoy':
+            fechaInicio = hoy.toISOString().split('T')[0];
+            fechaFin = hoy.toISOString().split('T')[0];
+            break;
+        case 'semana':
+            const primerDiaSemana = new Date(hoy);
+            primerDiaSemana.setDate(hoy.getDate() - hoy.getDay());
+            const ultimoDiaSemana = new Date(primerDiaSemana);
+            ultimoDiaSemana.setDate(primerDiaSemana.getDate() + 6);
+            fechaInicio = primerDiaSemana.toISOString().split('T')[0];
+            fechaFin = ultimoDiaSemana.toISOString().split('T')[0];
+            break;
+        case 'mes':
+            fechaInicio = primerDiaMes.toISOString().split('T')[0];
+            fechaFin = ultimoDiaMes.toISOString().split('T')[0];
+            break;
+        case 'anio':
+            fechaInicio = new Date(hoy.getFullYear(), 0, 1).toISOString().split('T')[0];
+            fechaFin = new Date(hoy.getFullYear(), 11, 31).toISOString().split('T')[0];
+            break;
+        case 'personalizado':
+            fechaInicio = document.getElementById('fechaInicioIngresosGastos').value;
+            fechaFin = document.getElementById('fechaFinIngresosGastos').value;
+            if (!fechaInicio || !fechaFin) {
+                return; // No aplicar si no hay fechas
+            }
+            break;
+    }
+
+    // Aplicar filtros a los gráficos
+    cargarGraficoIngresosGastosMensuales();
+}
+
+// Inicializar la aplicación
+document.addEventListener('DOMContentLoaded', function () {
+    initializeData();
+
+    // Responsive sidebar
+    function handleResize() {
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.querySelector('.main-content');
+
+        if (window.innerWidth <= 992) {
+            sidebar.classList.add('hidden');
+            mainContent.classList.add('expanded');
+        } else {
+            sidebar.classList.remove('hidden');
+            mainContent.classList.remove('expanded');
+        }
+    }
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+});}

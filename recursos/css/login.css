@@ -786,18 +786,25 @@ body {
     .contenedor-formularios, .contenedor-info {
         padding: 25px 20px;
     }
-    
+
     .carrusel-container {
         width: 240px;
         height: 100px;
         top: 10px;
     }
-    
+
     .formulario h2 {
         font-size: 26px;
     }
-    
+
     .contenedor-info h2 {
         font-size: 30px;
+    }
+}
+
+/* Hide carousel on mobile devices */
+@media (max-width: 768px) {
+    .carrusel-container {
+        display: none !important;
     }
 }

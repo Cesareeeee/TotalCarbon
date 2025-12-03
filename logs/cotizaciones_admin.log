@@ -1,0 +1,392 @@
+[2025-12-03 04:39:49] === Solicitud: GET obtener_todas ===
+[2025-12-03 04:39:49] ERROR: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'u.nombre_usuario' in 'field list'
+[2025-12-03 04:39:52] === Solicitud: GET obtener_todas ===
+[2025-12-03 04:39:52] ERROR: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'u.nombre_usuario' in 'field list'
+[2025-12-03 04:40:02] === Solicitud: GET obtener_todas ===
+[2025-12-03 04:40:02] ERROR: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'u.nombre_usuario' in 'field list'
+[2025-12-03 04:41:46] === Solicitud: GET obtener_todas ===
+[2025-12-03 04:41:46] ERROR: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'u.nombre_usuario' in 'field list'
+[2025-12-03 04:41:54] === Solicitud: GET obtener_todas ===
+[2025-12-03 04:41:54] ERROR: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'u.nombre_usuario' in 'field list'
+[2025-12-03 04:43:08] === Solicitud: GET obtener_todas ===
+[2025-12-03 04:43:08] ERROR: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'u.nombre_usuario' in 'field list'
+[2025-12-03 04:45:01] === Solicitud: GET obtener_todas ===
+[2025-12-03 04:45:01] Cotizaciones obtenidas: 34
+[2025-12-03 04:45:01] === Solicitud: GET obtener_todas ===
+[2025-12-03 04:45:01] Cotizaciones obtenidas: 34
+[2025-12-03 04:45:02] === Solicitud: GET obtener_todas ===
+[2025-12-03 04:45:02] Cotizaciones obtenidas: 34
+[2025-12-03 04:45:44] === Solicitud: GET obtener_todas ===
+[2025-12-03 04:45:44] Cotizaciones obtenidas: 34
+[2025-12-03 04:46:19] === Solicitud: GET obtener_todas ===
+[2025-12-03 04:46:19] Cotizaciones obtenidas: 34
+[2025-12-03 04:46:45] === Solicitud: GET obtener_todas ===
+[2025-12-03 04:46:45] Cotizaciones obtenidas: 34
+[2025-12-03 04:51:41] === Solicitud: GET obtener_todas ===
+[2025-12-03 04:51:41] Cotizaciones obtenidas: 34
+[2025-12-03 04:51:42] === Solicitud: GET obtener_todas ===
+[2025-12-03 04:51:42] Cotizaciones obtenidas: 34
+[2025-12-03 04:52:24] === Solicitud: GET obtener_todas ===
+[2025-12-03 04:52:24] Cotizaciones obtenidas: 34
+[2025-12-03 04:53:38] === Solicitud: GET obtener_todas ===
+[2025-12-03 04:53:38] Cotizaciones obtenidas: 34
+[2025-12-03 04:53:38] === Solicitud: GET obtener_todas ===
+[2025-12-03 04:53:38] Cotizaciones obtenidas: 34
+[2025-12-03 04:54:19] === Solicitud: GET obtener_todas ===
+[2025-12-03 04:54:19] Cotizaciones obtenidas: 34
+[2025-12-03 04:54:22] === Solicitud: GET obtener_todas ===
+[2025-12-03 04:54:22] Cotizaciones obtenidas: 34
+[2025-12-03 04:54:23] === Solicitud: GET obtener_todas ===
+[2025-12-03 04:54:23] Cotizaciones obtenidas: 34
+[2025-12-03 04:56:05] === Solicitud: GET obtener_todas ===
+[2025-12-03 04:56:05] Cotizaciones obtenidas: 34
+[2025-12-03 04:56:15] === Solicitud: GET obtener_todas ===
+[2025-12-03 04:56:15] Cotizaciones obtenidas: 34
+[2025-12-03 04:56:17] === Solicitud: GET obtener_todas ===
+[2025-12-03 04:56:17] Cotizaciones obtenidas: 34
+[2025-12-03 04:59:02] === Solicitud: GET obtener_todas ===
+[2025-12-03 04:59:02] ERROR: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'u.nombre_usuario' in 'field list'
+[2025-12-03 04:59:12] === Solicitud: GET obtener_todas ===
+[2025-12-03 04:59:12] ERROR: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'u.nombre_usuario' in 'field list'
+[2025-12-03 05:01:03] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:01:03] Cotizaciones obtenidas: 34
+[2025-12-03 05:01:29] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:01:29] Cotizaciones obtenidas: 34
+[2025-12-03 05:01:32] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:01:32] Cotizaciones obtenidas: 34
+[2025-12-03 05:01:44] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:01:44] Cotizaciones obtenidas: 34
+[2025-12-03 05:01:53] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:01:53] Cotizaciones obtenidas: 34
+[2025-12-03 05:03:52] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:03:52] Cotizaciones obtenidas: 34
+[2025-12-03 05:03:57] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 05:03:58] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 05:03:58] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 05:04:01] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 05:04:02] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:04:02] Cotizaciones obtenidas: 34
+[2025-12-03 05:04:02] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:04:02] Cotizaciones obtenidas: 34
+[2025-12-03 05:05:15] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:05:15] Cotizaciones obtenidas: 34
+[2025-12-03 05:06:34] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 05:06:34] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 05:06:36] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 05:07:07] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:07:07] Cotizaciones obtenidas: 34
+[2025-12-03 05:07:09] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 05:07:09] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 05:07:09] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 05:07:10] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 05:07:10] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 05:07:10] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 05:07:11] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 05:07:11] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 05:08:27] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:08:27] Cotizaciones obtenidas: 34
+[2025-12-03 05:08:31] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:08:31] Cotizaciones obtenidas: 34
+[2025-12-03 05:08:33] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 05:08:36] === Solicitud: POST  ===
+[2025-12-03 05:09:17] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:09:17] Cotizaciones obtenidas: 34
+[2025-12-03 05:09:18] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:09:18] Cotizaciones obtenidas: 34
+[2025-12-03 05:09:24] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 05:10:25] === Solicitud: POST  ===
+[2025-12-03 05:10:27] === Solicitud: POST  ===
+[2025-12-03 05:11:37] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:11:37] Cotizaciones obtenidas: 34
+[2025-12-03 05:12:23] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 05:12:32] === Solicitud: POST  ===
+[2025-12-03 05:13:30] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 05:14:31] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:14:31] Cotizaciones obtenidas: 34
+[2025-12-03 05:14:32] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:14:32] Cotizaciones obtenidas: 34
+[2025-12-03 05:15:44] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 05:15:48] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:15:48] Cotizaciones obtenidas: 34
+[2025-12-03 05:17:21] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:17:21] Cotizaciones obtenidas: 34
+[2025-12-03 05:17:41] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 05:21:05] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:21:05] Cotizaciones obtenidas: 34
+[2025-12-03 05:21:50] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:21:50] Cotizaciones obtenidas: 34
+[2025-12-03 05:22:17] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 05:23:41] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:23:41] Cotizaciones obtenidas: 34
+[2025-12-03 05:23:43] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:23:43] Cotizaciones obtenidas: 34
+[2025-12-03 05:23:44] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:23:44] Cotizaciones obtenidas: 34
+[2025-12-03 05:23:44] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:23:44] Cotizaciones obtenidas: 34
+[2025-12-03 05:23:46] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:23:46] Cotizaciones obtenidas: 34
+[2025-12-03 05:23:53] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:23:53] Cotizaciones obtenidas: 34
+[2025-12-03 05:23:55] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:23:55] Cotizaciones obtenidas: 34
+[2025-12-03 05:24:58] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:24:58] Cotizaciones obtenidas: 34
+[2025-12-03 05:25:02] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:25:02] Cotizaciones obtenidas: 34
+[2025-12-03 05:25:03] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:25:03] Cotizaciones obtenidas: 34
+[2025-12-03 05:25:04] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:25:04] Cotizaciones obtenidas: 34
+[2025-12-03 05:25:07] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 05:25:30] === Solicitud: POST  ===
+[2025-12-03 05:26:49] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:26:49] Cotizaciones obtenidas: 34
+[2025-12-03 05:26:51] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 05:27:15] === Solicitud: POST  ===
+[2025-12-03 05:32:33] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:32:33] Cotizaciones obtenidas: 34
+[2025-12-03 05:33:05] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:33:05] Cotizaciones obtenidas: 34
+[2025-12-03 05:33:07] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:33:07] Cotizaciones obtenidas: 34
+[2025-12-03 05:33:08] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:33:08] Cotizaciones obtenidas: 34
+[2025-12-03 05:33:08] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:33:08] Cotizaciones obtenidas: 34
+[2025-12-03 05:33:13] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 05:33:50] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:33:50] Cotizaciones obtenidas: 34
+[2025-12-03 05:33:59] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 05:34:24] === Solicitud: POST  ===
+[2025-12-03 05:35:50] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 05:37:48] === Solicitud: POST  ===
+[2025-12-03 05:38:40] === Solicitud: POST  ===
+[2025-12-03 05:38:50] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:38:50] Cotizaciones obtenidas: 34
+[2025-12-03 05:38:53] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 05:38:56] === Solicitud: POST  ===
+[2025-12-03 05:41:36] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:41:36] Cotizaciones obtenidas: 34
+[2025-12-03 05:41:43] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:41:43] Cotizaciones obtenidas: 34
+[2025-12-03 05:41:44] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:41:44] Cotizaciones obtenidas: 34
+[2025-12-03 05:41:45] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 05:43:07] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:43:07] Cotizaciones obtenidas: 34
+[2025-12-03 05:43:54] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:43:54] Cotizaciones obtenidas: 34
+[2025-12-03 05:43:56] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 05:44:04] === Solicitud: POST  ===
+[2025-12-03 05:44:07] === Solicitud: POST  ===
+[2025-12-03 05:44:18] === Solicitud: POST  ===
+[2025-12-03 05:48:59] === Solicitud: POST  ===
+[2025-12-03 05:49:59] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:49:59] Cotizaciones obtenidas: 34
+[2025-12-03 05:50:03] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 05:51:01] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:51:01] Cotizaciones obtenidas: 34
+[2025-12-03 05:52:09] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:52:09] Cotizaciones obtenidas: 34
+[2025-12-03 05:52:11] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 05:52:16] === Solicitud: POST  ===
+[2025-12-03 05:53:00] === Solicitud: POST  ===
+[2025-12-03 05:53:03] === Solicitud: POST  ===
+[2025-12-03 05:53:09] === Solicitud: POST  ===
+[2025-12-03 05:53:17] === Solicitud: POST  ===
+[2025-12-03 05:58:03] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:58:03] Cotizaciones obtenidas: 34
+[2025-12-03 05:58:07] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:58:07] Cotizaciones obtenidas: 34
+[2025-12-03 05:58:13] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 05:58:27] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:58:27] Cotizaciones obtenidas: 34
+[2025-12-03 05:58:30] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 05:58:38] === Solicitud: POST  ===
+[2025-12-03 05:59:35] === Solicitud: GET obtener_todas ===
+[2025-12-03 05:59:35] Cotizaciones obtenidas: 34
+[2025-12-03 05:59:36] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 06:00:01] === Solicitud: POST  ===
+[2025-12-03 06:00:05] === Solicitud: POST  ===
+[2025-12-03 06:00:12] === Solicitud: POST  ===
+[2025-12-03 06:05:39] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:05:39] Cotizaciones obtenidas: 34
+[2025-12-03 06:05:41] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 06:05:55] === Solicitud: POST  ===
+[2025-12-03 06:10:23] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:10:23] Cotizaciones obtenidas: 34
+[2025-12-03 06:10:25] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 06:10:49] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:10:49] Cotizaciones obtenidas: 34
+[2025-12-03 06:10:51] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 06:14:15] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:14:15] Cotizaciones obtenidas: 34
+[2025-12-03 06:14:17] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 06:14:37] === Solicitud: POST  ===
+[2025-12-03 06:14:44] === Solicitud: POST  ===
+[2025-12-03 06:15:31] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:15:31] Cotizaciones obtenidas: 34
+[2025-12-03 06:15:33] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 06:15:49] === Solicitud: POST  ===
+[2025-12-03 06:16:03] === Solicitud: POST  ===
+[2025-12-03 06:16:10] === Solicitud: POST  ===
+[2025-12-03 06:19:02] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:19:02] Cotizaciones obtenidas: 34
+[2025-12-03 06:19:03] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 06:19:08] === Solicitud: POST  ===
+[2025-12-03 06:20:20] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:20:20] Cotizaciones obtenidas: 34
+[2025-12-03 06:20:22] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 06:20:24] === Solicitud: POST  ===
+[2025-12-03 06:20:26] === Solicitud: POST  ===
+[2025-12-03 06:20:29] === Solicitud: POST  ===
+[2025-12-03 06:20:33] === Solicitud: POST  ===
+[2025-12-03 06:22:39] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:22:39] Cotizaciones obtenidas: 34
+[2025-12-03 06:22:40] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:22:40] Cotizaciones obtenidas: 34
+[2025-12-03 06:22:41] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 06:22:44] === Solicitud: POST  ===
+[2025-12-03 06:22:46] === Solicitud: POST  ===
+[2025-12-03 06:22:51] === Solicitud: POST  ===
+[2025-12-03 06:22:58] === Solicitud: GET  ===
+[2025-12-03 06:26:03] === Solicitud: POST  ===
+[2025-12-03 06:26:08] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:26:08] ERROR: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'u.nombre_usuario' in 'field list'
+[2025-12-03 06:26:16] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:26:16] ERROR: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'u.nombre_usuario' in 'field list'
+[2025-12-03 06:27:07] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:27:07] ERROR: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'u.nombre_usuario' in 'field list'
+[2025-12-03 06:27:14] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:27:14] ERROR: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'u.nombre_usuario' in 'field list'
+[2025-12-03 06:27:26] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:27:26] ERROR: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'u.nombre_usuario' in 'field list'
+[2025-12-03 06:28:51] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:28:51] Cotizaciones obtenidas: 34
+[2025-12-03 06:28:54] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 06:28:58] === Solicitud: POST  ===
+[2025-12-03 06:29:00] === Solicitud: POST  ===
+[2025-12-03 06:29:03] === Solicitud: POST  ===
+[2025-12-03 06:29:15] === Solicitud: POST  ===
+[2025-12-03 06:29:24] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:29:24] Cotizaciones obtenidas: 34
+[2025-12-03 06:29:26] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 06:29:30] === Solicitud: POST  ===
+[2025-12-03 06:29:36] === Solicitud: POST  ===
+[2025-12-03 06:31:40] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:31:40] Cotizaciones obtenidas: 34
+[2025-12-03 06:31:42] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 06:31:44] === Solicitud: POST  ===
+[2025-12-03 06:31:46] === Solicitud: POST  ===
+[2025-12-03 06:36:36] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:36:36] Cotizaciones obtenidas: 34
+[2025-12-03 06:36:40] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:36:40] Cotizaciones obtenidas: 34
+[2025-12-03 06:36:43] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:36:43] Cotizaciones obtenidas: 34
+[2025-12-03 06:36:44] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:36:44] Cotizaciones obtenidas: 34
+[2025-12-03 06:36:56] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:36:56] Cotizaciones obtenidas: 34
+[2025-12-03 06:37:03] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:37:03] Cotizaciones obtenidas: 34
+[2025-12-03 06:37:06] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:37:06] Cotizaciones obtenidas: 34
+[2025-12-03 06:37:08] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:37:08] Cotizaciones obtenidas: 34
+[2025-12-03 06:37:56] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:37:56] Cotizaciones obtenidas: 34
+[2025-12-03 06:37:57] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:37:57] Cotizaciones obtenidas: 34
+[2025-12-03 06:37:58] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:37:58] Cotizaciones obtenidas: 34
+[2025-12-03 06:37:59] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:37:59] Cotizaciones obtenidas: 34
+[2025-12-03 06:37:59] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:37:59] Cotizaciones obtenidas: 34
+[2025-12-03 06:38:00] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:38:00] Cotizaciones obtenidas: 34
+[2025-12-03 06:38:02] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:38:02] Cotizaciones obtenidas: 34
+[2025-12-03 06:38:02] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:38:02] Cotizaciones obtenidas: 34
+[2025-12-03 06:38:03] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:38:03] Cotizaciones obtenidas: 34
+[2025-12-03 06:45:37] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:45:44] === Solicitud: GET obtener_pendientes ===
+[2025-12-03 06:45:44] Cotizaciones pendientes obtenidas: 5
+[2025-12-03 06:45:45] === Solicitud: GET obtener_pendientes ===
+[2025-12-03 06:45:45] Cotizaciones pendientes obtenidas: 5
+[2025-12-03 06:45:46] === Solicitud: GET obtener_pendientes ===
+[2025-12-03 06:45:46] Cotizaciones pendientes obtenidas: 5
+[2025-12-03 06:45:46] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:46:39] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:46:39] Cotizaciones obtenidas: 34
+[2025-12-03 06:46:41] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 06:46:45] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:46:45] Cotizaciones obtenidas: 34
+[2025-12-03 06:46:46] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:46:46] Cotizaciones obtenidas: 34
+[2025-12-03 06:46:46] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:46:46] Cotizaciones obtenidas: 34
+[2025-12-03 06:46:50] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:46:50] Cotizaciones obtenidas: 34
+[2025-12-03 06:46:50] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:46:50] Cotizaciones obtenidas: 34
+[2025-12-03 06:48:45] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:48:45] Cotizaciones obtenidas: 34
+[2025-12-03 06:48:46] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 06:50:06] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:50:06] Cotizaciones obtenidas: 34
+[2025-12-03 06:51:47] === Solicitud: GET obtener_todas ===
+[2025-12-03 06:51:47] Cotizaciones obtenidas: 34
+[2025-12-03 07:01:05] === Solicitud: GET obtener_todas ===
+[2025-12-03 07:01:05] Cotizaciones obtenidas: 34
+[2025-12-03 07:01:16] === Solicitud: GET obtener_todas ===
+[2025-12-03 07:01:16] Cotizaciones obtenidas: 34
+[2025-12-03 07:07:12] === Solicitud: GET obtener_todas ===
+[2025-12-03 07:07:12] Cotizaciones obtenidas: 34
+[2025-12-03 07:11:53] === Solicitud: GET obtener_todas ===
+[2025-12-03 07:11:53] Cotizaciones obtenidas: 34
+[2025-12-03 07:14:42] === Solicitud: GET obtener_todas ===
+[2025-12-03 07:14:42] Cotizaciones obtenidas: 34
+[2025-12-03 07:15:35] === Solicitud: GET obtener_todas ===
+[2025-12-03 07:15:35] Cotizaciones obtenidas: 34
+[2025-12-03 07:18:25] === Solicitud: GET obtener_todas ===
+[2025-12-03 07:18:25] Cotizaciones obtenidas: 34
+[2025-12-03 07:21:30] === Solicitud: GET obtener_todas ===
+[2025-12-03 07:21:30] Cotizaciones obtenidas: 34
+[2025-12-03 07:23:03] === Solicitud: GET obtener_todas ===
+[2025-12-03 07:23:03] Cotizaciones obtenidas: 34
+[2025-12-03 07:26:09] === Solicitud: GET obtener_todas ===
+[2025-12-03 07:26:09] Cotizaciones obtenidas: 34
+[2025-12-03 07:26:39] === Solicitud: GET obtener_todas ===
+[2025-12-03 07:26:39] Cotizaciones obtenidas: 34
+[2025-12-03 07:26:39] === Solicitud: GET obtener_todas ===
+[2025-12-03 07:26:39] Cotizaciones obtenidas: 34
+[2025-12-03 07:26:51] === Solicitud: GET obtener_todas ===
+[2025-12-03 07:26:51] Cotizaciones obtenidas: 34
+[2025-12-03 07:45:24] === Solicitud: GET obtener_todas ===
+[2025-12-03 07:45:24] Cotizaciones obtenidas: 34
+[2025-12-03 07:58:14] === Solicitud: GET obtener_todas ===
+[2025-12-03 07:58:14] Cotizaciones obtenidas: 34
+[2025-12-03 07:58:16] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 07:59:39] === Solicitud: GET obtener_todas ===
+[2025-12-03 07:59:39] Cotizaciones obtenidas: 34
+[2025-12-03 08:00:21] === Solicitud: GET obtener_todas ===
+[2025-12-03 08:00:21] Cotizaciones obtenidas: 34
+[2025-12-03 08:00:24] === Solicitud: GET obtener_todas ===
+[2025-12-03 08:00:24] Cotizaciones obtenidas: 34
+[2025-12-03 08:00:28] === Solicitud: POST  ===
+[2025-12-03 08:08:13] === Solicitud: GET obtener_todas ===
+[2025-12-03 08:08:13] Cotizaciones obtenidas: 34
+[2025-12-03 08:49:43] === Solicitud: GET obtener_todas ===
+[2025-12-03 08:49:43] Cotizaciones obtenidas: 37
+[2025-12-03 08:49:44] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 08:52:32] === Solicitud: GET obtener_todas ===
+[2025-12-03 08:52:32] Cotizaciones obtenidas: 38
+[2025-12-03 08:52:37] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 08:55:02] === Solicitud: GET obtener_todas ===
+[2025-12-03 08:55:02] Cotizaciones obtenidas: 39
+[2025-12-03 08:55:04] === Solicitud: GET obtener_cotizacion ===

@@ -1696,8 +1696,8 @@ body {
     }
 
     .contact-info {
-        flex-direction: column;
-        gap: 10px;
-        font-size: 0.8rem;
+        display: none !important;
     }
 }
+
+@media (max-width: 992px) { .contact-info { display: none !important; } }

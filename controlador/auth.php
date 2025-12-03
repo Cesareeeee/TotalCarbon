@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } else {
                 // Usuario existente - redirección normal
                 $rolUsuario = obtenerNombreRol($_SESSION['id_rol']);
-                $paginaRedireccion = obtenerPaginaPorRol($rolUsuario);
+                $paginaRedireccion = obtenerPaginaPorRol($rolUsuario) . '?section=welcome';
                 $esUsuarioNuevo = false;
             }
 
@@ -191,7 +191,7 @@ function obtenerPaginaPorRol($rol) {
             return '../vistas/empleado.php';
         case 'CLIENTE':
         default:
-            return '../vistas/Cliente/PaginaCliente.php';
+            return '../vistas/Cliente/PaginaCliente.php?section=welcome';
     }
 }
 ?>

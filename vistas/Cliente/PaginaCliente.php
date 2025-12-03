@@ -30,8 +30,8 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link rel="stylesheet" href="../../recursos/css/Cliente/PaginaCliente.css?v=12237">
-    <link rel="stylesheet" href="../../recursos/css/Cliente/chat_test_cliente.css?v=13226">
+    <link rel="stylesheet" href="../../recursos/css/Cliente/PaginaCliente.css?v=122232227">
+    <link rel="stylesheet" href="../../recursos/css/Cliente/chat_test_cliente.css?v=132222226">
 
     
     <!-- Estilos adicionales para el botón Actualizar (se integran con el proyecto) -->
@@ -714,7 +714,6 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
                                         </div>
                                         <div class="card-body">
                                             <p class="mb-2"><i class="fas fa-tag text-success"></i> <strong>Tipo:</strong> <span id="modalTipoGarantia"></span></p>
-                                            <p class="mb-2"><i class="fas fa-info-circle text-success"></i> <strong>Cobertura:</strong> <span id="modalCobertura"></span></p>
                                             <p class="mb-2"><i class="fas fa-check-circle text-success"></i> <strong>Estado:</strong> <span id="modalEstado"></span></p>
                                             <p class="mb-2"><i class="fas fa-calendar-plus text-success"></i> <strong>Inicio:</strong> <span id="modalFechaInicio"></span></p>
                                             <p class="mb-0"><i class="fas fa-calendar-times text-success"></i> <strong>Fin:</strong> <span id="modalFechaFin"></span></p>
@@ -738,12 +737,24 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
                             </div>
                             <div class="row mt-3">
                                 <div class="col-12">
-                                    <div class="card border-warning">
-                                        <div class="card-header bg-warning text-dark">
-                                            <h6 class="mb-0"><i class="fas fa-comment"></i> Descripción Adicional</h6>
+                                    <div class="card border-0 shadow-lg" style="background: linear-gradient(135deg, #000000 0%, #333333 100%); border-radius: 15px; overflow: hidden;">
+                                        <div class="card-header text-white border-0" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); padding: 1.2rem;">
+                                            <div class="d-flex align-items-center">
+                                                <div class="me-3" style="background: rgba(255,255,255,0.2); border-radius: 50%; padding: 12px; width: 46px; height: 46px; display: flex; align-items: center; justify-content: center;">
+                                                    <i class="fas fa-shield-alt" style="font-size: 1.3rem;"></i>
+                                                </div>
+                                                <div>
+                                                    <h6 class="mb-0" style="font-size: 1.1rem; font-weight: 600; letter-spacing: 0.5px;">Descripción de Cobertura</h6>
+                                                    <small style="opacity: 0.9; font-size: 0.85rem;">Detalles de lo que incluye tu garantía</small>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="card-body">
-                                            <p class="mb-0"><span id="modalDescripcionOtros">N/A</span></p>
+                                        <div class="card-body" style="background: white; padding: 1.5rem;">
+                                            <div style="background: linear-gradient(to right, #f8f9fa, #e9ecef); border-left: 4px solid #000000; padding: 1rem; border-radius: 8px;">
+                                                <i class="fas fa-quote-left" style="color: #000000; opacity: 0.3; font-size: 1.5rem; margin-bottom: 0.5rem;"></i>
+                                                <p class="mb-0" style="font-size: 1rem; line-height: 1.7; color: #2d3748;"><span id="modalCobertura" style="font-weight: 500;">No especificada</span></p>
+                                                <i class="fas fa-quote-right" style="color: #000000; opacity: 0.3; font-size: 1.5rem; float: right; margin-top: 0.5rem;"></i>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1194,7 +1205,7 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
     <link rel="stylesheet" href="../../recursos/css/Cliente/ServiciosProceso.css?v=NOTIFICATIONS_RED_DOTS_FINAL_2025_V122">
     <!-- Scripts -->
 
-    <script src="../../recursos/js/Cliente/PaginaCliente.js?v=1732762736"></script>
+    <script src="../../recursos/js/Cliente/PaginaCliente.js?v=1733116002"></script>
     <script src="../../recursos/js/Cliente/FichasTecnicas.js?v=999"></script>
     <script src="../../recursos/js/Cliente/ServiciosProceso.js?V=1732762738"></script>
     <script src="../../recursos/js/Cliente/chat_test_cliente.js?v=1732762739"></script>
