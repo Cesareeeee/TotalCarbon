@@ -1602,7 +1602,7 @@ function saveIncomeExpense() {
 
     const formData = {
         concepto: document.getElementById('concepto').value.trim(),
-        tipo: document.getElementById('tipo').value,
+        tipo: document.getElementById('ingreso_tipo').value,
         monto: parseFloat(document.getElementById('monto').value),
         fecha: document.getElementById('fecha').value,
         descripcion: document.getElementById('descripcion_ingreso').value.trim()
@@ -1619,10 +1619,10 @@ function saveIncomeExpense() {
     }
 
     if (!formData.tipo) {
-        document.getElementById('tipo').classList.add('error');
+        document.getElementById('ingreso_tipo').classList.add('error');
         hasErrors = true;
     } else {
-        document.getElementById('tipo').classList.remove('error');
+        document.getElementById('ingreso_tipo').classList.remove('error');
     }
 
     if (!formData.monto || formData.monto <= 0) {
@@ -1701,7 +1701,7 @@ function editarIngresoGasto(id) {
                 // Llenar el modal con los datos
                 document.getElementById('incomeExpenseModalTitle').textContent = 'Editar Registro de Ingreso/Salida';
                 document.getElementById('concepto').value = data.registro.concepto;
-                document.getElementById('tipo').value = data.registro.tipo;
+                document.getElementById('ingreso_tipo').value = data.registro.tipo;
                 document.getElementById('monto').value = data.registro.monto;
                 document.getElementById('fecha').value = data.registro.fecha;
                 document.getElementById('descripcion_ingreso').value = data.registro.descripcion || '';
@@ -1746,7 +1746,7 @@ function actualizarIngresoGasto(id) {
     const formData = {
         id: id,
         concepto: document.getElementById('concepto').value.trim(),
-        tipo: document.getElementById('tipo').value,
+        tipo: document.getElementById('ingreso_tipo').value,
         monto: parseFloat(document.getElementById('monto').value),
         fecha: document.getElementById('fecha').value,
         descripcion: document.getElementById('descripcion_ingreso').value.trim()
@@ -1763,10 +1763,10 @@ function actualizarIngresoGasto(id) {
     }
 
     if (!formData.tipo) {
-        document.getElementById('tipo').classList.add('error');
+        document.getElementById('ingreso_tipo').classList.add('error');
         hasErrors = true;
     } else {
-        document.getElementById('tipo').classList.remove('error');
+        document.getElementById('ingreso_tipo').classList.remove('error');
     }
 
     if (!formData.monto || formData.monto <= 0) {

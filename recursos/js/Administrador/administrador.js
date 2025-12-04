@@ -1,7 +1,6 @@
 
 // Variables globales
 let arregloUsuarios = [];
-let arregloProveedores = [];
 let arregloProductos = [];
 let arregloGarantias = [];
 let arregloServiciosCompletados = [];
@@ -87,12 +86,39 @@ function showSection(section) {
     if (section === 'dashboard') {
         cargarDashboard();
     } else if (section === 'proveedores') {
-        loadProveedores();
-        loadIngresosGastosProveedores();
+        // Verificar si la función existe antes de llamarla
+        if (typeof loadProveedores === 'function') {
+            setTimeout(() => {
+                loadProveedores();
+                loadIngresosGastosProveedores();
+            }, 100);
+        } else {
+            // Si no existe, intentar cargarla después de un breve delay
+            setTimeout(() => {
+                if (typeof loadProveedores === 'function') {
+                    loadProveedores();
+                    loadIngresosGastosProveedores();
+                } else {
+                    console.error('Función loadProveedores no encontrada');
+                }
+            }, 200);
+        }
     } else if (section === 'productos') {
         loadProductos();
     } else if (section === 'garantias') {
-        loadGarantias();
+        // Verificar si la función existe antes de llamarla
+        if (typeof initializeGarantias === 'function') {
+            initializeGarantias();
+        } else {
+            // Si no existe, intentar cargarla después de un breve delay
+            setTimeout(() => {
+                if (typeof initializeGarantias === 'function') {
+                    initializeGarantias();
+                } else {
+                    console.error('Función initializeGarantias no encontrada');
+                }
+            }, 100);
+        }
     } else if (section === 'clientes') {
         if (typeof loadClientes === 'function') {
             loadClientes();
@@ -136,6 +162,34 @@ function showSection(section) {
                     initializeNuevoServicio();
                 } else {
                     console.error('Función initializeNuevoServicio no encontrada');
+                }
+            }, 100);
+        }
+    } else if (section === 'piezas') {
+        // Verificar si la función existe antes de llamarla
+        if (typeof initializePiezas === 'function') {
+            initializePiezas();
+        } else {
+            // Si no existe, intentar cargarla después de un breve delay
+            setTimeout(() => {
+                if (typeof initializePiezas === 'function') {
+                    initializePiezas();
+                } else {
+                    console.error('Función initializePiezas no encontrada');
+                }
+            }, 100);
+        }
+    } else if (section === 'proveedores') {
+        // Verificar si la función existe antes de llamarla
+        if (typeof initializeProveedores === 'function') {
+            initializeProveedores();
+        } else {
+            // Si no existe, intentar cargarla después de un breve delay
+            setTimeout(() => {
+                if (typeof initializeProveedores === 'function') {
+                    initializeProveedores();
+                } else {
+                    console.error('Función initializeProveedores no encontrada');
                 }
             }, 100);
         }
@@ -1188,7 +1242,7 @@ function traducirEstado(estado) {
         'APROBADA': 'Aprobada',
         'RECHAZADA': 'Rechazada',
         'EN_PROCESO': 'En Proceso',
-        'COMPLETADO': 'Completada'
+        'COMPLETADO': 'Completado'
     };
     return traducciones[estado] || estado;
 }

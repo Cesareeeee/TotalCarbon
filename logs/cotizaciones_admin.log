@@ -390,3 +390,368 @@
 [2025-12-03 08:55:02] === Solicitud: GET obtener_todas ===
 [2025-12-03 08:55:02] Cotizaciones obtenidas: 39
 [2025-12-03 08:55:04] === Solicitud: GET obtener_cotizacion ===
+[2025-12-03 09:25:53] === Solicitud: GET obtener_todas ===
+[2025-12-03 09:25:53] Cotizaciones obtenidas: 39
+[2025-12-04 03:23:53] === Solicitud: GET obtener_todas ===
+[2025-12-04 03:23:53] Cotizaciones obtenidas: 39
+[2025-12-04 03:26:18] === Solicitud: GET obtener_todas ===
+[2025-12-04 03:26:18] Cotizaciones obtenidas: 39
+[2025-12-04 03:34:17] === Solicitud: GET obtener_todas ===
+[2025-12-04 03:34:17] Cotizaciones obtenidas: 39
+[2025-12-04 03:37:08] === Solicitud: GET obtener_todas ===
+[2025-12-04 03:37:08] Cotizaciones obtenidas: 39
+[2025-12-04 03:45:19] === Solicitud: GET obtener_todas ===
+[2025-12-04 03:45:19] Cotizaciones obtenidas: 39
+[2025-12-04 03:45:22] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 03:45:31] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 03:45:39] === Solicitud: GET obtener_todas ===
+[2025-12-04 03:45:39] Cotizaciones obtenidas: 39
+[2025-12-04 03:46:01] === Solicitud: GET obtener_todas ===
+[2025-12-04 03:46:01] Cotizaciones obtenidas: 40
+[2025-12-04 03:46:04] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 03:46:12] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 03:46:21] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 03:46:32] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 03:49:27] === Solicitud: GET obtener_todas ===
+[2025-12-04 03:49:27] Cotizaciones obtenidas: 40
+[2025-12-04 04:03:07] === Solicitud: GET obtener_todas ===
+[2025-12-04 04:03:07] Cotizaciones obtenidas: 40
+[2025-12-04 04:12:59] === Solicitud: GET obtener_todas ===
+[2025-12-04 04:12:59] Cotizaciones obtenidas: 40
+[2025-12-04 04:20:08] === Solicitud: GET obtener_todas ===
+[2025-12-04 04:20:08] Cotizaciones obtenidas: 40
+[2025-12-04 04:55:41] === Solicitud: GET obtener_todas ===
+[2025-12-04 04:55:41] Cotizaciones obtenidas: 40
+[2025-12-04 04:55:48] === Solicitud: GET obtener_todas ===
+[2025-12-04 04:55:48] Cotizaciones obtenidas: 40
+[2025-12-04 05:00:46] === Solicitud: GET obtener_todas ===
+[2025-12-04 05:00:46] Cotizaciones obtenidas: 40
+[2025-12-04 05:00:49] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 05:11:46] === Solicitud: GET obtener_todas ===
+[2025-12-04 05:11:46] Cotizaciones obtenidas: 40
+[2025-12-04 05:28:20] === Solicitud: GET obtener_todas ===
+[2025-12-04 05:28:20] Cotizaciones obtenidas: 40
+[2025-12-04 05:28:21] === Solicitud: GET obtener_todas ===
+[2025-12-04 05:28:21] Cotizaciones obtenidas: 40
+[2025-12-04 05:35:59] === Solicitud: GET obtener_todas ===
+[2025-12-04 05:35:59] Cotizaciones obtenidas: 40
+[2025-12-04 05:42:49] === Solicitud: GET obtener_todas ===
+[2025-12-04 05:42:49] Cotizaciones obtenidas: 40
+[2025-12-04 05:43:28] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 05:44:07] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 05:44:59] === Solicitud: GET obtener_todas ===
+[2025-12-04 05:44:59] Cotizaciones obtenidas: 41
+[2025-12-04 05:45:03] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 05:45:21] === Solicitud: POST  ===
+[2025-12-04 05:45:32] === Solicitud: GET obtener_todas ===
+[2025-12-04 05:45:32] Cotizaciones obtenidas: 41
+[2025-12-04 05:45:34] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 05:45:37] === Solicitud: POST  ===
+[2025-12-04 05:48:10] === Solicitud: GET obtener_todas ===
+[2025-12-04 05:48:10] Cotizaciones obtenidas: 41
+[2025-12-04 05:48:13] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 05:48:17] === Solicitud: POST  ===
+[2025-12-04 05:48:17] Estado actualizado: 64 -> EN_REVISION
+[2025-12-04 05:48:17] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 05:48:27] === Solicitud: POST  ===
+[2025-12-04 05:48:27] Estado actualizado: 64 -> COMPLETADA
+[2025-12-04 05:48:27] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 05:48:38] === Solicitud: POST  ===
+[2025-12-04 05:48:38] Estado actualizado: 64 -> RECHAZADA
+[2025-12-04 05:48:38] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 05:48:41] === Solicitud: POST  ===
+[2025-12-04 05:48:41] Estado actualizado: 64 -> ACEPTADA
+[2025-12-04 05:48:41] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 05:48:44] === Solicitud: POST  ===
+[2025-12-04 05:48:44] Estado actualizado: 64 -> COMPLETADA
+[2025-12-04 05:48:44] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 05:49:41] === Solicitud: GET obtener_todas ===
+[2025-12-04 05:49:41] Cotizaciones obtenidas: 41
+[2025-12-04 05:49:49] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 05:50:01] === Solicitud: POST  ===
+[2025-12-04 05:50:01] Estado actualizado: 64 -> COMPLETADA
+[2025-12-04 05:50:01] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 05:50:11] === Solicitud: POST  ===
+[2025-12-04 05:50:11] Campo actualizado: 64 inspeccion_estetica = dfghjkfghj
+[2025-12-04 05:50:22] === Solicitud: POST  ===
+[2025-12-04 05:50:22] Estado actualizado: 64 -> APROBADA
+[2025-12-04 05:50:22] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 05:50:26] === Solicitud: POST  ===
+[2025-12-04 05:50:26] Campo actualizado: 64 inspeccion_estetica = dfghjkfghjfghjkl
+[2025-12-04 05:51:30] === Solicitud: POST  ===
+[2025-12-04 05:51:30] Campo actualizado: 64 revision_camaras = 2025-12-16T22:51
+[2025-12-04 05:51:34] === Solicitud: POST  ===
+[2025-12-04 05:51:34] Campo actualizado: 64 empacado_salida = 2025-12-10T22:51
+[2025-12-04 05:51:37] === Solicitud: POST  ===
+[2025-12-04 05:51:37] Imagen agregada: 64
+[2025-12-04 05:51:37] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 05:51:41] === Solicitud: POST  ===
+[2025-12-04 05:51:41] Imagen agregada: 64
+[2025-12-04 05:51:41] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 05:51:48] === Solicitud: POST  ===
+[2025-12-04 05:51:48] Comentario agregado: 64
+[2025-12-04 05:51:48] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 05:53:16] === Solicitud: POST  ===
+[2025-12-04 05:53:16] Campo actualizado: 64 revision_camaras = 2025-12-03T22:51
+[2025-12-04 05:53:40] === Solicitud: POST  ===
+[2025-12-04 05:53:40] Estado actualizado: 64 -> COMPLETADA
+[2025-12-04 05:53:40] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 05:54:02] === Solicitud: POST  ===
+[2025-12-04 05:54:02] Imagen agregada: 64
+[2025-12-04 05:54:02] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 05:56:24] === Solicitud: GET obtener_todas ===
+[2025-12-04 05:56:24] Cotizaciones obtenidas: 41
+[2025-12-04 05:56:25] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 05:57:08] === Solicitud: POST  ===
+[2025-12-04 05:57:08] Estado actualizado: 64 -> REPARACION_INICIADA
+[2025-12-04 05:57:08] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 05:57:36] === Solicitud: GET obtener_todas ===
+[2025-12-04 05:57:36] Cotizaciones obtenidas: 41
+[2025-12-04 05:57:38] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 05:57:44] === Solicitud: POST  ===
+[2025-12-04 05:57:44] Imagen agregada: 64
+[2025-12-04 05:57:44] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 05:59:00] === Solicitud: GET obtener_todas ===
+[2025-12-04 05:59:00] Cotizaciones obtenidas: 41
+[2025-12-04 05:59:02] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 05:59:36] === Solicitud: POST  ===
+[2025-12-04 05:59:36] Pieza agregada: 64 - DFGHJK
+[2025-12-04 05:59:37] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:04:17] === Solicitud: GET obtener_todas ===
+[2025-12-04 06:04:17] Cotizaciones obtenidas: 41
+[2025-12-04 06:04:19] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:04:58] === Solicitud: GET obtener_todas ===
+[2025-12-04 06:04:58] Cotizaciones obtenidas: 41
+[2025-12-04 06:05:00] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:05:10] === Solicitud: GET obtener_todas ===
+[2025-12-04 06:05:10] Cotizaciones obtenidas: 41
+[2025-12-04 06:05:19] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:05:23] === Solicitud: POST  ===
+[2025-12-04 06:05:28] === Solicitud: POST  ===
+[2025-12-04 06:05:28] Campo actualizado: 64 revision_camaras = 2025-12-12T22:51
+[2025-12-04 06:05:30] === Solicitud: POST  ===
+[2025-12-04 06:05:30] Campo actualizado: 64 inspeccion_estetica = dfghjkfghjfgFGHJKLhjkl
+[2025-12-04 06:05:34] === Solicitud: POST  ===
+[2025-12-04 06:05:34] Imagen agregada: 64
+[2025-12-04 06:05:34] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:05:41] === Solicitud: GET obtener_todas ===
+[2025-12-04 06:05:41] Cotizaciones obtenidas: 41
+[2025-12-04 06:05:46] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:06:00] === Solicitud: POST  ===
+[2025-12-04 06:09:58] === Solicitud: GET obtener_todas ===
+[2025-12-04 06:09:58] Cotizaciones obtenidas: 41
+[2025-12-04 06:09:59] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:10:04] === Solicitud: POST  ===
+[2025-12-04 06:10:04] Imagen agregada: 64
+[2025-12-04 06:10:04] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:10:19] === Solicitud: GET obtener_todas ===
+[2025-12-04 06:10:19] Cotizaciones obtenidas: 41
+[2025-12-04 06:10:20] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:10:30] === Solicitud: POST  ===
+[2025-12-04 06:10:30] Campo actualizado: 64 inspeccion_estetica = FOCKUUUUUU
+[2025-12-04 06:10:34] === Solicitud: POST  ===
+[2025-12-04 06:10:34] Comentario agregado: 64
+[2025-12-04 06:10:34] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:10:42] === Solicitud: POST  ===
+[2025-12-04 06:10:42] Pieza agregada: 64 - CADENA
+[2025-12-04 06:10:42] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:11:22] === Solicitud: POST  ===
+[2025-12-04 06:11:36] === Solicitud: GET obtener_todas ===
+[2025-12-04 06:11:36] Cotizaciones obtenidas: 41
+[2025-12-04 06:11:38] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:11:41] === Solicitud: POST  ===
+[2025-12-04 06:11:41] Estado actualizado: 64 -> APROBADA
+[2025-12-04 06:11:41] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:15:34] === Solicitud: GET obtener_todas ===
+[2025-12-04 06:15:34] Cotizaciones obtenidas: 41
+[2025-12-04 06:15:36] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:16:41] === Solicitud: GET obtener_todas ===
+[2025-12-04 06:16:41] Cotizaciones obtenidas: 41
+[2025-12-04 06:16:42] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:16:46] === Solicitud: POST  ===
+[2025-12-04 06:16:46] Estado actualizado: 64 -> EN_PROCESO
+[2025-12-04 06:16:47] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:17:29] === Solicitud: POST  ===
+[2025-12-04 06:17:29] Estado actualizado: 64 -> PINTURA
+[2025-12-04 06:17:29] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:17:52] === Solicitud: GET obtener_todas ===
+[2025-12-04 06:17:52] Cotizaciones obtenidas: 41
+[2025-12-04 06:17:54] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:18:00] === Solicitud: POST  ===
+[2025-12-04 06:18:00] Imagen agregada: 64
+[2025-12-04 06:18:00] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:18:13] === Solicitud: POST  ===
+[2025-12-04 06:18:13] Imagen agregada: 64
+[2025-12-04 06:18:13] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:18:32] === Solicitud: POST  ===
+[2025-12-04 06:18:35] === Solicitud: POST  ===
+[2025-12-04 06:18:35] Estado actualizado: 64 -> EN_PROCESO
+[2025-12-04 06:18:35] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:18:38] === Solicitud: POST  ===
+[2025-12-04 06:18:42] === Solicitud: GET  ===
+[2025-12-04 06:18:50] === Solicitud: GET obtener_todas ===
+[2025-12-04 06:18:50] Cotizaciones obtenidas: 41
+[2025-12-04 06:18:54] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:19:00] === Solicitud: POST  ===
+[2025-12-04 06:19:02] === Solicitud: POST  ===
+[2025-12-04 06:19:02] Estado actualizado: 64 -> RECHAZADA
+[2025-12-04 06:19:02] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:19:08] === Solicitud: POST  ===
+[2025-12-04 06:19:08] Estado actualizado: 64 -> EMPACADO
+[2025-12-04 06:19:08] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:19:12] === Solicitud: POST  ===
+[2025-12-04 06:19:12] Estado actualizado: 64 -> APROBADA
+[2025-12-04 06:19:13] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:20:09] === Solicitud: POST  ===
+[2025-12-04 06:20:09] Imagen agregada: 64
+[2025-12-04 06:20:09] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:26:32] === Solicitud: GET obtener_todas ===
+[2025-12-04 06:26:32] Cotizaciones obtenidas: 41
+[2025-12-04 06:29:13] === Solicitud: GET obtener_todas ===
+[2025-12-04 06:29:13] Cotizaciones obtenidas: 41
+[2025-12-04 06:29:15] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:29:19] === Solicitud: POST  ===
+[2025-12-04 06:29:21] === Solicitud: POST  ===
+[2025-12-04 06:29:21] Estado actualizado: 64 -> EMPACADO
+[2025-12-04 06:29:21] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:34:41] === Solicitud: GET obtener_todas ===
+[2025-12-04 06:34:41] Cotizaciones obtenidas: 41
+[2025-12-04 06:34:43] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:34:46] === Solicitud: POST  ===
+[2025-12-04 06:34:51] === Solicitud: POST  ===
+[2025-12-04 06:34:51] Imagen agregada: 64
+[2025-12-04 06:34:51] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:36:51] === Solicitud: GET obtener_todas ===
+[2025-12-04 06:36:51] Cotizaciones obtenidas: 41
+[2025-12-04 06:36:53] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:37:02] === Solicitud: POST  ===
+[2025-12-04 06:37:02] ERROR: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+[2025-12-04 06:37:34] === Solicitud: GET obtener_todas ===
+[2025-12-04 06:37:34] Cotizaciones obtenidas: 41
+[2025-12-04 06:37:35] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:37:46] === Solicitud: POST  ===
+[2025-12-04 06:37:46] ERROR: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+[2025-12-04 06:38:41] === Solicitud: GET obtener_todas ===
+[2025-12-04 06:38:41] Cotizaciones obtenidas: 41
+[2025-12-04 06:38:43] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:39:35] === Solicitud: POST  ===
+[2025-12-04 06:39:35] Estado actualizado: 64 -> ENVIADO
+[2025-12-04 06:39:35] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:39:37] === Solicitud: POST  ===
+[2025-12-04 06:39:37] Estado actualizado: 64 -> COMPLETADO
+[2025-12-04 06:39:37] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:40:43] === Solicitud: POST  ===
+[2025-12-04 06:40:43] Pieza agregada: 64 - DFGHJK
+[2025-12-04 06:40:43] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:43:04] === Solicitud: POST  ===
+[2025-12-04 06:43:04] Campo actualizado: 64 inspeccion_estetica = FOCKUUUUUUGHJK
+[2025-12-04 06:43:13] === Solicitud: POST  ===
+[2025-12-04 06:43:13] Campo actualizado: 64 empacado_salida = 2025-12-09T22:51
+[2025-12-04 06:43:20] === Solicitud: POST  ===
+[2025-12-04 06:43:20] Comentario agregado: 64
+[2025-12-04 06:43:20] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:46:58] === Solicitud: GET obtener_todas ===
+[2025-12-04 06:46:58] Cotizaciones obtenidas: 41
+[2025-12-04 06:47:00] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:50:58] === Solicitud: GET obtener_todas ===
+[2025-12-04 06:50:58] Cotizaciones obtenidas: 41
+[2025-12-04 06:50:59] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:51:35] === Solicitud: POST  ===
+[2025-12-04 06:51:35] Pieza agregada: 64 - DFGHJK
+[2025-12-04 06:51:35] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:52:22] === Solicitud: GET obtener_todas ===
+[2025-12-04 06:52:22] Cotizaciones obtenidas: 41
+[2025-12-04 06:52:25] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:52:29] === Solicitud: POST  ===
+[2025-12-04 06:52:29] Estado actualizado: 64 -> COTIZACIÓN ENVIADA
+[2025-12-04 06:52:29] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:52:42] === Solicitud: POST  ===
+[2025-12-04 06:52:42] Pieza agregada: 64 - DFGHJK
+[2025-12-04 06:52:42] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:58:50] === Solicitud: GET obtener_todas ===
+[2025-12-04 06:58:50] Cotizaciones obtenidas: 41
+[2025-12-04 06:59:08] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 06:59:12] === Solicitud: POST  ===
+[2025-12-04 06:59:12] Imagen eliminada: 4
+[2025-12-04 06:59:12] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 07:00:24] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 07:00:34] === Solicitud: POST  ===
+[2025-12-04 07:00:34] Pieza agregada: 57 - DFGHJK
+[2025-12-04 07:00:34] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 07:06:12] === Solicitud: GET obtener_todas ===
+[2025-12-04 07:06:12] Cotizaciones obtenidas: 41
+[2025-12-04 07:06:13] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 07:07:05] === Solicitud: GET obtener_todas ===
+[2025-12-04 07:07:05] Cotizaciones obtenidas: 41
+[2025-12-04 07:07:06] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 07:07:33] === Solicitud: GET obtener_todas ===
+[2025-12-04 07:07:33] Cotizaciones obtenidas: 41
+[2025-12-04 07:07:36] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 07:07:43] === Solicitud: POST  ===
+[2025-12-04 07:07:43] Pieza eliminada: 39
+[2025-12-04 07:07:43] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 07:07:45] === Solicitud: POST  ===
+[2025-12-04 07:07:45] Pieza eliminada: 38
+[2025-12-04 07:07:45] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 07:07:48] === Solicitud: POST  ===
+[2025-12-04 07:07:48] Pieza eliminada: 37
+[2025-12-04 07:07:48] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 07:07:58] === Solicitud: POST  ===
+[2025-12-04 07:07:58] Pieza agregada: 64 - DFGHJK
+[2025-12-04 07:07:58] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 07:08:17] === Solicitud: POST  ===
+[2025-12-04 07:08:17] Pieza agregada: 64 - VERHOTA
+[2025-12-04 07:08:17] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 07:08:49] === Solicitud: POST  ===
+[2025-12-04 07:08:49] Imagen agregada: 64
+[2025-12-04 07:08:49] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 07:09:47] === Solicitud: POST  ===
+[2025-12-04 07:09:47] Estado actualizado: 64 -> PINTURA
+[2025-12-04 07:09:47] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 07:13:09] === Solicitud: GET obtener_todas ===
+[2025-12-04 07:13:09] Cotizaciones obtenidas: 41
+[2025-12-04 07:13:12] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 07:14:09] === Solicitud: GET obtener_todas ===
+[2025-12-04 07:14:09] Cotizaciones obtenidas: 41
+[2025-12-04 07:14:11] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 07:14:48] === Solicitud: GET obtener_todas ===
+[2025-12-04 07:14:48] Cotizaciones obtenidas: 41
+[2025-12-04 07:15:37] === Solicitud: GET obtener_todas ===
+[2025-12-04 07:15:37] Cotizaciones obtenidas: 42
+[2025-12-04 07:15:42] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 07:18:02] === Solicitud: GET obtener_todas ===
+[2025-12-04 07:18:02] Cotizaciones obtenidas: 42
+[2025-12-04 07:18:04] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 07:18:39] === Solicitud: GET obtener_todas ===
+[2025-12-04 07:18:39] Cotizaciones obtenidas: 43
+[2025-12-04 07:18:42] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 07:18:52] === Solicitud: GET obtener_todas ===
+[2025-12-04 07:18:52] Cotizaciones obtenidas: 43
+[2025-12-04 07:18:52] === Solicitud: GET obtener_todas ===
+[2025-12-04 07:18:52] Cotizaciones obtenidas: 43
+[2025-12-04 07:18:53] === Solicitud: GET obtener_todas ===
+[2025-12-04 07:18:53] Cotizaciones obtenidas: 43
+[2025-12-04 07:18:54] === Solicitud: GET obtener_todas ===
+[2025-12-04 07:18:54] Cotizaciones obtenidas: 43
+[2025-12-04 07:19:01] === Solicitud: GET obtener_todas ===
+[2025-12-04 07:19:01] Cotizaciones obtenidas: 43
+[2025-12-04 07:19:45] === Solicitud: GET obtener_todas ===
+[2025-12-04 07:19:45] Cotizaciones obtenidas: 43
+[2025-12-04 07:19:54] === Solicitud: GET obtener_todas ===
+[2025-12-04 07:19:54] Cotizaciones obtenidas: 43
+[2025-12-04 07:23:01] === Solicitud: GET obtener_todas ===
+[2025-12-04 07:23:01] Cotizaciones obtenidas: 43
+[2025-12-04 07:23:02] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 07:23:39] === Solicitud: GET obtener_todas ===
+[2025-12-04 07:23:39] Cotizaciones obtenidas: 44
+[2025-12-04 07:23:42] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 07:24:02] === Solicitud: GET obtener_todas ===
+[2025-12-04 07:24:02] Cotizaciones obtenidas: 44
+[2025-12-04 07:24:11] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 07:24:15] === Solicitud: POST  ===
+[2025-12-04 07:24:15] Pieza eliminada: 42
+[2025-12-04 07:24:15] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 07:28:45] === Solicitud: GET obtener_todas ===
+[2025-12-04 07:28:45] Cotizaciones obtenidas: 44
+[2025-12-04 07:28:50] === Solicitud: GET obtener_todas ===
+[2025-12-04 07:28:50] Cotizaciones obtenidas: 44

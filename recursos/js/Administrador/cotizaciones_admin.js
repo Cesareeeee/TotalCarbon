@@ -79,6 +79,44 @@ function mostrarDetalleCotizacionEnPagina(data) {
     document.getElementById('cotizacionesList').style.display = 'none';
     document.getElementById('cotizacionDetail').style.display = 'block';
 
+    // Definir el flujo de estados
+    const flujoEstados = [
+        'COTIZACIÓN ENVIADA',
+        'ACEPTADA',
+        'REPARACIÓN INICIADA',
+        'PINTURA',
+        'EMPACADO',
+        'ENVIADO',
+        'COMPLETADO'
+    ];
+
+    // Normalizar estado actual
+    let estadoActual = data.cotizacion.estado;
+    // Mapeo de estados antiguos a nuevos si es necesario
+    if (estadoActual === 'COTIZACION_ENVIADA') estadoActual = 'COTIZACIÓN ENVIADA';
+    if (estadoActual === 'REPARACION_INICIADA') estadoActual = 'REPARACIÓN INICIADA';
+    if (estadoActual === 'COMPLETADA') estadoActual = 'COMPLETADO';
+
+    // Determinar índice actual
+    let indiceActual = flujoEstados.indexOf(estadoActual);
+
+    // Generar opciones de estado
+    let opcionesEstado = '';
+
+    if (indiceActual === -1) {
+        opcionesEstado += `<option value="${estadoActual}" selected>${estadoActual}</option>`;
+        flujoEstados.forEach(estado => {
+            opcionesEstado += `<option value="${estado}">${estado}</option>`;
+        });
+    } else {
+        // Mostrar solo estados futuros (y el actual)
+        for (let i = indiceActual; i < flujoEstados.length; i++) {
+            const estado = flujoEstados[i];
+            const selected = (estado === estadoActual) ? 'selected' : '';
+            opcionesEstado += `<option value="${estado}" ${selected}>${estado}</option>`;
+        }
+    }
+
     const detailContainer = document.getElementById('cotizacionDetail');
     detailContainer.innerHTML = `
         <div class="detail-header">
@@ -134,8 +172,21 @@ function mostrarDetalleCotizacionEnPagina(data) {
                 </div>
 
                 <div class="damage-images-section">
-                    <h4>Imágenes del Daño Reportado</h4>
+                    <h4>Imágenes del Cliente (Daño Reportado)</h4>
                     <div id="imagenesClienteContainer" class="damage-images-grid"></div>
+                </div>
+
+                <hr style="margin: 30px 0; border-top: 1px solid #dee2e6;">
+
+                <div class="damage-images-section">
+                    <h4>Imágenes del Administrador (Progreso)</h4>
+                    <div id="imagenesProgresoContainer" class="damage-images-grid"></div>
+                    <div style="margin-top: 10px;">
+                        <input type="file" id="nuevaImagenProgreso" accept="image/*" style="display: none;" onchange="subirImagenProgreso()">
+                        <button class="btn btn-outline btn-sm" onclick="document.getElementById('nuevaImagenProgreso').click()">
+                            <i class="fas fa-camera"></i> Agregar Imagen Admin
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -145,18 +196,7 @@ function mostrarDetalleCotizacionEnPagina(data) {
                     <div class="estado-update">
                         <label>Seleccionar nuevo estado:</label>
                         <select id="estadoSelect" onchange="cambiarEstado(${data.cotizacion.id_cotizacion})">
-                            <option value="PENDIENTE" ${data.cotizacion.estado === 'PENDIENTE' ? 'selected' : ''}>Pendiente</option>
-                            <option value="EN_REVISION" ${data.cotizacion.estado === 'EN_REVISION' ? 'selected' : ''}>En Revisión</option>
-                            <option value="APROBADA" ${data.cotizacion.estado === 'APROBADA' ? 'selected' : ''}>Aprobada</option>
-                            <option value="RECHAZADA" ${data.cotizacion.estado === 'RECHAZADA' ? 'selected' : ''}>Rechazada</option>
-                            <option value="EN_PROCESO" ${data.cotizacion.estado === 'EN_PROCESO' ? 'selected' : ''}>En Proceso</option>
-                            <option value="COMPLETADA" ${data.cotizacion.estado === 'COMPLETADA' ? 'selected' : ''}>Completada</option>
-                            <option value="COTIZACION_ENVIADA" ${data.cotizacion.estado === 'COTIZACION_ENVIADA' || data.cotizacion.estado === 'COTIZACIÓN ENVIADA' ? 'selected' : ''}>Cotización Enviada</option>
-                            <option value="ACEPTADA" ${data.cotizacion.estado === 'ACEPTADA' ? 'selected' : ''}>Aceptada</option>
-                            <option value="REPARACION_INICIADA" ${data.cotizacion.estado === 'REPARACION_INICIADA' || data.cotizacion.estado === 'REPARACIÓN INICIADA' ? 'selected' : ''}>Reparación Iniciada</option>
-                            <option value="PINTURA" ${data.cotizacion.estado === 'PINTURA' ? 'selected' : ''}>Pintura</option>
-                            <option value="EMPACADO" ${data.cotizacion.estado === 'EMPACADO' ? 'selected' : ''}>Empacado</option>
-                            <option value="ENVIADO" ${data.cotizacion.estado === 'ENVIADO' ? 'selected' : ''}>Enviado</option>
+                            ${opcionesEstado}
                         </select>
                     </div>
                 </div>
@@ -188,13 +228,6 @@ function mostrarDetalleCotizacionEnPagina(data) {
                 </div>
 
                 <div class="section">
-                    <h4>Imágenes del Progreso</h4>
-                    <div id="imagenesProgresoContainer"></div>
-                    <input type="file" id="nuevaImagenProgreso" accept="image/*" style="display: none;" onchange="subirImagenProgreso()">
-                    <button class="btn btn-outline" onclick="document.getElementById('nuevaImagenProgreso').click()">Agregar Imagen de Progreso</button>
-                </div>
-
-                <div class="section">
                     <h4>Observaciones por el Técnico</h4>
                     <div id="comentariosContainer"></div>
                     <div class="comentario-form">
@@ -217,7 +250,7 @@ function mostrarDetalleCotizacionEnPagina(data) {
     `;
 
     mostrarImagenesCliente(data.imagenes);
-    mostrarImagenesProgreso([]); // Por ahora vacío
+    mostrarImagenesProgreso(data.imagenes_progreso || []);
     mostrarPiezas(data.piezas);
     mostrarComentarios(data.comentarios);
 }
@@ -238,18 +271,18 @@ function actualizarCampo(idCotizacion, campo, valor) {
             valor: valor
         })
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // Opcional: mostrar mensaje de éxito
-        } else {
-            Swal.fire('Error', data.message || 'Error al actualizar campo', 'error');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        Swal.fire('Error', 'Error de conexión', 'error');
-    });
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Opcional: mostrar mensaje de éxito
+            } else {
+                Swal.fire('Error', data.message || 'Error al actualizar campo', 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire('Error', 'Error de conexión', 'error');
+        });
 }
 
 function mostrarImagenesCliente(imagenes) {
@@ -275,12 +308,53 @@ function mostrarImagenesProgreso(imagenes) {
     if (!container) return;
 
     const html = imagenes.map(img => `
-        <div class="imagen-item">
-            <img src="../../${img.ruta_imagen}" alt="${img.nombre_archivo}" onclick="verImagenGrande('${img.ruta_imagen}')">
+        <div class="imagen-item" style="position: relative;">
+            <img src="../../${img.ruta_imagen}" alt="${img.nombre_archivo}" onclick="verImagenGrande('${img.ruta_imagen}')" onerror="this.onerror=null; this.src='../../recursos/img/no-image.png'">
             <small>${img.nombre_archivo}</small>
+            <button onclick="eliminarImagenProgreso(${img.id_imagen}, '${img.ruta_imagen}')" style="position: absolute; top: 5px; right: 5px; background: rgba(220, 53, 69, 0.8); color: white; border: none; border-radius: 50%; width: 24px; height: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-times" style="font-size: 12px;"></i>
+            </button>
         </div>
     `).join('');
     container.innerHTML = html;
+}
+
+function eliminarImagenProgreso(idImagen, rutaImagen) {
+    Swal.fire({
+        title: '¿Eliminar imagen?',
+        text: "No podrás revertir esto",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            fetch('../../controlador/Administrador/cotizaciones_admin_controller.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json; charset=utf-8' },
+                body: JSON.stringify({
+                    accion: 'eliminar_imagen',
+                    id_imagen: idImagen,
+                    ruta_imagen: rutaImagen
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire('Eliminado', 'La imagen ha sido eliminada.', 'success');
+                        verCotizacion(cotizacionActual.id_cotizacion);
+                    } else {
+                        Swal.fire('Error', data.message || 'Error al eliminar imagen', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire('Error', 'Error de conexión', 'error');
+                });
+        }
+    });
 }
 
 function subirImagenProgreso() {
@@ -288,22 +362,53 @@ function subirImagenProgreso() {
     const file = fileInput.files[0];
     if (!file) return;
 
-    const formData = new FormData();
-    formData.append('accion', 'agregar_imagen');
-    formData.append('id_cotizacion', cotizacionActual.id_cotizacion);
-    formData.append('imagen', file);
+    Swal.fire({
+        title: 'Nombre de la imagen',
+        input: 'text',
+        inputLabel: 'Nombre para identificar la imagen',
+        inputValue: file.name.split('.')[0],
+        showCancelButton: true,
+        confirmButtonText: 'Subir',
+        cancelButtonText: 'Cancelar',
+        inputValidator: (value) => {
+            if (!value) {
+                return '¡Debes escribir un nombre!';
+            }
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const nombrePersonalizado = result.value;
+            const formData = new FormData();
+            formData.append('accion', 'agregar_imagen');
+            formData.append('id_cotizacion', cotizacionActual.id_cotizacion);
+            formData.append('imagen', file);
+            formData.append('nombre_personalizado', nombrePersonalizado);
 
-    fetch('../../controlador/Administrador/cotizaciones_admin_controller.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            verCotizacion(cotizacionActual.id_cotizacion);
-            fileInput.value = '';
+            fetch('../../controlador/Administrador/cotizaciones_admin_controller.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        verCotizacion(cotizacionActual.id_cotizacion);
+                        fileInput.value = '';
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Imagen subida',
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
+                    } else {
+                        Swal.fire('Error', data.message || 'Error al subir imagen', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire('Error', 'Error de conexión', 'error');
+                });
         } else {
-            Swal.fire('Error', data.message || 'Error al subir imagen', 'error');
+            fileInput.value = '';
         }
     });
 }
@@ -343,6 +448,11 @@ function mostrarPiezas(piezas) {
                 </div>
                 ${pieza.nota ? `<p><strong>Nota:</strong> ${pieza.nota}</p>` : ''}
             </div>
+            <div class="pieza-actions" style="margin-top: 10px; text-align: right;">
+                <button class="btn btn-danger btn-sm" onclick="eliminarPieza(${pieza.id_movimiento}, '${pieza.nombre_pieza}')">
+                    <i class="fas fa-trash"></i> Eliminar
+                </button>
+            </div>
         </div>
     `).join('');
     container.innerHTML = html;
@@ -354,7 +464,7 @@ function abrirModalAgregarPieza() {
     modal.innerHTML = `
         <div class="modal-content small-modal">
             <div class="modal-header">
-                <h3><i class="fas fa-plus-circle"></i> Agregar Pieza Enviada</h3>
+                <h3><i class="fas fa-plus-circle"></i> Agregar Pieza Entregada</h3>
                 <button class="modal-close" onclick="this.closest('.modal').remove()">&times;</button>
             </div>
             <div class="modal-body">
@@ -413,22 +523,58 @@ function agregarPiezaDesdeModal() {
             nota: nota
         })
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            document.querySelector('.modal').remove();
-            verCotizacion(cotizacionActual.id_cotizacion);
-            Swal.fire('Éxito', 'Pieza enviada agregada correctamente', 'success');
-        } else {
-            Swal.fire('Error', data.message || 'Error al agregar pieza', 'error');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        Swal.fire('Error', 'Error de conexión', 'error');
-    });
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.querySelector('.modal').remove();
+                verCotizacion(cotizacionActual.id_cotizacion);
+                Swal.fire('Éxito', 'Pieza entregada agregada correctamente', 'success');
+            } else {
+                Swal.fire('Error', data.message || 'Error al agregar pieza', 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire('Error', 'Error de conexión', 'error');
+        });
 }
 
+function eliminarPieza(idPieza, nombrePieza) {
+    Swal.fire({
+        title: '¿Eliminar pieza?',
+        text: `¿Estás seguro de eliminar "${nombrePieza}"? Esta acción no se puede deshacer.`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            fetch('../../controlador/Administrador/cotizaciones_admin_controller.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json; charset=utf-8' },
+                body: JSON.stringify({
+                    accion: 'eliminar_pieza',
+                    id_pieza: idPieza
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire('Eliminada', 'La pieza ha sido eliminada correctamente.', 'success');
+                        verCotizacion(cotizacionActual.id_cotizacion);
+                    } else {
+                        Swal.fire('Error', data.message || 'Error al eliminar pieza', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire('Error', 'Error de conexión', 'error');
+                });
+        }
+    });
+}
 
 function cambiarEstado(idCotizacion) {
     const estado = document.getElementById('estadoSelect').value;
@@ -441,20 +587,20 @@ function cambiarEstado(idCotizacion) {
             estado: estado
         })
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            Swal.fire('Éxito', 'Estado actualizado correctamente', 'success');
-            // Recargar detalle
-            verCotizacion(idCotizacion);
-        } else {
-            Swal.fire('Error', data.message || 'Error al actualizar estado', 'error');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        Swal.fire('Error', 'Error de conexión', 'error');
-    });
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                Swal.fire('Éxito', 'Estado actualizado correctamente', 'success');
+                // Recargar detalle
+                verCotizacion(idCotizacion);
+            } else {
+                Swal.fire('Error', data.message || 'Error al actualizar estado', 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire('Error', 'Error de conexión', 'error');
+        });
 }
 
 
@@ -464,7 +610,7 @@ function mostrarImagenes(imagenes) {
 
     const html = imagenes.map(img => `
         <div class="imagen-item">
-            <img src="../../${img.ruta_imagen}" alt="${img.nombre_archivo}" onclick="verImagenGrande('${img.ruta_imagen}')">
+            <img src="../${img.ruta_imagen}" alt="${img.nombre_archivo}" onclick="verImagenGrande('../${img.ruta_imagen}')">
             <small>${img.nombre_archivo}</small>
         </div>
     `).join('');
@@ -501,15 +647,15 @@ function subirImagen() {
         method: 'POST',
         body: formData
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            verCotizacion(cotizacionActual.id_cotizacion);
-            fileInput.value = '';
-        } else {
-            Swal.fire('Error', data.message || 'Error al subir imagen', 'error');
-        }
-    });
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                verCotizacion(cotizacionActual.id_cotizacion);
+                fileInput.value = '';
+            } else {
+                Swal.fire('Error', data.message || 'Error al subir imagen', 'error');
+            }
+        });
 }
 
 function mostrarComentarios(comentarios) {
@@ -542,19 +688,19 @@ function agregarComentario() {
             mensaje: mensaje
         })
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            textarea.value = '';
-            verCotizacion(cotizacionActual.id_cotizacion);
-        } else {
-            Swal.fire('Error', data.message || 'Error al agregar comentario', 'error');
-        }
-    });
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                textarea.value = '';
+                verCotizacion(cotizacionActual.id_cotizacion);
+            } else {
+                Swal.fire('Error', data.message || 'Error al agregar comentario', 'error');
+            }
+        });
 }
 
 // Inicializar cuando se carga la página
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Se llamará desde administrador.js cuando se active la sección
 });
 
@@ -731,33 +877,33 @@ function cambiarEstadoCotizacionPendiente(selectElement) {
             estado: nuevoEstado
         })
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Estado actualizado',
-                text: `La cotización #${idCotizacion} ha sido actualizada a "${nuevoEstado}".`,
-                timer: 2000,
-                showConfirmButton: false
-            });
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Estado actualizado',
+                    text: `La cotización #${idCotizacion} ha sido actualizada a "${nuevoEstado}".`,
+                    timer: 2000,
+                    showConfirmButton: false
+                });
 
-            // Recargar la tabla después de un breve delay
-            setTimeout(() => {
-                cargarCotizacionesPendientes();
-            }, 500);
-        } else {
-            Swal.fire('Error', data.message || 'Error al actualizar estado', 'error');
+                // Recargar la tabla después de un breve delay
+                setTimeout(() => {
+                    cargarCotizacionesPendientes();
+                }, 500);
+            } else {
+                Swal.fire('Error', data.message || 'Error al actualizar estado', 'error');
+                // Revertir el select al estado anterior
+                selectElement.value = 'PENDIENTE';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire('Error', 'Error de conexión', 'error');
             // Revertir el select al estado anterior
             selectElement.value = 'PENDIENTE';
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        Swal.fire('Error', 'Error de conexión', 'error');
-        // Revertir el select al estado anterior
-        selectElement.value = 'PENDIENTE';
-    });
+        });
 }
 
 // Función para actualizar cotizaciones pendientes

@@ -153,3 +153,259 @@
 [2025-12-03 09:15:13] Usuarios obtenidos: 27
 [2025-12-03 09:15:24] === Solicitud: GET obtener_usuarios ===
 [2025-12-03 09:15:24] Usuarios obtenidos: 27
+[2025-12-03 09:25:49] === Solicitud: GET obtener_usuarios ===
+[2025-12-03 09:25:49] Usuarios obtenidos: 28
+[2025-12-03 09:31:30] === Solicitud: GET obtener_usuarios ===
+[2025-12-03 09:31:30] Usuarios obtenidos: 27
+[2025-12-03 09:36:09] === Solicitud: GET obtener_usuarios ===
+[2025-12-03 09:36:09] Usuarios obtenidos: 27
+[2025-12-03 09:36:42] === Solicitud: GET obtener_usuarios ===
+[2025-12-03 09:36:42] Usuarios obtenidos: 27
+[2025-12-04 03:15:17] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 03:15:17] Usuarios obtenidos: 27
+[2025-12-04 03:26:17] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 03:26:17] Usuarios obtenidos: 26
+[2025-12-04 03:27:08] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 03:27:08] Usuarios obtenidos: 26
+[2025-12-04 03:27:59] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 03:27:59] Usuarios obtenidos: 26
+[2025-12-04 03:33:51] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 03:33:51] Usuarios obtenidos: 26
+[2025-12-04 03:34:27] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 03:34:27] Usuarios obtenidos: 26
+[2025-12-04 03:35:30] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 03:35:30] Usuarios obtenidos: 26
+[2025-12-04 03:43:50] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 03:43:50] Usuarios obtenidos: 26
+[2025-12-04 03:45:58] === Solicitud: POST  ===
+[2025-12-04 03:45:58] Servicio creado: 63 para cliente registrado (ID: 20) - AAAAAAA Ruiz Pérez
+[2025-12-04 03:47:56] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 03:47:56] Usuarios obtenidos: 26
+[2025-12-04 03:49:06] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 03:49:06] Usuarios obtenidos: 26
+[2025-12-04 03:49:24] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 03:49:24] Usuarios obtenidos: 26
+[2025-12-04 03:53:45] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 03:53:45] Usuarios obtenidos: 26
+[2025-12-04 03:55:28] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 03:55:28] Usuarios obtenidos: 26
+[2025-12-04 03:58:08] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 03:58:08] Usuarios obtenidos: 26
+[2025-12-04 03:58:41] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 03:58:41] Usuarios obtenidos: 26
+[2025-12-04 03:59:09] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 03:59:09] Usuarios obtenidos: 26
+[2025-12-04 04:01:40] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 04:01:40] Usuarios obtenidos: 26
+[2025-12-04 04:01:58] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 04:01:58] Usuarios obtenidos: 26
+[2025-12-04 04:02:02] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 04:02:02] Usuarios obtenidos: 26
+[2025-12-04 04:03:03] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 04:03:03] Usuarios obtenidos: 26
+[2025-12-04 04:03:54] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 04:03:54] Usuarios obtenidos: 26
+[2025-12-04 04:04:06] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 04:04:06] Usuarios obtenidos: 26
+[2025-12-04 04:05:04] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 04:05:04] Usuarios obtenidos: 26
+[2025-12-04 04:06:59] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 04:06:59] Usuarios obtenidos: 26
+[2025-12-04 04:12:57] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 04:12:57] Usuarios obtenidos: 26
+[2025-12-04 04:13:22] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 04:13:22] Usuarios obtenidos: 26
+[2025-12-04 04:13:32] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 04:13:32] Usuarios obtenidos: 26
+[2025-12-04 04:13:47] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 04:13:47] Usuarios obtenidos: 26
+[2025-12-04 04:13:51] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 04:13:51] Usuarios obtenidos: 26
+[2025-12-04 04:15:24] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 04:15:24] Usuarios obtenidos: 26
+[2025-12-04 04:15:33] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 04:15:33] Usuarios obtenidos: 26
+[2025-12-04 04:17:24] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 04:17:24] Usuarios obtenidos: 26
+[2025-12-04 04:18:55] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 04:18:55] Usuarios obtenidos: 26
+[2025-12-04 04:19:38] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 04:19:38] Usuarios obtenidos: 26
+[2025-12-04 04:20:03] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 04:20:03] Usuarios obtenidos: 26
+[2025-12-04 04:20:14] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 04:20:14] Usuarios obtenidos: 26
+[2025-12-04 04:22:28] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 04:22:28] Usuarios obtenidos: 26
+[2025-12-04 04:22:44] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 04:22:44] Usuarios obtenidos: 26
+[2025-12-04 04:22:46] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 04:22:46] Usuarios obtenidos: 26
+[2025-12-04 04:32:33] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 04:32:33] Usuarios obtenidos: 26
+[2025-12-04 04:38:05] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 04:38:05] Usuarios obtenidos: 26
+[2025-12-04 04:38:27] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 04:38:27] Usuarios obtenidos: 26
+[2025-12-04 04:39:08] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 04:39:08] Usuarios obtenidos: 26
+[2025-12-04 04:40:32] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 04:40:32] Usuarios obtenidos: 26
+[2025-12-04 04:45:43] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 04:45:43] Usuarios obtenidos: 26
+[2025-12-04 04:52:55] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 04:52:55] Usuarios obtenidos: 26
+[2025-12-04 04:53:13] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 04:53:13] Usuarios obtenidos: 26
+[2025-12-04 04:55:26] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 04:55:26] Usuarios obtenidos: 26
+[2025-12-04 04:55:26] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 04:55:26] Usuarios obtenidos: 26
+[2025-12-04 05:00:44] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 05:00:44] Usuarios obtenidos: 26
+[2025-12-04 05:01:38] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 05:01:38] Usuarios obtenidos: 26
+[2025-12-04 05:05:52] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 05:05:52] Usuarios obtenidos: 26
+[2025-12-04 05:08:18] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 05:08:18] Usuarios obtenidos: 26
+[2025-12-04 05:11:26] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 05:11:26] Usuarios obtenidos: 26
+[2025-12-04 05:11:40] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 05:11:40] Usuarios obtenidos: 26
+[2025-12-04 05:12:15] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 05:12:15] Usuarios obtenidos: 26
+[2025-12-04 05:12:50] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 05:12:50] Usuarios obtenidos: 26
+[2025-12-04 05:21:29] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 05:21:29] Usuarios obtenidos: 26
+[2025-12-04 05:28:17] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 05:28:17] Usuarios obtenidos: 25
+[2025-12-04 05:28:51] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 05:28:51] Usuarios obtenidos: 24
+[2025-12-04 05:30:08] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 05:30:08] Usuarios obtenidos: 24
+[2025-12-04 05:33:20] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 05:33:20] Usuarios obtenidos: 24
+[2025-12-04 05:33:49] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 05:33:49] Usuarios obtenidos: 24
+[2025-12-04 05:35:54] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 05:35:54] Usuarios obtenidos: 24
+[2025-12-04 05:38:55] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 05:38:55] Usuarios obtenidos: 24
+[2025-12-04 05:40:19] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 05:40:19] Usuarios obtenidos: 24
+[2025-12-04 05:41:04] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 05:41:04] Usuarios obtenidos: 24
+[2025-12-04 05:41:31] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 05:41:31] Usuarios obtenidos: 24
+[2025-12-04 05:41:32] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 05:41:32] Usuarios obtenidos: 24
+[2025-12-04 05:44:58] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 05:44:58] Usuarios obtenidos: 24
+[2025-12-04 05:45:26] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 05:45:26] Usuarios obtenidos: 24
+[2025-12-04 05:48:06] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 05:48:06] Usuarios obtenidos: 24
+[2025-12-04 05:49:39] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 05:49:39] Usuarios obtenidos: 24
+[2025-12-04 05:56:20] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 05:56:20] Usuarios obtenidos: 24
+[2025-12-04 05:57:34] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 05:57:34] Usuarios obtenidos: 24
+[2025-12-04 05:58:58] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 05:58:58] Usuarios obtenidos: 24
+[2025-12-04 06:04:14] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 06:04:14] Usuarios obtenidos: 24
+[2025-12-04 06:04:56] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 06:04:56] Usuarios obtenidos: 24
+[2025-12-04 06:05:09] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 06:05:09] Usuarios obtenidos: 24
+[2025-12-04 06:05:09] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 06:05:09] Usuarios obtenidos: 24
+[2025-12-04 06:05:09] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 06:05:09] Usuarios obtenidos: 24
+[2025-12-04 06:05:09] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 06:05:09] Usuarios obtenidos: 24
+[2025-12-04 06:05:09] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 06:05:09] Usuarios obtenidos: 24
+[2025-12-04 06:05:09] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 06:05:09] Usuarios obtenidos: 24
+[2025-12-04 06:05:39] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 06:05:39] Usuarios obtenidos: 24
+[2025-12-04 06:09:54] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 06:09:54] Usuarios obtenidos: 24
+[2025-12-04 06:09:55] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 06:09:55] Usuarios obtenidos: 24
+[2025-12-04 06:10:13] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 06:10:13] Usuarios obtenidos: 24
+[2025-12-04 06:11:35] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 06:11:35] Usuarios obtenidos: 24
+[2025-12-04 06:15:32] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 06:15:32] Usuarios obtenidos: 24
+[2025-12-04 06:16:40] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 06:16:40] Usuarios obtenidos: 24
+[2025-12-04 06:17:51] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 06:17:51] Usuarios obtenidos: 24
+[2025-12-04 06:18:48] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 06:18:48] Usuarios obtenidos: 24
+[2025-12-04 06:26:26] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 06:26:26] Usuarios obtenidos: 24
+[2025-12-04 06:29:11] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 06:29:11] Usuarios obtenidos: 23
+[2025-12-04 06:34:40] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 06:34:40] Usuarios obtenidos: 23
+[2025-12-04 06:36:50] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 06:36:50] Usuarios obtenidos: 23
+[2025-12-04 06:37:33] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 06:37:33] Usuarios obtenidos: 23
+[2025-12-04 06:38:40] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 06:38:40] Usuarios obtenidos: 23
+[2025-12-04 06:46:57] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 06:46:57] Usuarios obtenidos: 23
+[2025-12-04 06:50:57] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 06:50:57] Usuarios obtenidos: 23
+[2025-12-04 06:52:00] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 06:52:00] Usuarios obtenidos: 23
+[2025-12-04 06:52:00] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 06:52:00] Usuarios obtenidos: 23
+[2025-12-04 06:52:01] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 06:52:01] Usuarios obtenidos: 23
+[2025-12-04 06:52:22] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 06:52:22] Usuarios obtenidos: 23
+[2025-12-04 06:56:17] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 06:56:17] Usuarios obtenidos: 23
+[2025-12-04 07:03:39] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 07:03:39] Usuarios obtenidos: 23
+[2025-12-04 07:06:10] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 07:06:10] Usuarios obtenidos: 23
+[2025-12-04 07:07:02] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 07:07:02] Usuarios obtenidos: 23
+[2025-12-04 07:07:31] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 07:07:31] Usuarios obtenidos: 23
+[2025-12-04 07:13:08] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 07:13:08] Usuarios obtenidos: 23
+[2025-12-04 07:14:08] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 07:14:08] Usuarios obtenidos: 23
+[2025-12-04 07:15:35] === Solicitud: POST  ===
+[2025-12-04 07:15:35] Servicio creado: 65 para cliente registrado (ID: 28) - GHJKL GHJKL
+[2025-12-04 07:18:01] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 07:18:01] Usuarios obtenidos: 23
+[2025-12-04 07:18:37] === Solicitud: POST  ===
+[2025-12-04 07:18:38] Servicio creado: 66 para cliente registrado (ID: 28) - GHJKL GHJKL
+[2025-12-04 07:22:56] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 07:22:56] Usuarios obtenidos: 23
+[2025-12-04 07:23:37] === Solicitud: POST  ===
+[2025-12-04 07:23:37] Servicio creado: 67 para cliente registrado (ID: 47) - Julio Cesar Ruiz Pérez
+[2025-12-04 07:24:21] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 07:24:21] Usuarios obtenidos: 23
+[2025-12-04 07:27:22] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 07:27:22] Usuarios obtenidos: 23
+[2025-12-04 07:27:37] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 07:27:37] Usuarios obtenidos: 23
+[2025-12-04 07:27:45] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 07:27:45] Usuarios obtenidos: 23
+[2025-12-04 07:27:58] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 07:27:58] Usuarios obtenidos: 23
+[2025-12-04 07:28:15] === Solicitud: GET obtener_usuarios ===
+[2025-12-04 07:28:15] Usuarios obtenidos: 23

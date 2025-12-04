@@ -51,6 +51,13 @@ $accion = $_GET['accion'] ?? '';
 escribirLog("=== Solicitud: $metodo $accion ===");
 
 try {
+    if ($metodo === 'POST') {
+        $input = json_decode(file_get_contents('php://input'), true);
+        if ($input === null) {
+            $input = $_POST;
+        }
+        $accion = $input['accion'] ?? '';
+    }
 
     switch ($metodo) {
         case 'GET':
@@ -87,6 +94,10 @@ try {
                 $stmt = $db->prepare($sql);
                 $stmt->execute([':id' => $id]);
                 $imagenes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                $sql = "SELECT id_imagen_proceso as id_imagen, ruta_imagen, nombre_archivo, fecha_subida as creado_en FROM imagenes_proceso_reparacion WHERE id_cotizacion = :id ORDER BY fecha_subida DESC";
+                $stmt = $db->prepare($sql);
+                $stmt->execute([':id' => $id]);
+                $imagenes_progreso = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 $sql = "SELECT * FROM cotizacion_comentarios_cliente WHERE id_cotizacion = :id ORDER BY creado_en DESC";
                 $stmt = $db->prepare($sql);
                 $stmt->execute([':id' => $id]);
@@ -100,6 +111,7 @@ try {
                     'cotizacion' => $cotizacion,
                     'progreso' => $progreso,
                     'imagenes' => $imagenes,
+                    'imagenes_progreso' => $imagenes_progreso,
                     'comentarios' => $comentarios,
                     'piezas' => $piezas
                 ]);
@@ -107,18 +119,11 @@ try {
             break;
 
         case 'POST':
-            $input = json_decode(file_get_contents('php://input'), true);
-            if ($input === null) {
-                $input = $_POST;
-                if (empty($input)) {
-                    responder(['success' => false, 'message' => 'Datos inválidos'], 400);
-                }
-            }
 
             if ($accion === 'actualizar_estado') {
                 $idCotizacion = (int)($input['id_cotizacion'] ?? 0);
                 $estado = $input['estado'] ?? '';
-                $estadosPermitidos = ['PENDIENTE', 'EN_REVISION', 'APROBADA', 'RECHAZADA', 'EN_PROCESO', 'COMPLETADA', 'COTIZACION_ENVIADA', 'COTIZACIÓN ENVIADA', 'ACEPTADA', 'REPARACION_INICIADA', 'REPARACIÓN INICIADA', 'PINTURA', 'EMPACADO', 'ENVIADO'];
+                $estadosPermitidos = ['PENDIENTE', 'APROBADA', 'RECHAZADA', 'EN_PROCESO', 'COMPLETADO', 'COTIZACIÓN ENVIADA', 'ACEPTADA', 'REPARACIÓN INICIADA', 'PINTURA', 'EMPACADO', 'ENVIADO'];
                 if ($idCotizacion <= 0 || !in_array($estado, $estadosPermitidos)) {
                     responder(['success' => false, 'message' => 'Datos inválidos'], 400);
                 }
@@ -145,11 +150,14 @@ try {
                 responder(['success' => $resultado, 'message' => $resultado ? 'Comentario agregado' : 'Error al agregar comentario']);
             } elseif ($accion === 'agregar_imagen') {
                 $idCotizacion = (int)($_POST['id_cotizacion'] ?? 0);
+                $nombrePersonalizado = trim($_POST['nombre_personalizado'] ?? '');
+                
                 if ($idCotizacion <= 0 || !isset($_FILES['imagen'])) {
                     responder(['success' => false, 'message' => 'Datos inválidos'], 400);
                 }
-                $baseProjectDir = realpath(__DIR__ . '/../../..');
-                $imgBaseDir = $baseProjectDir . DIRECTORY_SEPARATOR . 'Img_Servicios';
+                // Guardar dentro del proyecto en recursos/imagenes_proceso
+                $baseProjectDir = realpath(__DIR__ . '/../..');
+                $imgBaseDir = $baseProjectDir . DIRECTORY_SEPARATOR . 'recursos' . DIRECTORY_SEPARATOR . 'imagenes_proceso';
                 $uploadDir = $imgBaseDir . DIRECTORY_SEPARATOR . $idCotizacion;
 
                 if (!is_dir($imgBaseDir)) {
@@ -172,26 +180,55 @@ try {
                 }
 
                 $extension = pathinfo($nombreOriginal, PATHINFO_EXTENSION) ?: 'jpg';
-                $nombreDestino = uniqid('img_admin_', true) . '.' . $extension;
-                $rutaRelativa = 'Img_Servicios/' . $idCotizacion . '/' . $nombreDestino;
+                
+                if (!empty($nombrePersonalizado)) {
+                    $nombreLimpio = preg_replace('/[^a-zA-Z0-9_-]/', '_', $nombrePersonalizado);
+                    $nombreDestino = $nombreLimpio . '_' . uniqid() . '.' . $extension;
+                    $nombreMostrar = $nombrePersonalizado;
+                } else {
+                    $nombreDestino = uniqid('img_admin_', true) . '.' . $extension;
+                    $nombreMostrar = $nombreOriginal;
+                }
+
+                $rutaRelativa = 'recursos/imagenes_proceso/' . $idCotizacion . '/' . $nombreDestino;
                 $rutaAbsoluta = $uploadDir . DIRECTORY_SEPARATOR . $nombreDestino;
 
                 if (!move_uploaded_file($archivo['tmp_name'], $rutaAbsoluta)) {
                     responder(['success' => false, 'message' => 'Error al subir archivo']);
                 }
 
-                $sql = "INSERT INTO cotizacion_imagenes_cliente (id_cotizacion, ruta_imagen, nombre_archivo, tamano_bytes, tipo_mime) VALUES (:id_cotizacion, :ruta_imagen, :nombre_archivo, :tamano_bytes, :tipo_mime)";
+                $sql = "INSERT INTO imagenes_proceso_reparacion (id_cotizacion, ruta_imagen, nombre_archivo, descripcion) VALUES (:id_cotizacion, :ruta_imagen, :nombre_archivo, '')";
                 $stmt = $db->prepare($sql);
                 $stmt->execute([
                     ':id_cotizacion' => $idCotizacion,
                     ':ruta_imagen' => $rutaRelativa,
-                    ':nombre_archivo' => $nombreOriginal,
-                    ':tamano_bytes' => $tamano,
-                    ':tipo_mime' => $tipoMime,
+                    ':nombre_archivo' => $nombreMostrar,
                 ]);
 
                 escribirLog("Imagen agregada: $idCotizacion");
                 responder(['success' => true, 'id_imagen' => $db->lastInsertId()]);
+            } elseif ($accion === 'eliminar_imagen') {
+                $idImagen = (int)($input['id_imagen'] ?? 0);
+                $rutaImagen = $input['ruta_imagen'] ?? '';
+
+                if ($idImagen <= 0 || empty($rutaImagen)) {
+                    responder(['success' => false, 'message' => 'Datos inválidos'], 400);
+                }
+
+                $baseProjectDir = realpath(__DIR__ . '/../..');
+                $rutaRelativa = str_replace(['..', '\\'], ['', '/'], $rutaImagen);
+                $rutaAbsoluta = $baseProjectDir . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $rutaRelativa);
+
+                if (file_exists($rutaAbsoluta)) {
+                    unlink($rutaAbsoluta);
+                }
+
+                $sql = "DELETE FROM imagenes_proceso_reparacion WHERE id_imagen_proceso = :id";
+                $stmt = $db->prepare($sql);
+                $resultado = $stmt->execute([':id' => $idImagen]);
+
+                escribirLog("Imagen eliminada: $idImagen");
+                responder(['success' => $resultado, 'message' => $resultado ? 'Imagen eliminada' : 'Error al eliminar imagen']);
             } elseif ($accion === 'agregar_paso') {
                 $idCotizacion = (int)($input['id_cotizacion'] ?? 0);
                 $paso = (int)($input['paso'] ?? 0);
@@ -233,7 +270,7 @@ try {
                 if ($idCotizacion <= 0 || empty($nombre) || $cantidad <= 0) {
                     responder(['success' => false, 'message' => 'Datos inválidos'], 400);
                 }
-                $sql = "INSERT INTO piezas_movimientos (id_cotizacion, tipo, nombre_pieza, codigo_pieza, cantidad, nota) VALUES (:id_cotizacion, 'ENVIADO', :nombre, :codigo, :cantidad, :nota)";
+                $sql = "INSERT INTO piezas_movimientos (id_cotizacion, tipo, nombre_pieza, codigo_pieza, cantidad, nota) VALUES (:id_cotizacion, 'ENTREGADO', :nombre, :codigo, :cantidad, :nota)";
                 $stmt = $db->prepare($sql);
                 $resultado = $stmt->execute([
                     ':id_cotizacion' => $idCotizacion,
@@ -241,6 +278,7 @@ try {
                     ':codigo' => $codigo,
                     ':cantidad' => $cantidad,
                     ':nota' => $nota
+
                 ]);
                 escribirLog("Pieza agregada: $idCotizacion - $nombre");
                 responder(['success' => $resultado, 'message' => $resultado ? 'Pieza agregada' : 'Error al agregar pieza']);
@@ -257,17 +295,16 @@ try {
                 $resultado = $stmt->execute([':valor' => $valor, ':id' => $idCotizacion]);
                 escribirLog("Campo actualizado: $idCotizacion $campo = $valor");
                 responder(['success' => $resultado, 'message' => $resultado ? 'Campo actualizado' : 'Error al actualizar campo']);
-            } elseif ($accion === 'agregar_pieza') {
-                $idCotizacion = (int)($input['id_cotizacion'] ?? 0);
-                $campo = $input['campo'] ?? '';
-                $valor = $input['valor'] ?? '';
-                $camposPermitidos = ['revision_camaras', 'inspeccion_estetica', 'empacado_salida'];
-                if ($idCotizacion <= 0 || !in_array($campo, $camposPermitidos)) {
-                    responder(['success' => false, 'message' => 'Datos inválidos'], 400);
+            } elseif ($accion === 'eliminar_pieza') {
+                $idPieza = (int)($input['id_pieza'] ?? 0);
+                if ($idPieza <= 0) {
+                    responder(['success' => false, 'message' => 'ID de pieza inválido'], 400);
                 }
-                $resultado = $servicio->actualizarCampo($idCotizacion, $campo, $valor);
-                escribirLog("Campo actualizado: $idCotizacion $campo = $valor");
-                responder(['success' => $resultado, 'message' => $resultado ? 'Campo actualizado' : 'Error al actualizar campo']);
+                $sql = "DELETE FROM piezas_movimientos WHERE id_movimiento = :id";
+                $stmt = $db->prepare($sql);
+                $resultado = $stmt->execute([':id' => $idPieza]);
+                escribirLog("Pieza eliminada: $idPieza");
+                responder(['success' => $resultado, 'message' => $resultado ? 'Pieza eliminada correctamente' : 'Error al eliminar pieza']);
             }
             break;
 

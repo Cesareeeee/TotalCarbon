@@ -62,7 +62,7 @@
 }
 
 .card-header {
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     padding: 15px 20px;
     display: flex;
@@ -810,8 +810,8 @@
 }
 
 .imagen-item img {
-    width: 120px;
-    height: 120px;
+    width: 180px;
+    height: 180px;
     object-fit: cover;
     border-radius: 8px;
     cursor: pointer;
@@ -923,6 +923,28 @@
     border: none;
 }
 
+/* Estilos específicos para botones de piezas */
+.pieza-actions .btn-danger {
+    background: linear-gradient(135deg, #dc3545 0%, #fd7e14 100%) !important;
+    color: white !important;
+    border: none !important;
+    padding: 8px 16px !important;
+    border-radius: 6px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+.pieza-actions .btn-danger:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3) !important;
+    background: linear-gradient(135deg, #fd7e14 0%, #dc3545 100%) !important;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .cotizaciones-section {
@@ -969,6 +991,7 @@
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -995,7 +1018,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
     min-width: 140px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .estado-select:focus {
@@ -1029,7 +1052,7 @@
     display: flex;
     align-items: center;
     gap: 5px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .btn-view:hover {
@@ -1044,7 +1067,7 @@
 
 .btn-view:active {
     transform: translateY(0);
-    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 /* Estilos adicionales para la tabla de cotizaciones pendientes */
@@ -1109,7 +1132,7 @@
     font-size: 14px;
     transition: all 0.3s ease;
     background: white;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .cotizaciones-pendientes-section .search-box input:focus {
@@ -1129,7 +1152,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
     min-width: 180px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .cotizaciones-pendientes-section .filter-select:focus {
@@ -1179,7 +1202,7 @@
     background: #ffffff;
     border-radius: 10px;
     border: 1px solid #e9ecef;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .detail-section h4 {
@@ -1275,7 +1298,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .btn-success:hover {
@@ -1296,7 +1319,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .btn-danger:hover {
@@ -1311,7 +1334,7 @@
     border-collapse: collapse;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     background: white;
     border: 1px solid #e1e5e9;
 }
@@ -1421,7 +1444,8 @@
         justify-content: center;
     }
 
-    .btn-success, .btn-danger {
+    .btn-success,
+    .btn-danger {
         flex: 1;
         justify-content: center;
     }

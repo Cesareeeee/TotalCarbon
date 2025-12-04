@@ -4506,3 +4506,32 @@
 [2025-12-03 00:46:31] Garantías obtenidas: 3
 [2025-12-03 00:46:31] Garantías obtenidas exitosamente | Datos: [{"id_garantia":21,"tipo_garantia":"B\u00e1sica","cobertura":"dfrgthyjukl\u00f1{-","fecha_inicio":"2025-12-10","fecha_fin":"2026-03-09","estado":"activa","creado_en":"2025-12-01 23:06:01","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"CANNONDALE","modelo_bicicleta":"FGHYJUI","zona_afectada":"CUADRO","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"},{"id_garantia":20,"tipo_garantia":"B\u00e1sica","cobertura":"Cubre defectos en la fghjkpor 3 meses","fecha_inicio":"2025-12-01","fecha_fin":"2026-03-01","estado":"","creado_en":"2025-12-01 20:56:06","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"SPECIALIZED","modelo_bicicleta":"Epic EVO","zona_afectada":"Cuadro y horquilla","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":"Reparaci\u00f3n de fisuras en m\u00faltiples zonas con pintura parcial","nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"},{"id_garantia":19,"tipo_garantia":"B\u00e1sica","cobertura":"cvbnmvfbnm","fecha_inicio":"2025-11-14","fecha_fin":"2026-02-13","estado":"","creado_en":"2025-11-27 22:32:06","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"ghjkl\u00f1","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"}]
 [2025-12-03 00:46:31] === FIN: Garantías obtenidas correctamente ===
+[2025-12-04 05:44:43] === INICIO: Solicitud de obtener garantías ===
+[2025-12-04 05:44:43] Conectando a la base de datos...
+[2025-12-04 05:44:43] Conexión exitosa. Preparando query...
+[2025-12-04 05:44:43] Query: SELECT
+                g.id_garantia,
+                g.tipo_garantia,
+                g.cobertura,
+                g.fecha_inicio,
+                g.fecha_fin,
+                g.estado,
+                g.creado_en,
+                c.nombre_completo,
+                c.marca_bicicleta,
+                c.modelo_bicicleta,
+                c.zona_afectada,
+                c.tipo_trabajo,
+                c.tipo_reparacion,
+                c.descripcion_otros,
+                u.nombres,
+                u.apellidos
+              FROM garantias_bicicletas g
+              JOIN cotizaciones_cliente c ON g.id_cotizacion = c.id_cotizacion
+              JOIN usuarios u ON g.id_usuario = u.id_usuario
+              ORDER BY g.fecha_fin DESC
+[2025-12-04 05:44:43] Query preparada
+[2025-12-04 05:44:43] Query ejecutada
+[2025-12-04 05:44:43] Garantías obtenidas: 7
+[2025-12-04 05:44:43] Garantías obtenidas exitosamente | Datos: [{"id_garantia":23,"tipo_garantia":"ESTANDAR","cobertura":"DFGHJKLGHJKCDFHNJKL\u00d1GHJ","fecha_inicio":"2025-12-18","fecha_fin":"2026-06-18","estado":"cancelada","creado_en":"2025-12-03 22:02:47","nombre_completo":"Julio Cesar Ruiz P\u00e9rez FOCKIU","marca_bicicleta":"SPECIALIZED","modelo_bicicleta":"FGHYJUI","zona_afectada":"FOCKIN","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"},{"id_garantia":24,"tipo_garantia":"ESTANDAR","cobertura":"23456789'5678","fecha_inicio":"2025-12-18","fecha_fin":"2026-06-18","estado":"activa","creado_en":"2025-12-03 22:06:53","nombre_completo":"Julio Cesar Ruiz P\u00e9rez FOCKIU","marca_bicicleta":"SPECIALIZED","modelo_bicicleta":"FGHYJUI","zona_afectada":"FOCKIN","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"},{"id_garantia":25,"tipo_garantia":"ESTANDAR","cobertura":"DFGHJK","fecha_inicio":"2025-12-10","fecha_fin":"2026-03-10","estado":"activa","creado_en":"2025-12-03 22:21:48","nombre_completo":"Julio Cesar Ruiz P\u00e9rez FOCKIU","marca_bicicleta":"SPECIALIZED","modelo_bicicleta":"FGHYJUI","zona_afectada":"FOCKIN","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"},{"id_garantia":20,"tipo_garantia":"ESTANDAR","cobertura":"Cubre defectos en la fghjkpor 3 meses FOCKIU","fecha_inicio":"2025-12-01","fecha_fin":"2026-03-01","estado":"activa","creado_en":"2025-12-01 20:56:06","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"SPECIALIZED","modelo_bicicleta":"Epic EVO","zona_afectada":"Cuadro y horquilla","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":"Reparaci\u00f3n de fisuras en m\u00faltiples zonas con pintura parcial","nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"},{"id_garantia":19,"tipo_garantia":"B\u00e1sica","cobertura":"cvbnmvfbnm","fecha_inicio":"2025-11-14","fecha_fin":"2026-02-13","estado":"activa","creado_en":"2025-11-27 22:32:06","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"BENOTOO","modelo_bicicleta":"FGHYJUI","zona_afectada":"ghjkl\u00f1","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"},{"id_garantia":21,"tipo_garantia":"ESTANDAR","cobertura":"FOCLK","fecha_inicio":"2025-12-10","fecha_fin":"2026-01-10","estado":"activa","creado_en":"2025-12-01 23:06:01","nombre_completo":"Julio Cesar Ruiz P\u00e9rez","marca_bicicleta":"CANNONDALE","modelo_bicicleta":"FGHYJUI","zona_afectada":"CUADRO","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"},{"id_garantia":22,"tipo_garantia":"ESTANDAR","cobertura":"23456789FOCKIUU","fecha_inicio":"2025-12-23","fecha_fin":"2025-12-24","estado":"reclamada","creado_en":"2025-12-03 21:46:03","nombre_completo":"Julio Cesar Ruiz P\u00e9rez FOCKIU","marca_bicicleta":"SPECIALIZED","modelo_bicicleta":"FGHYJUI","zona_afectada":"FOCKIN","tipo_trabajo":"NORMAL","tipo_reparacion":"FISURA","descripcion_otros":null,"nombres":"Julio Cesar","apellidos":"Ruiz P\u00e9rez"}]
+[2025-12-04 05:44:43] === FIN: Garantías obtenidas correctamente ===

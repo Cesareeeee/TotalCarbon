@@ -676,3 +676,15 @@
 [2025-12-02 00:35:19] Archivo imagen_0 - Error: 0, Tamaño: 4177030, Tipo: image/png
 [2025-12-02 00:35:19] Cotización creada exitosamente. ID: 56
 [2025-12-02 00:35:19] === FIN: Cotización creada correctamente ===
+[2025-12-04 05:44:43] === INICIO: Solicitud de crear cotización ===
+[2025-12-04 05:44:43] Usuario ID: 51
+[2025-12-04 05:44:43] Validando campos requeridos...
+[2025-12-04 05:44:43] Todos los campos requeridos están presentes
+[2025-12-04 05:44:43] Validando imágenes...
+[2025-12-04 05:44:43] Imagen encontrada: imagen_0
+[2025-12-04 05:44:43] Validación de imágenes exitosa
+[2025-12-04 05:44:43] Creando cotización...
+[2025-12-04 05:44:43] Archivos recibidos: ["imagen_0"]
+[2025-12-04 05:44:43] Archivo imagen_0 - Error: 0, Tamaño: 57222, Tipo: image/png
+[2025-12-04 05:44:43] Cotización creada exitosamente. ID: 64
+[2025-12-04 05:44:43] === FIN: Cotización creada correctamente ===

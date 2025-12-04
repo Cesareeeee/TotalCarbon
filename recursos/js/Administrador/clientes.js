@@ -179,12 +179,12 @@ async function saveCliente() {
 
     const nombres = document.getElementById('nombres');
     const apellidos = document.getElementById('apellidos');
-    const correo = document.getElementById('correo');
-    const telefono = document.getElementById('telefono');
-    const direccion = document.getElementById('direccion');
-    const ciudad = document.getElementById('ciudad');
-    const estado = document.getElementById('estado');
-    const estadoUsuario = document.getElementById('estado_usuario');
+    const correo = document.getElementById('cliente_correo');
+    const telefono = document.getElementById('cliente_telefono');
+    const direccion = document.getElementById('cliente_direccion');
+    const ciudad = document.getElementById('cliente_ciudad');
+    const estado = document.getElementById('cliente_estado');
+    const estadoUsuario = document.getElementById('cliente_estado_usuario');
 
     if (!nombres || !apellidos || !correo || !estadoUsuario) {
         console.error('Algunos elementos del formulario no existen');
@@ -203,7 +203,7 @@ async function saveCliente() {
     };
 
     // Agregar contraseña si se proporciona (solo para nuevos clientes)
-    const contrasena = document.getElementById('contrasena');
+    const contrasena = document.getElementById('cliente_contrasena');
     if (contrasena && contrasena.value.trim()) {
         clienteData.contrasena = contrasena.value;
     }
@@ -261,11 +261,11 @@ async function saveCliente() {
 function validateClienteForm() {
     const nombres = document.getElementById('nombres');
     const apellidos = document.getElementById('apellidos');
-    const correo = document.getElementById('correo');
-    const telefono = document.getElementById('telefono');
-    const estadoUsuario = document.getElementById('estado_usuario');
-    const contrasena = document.getElementById('contrasena');
-    const confirmarContrasena = document.getElementById('confirmar_contrasena');
+    const correo = document.getElementById('cliente_correo');
+    const telefono = document.getElementById('cliente_telefono');
+    const estadoUsuario = document.getElementById('cliente_estado_usuario');
+    const contrasena = document.getElementById('cliente_contrasena');
+    const confirmarContrasena = document.getElementById('cliente_confirmar_contrasena');
 
     let isValid = true;
 
@@ -281,8 +281,11 @@ function validateClienteForm() {
     if (!nombres || !nombres.value.trim()) {
         if (nombres) {
             nombres.classList.add('error');
-            nombres.nextElementSibling.classList.add('show');
-            nombres.nextElementSibling.textContent = 'Los nombres son requeridos';
+            const errorSpan = nombres.parentElement.querySelector('.error-message');
+            if (errorSpan) {
+                errorSpan.classList.add('show');
+                errorSpan.textContent = 'Los nombres son requeridos';
+            }
         }
         isValid = false;
     }
@@ -291,8 +294,11 @@ function validateClienteForm() {
     if (!apellidos || !apellidos.value.trim()) {
         if (apellidos) {
             apellidos.classList.add('error');
-            apellidos.nextElementSibling.classList.add('show');
-            apellidos.nextElementSibling.textContent = 'Los apellidos son requeridos';
+            const errorSpan = apellidos.parentElement.querySelector('.error-message');
+            if (errorSpan) {
+                errorSpan.classList.add('show');
+                errorSpan.textContent = 'Los apellidos son requeridos';
+            }
         }
         isValid = false;
     }
@@ -301,31 +307,43 @@ function validateClienteForm() {
     if (!correo || !correo.value.trim()) {
         if (correo) {
             correo.classList.add('error');
-            correo.nextElementSibling.classList.add('show');
-            correo.nextElementSibling.textContent = 'El correo es requerido';
+            const errorSpan = correo.parentElement.querySelector('.error-message');
+            if (errorSpan) {
+                errorSpan.classList.add('show');
+                errorSpan.textContent = 'El correo es requerido';
+            }
         }
         isValid = false;
     } else if (correo && !/\S+@\S+\.\S+/.test(correo.value)) {
         correo.classList.add('error');
-        correo.nextElementSibling.classList.add('show');
-        correo.nextElementSibling.textContent = 'El correo no es válido';
+        const errorSpan = correo.parentElement.querySelector('.error-message');
+        if (errorSpan) {
+            errorSpan.classList.add('show');
+            errorSpan.textContent = 'El correo no es válido';
+        }
         isValid = false;
     }
 
-    // Validar teléfono (opcional pero si se ingresa debe ser válido)
+    // Validar teléfono (opcional, mostrar advertencia si inválido pero permitir guardar)
     if (telefono && telefono.value.trim() && !/^\d{10,}$/.test(telefono.value.trim())) {
         telefono.classList.add('error');
-        telefono.nextElementSibling.classList.add('show');
-        telefono.nextElementSibling.textContent = 'El teléfono debe tener al menos 10 dígitos';
-        isValid = false;
+        const errorSpan = telefono.parentElement.querySelector('.error-message');
+        if (errorSpan) {
+            errorSpan.classList.add('show');
+            errorSpan.textContent = 'El teléfono debe tener al menos 10 dígitos';
+        }
+        // No bloquear el guardado para teléfono opcional
     }
 
     // Validar estado usuario
     if (!estadoUsuario || estadoUsuario.value === '') {
         if (estadoUsuario) {
             estadoUsuario.classList.add('error');
-            estadoUsuario.nextElementSibling.classList.add('show');
-            estadoUsuario.nextElementSibling.textContent = 'El estado del usuario es requerido';
+            const errorSpan = estadoUsuario.parentElement.querySelector('.error-message');
+            if (errorSpan) {
+                errorSpan.classList.add('show');
+                errorSpan.textContent = 'El estado del usuario es requerido';
+            }
         }
         isValid = false;
     }
@@ -335,23 +353,35 @@ function validateClienteForm() {
         // Nuevo cliente: contraseña requerida
         if (!contrasena || !contrasena.value.trim()) {
             contrasena.classList.add('error');
-            contrasena.nextElementSibling.classList.add('show');
-            contrasena.nextElementSibling.textContent = 'La contraseña es requerida para nuevos clientes';
+            const errorSpan = contrasena.parentElement.querySelector('.error-message');
+            if (errorSpan) {
+                errorSpan.classList.add('show');
+                errorSpan.textContent = 'La contraseña es requerida para nuevos clientes';
+            }
             isValid = false;
         } else if (contrasena.value.length < 6) {
             contrasena.classList.add('error');
-            contrasena.nextElementSibling.classList.add('show');
-            contrasena.nextElementSibling.textContent = 'La contraseña debe tener al menos 6 caracteres';
+            const errorSpan = contrasena.parentElement.querySelector('.error-message');
+            if (errorSpan) {
+                errorSpan.classList.add('show');
+                errorSpan.textContent = 'La contraseña debe tener al menos 6 caracteres';
+            }
             isValid = false;
         } else if (!confirmarContrasena || !confirmarContrasena.value.trim()) {
             confirmarContrasena.classList.add('error');
-            confirmarContrasena.nextElementSibling.classList.add('show');
-            confirmarContrasena.nextElementSibling.textContent = 'Debe confirmar la contraseña';
+            const errorSpan = confirmarContrasena.parentElement.querySelector('.error-message');
+            if (errorSpan) {
+                errorSpan.classList.add('show');
+                errorSpan.textContent = 'Debe confirmar la contraseña';
+            }
             isValid = false;
         } else if (contrasena.value !== confirmarContrasena.value) {
             confirmarContrasena.classList.add('error');
-            confirmarContrasena.nextElementSibling.classList.add('show');
-            confirmarContrasena.nextElementSibling.textContent = 'Las contraseñas no coinciden';
+            const errorSpan = confirmarContrasena.parentElement.querySelector('.error-message');
+            if (errorSpan) {
+                errorSpan.classList.add('show');
+                errorSpan.textContent = 'Las contraseñas no coinciden';
+            }
             isValid = false;
         }
     } else {
@@ -359,18 +389,27 @@ function validateClienteForm() {
         if (contrasena && contrasena.value.trim()) {
             if (contrasena.value.length < 6) {
                 contrasena.classList.add('error');
-                contrasena.nextElementSibling.classList.add('show');
-                contrasena.nextElementSibling.textContent = 'La contraseña debe tener al menos 6 caracteres';
+                const errorSpan = contrasena.parentElement.querySelector('.error-message');
+                if (errorSpan) {
+                    errorSpan.classList.add('show');
+                    errorSpan.textContent = 'La contraseña debe tener al menos 6 caracteres';
+                }
                 isValid = false;
             } else if (!confirmarContrasena || !confirmarContrasena.value.trim()) {
                 confirmarContrasena.classList.add('error');
-                confirmarContrasena.nextElementSibling.classList.add('show');
-                confirmarContrasena.nextElementSibling.textContent = 'Debe confirmar la contraseña';
+                const errorSpan = confirmarContrasena.parentElement.querySelector('.error-message');
+                if (errorSpan) {
+                    errorSpan.classList.add('show');
+                    errorSpan.textContent = 'Debe confirmar la contraseña';
+                }
                 isValid = false;
             } else if (contrasena.value !== confirmarContrasena.value) {
                 confirmarContrasena.classList.add('error');
-                confirmarContrasena.nextElementSibling.classList.add('show');
-                confirmarContrasena.nextElementSibling.textContent = 'Las contraseñas no coinciden';
+                const errorSpan = confirmarContrasena.parentElement.querySelector('.error-message');
+                if (errorSpan) {
+                    errorSpan.classList.add('show');
+                    errorSpan.textContent = 'Las contraseñas no coinciden';
+                }
                 isValid = false;
             }
         }

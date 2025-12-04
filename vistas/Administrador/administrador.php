@@ -15,9 +15,12 @@ if (!isset($_SESSION['id_usuario']) || obtenerNombreRol($_SESSION['id_rol']) !==
     <title>TotalCarbon - Gestión de Clientes</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link rel="stylesheet" href="../../recursos/css/Administrador/administrador.css?v=1733250974">
-    <link rel="stylesheet" href="../../recursos/css/Administrador/cotizaciones_admin.css?v=1733250974">
-    <link rel="stylesheet" href="../../recursos/css/Administrador/nuevo_servicio.css?v=1733250975">
+    <link rel="stylesheet" href="../../recursos/css/Administrador/administrador.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="../../recursos/css/Administrador/cotizaciones_admin.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="../../recursos/css/Administrador/nuevo_servicio.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="../../recursos/css/Administrador/piezas_custom.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="../../recursos/css/Administrador/proveedores_custom.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="../../recursos/css/Administrador/garantias_custom.css?v=<?php echo time(); ?>"
     <link rel="icon" href="../../presentacion/assets/image.png">
 </head>
 <body>
@@ -86,6 +89,24 @@ if (!isset($_SESSION['id_usuario']) || obtenerNombreRol($_SESSION['id_rol']) !==
                 <a href="#" onclick="showSection('chat')">
                     <i class="fas fa-comments"></i>
                     <span>Chat</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="showSection('garantias')">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Garantías</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="showSection('piezas')">
+                    <i class="fas fa-cogs"></i>
+                    <span>Piezas</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="showSection('proveedores')">
+                    <i class="fas fa-truck"></i>
+                    <span>Proveedores</span>
                 </a>
             </li>
             <li>
@@ -902,6 +923,16 @@ if (!isset($_SESSION['id_usuario']) || obtenerNombreRol($_SESSION['id_rol']) !==
                 </div>
             </div>
         </div>
+
+        <!-- Piezas Section -->
+        <?php include 'piezas.php'; ?>
+
+        <!-- Proveedores Section -->
+        <?php include 'proveedores.php'; ?>
+
+        <!-- Garantías Section -->
+        <?php include 'garantias.php'; ?>
+
     </div>
 
     <!-- Cliente Modal -->
@@ -927,33 +958,34 @@ if (!isset($_SESSION['id_usuario']) || obtenerNombreRol($_SESSION['id_rol']) !==
                     </div>
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="correo">Correo Electrónico *</label>
-                            <input type="email" id="correo" class="form-control" required>
+                            <label for="cliente_correo">Correo Electrónico *</label>
+                            <input type="email" id="cliente_correo" class="form-control" required>
                             <span class="error-message"></span>
                         </div>
                         <div class="form-group">
-                            <label for="telefono">Teléfono</label>
-                            <input type="tel" id="telefono" class="form-control">
+                            <label for="cliente_telefono">Teléfono</label>
+                            <input type="tel" id="cliente_telefono" class="form-control">
+                            <span class="error-message"></span>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="direccion">Dirección</label>
-                            <input type="text" id="direccion" class="form-control">
+                            <label for="cliente_direccion">Dirección</label>
+                            <input type="text" id="cliente_direccion" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="ciudad">Ciudad</label>
-                            <input type="text" id="ciudad" class="form-control">
+                            <label for="cliente_ciudad">Ciudad</label>
+                            <input type="text" id="cliente_ciudad" class="form-control">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="estado">Estado</label>
-                            <input type="text" id="estado" class="form-control">
+                            <label for="cliente_estado">Estado</label>
+                            <input type="text" id="cliente_estado" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="estado_usuario">Estado del Usuario *</label>
-                            <select id="estado_usuario" class="form-control" required>
+                            <label for="cliente_estado_usuario">Estado del Usuario *</label>
+                            <select id="cliente_estado_usuario" class="form-control" required>
                                 <option value="1">Activo</option>
                                 <option value="0">Inactivo</option>
                             </select>
@@ -962,13 +994,13 @@ if (!isset($_SESSION['id_usuario']) || obtenerNombreRol($_SESSION['id_rol']) !==
                     </div>
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="contrasena">Contraseña *</label>
-                            <input type="password" id="contrasena" class="form-control" required>
+                            <label for="cliente_contrasena">Contraseña *</label>
+                            <input type="password" id="cliente_contrasena" class="form-control" required>
                             <span class="error-message"></span>
                         </div>
                         <div class="form-group">
-                            <label for="confirmar_contrasena">Confirmar Contraseña *</label>
-                            <input type="password" id="confirmar_contrasena" class="form-control" required>
+                            <label for="cliente_confirmar_contrasena">Confirmar Contraseña *</label>
+                            <input type="password" id="cliente_confirmar_contrasena" class="form-control" required>
                             <span class="error-message"></span>
                         </div>
                     </div>
@@ -1000,8 +1032,8 @@ if (!isset($_SESSION['id_usuario']) || obtenerNombreRol($_SESSION['id_rol']) !==
                             <span class="error-message"></span>
                         </div>
                         <div class="form-group">
-                            <label for="tipo">Tipo *</label>
-                            <select id="tipo" class="form-control" required>
+                            <label for="ingreso_tipo">Tipo *</label>
+                            <select id="ingreso_tipo" class="form-control" required>
                                 <option value="">Seleccionar tipo</option>
                                 <option value="INGRESO">Ingreso</option>
                                 <option value="SALIDA">Salida</option>
@@ -1446,13 +1478,16 @@ if (!isset($_SESSION['id_usuario']) || obtenerNombreRol($_SESSION['id_rol']) !==
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
     <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
-    <script src="../../recursos/js/Administrador/administrador.js?v=1733250975"></script>
-    <script src="../../recursos/js/Administrador/clientes.js?v=1733250975"></script>
-    <script src="../../recursos/js/Administrador/cotizaciones_admin.js?v=1733250975"></script>
-    <script src="../../recursos/js/Administrador/cotizaciones_pendientes.js?v=1733250975"></script>
-    <script src="../../recursos/js/Administrador/nuevo_servicio.js?v=1733253330981"></script>
-    <script src="../../recursos/js/Administrador/chat.js?v=1733191353"></script>
-    <script src="../../recursos/js/Administrador/dashboard.js?v=1733192185"></script>
+    <script src="../../recursos/js/Administrador/administrador.js?v=<?php echo time(); ?>"></script>
+    <script src="../../recursos/js/Administrador/proveedores.js?v=<?php echo time(); ?>"></script>
+    <script src="../../recursos/js/Administrador/garantias.js?v=<?php echo time(); ?>"></script>
+    <script src="../../recursos/js/Administrador/clientes.js?v=<?php echo time(); ?>"></script>
+    <script src="../../recursos/js/Administrador/cotizaciones_admin.js?v=<?php echo time(); ?>"></script>
+    <script src="../../recursos/js/Administrador/cotizaciones_pendientes.js?v=<?php echo time(); ?>"></script>
+    <script src="../../recursos/js/Administrador/nuevo_servicio.js?v=<?php echo time(); ?>"></script>
+    <script src="../../recursos/js/Administrador/chat.js?v=<?php echo time(); ?>"></script>
+    <script src="../../recursos/js/Administrador/dashboard.js?v=<?php echo time(); ?>"></script>
+    <script src="../../recursos/js/Administrador/piezas.js?v=<?php echo time(); ?>"></script>
 
 </body>
 </html>

@@ -202,9 +202,9 @@ switch ($metodo) {
 
                 $idCotizacion = $db->lastInsertId();
 
-                // Procesar imágenes
-                $baseProjectDir = realpath(__DIR__ . '/../../..');
-                $imgBaseDir = $baseProjectDir . DIRECTORY_SEPARATOR . 'Img_Servicios';
+                // Procesar imágenes - Guardar en la misma ubicación que los clientes
+                $baseProjectDir = realpath(__DIR__ . '/../..');
+                $imgBaseDir = $baseProjectDir . DIRECTORY_SEPARATOR . 'recursos' . DIRECTORY_SEPARATOR . 'imagenes_cotizaciones';
                 $uploadDir = $imgBaseDir . DIRECTORY_SEPARATOR . $idCotizacion;
 
                 if (!is_dir($imgBaseDir)) {
@@ -229,7 +229,7 @@ switch ($metodo) {
 
                         $extension = pathinfo($archivo['name'], PATHINFO_EXTENSION) ?: 'jpg';
                         $nombreDestino = uniqid('img_admin_', true) . '.' . $extension;
-                        $rutaRelativa = 'Img_Servicios/' . $idCotizacion . '/' . $nombreDestino;
+                        $rutaRelativa = 'recursos/imagenes_cotizaciones/' . $idCotizacion . '/' . $nombreDestino;
                         $rutaAbsoluta = $uploadDir . DIRECTORY_SEPARATOR . $nombreDestino;
 
                         if (move_uploaded_file($archivo['tmp_name'], $rutaAbsoluta)) {
@@ -285,8 +285,8 @@ switch ($metodo) {
                     responder(['success' => false, 'message' => 'ID de cotización inválido'], 400);
                 }
 
-                $baseProjectDir = realpath(__DIR__ . '/../../..');
-                $imgBaseDir = $baseProjectDir . DIRECTORY_SEPARATOR . 'Img_Servicios';
+                $baseProjectDir = realpath(__DIR__ . '/../..');
+                $imgBaseDir = $baseProjectDir . DIRECTORY_SEPARATOR . 'recursos' . DIRECTORY_SEPARATOR . 'imagenes_cotizaciones';
                 $uploadDir = $imgBaseDir . DIRECTORY_SEPARATOR . $idCotizacion;
 
                 if (!is_dir($imgBaseDir)) {
@@ -334,7 +334,7 @@ switch ($metodo) {
 
                         $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION) ?: 'jpg';
                         $nombreDestino = uniqid('img_admin_', true) . '.' . $extension;
-                        $rutaRelativa = 'Img_Servicios/' . $idCotizacion . '/' . $nombreDestino;
+                        $rutaRelativa = 'recursos/imagenes_cotizaciones/' . $idCotizacion . '/' . $nombreDestino;
                         $rutaAbsoluta = $uploadDir . DIRECTORY_SEPARATOR . $nombreDestino;
 
                         if (!move_uploaded_file($archivos['tmp_name'][$key], $rutaAbsoluta)) {

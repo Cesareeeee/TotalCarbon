@@ -173,3 +173,40 @@
 [2025-12-03 09:15:31] Cotización aprobada, usuario creado y credenciales enviadas para cotización 28: TC00039
 [2025-12-03 09:15:31] === Solicitud: GET obtener_todas ===
 [2025-12-03 09:15:31] Cotizaciones obtenidas: 8
+[2025-12-03 09:25:50] === Solicitud: GET obtener_todas ===
+[2025-12-03 09:25:50] Cotizaciones obtenidas: 8
+[2025-12-04 03:15:40] === Solicitud: GET obtener_todas ===
+[2025-12-04 03:15:40] Cotizaciones obtenidas: 8
+[2025-12-04 03:15:58] === Solicitud: GET obtener_todas ===
+[2025-12-04 03:15:58] Cotizaciones obtenidas: 9
+[2025-12-04 03:16:40] === Solicitud: GET obtener_todas ===
+[2025-12-04 03:16:40] Cotizaciones obtenidas: 9
+[2025-12-04 03:23:56] === Solicitud: GET obtener_todas ===
+[2025-12-04 03:23:56] Cotizaciones obtenidas: 9
+[2025-12-04 03:23:58] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 04:03:04] === Solicitud: GET obtener_todas ===
+[2025-12-04 04:03:04] Cotizaciones obtenidas: 9
+[2025-12-04 04:12:58] === Solicitud: GET obtener_todas ===
+[2025-12-04 04:12:58] Cotizaciones obtenidas: 9
+[2025-12-04 04:55:31] === Solicitud: GET obtener_todas ===
+[2025-12-04 04:55:31] Cotizaciones obtenidas: 9
+[2025-12-04 04:55:33] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 04:55:39] === Solicitud: POST eliminar_cotizacion ===
+[2025-12-04 04:55:39] Cotización eliminada: 23
+[2025-12-04 04:55:39] === Solicitud: GET obtener_todas ===
+[2025-12-04 04:55:39] Cotizaciones obtenidas: 8
+[2025-12-04 05:35:56] === Solicitud: GET obtener_todas ===
+[2025-12-04 05:35:56] Cotizaciones obtenidas: 8
+[2025-12-04 06:26:45] === Solicitud: GET obtener_todas ===
+[2025-12-04 06:26:45] Cotizaciones obtenidas: 8
+[2025-12-04 07:14:48] === Solicitud: GET obtener_todas ===
+[2025-12-04 07:14:48] Cotizaciones obtenidas: 8
+[2025-12-04 07:19:07] === Solicitud: GET obtener_todas ===
+[2025-12-04 07:19:07] Cotizaciones obtenidas: 8
+[2025-12-04 07:28:29] === Solicitud: GET obtener_todas ===
+[2025-12-04 07:28:29] Cotizaciones obtenidas: 8
+[2025-12-04 07:28:33] === Solicitud: GET obtener_cotizacion ===
+[2025-12-04 07:28:39] === Solicitud: POST eliminar_cotizacion ===
+[2025-12-04 07:28:39] Cotización eliminada: 28
+[2025-12-04 07:28:39] === Solicitud: GET obtener_todas ===
+[2025-12-04 07:28:39] Cotizaciones obtenidas: 7
