@@ -4,10 +4,10 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
-require_once '../../modelos/php/conexion.php';
+require_once '../../modelos/php/database.php';
 
 function obtenerEstadisticasDashboard() {
-    global $conexion;
+    $conexion = getConexion();
 
     $estadisticas = [];
 
@@ -59,7 +59,7 @@ function obtenerEstadisticasDashboard() {
 }
 
 function obtenerCotizacionesPorEstado() {
-    global $conexion;
+    $conexion = getConexion();
 
     $sql = "SELECT estado, COUNT(*) as cantidad FROM cotizaciones_cliente GROUP BY estado";
     $result = $conexion->query($sql);
@@ -73,7 +73,7 @@ function obtenerCotizacionesPorEstado() {
 }
 
 function obtenerIngresosMensuales() {
-    global $conexion;
+    $conexion = getConexion();
 
     $sql = "SELECT DATE_FORMAT(fecha_adquirido, '%Y-%m') as mes, SUM(total) as ingresos
             FROM compras_proveedores
@@ -91,7 +91,7 @@ function obtenerIngresosMensuales() {
 }
 
 function obtenerCotizacionesPorEstadoFiltrado($fechaInicio = null, $fechaFin = null, $estado = null) {
-    global $conexion;
+    $conexion = getConexion();
 
     $where = [];
     $params = [];
@@ -131,7 +131,7 @@ function obtenerCotizacionesPorEstadoFiltrado($fechaInicio = null, $fechaFin = n
 }
 
 function obtenerTiposTrabajo() {
-    global $conexion;
+    $conexion = getConexion();
 
     $sql = "SELECT tipo_trabajo, COUNT(*) as cantidad FROM cotizaciones_cliente GROUP BY tipo_trabajo";
     $result = $conexion->query($sql);
@@ -145,7 +145,7 @@ function obtenerTiposTrabajo() {
 }
 
 function obtenerTiposReparacion() {
-    global $conexion;
+    $conexion = getConexion();
 
     $sql = "SELECT tipo_reparacion, COUNT(*) as cantidad FROM cotizaciones_cliente GROUP BY tipo_reparacion";
     $result = $conexion->query($sql);
@@ -159,7 +159,7 @@ function obtenerTiposReparacion() {
 }
 
 function obtenerMarcasMasAtendidas() {
-    global $conexion;
+    $conexion = getConexion();
 
     $sql = "SELECT marca_bicicleta as marca, COUNT(*) as cantidad,
             ROUND((COUNT(*) * 100.0 / (SELECT COUNT(*) FROM cotizaciones_cliente)), 1) as porcentaje
@@ -179,7 +179,7 @@ function obtenerMarcasMasAtendidas() {
 }
 
 function obtenerZonasAfectadas() {
-    global $conexion;
+    $conexion = getConexion();
 
     $sql = "SELECT zona_afectada, COUNT(*) as cantidad,
             ROUND((COUNT(*) * 100.0 / (SELECT COUNT(*) FROM cotizaciones_cliente)), 1) as porcentaje
@@ -199,7 +199,7 @@ function obtenerZonasAfectadas() {
 }
 
 function obtenerClientesMasFrecuentes() {
-    global $conexion;
+    $conexion = getConexion();
 
     $sql = "SELECT u.nombres, u.apellidos, u.correo_electronico,
             COUNT(cc.id_cotizacion) as total_cotizaciones,
@@ -223,7 +223,7 @@ function obtenerClientesMasFrecuentes() {
 }
 
 function obtenerDistribucionGeografica() {
-    global $conexion;
+    $conexion = getConexion();
 
     $sql = "SELECT
             COALESCE(NULLIF(ciudad, ''), 'Sin especificar') as ciudad,
@@ -246,7 +246,7 @@ function obtenerDistribucionGeografica() {
 }
 
 function obtenerMensajesSinLeer() {
-    global $conexion;
+    $conexion = getConexion();
 
     $sql = "SELECT COUNT(*) as total FROM chat_mensajes WHERE leido = 0 AND id_receptor = 1"; // ID del admin
     $result = $conexion->query($sql);
@@ -255,7 +255,7 @@ function obtenerMensajesSinLeer() {
 }
 
 function obtenerServiciosPendientes() {
-    global $conexion;
+    $conexion = getConexion();
 
     $sql = "SELECT COUNT(*) as total FROM cotizaciones_cliente WHERE estado = 'PENDIENTE'";
     $result = $conexion->query($sql);
@@ -264,7 +264,7 @@ function obtenerServiciosPendientes() {
 }
 
 function obtenerUsuariosPorRol() {
-    global $conexion;
+    $conexion = getConexion();
 
     $sql = "SELECT r.nombre_rol, COUNT(u.id_usuario) as cantidad
             FROM roles r
@@ -283,7 +283,7 @@ function obtenerUsuariosPorRol() {
 }
 
 function obtenerCotizacionesMensuales() {
-    global $conexion;
+    $conexion = getConexion();
 
     $sql = "SELECT DATE_FORMAT(creado_en, '%Y-%m') as mes,
             COUNT(*) as cantidad,
@@ -303,7 +303,7 @@ function obtenerCotizacionesMensuales() {
 }
 
 function obtenerIngresosGastos() {
-    global $conexion;
+    $conexion = getConexion();
 
     $sql = "SELECT id_ingreso_gasto, concepto, tipo, monto, fecha, descripcion
             FROM ingresos_gastos
@@ -319,7 +319,7 @@ function obtenerIngresosGastos() {
 }
 
 function obtenerResumenIngresosGastos() {
-    global $conexion;
+    $conexion = getConexion();
 
     $sql = "SELECT
             SUM(CASE WHEN tipo = 'INGRESO' THEN monto ELSE 0 END) as total_ingresos,
@@ -332,7 +332,7 @@ function obtenerResumenIngresosGastos() {
 }
 
 function obtenerIngresosGastosMensuales($fechaInicio = null, $fechaFin = null) {
-    global $conexion;
+    $conexion = getConexion();
 
     $where = "";
     if ($fechaInicio && $fechaFin) {
@@ -362,7 +362,7 @@ function obtenerIngresosGastosMensuales($fechaInicio = null, $fechaFin = null) {
 }
 
 function guardarIngresoGasto($concepto, $tipo, $monto, $fecha, $descripcion) {
-    global $conexion;
+    $conexion = getConexion();
 
     $sql = "INSERT INTO ingresos_gastos (concepto, tipo, monto, fecha, descripcion, creado_en)
             VALUES (?, ?, ?, ?, ?, NOW())";
@@ -373,7 +373,7 @@ function guardarIngresoGasto($concepto, $tipo, $monto, $fecha, $descripcion) {
 }
 
 function eliminarIngresoGasto($id) {
-    global $conexion;
+    $conexion = getConexion();
 
     $sql = "DELETE FROM ingresos_gastos WHERE id_ingreso_gasto = ?";
     $stmt = $conexion->prepare($sql);
@@ -383,7 +383,7 @@ function eliminarIngresoGasto($id) {
 }
 
 function obtenerIngresoGasto($id) {
-    global $conexion;
+    $conexion = getConexion();
 
     $sql = "SELECT id_ingreso_gasto, concepto, tipo, monto, fecha, descripcion
             FROM ingresos_gastos WHERE id_ingreso_gasto = ?";
@@ -396,7 +396,7 @@ function obtenerIngresoGasto($id) {
 }
 
 function actualizarIngresoGasto($id, $concepto, $tipo, $monto, $fecha, $descripcion) {
-    global $conexion;
+    $conexion = getConexion();
 
     $sql = "UPDATE ingresos_gastos SET concepto = ?, tipo = ?, monto = ?, fecha = ?, descripcion = ?
             WHERE id_ingreso_gasto = ?";

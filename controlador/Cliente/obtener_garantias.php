@@ -6,8 +6,12 @@
  * Propósito: Retornar todas las garantías del usuario autenticado
  */
 
+require_once '../../modelos/php/database.php';
+
 header('Content-Type: application/json; charset=utf-8');
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Archivo de log
 $logFile = __DIR__ . '/../../logs/obtener_garantias.log';
@@ -52,13 +56,8 @@ escribirLog("=== INICIO: Solicitud de obtener garantías ===");
 try {
     escribirLog("Conectando a la base de datos...");
 
-    // Conexión directa con PDO
-    $pdo = new PDO(
-        'mysql:host=localhost;dbname=totalcarbon;charset=utf8',
-        'root',
-        '',
-        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
-    );
+    // Usando conexión PDO centralizada
+    $pdo = getPDO();
 
     escribirLog("Conexión exitosa. Preparando query...");
 

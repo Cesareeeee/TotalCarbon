@@ -1,15 +1,8 @@
 <?php
-// Configuración de la base de datos
-$servidor = "localhost";
-$usuario = "root";
-$password = "";
-$basededatos = "totalcarbon";
+require_once 'database.php';
 
-$conn = new mysqli($servidor, $usuario, $password, $basededatos);
-
-if ($conn->connect_error) {
-    die(json_encode(['success' => false, 'message' => 'Conexión fallida: ' . $conn->connect_error]));
-}
+// Obtener conexión
+$conn = getConexion();
 
 // Obtener datos del POST (desde AJAX)
 $nombre = $_POST['nombre'] ?? '';

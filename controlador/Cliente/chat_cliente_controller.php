@@ -1,11 +1,8 @@
 <?php
-require_once '../../modelos/php/conexion.php';
+require_once '../../modelos/php/database.php';
 
 function getMensajesCliente($id_cliente) {
-    $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
-    if ($conexion->connect_error) {
-        die("Connection failed: " . $conexion->connect_error);
-    }
+    $conexion = getConexion();
 
     $query = "SELECT m.*, u.nombres, u.apellidos,
                       CASE
@@ -32,10 +29,7 @@ function getMensajesCliente($id_cliente) {
 }
 
 function enviarMensajeCliente($id_cliente, $mensaje) {
-    $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
-    if ($conexion->connect_error) {
-        die("Connection failed: " . $conexion->connect_error);
-    }
+    $conexion = getConexion();
 
     $query = "INSERT INTO chat_mensajes (id_emisor, id_receptor, mensaje, leido) VALUES (?, 1, ?, 0)";
     $stmt = $conexion->prepare($query);
@@ -55,10 +49,7 @@ function enviarMensajeCliente($id_cliente, $mensaje) {
 }
 
 function getMensajesNoLeidosCliente($id_cliente) {
-    $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
-    if ($conexion->connect_error) {
-        die("Connection failed: " . $conexion->connect_error);
-    }
+    $conexion = getConexion();
 
     $query = "SELECT COUNT(*) as no_leidos FROM chat_mensajes WHERE id_receptor = ? AND leido = 0";
     $stmt = $conexion->prepare($query);
@@ -72,10 +63,7 @@ function getMensajesNoLeidosCliente($id_cliente) {
 }
 
 function marcarMensajesLeidosCliente($id_cliente) {
-    $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
-    if ($conexion->connect_error) {
-        die("Connection failed: " . $conexion->connect_error);
-    }
+    $conexion = getConexion();
 
     $query = "UPDATE chat_mensajes SET leido = 1 WHERE id_receptor = ? AND leido = 0";
     $stmt = $conexion->prepare($query);
@@ -97,26 +85,26 @@ $action = $_GET['action'] ?? '';
 
 switch ($action) {
     case 'getMensajes':
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) session_start();
         $id_cliente = $_SESSION['id_usuario'] ?? 0;
         echo json_encode(getMensajesCliente($id_cliente));
         break;
 
     case 'enviarMensaje':
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) session_start();
         $id_cliente = $_SESSION['id_usuario'] ?? 0;
         $data = json_decode(file_get_contents('php://input'), true);
         echo json_encode(enviarMensajeCliente($id_cliente, $data['mensaje']));
         break;
 
     case 'getMensajesNoLeidos':
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) session_start();
         $id_cliente = $_SESSION['id_usuario'] ?? 0;
         echo json_encode(['no_leidos' => getMensajesNoLeidosCliente($id_cliente)]);
         break;
 
     case 'marcarLeidos':
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) session_start();
         $id_cliente = $_SESSION['id_usuario'] ?? 0;
         echo json_encode(marcarMensajesLeidosCliente($id_cliente));
         break;

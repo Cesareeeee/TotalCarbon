@@ -4,14 +4,11 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
-require_once '../../modelos/php/conexion.php';
+require_once '../../modelos/php/database.php';
 
 function getProveedores() {
     try {
-        $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
-        if ($conexion->connect_error) {
-            return ['success' => false, 'error' => 'Connection failed: ' . $conexion->connect_error];
-        }
+        $conexion = getConexion();
 
         $query = "SELECT * FROM proveedores ORDER BY creado_en DESC";
         $result = $conexion->query($query);
@@ -35,10 +32,7 @@ function getProveedores() {
 
 function getProveedor($id) {
     try {
-        $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
-        if ($conexion->connect_error) {
-            return ['success' => false, 'error' => 'Connection failed: ' . $conexion->connect_error];
-        }
+        $conexion = getConexion();
 
         $query = "SELECT * FROM proveedores WHERE id_proveedor = ?";
         $stmt = $conexion->prepare($query);
@@ -61,10 +55,7 @@ function getProveedor($id) {
 
 function createProveedor($data) {
     try {
-        $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
-        if ($conexion->connect_error) {
-            return ['success' => false, 'error' => 'Connection failed: ' . $conexion->connect_error];
-        }
+        $conexion = getConexion();
 
         $query = "INSERT INTO proveedores (nombre_proveedor, contacto, telefono, correo, direccion, notas_proveedor) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $conexion->prepare($query);
@@ -93,10 +84,7 @@ function createProveedor($data) {
 
 function updateProveedor($id, $data) {
     try {
-        $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
-        if ($conexion->connect_error) {
-            return ['success' => false, 'error' => 'Connection failed: ' . $conexion->connect_error];
-        }
+        $conexion = getConexion();
 
         $query = "UPDATE proveedores SET nombre_proveedor = ?, contacto = ?, telefono = ?, correo = ?, direccion = ?, notas_proveedor = ? WHERE id_proveedor = ?";
         $stmt = $conexion->prepare($query);
@@ -124,10 +112,7 @@ function updateProveedor($id, $data) {
 
 function deleteProveedor($id) {
     try {
-        $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
-        if ($conexion->connect_error) {
-            return ['success' => false, 'error' => 'Connection failed: ' . $conexion->connect_error];
-        }
+        $conexion = getConexion();
 
         // Verificar si el proveedor tiene piezas asociadas
         $checkQuery = "SELECT COUNT(*) as count FROM piezas_movimientos WHERE proveedor_id = ?";

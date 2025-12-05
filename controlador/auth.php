@@ -1,6 +1,6 @@
 <?php
 // Incluir archivo de conexión - RUTA CORREGIDA
-require_once __DIR__ . '/../modelos/php/conexion.php';
+require_once __DIR__ . '/../modelos/php/database.php';
 
 // Iniciar sesión
 session_start();

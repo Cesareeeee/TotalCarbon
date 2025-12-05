@@ -2,13 +2,11 @@
 header('Content-Type: application/json; charset=utf-8');
 session_start();
 
-// Conexión a la base de datos
-$db = new PDO(
-    'mysql:host=localhost;dbname=totalcarbon;charset=utf8',
-    'root',
-    '',
-    [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
-);
+require_once '../../modelos/php/database.php';
+require_once '../../vendor/autoload.php'; // Para PHPMailer
+
+// Usando conexión PDO centralizada
+$db = getPDO();
 
 // Verificar sesión de admin
 if (!isset($_SESSION['id_usuario']) || !isset($_SESSION['id_rol'])) {
@@ -16,10 +14,6 @@ if (!isset($_SESSION['id_usuario']) || !isset($_SESSION['id_rol'])) {
     echo json_encode(['success' => false, 'message' => 'No autorizado']);
     exit;
 }
-
-// Incluir funciones necesarias
-require_once '../../modelos/php/conexion.php';
-require_once '../../vendor/autoload.php'; // Para PHPMailer
 
 $logFile = __DIR__ . '/../../logs/cotizaciones_pendientes.log';
 

@@ -6,8 +6,12 @@
  * Propósito: Retornar datos del perfil del usuario autenticado
  */
 
+require_once '../../modelos/php/database.php';
+
 header('Content-Type: application/json; charset=utf-8');
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Archivo de log
 $logFile = __DIR__ . '/../../logs/perfil_obtener.log';
@@ -53,13 +57,8 @@ try {
     escribirLog("Intentando conectar a la base de datos...");
 
     // Conexión directa con PDO
-    escribirLog("Usando conexión PDO directa");
-    $pdo = new PDO(
-        'mysql:host=localhost;dbname=totalcarbon;charset=utf8',
-        'root',
-        '',
-        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
-    );
+    escribirLog("Usando conexión PDO centralizada");
+    $pdo = getPDO();
 
 
     escribirLog("Conexión exitosa. Preparando query...");

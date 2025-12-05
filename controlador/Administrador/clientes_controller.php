@@ -4,14 +4,11 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
-require_once '../../modelos/php/conexion.php';
+require_once '../../modelos/php/database.php';
 
 function getClientes($order = 'desc') {
     try {
-        $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
-        if ($conexion->connect_error) {
-            return ['success' => false, 'error' => 'Connection failed: ' . $conexion->connect_error];
-        }
+        $conexion = getConexion();
 
         $orderBy = $order === 'asc' ? 'creado_en ASC' : 'creado_en DESC';
         $query = "SELECT * FROM usuarios WHERE id_rol = 2 ORDER BY $orderBy";
@@ -36,10 +33,7 @@ function getClientes($order = 'desc') {
 
 function getCliente($id) {
     try {
-        $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
-        if ($conexion->connect_error) {
-            return ['success' => false, 'error' => 'Connection failed: ' . $conexion->connect_error];
-        }
+        $conexion = getConexion();
 
         $query = "SELECT * FROM usuarios WHERE id_usuario = ? AND id_rol = 2";
         $stmt = $conexion->prepare($query);
@@ -62,10 +56,7 @@ function getCliente($id) {
 
 function getServiciosCliente($id_cliente) {
     try {
-        $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
-        if ($conexion->connect_error) {
-            return ['success' => false, 'error' => 'Connection failed: ' . $conexion->connect_error];
-        }
+        $conexion = getConexion();
 
         $query = "SELECT cc.*, GROUP_CONCAT(ci.ruta_imagen) as imagenes FROM cotizaciones_cliente cc LEFT JOIN cotizacion_imagenes_cliente ci ON cc.id_cotizacion = ci.id_cotizacion WHERE cc.id_usuario = ? GROUP BY cc.id_cotizacion ORDER BY cc.creado_en DESC";
         $stmt = $conexion->prepare($query);
@@ -92,10 +83,7 @@ function getServiciosCliente($id_cliente) {
 
 function createCliente($data) {
     try {
-        $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
-        if ($conexion->connect_error) {
-            return ['success' => false, 'error' => 'Connection failed: ' . $conexion->connect_error];
-        }
+        $conexion = getConexion();
 
         // Generar código secuencial para el usuario
         $queryMax = "SELECT MAX(CAST(SUBSTRING(codigo_usuario, 3) AS UNSIGNED)) as max_num FROM usuarios WHERE codigo_usuario LIKE 'TC%'";
@@ -135,10 +123,7 @@ function createCliente($data) {
 
 function updateCliente($id, $data) {
     try {
-        $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
-        if ($conexion->connect_error) {
-            return ['success' => false, 'error' => 'Connection failed: ' . $conexion->connect_error];
-        }
+        $conexion = getConexion();
 
         // Si se proporciona contraseña, encriptarla
         $updateFields = "nombres = ?, apellidos = ?, correo_electronico = ?, numero_telefono = ?, direccion = ?, ciudad = ?, estado = ?, estado_usuario = ?, actualizado_en = NOW()";
@@ -178,10 +163,7 @@ function updateCliente($id, $data) {
 
 function deleteCliente($id) {
     try {
-        $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
-        if ($conexion->connect_error) {
-            return ['success' => false, 'error' => 'Connection failed: ' . $conexion->connect_error];
-        }
+        $conexion = getConexion();
 
         // Verificar si el cliente tiene servicios asociados
         $checkQuery = "SELECT COUNT(*) as count FROM cotizaciones_cliente WHERE id_usuario = ?";

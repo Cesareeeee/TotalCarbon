@@ -4,14 +4,11 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
-require_once '../../modelos/php/conexion.php';
+require_once '../../modelos/php/database.php';
 
 function getPiezas() {
     try {
-        $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
-        if ($conexion->connect_error) {
-            return ['success' => false, 'error' => 'Connection failed: ' . $conexion->connect_error];
-        }
+        $conexion = getConexion();
 
         $query = "SELECT pm.*, p.nombre_proveedor, cc.nombre_completo as cliente
                   FROM piezas_movimientos pm
@@ -39,10 +36,7 @@ function getPiezas() {
 
 function getPieza($id) {
     try {
-        $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
-        if ($conexion->connect_error) {
-            return ['success' => false, 'error' => 'Connection failed: ' . $conexion->connect_error];
-        }
+        $conexion = getConexion();
 
         $query = "SELECT pm.*, p.nombre_proveedor, cc.nombre_completo as cliente
                   FROM piezas_movimientos pm
@@ -74,10 +68,7 @@ function createPieza($data) {
             return ['success' => false, 'error' => 'Proveedor es requerido cuando el tipo es Recibida o Entregada.'];
         }
 
-        $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
-        if ($conexion->connect_error) {
-            return ['success' => false, 'error' => 'Connection failed: ' . $conexion->connect_error];
-        }
+        $conexion = getConexion();
 
         $query = "INSERT INTO piezas_movimientos (tipo, nombre_pieza, codigo_pieza, cantidad, proveedor_id, nota) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $conexion->prepare($query);
@@ -113,10 +104,7 @@ function updatePieza($id, $data) {
             return ['success' => false, 'error' => 'Proveedor es requerido cuando el tipo es Recibida o Entregada.'];
         }
 
-        $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
-        if ($conexion->connect_error) {
-            return ['success' => false, 'error' => 'Connection failed: ' . $conexion->connect_error];
-        }
+        $conexion = getConexion();
 
         $query = "UPDATE piezas_movimientos SET tipo = ?, nombre_pieza = ?, codigo_pieza = ?, cantidad = ?, proveedor_id = ?, nota = ? WHERE id_movimiento = ?";
         $stmt = $conexion->prepare($query);
@@ -146,10 +134,7 @@ function updatePieza($id, $data) {
 
 function deletePieza($id) {
     try {
-        $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
-        if ($conexion->connect_error) {
-            return ['success' => false, 'error' => 'Connection failed: ' . $conexion->connect_error];
-        }
+        $conexion = getConexion();
 
         $query = "DELETE FROM piezas_movimientos WHERE id_movimiento = ?";
         $stmt = $conexion->prepare($query);

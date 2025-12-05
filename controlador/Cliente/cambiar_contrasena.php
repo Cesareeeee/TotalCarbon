@@ -9,7 +9,7 @@
 header('Content-Type: application/json; charset=utf-8');
 session_start();
 
-require_once __DIR__ . '/../../modelos/php/conexion.php';
+require_once __DIR__ . '/../../modelos/php/database.php';
 
 // Archivo de log
 $logFile = __DIR__ . '/../../logs/cambiar_contrasena.log';
@@ -72,13 +72,8 @@ try {
     escribirLog("Conectando a la base de datos...");
 
     // Conexión directa con PDO
-    escribirLog("Usando conexión PDO directa");
-    $pdo = new PDO(
-        'mysql:host=localhost;dbname=totalcarbon;charset=utf8',
-        'root',
-        '',
-        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
-    );
+    escribirLog("Usando conexión PDO centralizada");
+    $pdo = getPDO();
 
     escribirLog("Conexión exitosa. Obteniendo contraseña actual...");
 

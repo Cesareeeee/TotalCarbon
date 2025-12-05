@@ -6,8 +6,12 @@
  * Propósito: Retornar notificaciones no vistas del administrador
  */
 
+require_once '../../modelos/php/database.php';
+
 header('Content-Type: application/json; charset=utf-8');
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Archivo de log
 $logFile = __DIR__ . '/../../logs/notificaciones_admin.log';
@@ -55,13 +59,8 @@ $ultimaVerificacion = isset($_GET['ultima_verificacion']) ? $_GET['ultima_verifi
 try {
     escribirLog("Conectando a la base de datos...");
 
-    // Conexión directa con PDO
-    $pdo = new PDO(
-        'mysql:host=localhost;dbname=totalcarbon;charset=utf8',
-        'root',
-        '',
-        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
-    );
+    // Usando conexión PDO centralizada
+    $pdo = getPDO();
 
     escribirLog("Conexión exitosa. Buscando notificaciones desde: $ultimaVerificacion");
 

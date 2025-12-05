@@ -4,14 +4,11 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
-require_once '../../modelos/php/conexion.php';
+require_once '../../modelos/php/database.php';
 
 function getConversaciones() {
     try {
-        $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
-        if ($conexion->connect_error) {
-            return ['success' => false, 'error' => 'Connection failed: ' . $conexion->connect_error];
-        }
+        $conexion = getConexion();
 
         // Obtener todos los clientes con el último mensaje si existe
         $query = "SELECT
@@ -49,10 +46,7 @@ function getConversaciones() {
 
 function getMensajesConversacion($id_cliente) {
     try {
-        $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
-        if ($conexion->connect_error) {
-            return ['success' => false, 'error' => 'Connection failed: ' . $conexion->connect_error];
-        }
+        $conexion = getConexion();
 
         // Marcar mensajes como leídos
         $updateQuery = "UPDATE chat_mensajes SET leido = 1 WHERE id_emisor = ? AND id_receptor = 1 AND leido = 0";
@@ -93,10 +87,7 @@ function getMensajesConversacion($id_cliente) {
 
 function enviarMensaje($id_cliente, $mensaje) {
     try {
-        $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
-        if ($conexion->connect_error) {
-            return ['success' => false, 'error' => 'Connection failed: ' . $conexion->connect_error];
-        }
+        $conexion = getConexion();
 
         $query = "INSERT INTO chat_mensajes (id_emisor, id_receptor, mensaje, leido) VALUES (1, ?, ?, 0)";
         $stmt = $conexion->prepare($query);
@@ -120,10 +111,7 @@ function enviarMensaje($id_cliente, $mensaje) {
 
 function getClientes() {
     try {
-        $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
-        if ($conexion->connect_error) {
-            return ['success' => false, 'error' => 'Connection failed: ' . $conexion->connect_error];
-        }
+        $conexion = getConexion();
 
         // Obtener todos los clientes registrados
         $query = "SELECT id_usuario, nombres, apellidos, correo_electronico, estado_usuario
@@ -151,10 +139,7 @@ function getClientes() {
 
 function getNotificaciones() {
     try {
-        $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
-        if ($conexion->connect_error) {
-            return ['success' => false, 'error' => 'Connection failed: ' . $conexion->connect_error];
-        }
+        $conexion = getConexion();
 
         // Mensajes no leídos
         $mensajesQuery = "SELECT COUNT(*) as total FROM chat_mensajes WHERE id_receptor = 1 AND leido = 0";
@@ -180,10 +165,7 @@ function getNotificaciones() {
 
 function borrarConversacion($id_cliente) {
     try {
-        $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
-        if ($conexion->connect_error) {
-            return ['success' => false, 'error' => 'Connection failed: ' . $conexion->connect_error];
-        }
+        $conexion = getConexion();
 
         $query = "DELETE FROM chat_mensajes WHERE (id_emisor = ? AND id_receptor = 1) OR (id_emisor = 1 AND id_receptor = ?)";
         $stmt = $conexion->prepare($query);

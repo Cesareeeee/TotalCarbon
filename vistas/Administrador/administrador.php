@@ -170,7 +170,7 @@ if (!isset($_SESSION['id_usuario']) || obtenerNombreRol($_SESSION['id_rol']) !==
                         <p>Total de Cotizaciones</p>
                     </div>
                 </div>
-                <div class="dashboard-card"  style="cursor: pointer;">
+                <div class="dashboard-card"  onclick="showSection('cotizaciones-pendientes')" style="cursor: pointer;">
                     <div class="card-icon">
                         <i class="fas fa-clock"></i>
                     </div>

@@ -4,14 +4,11 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
-require_once '../../modelos/php/conexion.php';
+require_once '../../modelos/php/database.php';
 
 function getGarantias() {
     try {
-        $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
-        if ($conexion->connect_error) {
-            return ['success' => false, 'error' => 'Connection failed: ' . $conexion->connect_error];
-        }
+        $conexion = getConexion();
 
         $query = "SELECT g.*, c.nombre_completo, c.marca_bicicleta, c.modelo_bicicleta, c.zona_afectada, u.nombres, u.apellidos
                   FROM garantias_bicicletas g
@@ -39,7 +36,7 @@ function getGarantias() {
 
 function getGarantia($id) {
     try {
-        $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
+        $conexion = getConexion();
         if ($conexion->connect_error) {
             return ['success' => false, 'error' => 'Connection failed: ' . $conexion->connect_error];
         }
@@ -69,10 +66,7 @@ function getGarantia($id) {
 
 function getServiciosCompletados() {
     try {
-        $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
-        if ($conexion->connect_error) {
-            return ['success' => false, 'error' => 'Connection failed: ' . $conexion->connect_error];
-        }
+        $conexion = getConexion();
 
         $query = "SELECT c.id_cotizacion, c.nombre_completo, c.marca_bicicleta, c.modelo_bicicleta, c.zona_afectada
                   FROM cotizaciones_cliente c
@@ -99,10 +93,7 @@ function getServiciosCompletados() {
 
 function createGarantia($data) {
     try {
-        $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
-        if ($conexion->connect_error) {
-            return ['success' => false, 'error' => 'Connection failed: ' . $conexion->connect_error];
-        }
+        $conexion = getConexion();
 
         // Get user ID from cotizacion
         $query_user = "SELECT id_usuario FROM cotizaciones_cliente WHERE id_cotizacion = ?";
@@ -145,10 +136,7 @@ function createGarantia($data) {
 
 function updateGarantia($id, $data) {
     try {
-        $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
-        if ($conexion->connect_error) {
-            return ['success' => false, 'error' => 'Connection failed: ' . $conexion->connect_error];
-        }
+        $conexion = getConexion();
 
         $query = "UPDATE garantias_bicicletas SET tipo_garantia = ?, cobertura = ?, fecha_inicio = ?, fecha_fin = ?, estado = ? WHERE id_garantia = ?";
         $stmt = $conexion->prepare($query);
@@ -176,10 +164,7 @@ function updateGarantia($id, $data) {
 
 function updateGarantiaEstado($id, $estado) {
     try {
-        $conexion = new mysqli('localhost', 'root', '', 'totalcarbon');
-        if ($conexion->connect_error) {
-            return ['success' => false, 'error' => 'Connection failed: ' . $conexion->connect_error];
-        }
+        $conexion = getConexion();
 
         $query = "UPDATE garantias_bicicletas SET estado = ? WHERE id_garantia = ?";
         $stmt = $conexion->prepare($query);

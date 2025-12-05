@@ -4,19 +4,16 @@ namespace ModeloCliente;
 use PDO;
 use PDOException;
 
+require_once __DIR__ . '/../database.php';
+
 class CotizacionCliente
 {
     private PDO $db;
 
     public function __construct()
     {
-        // Conexión directa con PDO
-        $this->db = new PDO(
-            'mysql:host=localhost;dbname=totalcarbon;charset=utf8',
-            'root',
-            '',
-            [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
-        );
+        // Usar conexión PDO centralizada
+        $this->db = getPDO();
     }
 
     public function crearCotizacion(array $datos, array $archivos, ?int $idUsuario = null): array

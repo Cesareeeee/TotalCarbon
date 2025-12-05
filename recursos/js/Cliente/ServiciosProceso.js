@@ -267,8 +267,10 @@ function crearSeccionServicios(titulo, servicios, icono) {
         </h4>
         <div class="servicios-grid">`;
 
-    servicios.forEach((servicio, indice) => {
+    servicios.forEach((servicio) => {
         const estadoClase = `estado-${servicio.estado.toLowerCase().replace(/[^a-z0-9]/g, '-')}`;
+        // Encontrar el índice global en serviciosActuales
+        const indiceGlobal = serviciosActuales.findIndex(s => s.id_cotizacion === servicio.id_cotizacion);
         html += `
             <div class="tarjeta-servicio">
                 <div class="tarjeta-encabezado">
@@ -289,7 +291,7 @@ function crearSeccionServicios(titulo, servicios, icono) {
                     <p class="tarjeta-zona"><strong>Zona afectada:</strong> ${servicio.zona_afectada}</p>
                 </div>
                 <div class="tarjeta-pie">
-                    <button class="btn btn-primary btn-sm" onclick="verDetallesServicio(${servicios.indexOf(servicio)})">
+                    <button class="btn btn-primary btn-sm" onclick="verDetallesServicio(${indiceGlobal})">
                         <i class="fas fa-eye"></i> Ver Detalles
                     </button>
                 </div>

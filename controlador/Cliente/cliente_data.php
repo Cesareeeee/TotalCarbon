@@ -2,7 +2,7 @@
 session_start();
 header('Content-Type: application/json');
 
-require_once __DIR__ . '/../../modelos/php/conexion.php';
+require_once __DIR__ . '/../../modelos/php/database.php';
 
 if (!isset($_SESSION['id_usuario'])) {
     http_response_code(401);

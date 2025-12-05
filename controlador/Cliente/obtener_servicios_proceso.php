@@ -6,8 +6,12 @@
  * Propósito: Retornar todos los servicios en proceso del usuario autenticado
  */
 
+require_once '../../modelos/php/database.php';
+
 header('Content-Type: application/json; charset=utf-8');
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Archivo de log
 $archivoLog = __DIR__ . '/../../logs/servicios_proceso.log';
@@ -52,13 +56,8 @@ escribirLog("ID Usuario: $idUsuario");
 try {
     escribirLog("Conectando a la base de datos...");
     
-    // Conexión directa con PDO
-    $conexion = new PDO(
-        'mysql:host=localhost;dbname=totalcarbon;charset=utf8',
-        'root',
-        '',
-        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
-    );
+    // Usando conexión PDO centralizada
+    $conexion = getPDO();
     
     escribirLog("Conexión exitosa. Preparando consulta...");
     

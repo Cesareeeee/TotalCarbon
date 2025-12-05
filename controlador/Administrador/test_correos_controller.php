@@ -10,7 +10,7 @@ if (ob_get_level()) {
 require __DIR__ . '/../../vendor/autoload.php';
 
 // Incluir archivo de conexión
-require_once '../../modelos/php/conexion.php';
+require_once '../../modelos/php/database.php';
 
 // Establecer encabezado JSON ANTES de cualquier salida
 header('Content-Type: application/json; charset=utf-8');
@@ -101,7 +101,7 @@ function enviarCorreoCredenciales($correo, $codigo_usuario, $contrasena) {
 
 function registrarUsuarioTest($email) {
     try {
-        global $conexion;
+        $conexion = getConexion();
 
         // Verificar si el email ya existe usando la función existente
         if (correoExiste($email)) {
