@@ -14,7 +14,7 @@ function getMensajesCliente($id_cliente) {
                       END as tipo_remitente
                FROM chat_mensajes m
                LEFT JOIN usuarios u ON m.id_emisor = u.id_usuario
-               WHERE (m.id_emisor = ? AND m.id_receptor = 13) OR (m.id_emisor = 13 AND m.id_receptor = ?)
+               WHERE (m.id_emisor = ? AND m.id_receptor = 1) OR (m.id_emisor = 1 AND m.id_receptor = ?)
                ORDER BY m.creado_en ASC";
 
     $stmt = $conexion->prepare($query);
@@ -37,7 +37,7 @@ function enviarMensajeCliente($id_cliente, $mensaje) {
         die("Connection failed: " . $conexion->connect_error);
     }
 
-    $query = "INSERT INTO chat_mensajes (id_emisor, id_receptor, mensaje, leido) VALUES (?, 13, ?, 0)";
+    $query = "INSERT INTO chat_mensajes (id_emisor, id_receptor, mensaje, leido) VALUES (?, 1, ?, 0)";
     $stmt = $conexion->prepare($query);
     $stmt->bind_param('is', $id_cliente, $mensaje);
 

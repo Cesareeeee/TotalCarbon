@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 // Proteger ruta: requerir sesión iniciada
 if (!isset($_SESSION['id_usuario'])) {
@@ -30,8 +30,8 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link rel="stylesheet" href="../../recursos/css/Cliente/PaginaCliente.css?v=122232227">
-    <link rel="stylesheet" href="../../recursos/css/Cliente/chat_test_cliente.css?v=132222226">
+    <link rel="stylesheet" href="../../recursos/css/Cliente/PaginaCliente.css?v=1764914498">
+    <link rel="stylesheet" href="../../recursos/css/Cliente/chat_test_cliente.css?v=1764914498">`r`n    \u003clink rel="stylesheet" href="../../recursos/css/Cliente/decision_reparaciones.css?v=1764914498"\u003e
 
     
     <!-- Estilos adicionales para el botón Actualizar (se integran con el proyecto) -->
@@ -777,14 +777,18 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
                         <span><i class="fas fa-wrench me-2"></i>Estado de tus Reparaciones</span>
-                        <div class="filter-controls">
-                            <select id="filtroEstadoServicios" class="form-select form-select-sm" style="width: auto;">
+                        <div class="filter-controls" style="transform: translateX(-75px);">
+                            <input type="text" id="buscadorBicicleta" class="form-control form-control-sm" placeholder="🔍 Buscar por nombre de bicicleta..." style="width: 220px; display: inline-block; margin-right: 10px; border: 2px solid #007bff; border-radius: 8px; padding: 6px 12px; font-weight: 500; box-shadow: 0 2px 4px rgba(0,123,255,0.1);">
+                            <select id="filtroEstadoServicios" class="form-select form-select-sm" style="width: auto; border: 2px solid #007bff; border-radius: 8px; font-weight: 500; box-shadow: 0 2px 4px rgba(0,123,255,0.1);">
                                 <option value="todos">Todos los Estados</option>
-                                <option value="PENDIENTE">Pendiente</option>
-                                <option value="APROBADA">Aprobada</option>
+                                <option value="PENDIENTE">Paso 1: Cotización Enviada</option>
+                                <option value="APROBADA">Paso 2: Aceptada</option>
+                                <option value="EN_PROCESO">Paso 3: Reparación Iniciada</option>
+                                <option value="PINTURA">Paso 4: Pintura</option>
+                                <option value="EMPACADO">Paso 5: Empacado</option>
+                                <option value="ENVIADO">Paso 6: Enviado</option>
+                                <option value="COMPLETADO">Paso 7: Completado</option>
                                 <option value="RECHAZADA">Rechazada</option>
-                                <option value="EN_PROCESO">En Proceso</option>
-                                <option value="COMPLETADO">Completado</option>
                             </select>
                         </div>
                     </div>
@@ -826,14 +830,7 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
                     <div class="d-flex justify-content-between align-items-center">
                         <span><i class="fas fa-file-alt me-2"></i>Fichas Técnicas - Historial de Trabajos</span>
                         <div class="filter-controls">
-                            <select id="filtroEstadoFichas" class="form-select form-select-sm" style="width: auto;">
-                                <option value="todos">Todos los Estados</option>
-                                <option value="PENDIENTE">Pendiente</option>
-                                <option value="APROBADA">Aprobada</option>
-                                <option value="RECHAZADA">Rechazada</option>
-                                <option value="EN_PROCESO">En Proceso</option>
-                                <option value="COMPLETADO">Completado</option>
-                            </select>
+                            <input type="text" id="buscadorBicicletaFichas" class="form-control form-control-sm" placeholder="🔍 Buscar por nombre de bicicleta..." style="width: 250px; border: 2px solid #007bff; border-radius: 8px; padding: 6px 12px; font-weight: 500; box-shadow: 0 2px 4px rgba(0,123,255,0.1);">
                         </div>
                     </div>
                 </div>
@@ -1205,10 +1202,10 @@ $nombreCompleto = trim($usuarioNombre . ' ' . $usuarioApellidos);
     <link rel="stylesheet" href="../../recursos/css/Cliente/ServiciosProceso.css?v=NOTIFICATIONS_RED_DOTS_FINAL_2025_V122">
     <!-- Scripts -->
 
-    <script src="../../recursos/js/Cliente/PaginaCliente.js?v=1733116002"></script>
-    <script src="../../recursos/js/Cliente/FichasTecnicas.js?v=999"></script>
-    <script src="../../recursos/js/Cliente/ServiciosProceso.js?V=1732762738"></script>
-    <script src="../../recursos/js/Cliente/chat_test_cliente.js?v=1732762739"></script>
+    <script src="../../recursos/js/Cliente/PaginaCliente.js?v=1733378090"></script>
+    <script src="../../recursos/js/Cliente/FichasTecnicas.js?v=1733378090"></script>
+    <script src="../../recursos/js/Cliente/ServiciosProceso.js?v=1764915055"></script>
+    <script src="../../recursos/js/Cliente/chat_test_cliente.js?v=1733378090"></script>
 
     <!-- Script para manejar usuarios nuevos -->
     <script>

@@ -13,6 +13,7 @@ if (!isset($_SESSION['id_usuario']) || obtenerNombreRol($_SESSION['id_rol']) !==
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil - TotalCarbon</title>
+    <link rel="icon" href="../../recursos/img/image.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="../../recursos/css/Administrador/administrador.css?v=3453333334">
@@ -32,7 +33,7 @@ if (!isset($_SESSION['id_usuario']) || obtenerNombreRol($_SESSION['id_rol']) !==
         <div class="top-bar-right">
             <div class="notification-bell">
                 <i class="fas fa-bell"></i>
-                <span class="notification-badge">3</span>
+                <span class="notification-badge"></span>
             </div>
             <div class="profile-icon" onclick="window.location.href='perfil_administrador.php'">
                 <i class="fas fa-user"></i>

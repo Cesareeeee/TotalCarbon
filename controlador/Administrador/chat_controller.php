@@ -21,13 +21,13 @@ function getConversaciones() {
                     u.correo_electronico,
                     u.numero_telefono,
                     u.estado_usuario,
-                    (SELECT mensaje FROM chat_mensajes WHERE (id_emisor = u.id_usuario AND id_receptor = 13) OR (id_emisor = 13 AND id_receptor = u.id_usuario) ORDER BY creado_en DESC LIMIT 1) as ultimo_mensaje,
-                    (SELECT creado_en FROM chat_mensajes WHERE (id_emisor = u.id_usuario AND id_receptor = 13) OR (id_emisor = 13 AND id_receptor = u.id_usuario) ORDER BY creado_en DESC LIMIT 1) as ultimo_mensaje_fecha,
-                    (SELECT leido FROM chat_mensajes WHERE (id_emisor = u.id_usuario AND id_receptor = 13) OR (id_emisor = 13 AND id_receptor = u.id_usuario) ORDER BY creado_en DESC LIMIT 1) as leido,
-                    (SELECT COUNT(*) FROM chat_mensajes WHERE id_emisor = u.id_usuario AND id_receptor = 13 AND leido = 0) as mensajes_no_leidos
+                    (SELECT mensaje FROM chat_mensajes WHERE (id_emisor = u.id_usuario AND id_receptor = 1) OR (id_emisor = 1 AND id_receptor = u.id_usuario) ORDER BY creado_en DESC LIMIT 1) as ultimo_mensaje,
+                    (SELECT creado_en FROM chat_mensajes WHERE (id_emisor = u.id_usuario AND id_receptor = 1) OR (id_emisor = 1 AND id_receptor = u.id_usuario) ORDER BY creado_en DESC LIMIT 1) as ultimo_mensaje_fecha,
+                    (SELECT leido FROM chat_mensajes WHERE (id_emisor = u.id_usuario AND id_receptor = 1) OR (id_emisor = 1 AND id_receptor = u.id_usuario) ORDER BY creado_en DESC LIMIT 1) as leido,
+                    (SELECT COUNT(*) FROM chat_mensajes WHERE id_emisor = u.id_usuario AND id_receptor = 1 AND leido = 0) as mensajes_no_leidos
                   FROM usuarios u
                   WHERE u.id_rol = 2 AND u.estado_usuario = 1
-                  ORDER BY COALESCE((SELECT creado_en FROM chat_mensajes WHERE (id_emisor = u.id_usuario AND id_receptor = 13) OR (id_emisor = 13 AND id_receptor = u.id_usuario) ORDER BY creado_en DESC LIMIT 1), '1970-01-01') DESC";
+                  ORDER BY COALESCE((SELECT creado_en FROM chat_mensajes WHERE (id_emisor = u.id_usuario AND id_receptor = 1) OR (id_emisor = 1 AND id_receptor = u.id_usuario) ORDER BY creado_en DESC LIMIT 1), '1970-01-01') DESC";
 
         $result = $conexion->query($query);
         if (!$result) {
@@ -55,7 +55,7 @@ function getMensajesConversacion($id_cliente) {
         }
 
         // Marcar mensajes como leídos
-        $updateQuery = "UPDATE chat_mensajes SET leido = 1 WHERE id_emisor = ? AND id_receptor = 13 AND leido = 0";
+        $updateQuery = "UPDATE chat_mensajes SET leido = 1 WHERE id_emisor = ? AND id_receptor = 1 AND leido = 0";
         $updateStmt = $conexion->prepare($updateQuery);
         $updateStmt->bind_param('i', $id_cliente);
         $updateStmt->execute();
@@ -68,10 +68,10 @@ function getMensajesConversacion($id_cliente) {
                     m.leido,
                     u.nombres,
                     u.apellidos,
-                    CASE WHEN m.id_emisor = 13 THEN 'admin' ELSE 'cliente' END as tipo_remitente
+                    CASE WHEN m.id_emisor = 1 THEN 'admin' ELSE 'cliente' END as tipo_remitente
                   FROM chat_mensajes m
                   JOIN usuarios u ON u.id_usuario = m.id_emisor
-                  WHERE (m.id_emisor = ? AND m.id_receptor = 13) OR (m.id_emisor = 13 AND m.id_receptor = ?)
+                  WHERE (m.id_emisor = ? AND m.id_receptor = 1) OR (m.id_emisor = 1 AND m.id_receptor = ?)
                   ORDER BY m.creado_en ASC";
 
         $stmt = $conexion->prepare($query);
@@ -98,7 +98,7 @@ function enviarMensaje($id_cliente, $mensaje) {
             return ['success' => false, 'error' => 'Connection failed: ' . $conexion->connect_error];
         }
 
-        $query = "INSERT INTO chat_mensajes (id_emisor, id_receptor, mensaje, leido) VALUES (13, ?, ?, 0)";
+        $query = "INSERT INTO chat_mensajes (id_emisor, id_receptor, mensaje, leido) VALUES (1, ?, ?, 0)";
         $stmt = $conexion->prepare($query);
         $stmt->bind_param('is', $id_cliente, $mensaje);
 
@@ -157,7 +157,7 @@ function getNotificaciones() {
         }
 
         // Mensajes no leídos
-        $mensajesQuery = "SELECT COUNT(*) as total FROM chat_mensajes WHERE id_receptor = 13 AND leido = 0";
+        $mensajesQuery = "SELECT COUNT(*) as total FROM chat_mensajes WHERE id_receptor = 1 AND leido = 0";
         $mensajesResult = $conexion->query($mensajesQuery);
         $mensajesNoLeidos = $mensajesResult->fetch_assoc()['total'];
 
@@ -185,7 +185,7 @@ function borrarConversacion($id_cliente) {
             return ['success' => false, 'error' => 'Connection failed: ' . $conexion->connect_error];
         }
 
-        $query = "DELETE FROM chat_mensajes WHERE (id_emisor = ? AND id_receptor = 13) OR (id_emisor = 13 AND id_receptor = ?)";
+        $query = "DELETE FROM chat_mensajes WHERE (id_emisor = ? AND id_receptor = 1) OR (id_emisor = 1 AND id_receptor = ?)";
         $stmt = $conexion->prepare($query);
         $stmt->bind_param('ii', $id_cliente, $id_cliente);
 

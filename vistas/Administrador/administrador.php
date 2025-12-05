@@ -15,13 +15,14 @@ if (!isset($_SESSION['id_usuario']) || obtenerNombreRol($_SESSION['id_rol']) !==
     <title>TotalCarbon - Gestión de Clientes</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link rel="stylesheet" href="../../recursos/css/Administrador/administrador.css?v=<?php echo time(); ?>">
-    <link rel="stylesheet" href="../../recursos/css/Administrador/cotizaciones_admin.css?v=<?php echo time(); ?>">
-    <link rel="stylesheet" href="../../recursos/css/Administrador/nuevo_servicio.css?v=<?php echo time(); ?>">
-    <link rel="stylesheet" href="../../recursos/css/Administrador/piezas_custom.css?v=<?php echo time(); ?>">
-    <link rel="stylesheet" href="../../recursos/css/Administrador/proveedores_custom.css?v=<?php echo time(); ?>">
-    <link rel="stylesheet" href="../../recursos/css/Administrador/garantias_custom.css?v=<?php echo time(); ?>"
-    <link rel="icon" href="../../presentacion/assets/image.png">
+    <link rel="stylesheet" href="../../recursos/css/Administrador/administrador.css?v=1733295000">
+    <link rel="stylesheet" href="../../recursos/css/Administrador/cotizaciones_admin.css?v=1733295000">
+    <link rel="stylesheet" href="../../recursos/css/Administrador/nuevo_servicio.css?v=1733295000">
+    <link rel="stylesheet" href="../../recursos/css/Administrador/piezas_custom.css?v=1733295000">
+    <link rel="stylesheet" href="../../recursos/css/Administrador/proveedores_custom.css?v=1733295000">
+    <link rel="stylesheet" href="../../recursos/css/Administrador/garantias_custom.css?v=1733295000">
+    <link rel="stylesheet" href="../../recursos/css/Administrador/notificaciones_admin.css?v=1764910181">
+    <link rel="icon" href="../../recursos/img/image.png">
 </head>
 <body>
     <!-- Top Bar -->
@@ -39,9 +40,9 @@ if (!isset($_SESSION['id_usuario']) || obtenerNombreRol($_SESSION['id_rol']) !==
             </div>
         </div>
         <div class="top-bar-right">
-            <div class="notification-bell">
+            <div class="notification-bell" id="notificationBell">
                 <i class="fas fa-bell"></i>
-                <span class="notification-badge">3</span>
+                <span class="notification-badge"></span>
             </div>
             <div class="profile-icon" onclick="window.location.href='perfil_administrador.php'">
                 <i class="fas fa-user"></i>
@@ -160,13 +161,22 @@ if (!isset($_SESSION['id_usuario']) || obtenerNombreRol($_SESSION['id_rol']) !==
                         <p>Total de Clientes</p>
                     </div>
                 </div>
-                <div class="dashboard-card">
+                <div class="dashboard-card" onclick="showSection('cotizaciones-pendientes')" style="cursor: pointer;">
                     <div class="card-icon">
                         <i class="fas fa-file-alt"></i>
                     </div>
                     <div class="card-content">
                         <h3 id="totalCotizaciones">0</h3>
                         <p>Total de Cotizaciones</p>
+                    </div>
+                </div>
+                <div class="dashboard-card"  style="cursor: pointer;">
+                    <div class="card-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3 id="cotizacionesPendientes">0</h3>
+                        <p>Cotizaciones Pendientes</p>
                     </div>
                 </div>
                 <div class="dashboard-card">
@@ -196,13 +206,22 @@ if (!isset($_SESSION['id_usuario']) || obtenerNombreRol($_SESSION['id_rol']) !==
                         <p>Total de Proveedores</p>
                     </div>
                 </div>
-                <div class="dashboard-card">
+                <div class="dashboard-card" onclick="showSection('chat')" style="cursor: pointer;">
                     <div class="card-icon">
                         <i class="fas fa-envelope"></i>
                     </div>
                     <div class="card-content">
                         <h3 id="mensajesSinLeer">0</h3>
                         <p>Mensajes Sin Leer</p>
+                    </div>
+                </div>
+                <div class="dashboard-card" onclick="showSection('cotizaciones')" style="cursor: pointer;">
+                    <div class="card-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3 id="serviciosPendientes">0</h3>
+                        <p>Servicios Pendientes</p>
                     </div>
                 </div>
             </div>
@@ -396,14 +415,13 @@ if (!isset($_SESSION['id_usuario']) || obtenerNombreRol($_SESSION['id_rol']) !==
                 </div>
                 <select id="estadoFiltroCotizaciones" class="filter-select" onchange="filtrarCotizacionesPorEstado()">
                     <option value="todos">Todos los Estados</option>
-                    <option value="PENDIENTE">Pendientes</option>
+                    <option value="PENDIENTE" selected>Pendientes</option>
                     <option value="APROBADA">Aprobadas</option>
                     <option value="RECHAZADA">Rechazadas</option>
                     <option value="EN_PROCESO">En Proceso</option>
                     <option value="COMPLETADO">Completadas</option>
-                    <option value="COTIZACIÓN ENVIADA">Cotización Enviada</option>
-                    <option value="ACEPTADA">Aceptada</option>
-                    <option value="REPARACIÓN INICIADA">Reparación Iniciada</option>
+                    <option value="APROBADA">Aprobada</option>
+                    <option value="EN_PROCESO">Reparación Iniciada</option>
                     <option value="PINTURA">Pintura</option>
                     <option value="EMPACADO">Empacado</option>
                     <option value="ENVIADO">Enviado</option>
@@ -1469,6 +1487,78 @@ if (!isset($_SESSION['id_usuario']) || obtenerNombreRol($_SESSION['id_rol']) !==
         </div>
     </div>
 
+    <!-- Nueva Garantía Modal (para cotizaciones completadas) -->
+    <div class="garantias-modal" id="nuevaGarantiaModalCotizacion">
+        <div class="garantias-modal-content">
+            <div class="garantias-modal-header">
+                <h3 class="garantias-modal-title">Agrega Nueva Garantía</h3>
+                <button class="garantias-modal-close" onclick="closeNuevaGarantiaModalCotizacion()">&times;</button>
+            </div>
+            <div class="garantias-modal-body">
+                <form id="nuevaGarantiaFormCotizacion">
+                    <input type="hidden" id="id_cotizacion_garantia_cot">
+                    <div class="garantias-form-row">
+                        <div class="garantias-form-group full-width">
+                            <label>Servicio Completado *</label>
+                            <p id="servicioCompletadoText" style="padding: 12px; background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 8px; margin: 0;"></p>
+                        </div>
+                    </div>
+                    <div class="garantias-form-row">
+                        <div class="garantias-form-group">
+                            <label for="tipo_garantia_cot">Tipo de Garantía *</label>
+                            <select id="tipo_garantia_cot" class="garantias-form-control" required>
+                                <option value="">Seleccionar tipo</option>
+                                <option value="ESTANDAR">Estándar</option>
+                                <option value="EXTENDIDA">Extendida</option>
+                                <option value="PREMIUM">Premium</option>
+                            </select>
+                            <span class="garantias-error-message"></span>
+                        </div>
+                        <div class="garantias-form-group">
+                            <label for="duracion_garantia_cot">Duración *</label>
+                            <select id="duracion_garantia_cot" class="garantias-form-control" onchange="calcularFechaFinCotizacion()" required>
+                                <option value="">Seleccionar duración</option>
+                                <option value="1_mes">1 Mes</option>
+                                <option value="3_meses">3 Meses</option>
+                                <option value="6_meses">6 Meses</option>
+                                <option value="1_año">1 Año</option>
+                                <option value="2_años">2 Años</option>
+                                <option value="3_años">3 Años</option>
+                            </select>
+                            <span class="garantias-error-message"></span>
+                        </div>
+                    </div>
+                    <div class="garantias-form-row">
+                        <div class="garantias-form-group">
+                            <label for="cobertura_cot">Cobertura *</label>
+                            <textarea id="cobertura_cot" class="garantias-form-control" placeholder="Descripción detallada de la cobertura de la garantía" rows="3" required></textarea>
+                            <span class="garantias-error-message"></span>
+                        </div>
+                    </div>
+                    <div class="garantias-form-row">
+                        <div class="garantias-form-group">
+                            <label for="fecha_inicio_cot">Fecha de Inicio *</label>
+                            <input type="date" id="fecha_inicio_cot" class="garantias-form-control" onchange="calcularFechaFinCotizacion()" required>
+                            <span class="garantias-error-message"></span>
+                        </div>
+                        <div class="garantias-form-group">
+                            <label for="fecha_fin_cot">Fecha de Fin *</label>
+                            <input type="date" id="fecha_fin_cot" class="garantias-form-control" required>
+                            <span class="garantias-error-message"></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="garantias-modal-footer">
+                <button type="button" class="garantias-btn garantias-btn-outline" onclick="closeNuevaGarantiaModalCotizacion()">Cancelar</button>
+                <button type="button" class="garantias-btn garantias-btn-primary" onclick="saveNuevaGarantiaCotizacion()">
+                    <i class="fas fa-save"></i>
+                    <span id="nuevaGarantiaSaveBtnCot">Crear Garantía</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -1478,16 +1568,18 @@ if (!isset($_SESSION['id_usuario']) || obtenerNombreRol($_SESSION['id_rol']) !==
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
     <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
-    <script src="../../recursos/js/Administrador/administrador.js?v=<?php echo time(); ?>"></script>
-    <script src="../../recursos/js/Administrador/proveedores.js?v=<?php echo time(); ?>"></script>
-    <script src="../../recursos/js/Administrador/garantias.js?v=<?php echo time(); ?>"></script>
-    <script src="../../recursos/js/Administrador/clientes.js?v=<?php echo time(); ?>"></script>
-    <script src="../../recursos/js/Administrador/cotizaciones_admin.js?v=<?php echo time(); ?>"></script>
-    <script src="../../recursos/js/Administrador/cotizaciones_pendientes.js?v=<?php echo time(); ?>"></script>
-    <script src="../../recursos/js/Administrador/nuevo_servicio.js?v=<?php echo time(); ?>"></script>
-    <script src="../../recursos/js/Administrador/chat.js?v=<?php echo time(); ?>"></script>
-    <script src="../../recursos/js/Administrador/dashboard.js?v=<?php echo time(); ?>"></script>
-    <script src="../../recursos/js/Administrador/piezas.js?v=<?php echo time(); ?>"></script>
+    <script src="../../recursos/js/Administrador/administrador.js?v=1764910403"></script>
+    <script src="../../recursos/js/Administrador/notificaciones_admin.js?v=1764910181"></script>
+    <script src="../../recursos/js/Administrador/proveedores.js?v=1733295000"></script>
+    <script src="../../recursos/js/Administrador/garantias.js?v=1733295000"></script>
+    <script src="../../recursos/js/Administrador/clientes.js?v=1733295000"></script>
+    <script src="../../recursos/js/Administrador/cotizaciones_admin.js?v=1733378570"></script>
+    <script src="../../recursos/js/Cliente/FichasTecnicas.js?v=999"></script>
+    <script src="../../recursos/js/Administrador/cotizaciones_pendientes.js?v=1733295000"></script>
+    <script src="../../recursos/js/Administrador/nuevo_servicio.js?v=1733295000"></script>
+    <script src="../../recursos/js/Administrador/chat.js?v=1733295000"></script>
+    <script src="../../recursos/js/Administrador/dashboard.js?v=17332953333005550"></script>
+    <script src="../../recursos/js/Administrador/piezas.js?v=1733295000"></script>
 
 </body>
 </html>

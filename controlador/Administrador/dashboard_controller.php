@@ -22,7 +22,7 @@ function obtenerEstadisticasDashboard() {
     $estadisticas['total_cotizaciones'] = $result->fetch_assoc()['total'];
 
     // Cotizaciones pendientes
-    $sql = "SELECT COUNT(*) as total FROM cotizaciones_cliente WHERE estado = 'PENDIENTE'";
+    $sql = "SELECT COUNT(*) as total FROM cotizaciones WHERE estado = 'PENDIENTE'";
     $result = $conexion->query($sql);
     $estadisticas['cotizaciones_pendientes'] = $result->fetch_assoc()['total'];
 
@@ -46,8 +46,13 @@ function obtenerEstadisticasDashboard() {
     $result = $conexion->query($sql);
     $estadisticas['total_proveedores'] = $result->fetch_assoc()['total'];
 
+    // Servicios pendientes
+    $sql = "SELECT COUNT(*) as total FROM cotizaciones_cliente WHERE estado = 'PENDIENTE'";
+    $result = $conexion->query($sql);
+    $estadisticas['servicios_pendientes'] = $result->fetch_assoc()['total'];
+
     // Mensajes sin leer
-    $sql = "SELECT COUNT(*) as total FROM chat_mensajes WHERE leido = 0 AND id_receptor = 13";
+    $sql = "SELECT COUNT(*) as total FROM chat_mensajes WHERE leido = 0 AND id_receptor = 1";
     $result = $conexion->query($sql);
     $estadisticas['mensajes_sin_leer'] = $result->fetch_assoc()['total'];
     return $estadisticas;
@@ -243,7 +248,16 @@ function obtenerDistribucionGeografica() {
 function obtenerMensajesSinLeer() {
     global $conexion;
 
-    $sql = "SELECT COUNT(*) as total FROM chat_mensajes WHERE leido = 0 AND id_receptor = 13"; // ID del admin
+    $sql = "SELECT COUNT(*) as total FROM chat_mensajes WHERE leido = 0 AND id_receptor = 1"; // ID del admin
+    $result = $conexion->query($sql);
+
+    return $result->fetch_assoc()['total'] ?? 0;
+}
+
+function obtenerServiciosPendientes() {
+    global $conexion;
+
+    $sql = "SELECT COUNT(*) as total FROM cotizaciones_cliente WHERE estado = 'PENDIENTE'";
     $result = $conexion->query($sql);
 
     return $result->fetch_assoc()['total'] ?? 0;
@@ -437,6 +451,10 @@ try {
             break;
         case 'mensajes_sin_leer':
             $result = obtenerMensajesSinLeer();
+            echo json_encode(['cantidad' => $result]);
+            break;
+        case 'servicios_pendientes':
+            $result = obtenerServiciosPendientes();
             echo json_encode(['cantidad' => $result]);
             break;
         case 'usuarios_por_rol':

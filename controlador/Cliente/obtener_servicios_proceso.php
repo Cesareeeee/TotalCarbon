@@ -76,6 +76,7 @@ try {
                     c.reparacion_aceptada_cliente,
                     c.creado_en,
                     c.actualizado_en,
+                    c.inspeccion_estetica,
                     COUNT(DISTINCT ipr.id_imagen_proceso) as total_imagenes,
                     COUNT(DISTINCT cc.id_comentario) as total_comentarios,
                     COALESCE(MAX(cpp.paso), 0) as paso_maximo
@@ -108,32 +109,35 @@ try {
         ]);
     }
 
-    // Calcular el paso actual basado en el estado y progreso registrado
+    // Calcular el paso actual basado SOLO en el estado (sin tabla de progreso)
     foreach ($servicios as &$servicio) {
         $estado = $servicio['estado'];
-        $pasoMaximo = (int)$servicio['paso_maximo'];
-        $reparacionAceptada = $servicio['reparacion_aceptada_cliente'];
 
-        // Lógica para calcular el paso actual
+        // Mapeo directo de estado a paso - SIMPLE Y DIRECTO
         switch ($estado) {
             case 'PENDIENTE':
                 $pasoActual = 1; // Cotización Enviada
                 break;
             case 'APROBADA':
-                if ($reparacionAceptada === 'ACEPTADA') {
-                    $pasoActual = max(2, $pasoMaximo); // Mínimo paso 2 (Aceptada)
-                } else {
-                    $pasoActual = 2; // Aceptada (esperando decisión del cliente)
-                }
+                $pasoActual = 2; // Aceptada
                 break;
             case 'EN_PROCESO':
-                $pasoActual = max(3, $pasoMaximo); // Mínimo paso 3 (Reparación Iniciada)
+                $pasoActual = 3; // Reparación Iniciada
+                break;
+            case 'PINTURA':
+                $pasoActual = 4; // Pintura
+                break;
+            case 'EMPACADO':
+                $pasoActual = 5; // Empacado
+                break;
+            case 'ENVIADO':
+                $pasoActual = 6; // Enviado
                 break;
             case 'COMPLETADO':
                 $pasoActual = 7; // Completado
                 break;
             case 'RECHAZADA':
-                $pasoActual = 2; // Se queda en Aceptada pero con estado rechazado
+                $pasoActual = 2; // Se queda en Aceptada
                 break;
             default:
                 $pasoActual = 1;

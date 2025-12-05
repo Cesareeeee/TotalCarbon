@@ -203,7 +203,7 @@ try {
             FROM chat_mensajes ch
             LEFT JOIN usuarios u ON ch.id_emisor = u.id_usuario
             WHERE ch.id_receptor = ?
-            AND ch.id_emisor = 13
+            AND ch.id_emisor = 1
             AND ch.creado_en > ?
             AND ch.leido = 0
             ORDER BY ch.creado_en DESC

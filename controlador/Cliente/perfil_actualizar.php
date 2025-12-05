@@ -119,7 +119,7 @@ try {
 
     escribirLog("Preparando query de actualización...");
 
-    $sql = 'UPDATE usuarios SET nombres = :nombres, apellidos = :apellidos, correo_electronico = :correo, numero_telefono = :tel, direccion = :dir, ciudad = :ciudad, estado = :estado, codigo_postal = :cp, pais = :pais, fecha_nacimiento = :fn WHERE id_usuario = :id';
+    $sql = 'UPDATE usuarios SET nombres = :nombres, apellidos = :apellidos, correo_electronico = :correo, numero_telefono = :tel, direccion = :dir, ciudad = :ciudad, estado = :estado, codigo_postal = :cp, pais = :pais, fecha_nacimiento = :fn, actualizado_en = NOW() WHERE id_usuario = :id';
     escribirLog("SQL: $sql");
 
     $upd = $pdo->prepare($sql);

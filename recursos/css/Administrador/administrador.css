@@ -615,6 +615,22 @@ body {
     transform: translateY(0);
 }
 
+.btn-regresar {
+    background: linear-gradient(135deg, #6f42c1 0%, #5a359a 100%);
+    color: var(--secondary-color);
+}
+
+.btn-regresar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(111, 66, 193, 0.4);
+    background: linear-gradient(135deg, #5a359a 0%, #4a2c7a 100%);
+}
+
+.btn-regresar:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px rgba(111, 66, 193, 0.2);
+}
+
 .btn-group {
     display: flex;
     gap: 8px;
@@ -6045,4 +6061,73 @@ body {
 .cotizacion-card:nth-child(4) { animation-delay: 0.4s; }
 .cotizacion-card:nth-child(5) { animation-delay: 0.5s; }
 .cotizacion-card:nth-child(6) { animation-delay: 0.6s; }
+/* Estilos para notificaciones del administrador */
+.menu-notification-badge {
+    background: #dc3545 !important;
+    color: white !important;
+    border-radius: 50%;
+    width: 18px !important;
+    height: 18px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 10px !important;
+    font-weight: bold !important;
+    border: 2px solid white !important;
+    position: absolute !important;
+    top: 10px !important;
+    right: 15px !important;
+    z-index: 10 !important;
+}
+
+/* Chat menu item con notificaciones */
+.sidebar-menu a.has-notifications {
+    color: #dc3545 !important;
+}
+
+.sidebar-menu a.has-notifications i {
+    color: #dc3545 !important;
+}
+
+/* Toast de notificaciones */
+.notification-toast {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    padding: 15px;
+    max-width: 350px;
+    z-index: 10000;
+    border-left: 4px solid #007bff;
+    cursor: pointer;
+    animation: slideInRight 0.3s ease;
+}
+
+.notification-toast:hover {
+    box-shadow: 0 6px 25px rgba(0,0,0,0.2);
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
 }

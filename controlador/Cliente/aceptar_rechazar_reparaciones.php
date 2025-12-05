@@ -58,11 +58,19 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 // Obtener datos JSON
 $input = json_decode(file_get_contents('php://input'), true);
 $idCotizacion = isset($input['id_cotizacion']) ? (int)$input['id_cotizacion'] : 0;
-$aceptado = isset($input['aceptado']) ? $input['aceptado'] : null;
+$decision = isset($input['decision']) ? $input['decision'] : null;
 
-escribirLog("Datos recibidos", ['id_cotizacion' => $idCotizacion, 'aceptado' => $aceptado]);
+// Convertir la decisión al formato de BD
+$aceptado = null;
+if ($decision === 'ACEPTADA') {
+    $aceptado = 'ACEPTADA';
+} elseif ($decision === 'RECHAZADA') {
+    $aceptado = 'NO_ACEPTADA';
+}
 
-if (!$idCotizacion || !in_array($aceptado, ['ACEPTADA', 'NO_ACEPTADA'])) {
+escribirLog("Datos recibidos", ['id_cotizacion' => $idCotizacion, 'decision' => $decision, 'aceptado' => $aceptado]);
+
+if (!$idCotizacion || !$aceptado) {
     escribirLog("ERROR: Datos inválidos");
     responder(['success' => false, 'message' => 'Datos inválidos'], 400);
 }

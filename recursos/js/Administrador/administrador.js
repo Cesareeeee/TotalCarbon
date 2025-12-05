@@ -50,7 +50,7 @@ function showSection(section) {
         sec.classList.remove('active');
     });
 
-    
+
     // Mostrar la sección seleccionada
     const targetSection = document.getElementById(section + '-section');
     if (targetSection) {
@@ -66,6 +66,8 @@ function showSection(section) {
     }
 
     seccionActual = section;
+    localStorage.setItem('seccionActual', section);
+    window.location.hash = '#' + section;
 
     // Mostrar/ocultar botón flotante del chat
     const chatFloatingBtn = document.getElementById('chatFloatingBtn');
@@ -416,6 +418,8 @@ function cargarEstadisticas() {
             if (totalProveedoresEl) totalProveedoresEl.textContent = data.total_proveedores || 0;
             const mensajesSinLeerEl = document.getElementById('mensajesSinLeer');
             if (mensajesSinLeerEl) mensajesSinLeerEl.textContent = data.mensajes_sin_leer || 0;
+            const serviciosPendientesEl = document.getElementById('serviciosPendientes');
+            if (serviciosPendientesEl) serviciosPendientesEl.textContent = data.servicios_pendientes || 0;
         })
         .catch(error => {
             console.error('Error cargando estadísticas:', error);
@@ -434,6 +438,8 @@ function cargarEstadisticas() {
             if (totalProveedoresEl) totalProveedoresEl.textContent = '0';
             const mensajesSinLeerEl = document.getElementById('mensajesSinLeer');
             if (mensajesSinLeerEl) mensajesSinLeerEl.textContent = '0';
+            const serviciosPendientesEl = document.getElementById('serviciosPendientes');
+            if (serviciosPendientesEl) serviciosPendientesEl.textContent = '0';
         });
 
     // Cargar mensajes sin leer
@@ -444,6 +450,26 @@ function cargarEstadisticas() {
             if (mensajesSinLeerEl) mensajesSinLeerEl.textContent = data.cantidad || 0;
         })
         .catch(error => console.error('Error cargando mensajes sin leer:', error));
+
+    // Cargar servicios pendientes
+    fetch('../../controlador/Administrador/dashboard_controller.php?action=servicios_pendientes')
+        .then(response => response.json())
+        .then(data => {
+            const serviciosPendientesEl = document.getElementById('serviciosPendientes');
+            if (serviciosPendientesEl) serviciosPendientesEl.textContent = data.cantidad || 0;
+        })
+        .catch(error => console.error('Error cargando servicios pendientes:', error));
+
+    // Actualizar servicios pendientes cada segundo
+    setInterval(() => {
+        fetch('../../controlador/Administrador/dashboard_controller.php?action=servicios_pendientes')
+            .then(response => response.json())
+            .then(data => {
+                const serviciosPendientesEl = document.getElementById('serviciosPendientes');
+                if (serviciosPendientesEl) serviciosPendientesEl.textContent = data.cantidad || 0;
+            })
+            .catch(error => console.error('Error actualizando servicios pendientes:', error));
+    }, 1000);
 }
 
 function cargarGraficos() {
@@ -1490,6 +1516,33 @@ function aplicarFiltrosIngresosGastos() {
 document.addEventListener('DOMContentLoaded', function () {
     initializeData();
 
+    // Recuperar sección actual del localStorage primero, luego hash
+    let seccionInicial = 'dashboard'; // Por defecto dashboard
+
+    const seccionGuardada = localStorage.getItem('seccionActual');
+    if (seccionGuardada && document.getElementById(seccionGuardada + '-section')) {
+        seccionInicial = seccionGuardada;
+    } else if (window.location.hash) {
+        const hashSection = window.location.hash.substring(1);
+        if (document.getElementById(hashSection + '-section')) {
+            seccionInicial = hashSection;
+        }
+    }
+
+    if (seccionInicial !== 'dashboard') {
+        showSection(seccionInicial);
+    }
+
+    // Listener para cambios en el hash
+    window.addEventListener('hashchange', function() {
+        if (window.location.hash) {
+            const hashSection = window.location.hash.substring(1);
+            if (document.getElementById(hashSection + '-section')) {
+                showSection(hashSection);
+            }
+        }
+    });
+
     // Responsive sidebar
     function handleResize() {
         const sidebar = document.getElementById('sidebar');
@@ -1506,4 +1559,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     window.addEventListener('resize', handleResize);
     handleResize();
+    // Cargar sistema de notificaciones
+    const notificacionesScript = document.createElement('script');
+    notificacionesScript.src = 'recursos/js/Administrador/notificaciones_admin.js';
+    document.head.appendChild(notificacionesScript);
 });}

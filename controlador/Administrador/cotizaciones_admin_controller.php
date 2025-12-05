@@ -3,6 +3,7 @@ header('Content-Type: application/json; charset=utf-8');
 session_start();
 
 require_once __DIR__ . '/../../modelos/php/conexion.php';
+require_once __DIR__ . '/sincronizar_progreso.php';
 
 // Conexión a la base de datos
 $db = new PDO(
@@ -286,7 +287,7 @@ try {
                 $idCotizacion = (int)($input['id_cotizacion'] ?? 0);
                 $campo = $input['campo'] ?? '';
                 $valor = $input['valor'] ?? '';
-                $camposPermitidos = ['revision_camaras', 'inspeccion_estetica', 'empacado_salida'];
+                $camposPermitidos = ['revision_camaras', 'inspeccion_estetica', 'empacado_salida', 'reparacion_aceptada_cliente'];
                 if ($idCotizacion <= 0 || !in_array($campo, $camposPermitidos)) {
                     responder(['success' => false, 'message' => 'Datos inválidos'], 400);
                 }
@@ -305,6 +306,16 @@ try {
                 $resultado = $stmt->execute([':id' => $idPieza]);
                 escribirLog("Pieza eliminada: $idPieza");
                 responder(['success' => $resultado, 'message' => $resultado ? 'Pieza eliminada correctamente' : 'Error al eliminar pieza']);
+            } elseif ($accion === 'eliminar_comentario') {
+                $idComentario = (int)($input['id_comentario'] ?? 0);
+                if ($idComentario <= 0) {
+                    responder(['success' => false, 'message' => 'ID de comentario inválido'], 400);
+                }
+                $sql = "DELETE FROM cotizacion_comentarios_cliente WHERE id_comentario = :id";
+                $stmt = $db->prepare($sql);
+                $resultado = $stmt->execute([':id' => $idComentario]);
+                escribirLog("Comentario eliminado: $idComentario");
+                responder(['success' => $resultado, 'message' => $resultado ? 'Comentario eliminado correctamente' : 'Error al eliminar comentario']);
             }
             break;
 

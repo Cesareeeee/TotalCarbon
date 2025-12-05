@@ -1,0 +1,281 @@
+/* ============================================
+   ESTILOS PARA MODAL DE NOTIFICACIONES ADMIN
+   ============================================ */
+
+/* Animaciones */
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+/* Toast de notificación */
+.notification-toast:hover {
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Modal de notificaciones */
+.notificaciones-modal .swal2-html-container {
+    padding: 0 !important;
+}
+
+.notificaciones-container {
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+/* ============================================
+   NOTIFICACIONES NUEVAS (NO LEÍDAS)
+   ============================================ */
+.notificaciones-nuevas .notificacion-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-left: 5px solid #4c51bf;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.notificaciones-nuevas .notificacion-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+    pointer-events: none;
+}
+
+.notificaciones-nuevas .notificacion-item:hover {
+    transform: translateX(5px) scale(1.02);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+/* Texto de notificaciones NUEVAS - NEGRO */
+.notificaciones-nuevas .notificacion-item .notificacion-title {
+    color: #1a1a1a !important;
+    font-weight: 700 !important;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.notificaciones-nuevas .notificacion-item .notificacion-message {
+    color: #2d2d2d !important;
+    font-weight: 500 !important;
+    font-size: 13px;
+    margin-bottom: 5px;
+    line-height: 1.4;
+}
+
+.notificaciones-nuevas .notificacion-item .notificacion-date {
+    color: #4a4a4a !important;
+    font-size: 11px;
+}
+
+.notificaciones-nuevas .notificacion-item .notificacion-arrow {
+    color: rgba(0, 0, 0, 0.6) !important;
+}
+
+/* ============================================
+   NOTIFICACIONES LEÍDAS
+   ============================================ */
+.notificaciones-leidas .notificacion-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 10px;
+    background: #e8e8e8;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-left: 5px solid #b0b0b0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    opacity: 0.75;
+    position: relative;
+}
+
+.notificaciones-leidas .notificacion-item:hover {
+    background: #dcdcdc;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+    transform: translateX(5px) scale(1.01);
+}
+
+/* Texto de notificaciones LEÍDAS - GRIS */
+.notificaciones-leidas .notificacion-item .notificacion-title {
+    color: #757575 !important;
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.notificaciones-leidas .notificacion-item .notificacion-message {
+    color: #888 !important;
+    font-size: 13px;
+    margin-bottom: 5px;
+    line-height: 1.4;
+}
+
+.notificaciones-leidas .notificacion-item .notificacion-date {
+    color: #999 !important;
+    font-size: 11px;
+}
+
+.notificaciones-leidas .notificacion-item .notificacion-arrow {
+    color: #ccc !important;
+}
+
+.notificaciones-leidas .notificacion-item .notificacion-icon {
+    background: #9e9e9e !important;
+    opacity: 0.7;
+}
+
+/* ============================================
+   ICONOS DE NOTIFICACIONES
+   ============================================ */
+.notificacion-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    font-size: 18px;
+    color: white;
+    position: relative;
+    z-index: 1;
+}
+
+/* Colores variados para iconos de notificaciones nuevas */
+.notificaciones-nuevas .notificacion-item:nth-child(2) .notificacion-icon {
+    background: #007bff;
+}
+
+.notificaciones-nuevas .notificacion-item:nth-child(3) .notificacion-icon {
+    background: #28a745;
+}
+
+.notificaciones-nuevas .notificacion-item:nth-child(4) .notificacion-icon {
+    background: #ffc107;
+}
+
+.notificaciones-nuevas .notificacion-item:nth-child(5) .notificacion-icon {
+    background: #dc3545;
+}
+
+.notificaciones-nuevas .notificacion-item:nth-child(6) .notificacion-icon {
+    background: #6f42c1;
+}
+
+.notificaciones-nuevas .notificacion-item:nth-child(7) .notificacion-icon {
+    background: #17a2b8;
+}
+
+.notificaciones-nuevas .notificacion-item:nth-child(8) .notificacion-icon {
+    background: #fd7e14;
+}
+
+/* ============================================
+   CONTENIDO Y ELEMENTOS
+   ============================================ */
+.notificacion-content {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+}
+
+.notificacion-arrow {
+    font-size: 12px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ============================================
+   BOTONES DEL MODAL
+   ============================================ */
+.btn-confirm {
+    background: #28a745 !important;
+    border: none !important;
+    padding: 10px 20px !important;
+    border-radius: 25px !important;
+    font-weight: 600 !important;
+}
+
+.btn-cancel {
+    background: #6c757d !important;
+    border: none !important;
+    padding: 10px 20px !important;
+    border-radius: 25px !important;
+    font-weight: 600 !important;
+}
+
+/* ============================================
+   TÍTULOS DE SECCIONES
+   ============================================ */
+.notificaciones-nuevas h4 {
+    margin: 0 0 15px 0;
+    font-size: 17px;
+    font-weight: 700;
+    color: #667eea;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.notificaciones-nuevas h4::before {
+    content: '🔔';
+    font-size: 20px;
+}
+
+.notificaciones-leidas h4 {
+    margin: 0 0 15px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.notificaciones-leidas h4::before {
+    content: '✓';
+    font-size: 18px;
+    color: #9e9e9e;
+}
+
+/* Separación entre secciones */
+.notificaciones-leidas {
+    margin-top: 25px;
+    border-top: 2px solid #e0e0e0;
+    padding-top: 20px;
+}

@@ -55,6 +55,9 @@ async function cargarEstadisticas() {
         if (totalProveedoresEl) totalProveedoresEl.textContent = data.total_proveedores || 0;
         const mensajesSinLeerEl = document.getElementById('mensajesSinLeer');
         if (mensajesSinLeerEl) mensajesSinLeerEl.textContent = messagesData.cantidad || 0;
+        const serviciosPendientesEl = document.getElementById('serviciosPendientes');
+        if (serviciosPendientesEl) serviciosPendientesEl.textContent = data.servicios_pendientes || 0;
+        
     } catch (error) {
         console.error('Error cargando estadísticas:', error);
         // Valores por defecto

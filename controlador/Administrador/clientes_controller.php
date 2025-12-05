@@ -141,8 +141,8 @@ function updateCliente($id, $data) {
         }
 
         // Si se proporciona contraseña, encriptarla
-        $updateFields = "nombres = ?, apellidos = ?, correo_electronico = ?, numero_telefono = ?, direccion = ?, ciudad = ?, estado = ?, estado_usuario = ?";
-        $bindTypes = 'sssssssii';
+        $updateFields = "nombres = ?, apellidos = ?, correo_electronico = ?, numero_telefono = ?, direccion = ?, ciudad = ?, estado = ?, estado_usuario = ?, actualizado_en = NOW()";
+        $bindTypes = 'sssssssis';
         $bindValues = [$data['nombres'], $data['apellidos'], $data['correo_electronico'], $data['numero_telefono'], $data['direccion'], $data['ciudad'], $data['estado'], $data['estado_usuario'], $id];
 
         if (isset($data['contrasena']) && !empty($data['contrasena'])) {

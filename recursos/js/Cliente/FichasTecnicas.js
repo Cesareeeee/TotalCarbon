@@ -4,7 +4,7 @@
  * Propósito: Manejar la visualización de fichas técnicas
  * Version: 1000
  */
-console.log('FichasTecnicas.js Version 1000 loaded');
+console.log('FichasTecnicas.js Version 2000 loaded');
 
 // Variables globales
 let fichasActuales = [];
@@ -14,11 +14,11 @@ let fichaSeleccionada = null;
 document.addEventListener('DOMContentLoaded', function () {
     cargarFichasTecnicas();
 
-    // Inicializar filtro de fichas técnicas
-    const filtroEstado = document.getElementById('filtroEstadoFichas');
-    if (filtroEstado) {
-        filtroEstado.addEventListener('change', function () {
-            filtrarFichasTecnicas(this.value);
+    // Inicializar buscador de fichas técnicas
+    const buscadorBicicleta = document.getElementById('buscadorBicicletaFichas');
+    if (buscadorBicicleta) {
+        buscadorBicicleta.addEventListener('input', function () {
+            buscarFichasTecnicas(this.value);
         });
     }
 });
@@ -96,9 +96,9 @@ function mostrarListaFichas(fichas) {
 }
 
 /**
- * Filtra las fichas técnicas por estado
+ * Busca las fichas técnicas por nombre de bicicleta
  */
-function filtrarFichasTecnicas(estadoFiltro) {
+function buscarFichasTecnicas(terminoBusqueda) {
 
     if (!fichasActuales || fichasActuales.length === 0) {
         return;
@@ -106,37 +106,41 @@ function filtrarFichasTecnicas(estadoFiltro) {
 
     let fichasFiltradas;
 
-    if (estadoFiltro === 'todos') {
+    if (!terminoBusqueda || terminoBusqueda.trim() === '') {
         fichasFiltradas = fichasActuales;
     } else {
-        fichasFiltradas = fichasActuales.filter(ficha => ficha.estado === estadoFiltro);
+        const termino = terminoBusqueda.toLowerCase().trim();
+        fichasFiltradas = fichasActuales.filter(ficha =>
+            ficha.marca_bicicleta.toLowerCase().includes(termino) ||
+            ficha.modelo_bicicleta.toLowerCase().includes(termino)
+        );
     }
 
     if (fichasFiltradas.length === 0) {
-        mostrarMensajeVacioFiltro(estadoFiltro);
+        mostrarMensajeVacioBusqueda(terminoBusqueda);
     } else {
         mostrarListaFichas(fichasFiltradas);
     }
 }
 
 /**
- * Muestra el mensaje cuando no hay fichas técnicas para el filtro seleccionado
+ * Muestra el mensaje cuando no hay fichas técnicas para la búsqueda
  */
-function mostrarMensajeVacioFiltro(estadoFiltro) {
+function mostrarMensajeVacioBusqueda(terminoBusqueda) {
 
     const contenedor = document.getElementById('listaFichasTecnicas');
     if (!contenedor) {
         return;
     }
 
-    const estadoTexto = estadoFiltro === 'todos' ? 'ningún estado' : `estado "${estadoFiltro}"`;
+    const busquedaTexto = terminoBusqueda ? `con "${terminoBusqueda}"` : '';
 
     contenedor.innerHTML = `
         <div class="mensaje-vacio">
-            <i class="fas fa-filter fa-3x"></i>
+            <i class="fas fa-search fa-3x"></i>
             <h3>No hay fichas técnicas</h3>
-            <p>No tienes trabajos completados con ${estadoTexto}.</p>
-            <button class="btn btn-outline-primary mt-3" onclick="document.getElementById('filtroEstadoFichas').value='todos'; filtrarFichasTecnicas('todos');">
+            <p>No tienes trabajos completados ${busquedaTexto}.</p>
+            <button class="btn btn-outline-primary mt-3" onclick="document.getElementById('buscadorBicicletaFichas').value=''; buscarFichasTecnicas('');">
                 <i class="fas fa-list me-2"></i>Ver todas las fichas
             </button>
         </div>
@@ -205,16 +209,16 @@ function mostrarDetallesFicha(ficha) {
     if (ficha.comentarios && ficha.comentarios.length > 0) {
         console.log(`Procesando ${ficha.comentarios.length} comentarios`);
         htmlComentarios = ficha.comentarios.map(com => `
-            <div class="comentario-item">
-                <div class="comentario-header">
-                    <strong>${com.autor}</strong>
-                    <span class="comentario-fecha">${new Date(com.creado_en).toLocaleDateString()}</span>
+            <div class="elemento-comentario" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border: 1px solid #2196f3; border-radius: 12px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(33, 150, 243, 0.2);">
+                <div class="encabezado-comentario" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <strong style="color: #1976d2; font-size: 1rem;"><i class="fas fa-user-shield me-2"></i>${com.autor}</strong>
+                    <span class="fecha-comentario" style="color: #666; font-size: 0.9rem;"><i class="fas fa-calendar me-1"></i>${new Date(com.creado_en).toLocaleDateString()}</span>
                 </div>
-                <p class="comentario-texto">${com.mensaje}</p>
+                <p class="texto-comentario" style="color: #333; font-size: 1rem; line-height: 1.6; margin: 0;">${com.mensaje}</p>
             </div>
         `).join('');
     } else {
-        htmlComentarios = '<p class="text-muted">No hay comentarios disponibles</p>';
+        htmlComentarios = '<div class="text-center text-muted" style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 10px; padding: 20px;"><i class="fas fa-comments fa-3x mb-3" style="color: #6c757d;"></i><p style="font-size: 1.1rem; margin: 0;">No hay comentarios disponibles</p></div>';
     }
 
     // Estado de aceptación (solo informativo)
@@ -287,6 +291,16 @@ function mostrarDetallesFicha(ficha) {
 
     const html = `
         <div class="ficha-detalle">
+            <!-- Botón Volver arriba -->
+            <div class="mb-3">
+                <button class="btn btn-secondary" onclick="volverListaFichas()">
+                    <i class="fas fa-arrow-left"></i> Volver
+                </button>
+                <button class="btn btn-primary" onclick="descargarFicha(${ficha.id_cotizacion})">
+                    <i class="fas fa-download"></i> Descargar PDF
+                </button>
+            </div>
+            
             <!-- Encabezado -->
             <div class="ficha-detalle-header">
                 <div>
@@ -333,6 +347,16 @@ function mostrarDetallesFicha(ficha) {
                 </div>
             </div>
             
+            <!-- Inspección Estética -->
+            <div class="ficha-seccion">
+                <h4><i class="fas fa-eye"></i> Inspección Estética</h4>
+                <div class="inspeccion-estetica-card" style="background: linear-gradient(135deg, #ffe6e6 0%, #ffcccc 100%); border: 2px solid #ff6666; border-radius: 15px; padding: 20px; box-shadow: 0 8px 25px rgba(255, 102, 102, 0.3);">
+                    <div class="inspeccion-content" style="text-align: center;">
+                        <p class="inspeccion-texto" style="font-size: 1.1rem; font-weight: 600; color: #cc0000; margin: 0; line-height: 1.6;">${ficha.inspeccion_estetica || 'Pendiente de inspección'}</p>
+                    </div>
+                </div>
+            </div>
+            
             <!-- Imágenes -->
             <div class="ficha-seccion">
                 <h4><i class="fas fa-images"></i> Imágenes de la Cotización</h4>
@@ -354,16 +378,6 @@ function mostrarDetallesFicha(ficha) {
 
             <!-- Piezas -->
             ${htmlPiezas}
-
-            <!-- Botones de Acción -->
-            <div class="ficha-acciones">
-                <button class="btn btn-secondary" onclick="volverListaFichas()">
-                    <i class="fas fa-arrow-left"></i> Volver
-                </button>
-                <button class="btn btn-primary" onclick="descargarFicha(${ficha.id_cotizacion})">
-                    <i class="fas fa-download"></i> Descargar PDF
-                </button>
-            </div>
         </div>
     `;
 
